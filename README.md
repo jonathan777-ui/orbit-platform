@@ -29,3 +29,17 @@ full spec and [`UPGRADE-NOTES.md`](skills/airlock-vertical-kb/UPGRADE-NOTES.md) 
 Copy `skills/airlock-vertical-kb/` into your Claude Code skills directory
 (e.g. `~/.claude/skills/airlock-vertical-kb/`). It's a drop-in replacement for v1
 of the same skill name.
+
+## Live docs site
+
+The skill docs are published as a browsable static site via GitHub Pages:
+**https://jonathan777-ui.github.io/orbit-platform/**
+
+It's built from `skills/airlock-vertical-kb/` by `site/build.py` and deployed
+automatically by `.github/workflows/pages.yml` on every push to `main`.
+Build it locally with:
+
+```bash
+pip install markdown
+python site/build.py   # outputs to site/_site/
+```

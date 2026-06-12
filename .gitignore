@@ -4,3 +4,6 @@ __pycache__/
 
 # OS
 .DS_Store
+
+# Generated docs site
+site/_site/

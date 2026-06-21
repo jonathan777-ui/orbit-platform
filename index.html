@@ -8,7 +8,7 @@
 <style>
   :root{
     --bg:#0a0c12; --panel:#12151f; --line:#222838; --fg:#eef1f7; --muted:#9aa3b7;
-    --accent:#6aa3ff; --accent2:#7ef0c2; --ink:#070910;
+    --accent:#6aa3ff; --accent2:#7ef0c2; --ink:#070910; --gold:#e7b24a;
   }
   *{box-sizing:border-box}
   html{scroll-behavior:smooth}
@@ -21,13 +21,16 @@
   .nav{display:flex;align-items:center;gap:12px;height:60px}
   .brand{font-weight:800;letter-spacing:.04em;font-size:18px;margin-right:auto}
   .brand b{color:var(--accent)}
-  .badge{font-size:12px;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:4px 11px}
-  .hero{padding:72px 0 40px;background:
+  .btn{display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:#08111f;
+    font-weight:800;font-size:14px;padding:10px 16px;border-radius:10px;border:0;cursor:pointer}
+  .btn:hover{filter:brightness(1.07)}
+  .btn.ghost{background:transparent;border:1px solid var(--line);color:var(--fg)}
+  .hero{padding:64px 0 30px;background:
     radial-gradient(1000px 420px at 80% -10%,rgba(106,163,255,.18),transparent 60%),
     radial-gradient(800px 380px at 5% 0%,rgba(126,240,194,.10),transparent 55%)}
-  .hero h1{font-size:clamp(30px,5vw,48px);line-height:1.08;margin:0 0 14px;letter-spacing:-.01em}
-  .hero p{font-size:clamp(16px,2.2vw,19px);color:var(--muted);max-width:620px;margin:0}
-  section{padding:36px 0 64px}
+  .hero h1{font-size:clamp(30px,5vw,46px);line-height:1.08;margin:0 0 14px;letter-spacing:-.01em}
+  .hero p{font-size:clamp(16px,2.2vw,19px);color:var(--muted);max-width:640px;margin:0 0 24px}
+  section{padding:30px 0 64px}
   h2{font-size:20px;margin:0 0 18px;color:#cfd6e6}
   .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px}
   .card{display:flex;flex-direction:column;background:var(--panel);border:1px solid var(--line);
@@ -40,11 +43,43 @@
   .launch{display:inline-flex;align-items:center;gap:8px;align-self:flex-start;
     background:var(--accent);color:#08111f;font-weight:800;font-size:14px;padding:10px 16px;
     border-radius:10px;text-decoration:none}
-  .launch:hover{filter:brightness(1.07)}
-  .soon{align-self:flex-start;font-size:13px;color:var(--muted);border:1px dashed var(--line);
-    border-radius:10px;padding:10px 16px}
-  .empty{color:var(--muted);border:1px dashed var(--line);border-radius:14px;padding:22px;text-align:center}
+  .add-card{align-items:center;justify-content:center;text-align:center;border-style:dashed;cursor:pointer;color:var(--muted)}
+  .add-card:hover{color:var(--fg)}
+  .add-card .plus{font-size:34px;line-height:1;margin-bottom:8px;color:var(--accent)}
   footer{border-top:1px solid var(--line);padding:30px 0;color:var(--muted);font-size:13px}
+  /* modal */
+  .overlay{position:fixed;inset:0;z-index:50;background:rgba(4,6,12,.72);backdrop-filter:blur(3px);
+    display:none;align-items:flex-start;justify-content:center;padding:5vh 16px;overflow:auto}
+  .overlay.open{display:flex}
+  .modal{width:100%;max-width:560px;background:var(--panel);border:1px solid var(--line);
+    border-radius:18px;padding:26px;box-shadow:0 24px 70px rgba(0,0,0,.6)}
+  .modal h2{margin:0 0 4px;color:var(--fg);font-size:22px}
+  .modal .lead{color:var(--muted);font-size:14px;margin:0 0 20px}
+  .field{margin-bottom:14px}
+  .field label{display:block;font-size:13px;color:#cfd6e6;margin-bottom:6px;font-weight:600}
+  .field .hint{font-weight:400;color:var(--muted)}
+  .field input,.field select{width:100%;background:var(--ink);border:1px solid var(--line);color:var(--fg);
+    border-radius:10px;padding:11px 12px;font-size:14px}
+  .field input:focus,.field select:focus{outline:none;border-color:var(--accent)}
+  .sources{border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:14px;background:#0e111a}
+  .sources legend{font-size:13px;color:#cfd6e6;font-weight:600;padding:0 6px}
+  .tiers{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .tier{position:relative}
+  .tier input{position:absolute;opacity:0}
+  .tier label{display:block;border:1px solid var(--line);border-radius:10px;padding:10px 12px;cursor:pointer;
+    font-size:13px;background:var(--ink)}
+  .tier label b{display:block;font-size:14px;margin-bottom:2px}
+  .tier label .d{color:var(--muted);font-size:11.5px;font-weight:400}
+  .tier input:checked + label{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}
+  .tier.gold label b{color:var(--gold)}
+  .modal .actions{display:flex;gap:10px;margin-top:18px}
+  .modal .actions .btn{flex:1;justify-content:center;padding:12px}
+  .status{margin-top:14px;font-size:14px;display:none}
+  .status.show{display:block}
+  .status.ok{color:var(--accent2)}
+  .status.err{color:#ff8497}
+  .status.work{color:var(--muted)}
+  .req{color:#ff8497}
 </style>
 </head>
 <body>
@@ -52,14 +87,15 @@
 <header>
   <div class="wrap nav">
     <div class="brand">ORBIT <b>·</b> DEMO QUEUE</div>
-    <span class="badge">Live client demos</span>
+    <button class="btn" id="addBtn">＋ Add New Demo</button>
   </div>
 </header>
 
 <div class="hero">
   <div class="wrap">
     <h1>Client demos, ready to launch.</h1>
-    <p>Each demo is a full website + chatbot + 24/7 bilingual AI receptionist, generated from one knowledge base. Pick one below to open it.</p>
+    <p>Each demo is a full website + chatbot + 24/7 bilingual AI receptionist, generated from one knowledge base. Open one below — or generate a new one from a business's Google, Yelp, or Chamber listing.</p>
+    <button class="btn" id="addBtn2">＋ Add New Demo</button>
   </div>
 </div>
 
@@ -74,33 +110,173 @@
   <div class="wrap">© <span id="yr"></span> Orbit · Demo Queue — internal demo hub.</div>
 </footer>
 
+<!-- ===== Add New Demo modal ===== -->
+<div class="overlay" id="overlay">
+  <form class="modal" id="demoForm">
+    <h2>Generate a new demo</h2>
+    <p class="lead">Paste any of the business's public listings — we'll pull the details, build the site + AI receptionist from the matching knowledge base, and add it to the queue.</p>
+
+    <div class="field">
+      <label>Business name <span class="req">*</span></label>
+      <input type="text" name="business_name" placeholder="e.g. Inkwell Tattoo Studio" required>
+    </div>
+
+    <div class="field">
+      <label>Vertical <span class="hint">(or auto-detect)</span></label>
+      <select name="vertical">
+        <option value="auto">Auto-detect</option>
+        <option value="tattoo">Tattoo / Piercing / Body Art</option>
+        <option value="beauty">Salon / Barber / Beauty</option>
+        <option value="medspa">Med Spa / Aesthetics</option>
+        <option value="law">Law Firm</option>
+        <option value="dental-medical">Dental / Medical</option>
+        <option value="home-services">Home Services / HVAC / Plumbing</option>
+        <option value="restaurant">Restaurant / Hospitality</option>
+        <option value="auto">Automotive</option>
+        <option value="real-estate">Real Estate</option>
+        <option value="fitness">Fitness / Studio</option>
+        <option value="other">Other</option>
+      </select>
+    </div>
+
+    <fieldset class="sources">
+      <legend>Business listings <span class="hint" style="font-weight:400">— add any or all</span></legend>
+      <div class="field" style="margin-bottom:10px">
+        <label>Google Business Profile URL</label>
+        <input type="url" name="google_profile" placeholder="https://www.google.com/maps/place/…  or share link">
+      </div>
+      <div class="field" style="margin-bottom:10px">
+        <label>Yelp URL</label>
+        <input type="url" name="yelp" placeholder="https://www.yelp.com/biz/…">
+      </div>
+      <div class="field" style="margin-bottom:0">
+        <label>Chamber of Commerce URL</label>
+        <input type="url" name="chamber" placeholder="https://…chamber.org/members/…">
+      </div>
+    </fieldset>
+
+    <div class="field">
+      <label>Current website <span class="hint">(if they have one)</span></label>
+      <input type="url" name="current_website" placeholder="https://theirsite.com">
+    </div>
+
+    <div class="field">
+      <label>Build tier <span class="req">*</span></label>
+      <div class="tiers">
+        <span class="tier gold"><input type="radio" name="tier" value="gold" id="t_gold" checked>
+          <label for="t_gold"><b>Gold</b><span class="d">Base bilingual KB + site</span></label></span>
+        <span class="tier"><input type="radio" name="tier" value="platinum" id="t_plat">
+          <label for="t_plat"><b>Platinum</b><span class="d">+ niche overlay, full dialects, voice runtime</span></label></span>
+        <span class="tier"><input type="radio" name="tier" value="iridium" id="t_irid">
+          <label for="t_irid"><b>Iridium</b><span class="d">+ red-line QC + live injection</span></label></span>
+        <span class="tier"><input type="radio" name="tier" value="rhodium" id="t_rhod">
+          <label for="t_rhod"><b>Rhodium</b><span class="d">+ human-validated (legal · dialect · real-call)</span></label></span>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Language</label>
+      <select name="language">
+        <option value="bilingual">Bilingual (EN + ES)</option>
+        <option value="en">English only</option>
+        <option value="es">Spanish only</option>
+      </select>
+    </div>
+
+    <div class="actions">
+      <button type="button" class="btn ghost" id="cancelBtn">Cancel</button>
+      <button type="submit" class="btn" id="submitBtn">Generate demo</button>
+    </div>
+    <div class="status" id="status"></div>
+  </form>
+</div>
+
 <script>
-  /* ── Add one entry per demo. `path` is a subfolder in this repo.
-        Set live:false to show a "Coming soon" card with no link. ── */
+  /* ===== CONFIG ===== */
+  // Demos already live. `path` is a subfolder in this repo.
   const DEMOS = [
     { name:"Permanent Marx Tattoo Studio", city:"Salem, OR",
       tag:"Tattoo · Bilingual", path:"permanent-marx-tattoo/", live:true }
-    // , { name:"Next Business", city:"City, ST", tag:"Vertical", path:"next-business/", live:true }
   ];
+  // n8n generator webhook — receives the form and builds + deploys the demo.
+  // (Backend workflow: enrich sources → pick vertical KB → build at tier → deploy → return {url}.)
+  const GENERATOR_ENDPOINT = "https://jonathan777-ui.app.n8n.cloud/webhook/orbit-demo-generator";
 
+  /* ===== render demos ===== */
   document.getElementById('yr').textContent = new Date().getFullYear();
-  const grid = document.getElementById('demoGrid');
-  if(!DEMOS.length){
-    grid.outerHTML = '<div class="empty">No demos yet — add one to the DEMOS array.</div>';
-  } else {
-    grid.innerHTML = DEMOS.map(function(d){
+  (function(){
+    var grid = document.getElementById('demoGrid');
+    var cards = DEMOS.map(function(d){
       var cta = d.live
         ? '<a class="launch" href="'+d.path+'">Launch demo &rarr;</a>'
-        : '<span class="soon">Coming soon</span>';
+        : '<span style="opacity:.7">Coming soon</span>';
       return '<div class="card">'+
         '<div class="tag">'+(d.tag||'Demo')+'</div>'+
         '<h3>'+d.name+'</h3>'+
         '<p class="meta">'+(d.city||'')+'</p>'+
-        '<div class="spacer"></div>'+
-        cta+
-      '</div>';
+        '<div class="spacer"></div>'+ cta +'</div>';
     }).join('');
-  }
+    // trailing "add" card
+    cards += '<div class="card add-card" id="addCard"><div class="plus">＋</div>'+
+      '<div>Add new demo</div></div>';
+    grid.innerHTML = cards;
+    document.getElementById('addCard').onclick = openModal;
+  })();
+
+  /* ===== modal ===== */
+  var overlay = document.getElementById('overlay');
+  var statusEl = document.getElementById('status');
+  function openModal(){ overlay.classList.add('open'); }
+  function closeModal(){ overlay.classList.remove('open'); }
+  document.getElementById('addBtn').onclick = openModal;
+  document.getElementById('addBtn2').onclick = openModal;
+  document.getElementById('cancelBtn').onclick = closeModal;
+  overlay.addEventListener('click', function(e){ if(e.target===overlay) closeModal(); });
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeModal(); });
+
+  function setStatus(kind, msg){ statusEl.className='status show '+kind; statusEl.innerHTML=msg; }
+
+  document.getElementById('demoForm').addEventListener('submit', async function(e){
+    e.preventDefault();
+    var f = e.target;
+    var payload = {
+      business_name: f.business_name.value.trim(),
+      vertical: f.vertical.value,
+      sources: {
+        google_profile: f.google_profile.value.trim(),
+        yelp: f.yelp.value.trim(),
+        chamber: f.chamber.value.trim()
+      },
+      current_website: f.current_website.value.trim(),
+      tier: f.tier.value,
+      language: f.language.value
+    };
+    if(!payload.business_name){ setStatus('err','Please enter a business name.'); return; }
+    if(!payload.sources.google_profile && !payload.sources.yelp && !payload.sources.chamber && !payload.current_website){
+      setStatus('err','Add at least one listing (Google, Yelp, or Chamber) or a current website.'); return;
+    }
+    var btn = document.getElementById('submitBtn');
+    btn.disabled = true; btn.textContent = 'Generating…';
+    setStatus('work','⏳ Building the '+payload.tier.charAt(0).toUpperCase()+payload.tier.slice(1)+
+      ' demo from the knowledge base — this can take a minute.');
+    try{
+      var r = await fetch(GENERATOR_ENDPOINT, {
+        method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload)
+      });
+      var data = {}; try{ data = await r.json(); }catch(_){}
+      if(data && data.url){
+        setStatus('ok','✅ Demo ready: <a href="'+data.url+'" target="_blank" rel="noopener">'+data.url+'</a>');
+      } else if(data && data.status){
+        setStatus('ok','✅ '+data.status+(data.message? ' — '+data.message : ''));
+      } else {
+        setStatus('ok','✅ Request received. Your demo is being generated and will appear in the queue shortly.');
+      }
+    }catch(err){
+      setStatus('err','Couldn’t reach the generator. Make sure GENERATOR_ENDPOINT is set to your live n8n webhook, then try again.');
+    }finally{
+      btn.disabled = false; btn.textContent = 'Generate demo';
+    }
+  });
 </script>
 </body>
 </html>

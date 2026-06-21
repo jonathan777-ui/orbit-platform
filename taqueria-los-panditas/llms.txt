@@ -1,0 +1,26 @@
+# Taquería Los Panditas — Salem, OR
+> Taquería Los Panditas is an authentic Mexican restaurant in Salem, Oregon — tacos, burritos, tortas and more, made fresh. Dine in, take out or catering. Bilingual (English/Spanish). 3892 State St. Call (503) 365-8226. An East Salem taquería on State St — fresh tacos, burritos and aguas, dine in or take out.
+
+## Services
+- Tacos
+- Burritos
+- Tortas
+- Combo Plates
+- Drinks & Aguas
+- Take-out & Catering
+
+## Service area
+- Salem, Keizer, West Salem, Marion County (ZIPs: 97301)
+
+## Contact
+- Call/text: (503) 365-8226 · Hours: Daily 9am–10pm · Languages: English, Español
+
+## Key pages
+- https://jonathan777-ui.github.io/orbit-platform/taqueria-los-panditas/: Home
+- https://jonathan777-ui.github.io/orbit-platform/taqueria-los-panditas/#services: On the menu
+- https://jonathan777-ui.github.io/orbit-platform/taqueria-los-panditas/#book: Find us &amp; order
+- https://jonathan777-ui.github.io/orbit-platform/taqueria-los-panditas/#faq: FAQ
+
+## More
+- About: https://jonathan777-ui.github.io/orbit-platform/taqueria-los-panditas/
+- Full: https://jonathan777-ui.github.io/orbit-platform/taqueria-los-panditas/llms-full.txt

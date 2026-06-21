@@ -1,0 +1,26 @@
+# Elite Auto Service — Salem, OR
+> Elite Auto Service is an auto repair shop in Salem, Oregon — diagnostics, brakes, oil, engine and transmission, with up-front estimates. Bilingual (English/Spanish). 930 Commercial St NE. Call (503) 602-7178. A downtown shop on Commercial St — up-front estimates and bilingual techs.
+
+## Services
+- Diagnostics & Check Engine
+- Brakes
+- Oil & Maintenance
+- Engine & Transmission
+- Heating & A/C
+- Tires & Alignment
+
+## Service area
+- Salem, Keizer, West Salem, Marion County (ZIPs: 97301)
+
+## Contact
+- Call/text: (503) 602-7178 · Hours: Mon–Fri 8am–5:30pm · Sat–Sun closed · Languages: English, Español
+
+## Key pages
+- https://jonathan777-ui.github.io/orbit-platform/elite-auto-service/: Home
+- https://jonathan777-ui.github.io/orbit-platform/elite-auto-service/#services: What we fix
+- https://jonathan777-ui.github.io/orbit-platform/elite-auto-service/#book: Get an estimate
+- https://jonathan777-ui.github.io/orbit-platform/elite-auto-service/#faq: FAQ
+
+## More
+- About: https://jonathan777-ui.github.io/orbit-platform/elite-auto-service/
+- Full: https://jonathan777-ui.github.io/orbit-platform/elite-auto-service/llms-full.txt

@@ -1,6 +1,6 @@
 # Orbit — Live Demo Queue (Salem, OR)
 > Orbit builds bilingual (EN/ES) websites, chatbots, and AI voice receptionists for local
-> businesses. Each demo ships a keyless on-page receptionist (chat + voice) and its own /llms.txt.
+> businesses. Each demo ships a keyless KB receptionist (chat) + Deepgram premium voice and its own /llms.txt.
 
 ## Demos
 - https://jonathan777-ui.github.io/orbit-platform/permanent-marx-tattoo/ — Permanent Marx Tattoo Studio (Tattoo · Piercing)
@@ -9,6 +9,7 @@
 - https://jonathan777-ui.github.io/orbit-platform/my-living-canvas/ — My Living Canvas (Tattoo · Bilingual)
 - https://jonathan777-ui.github.io/orbit-platform/addictions-bodyart/ — Addictions BodyArt (Piercing · Tattoo)
 - https://jonathan777-ui.github.io/orbit-platform/desire-ink-lab/ — Desire Ink Lab (Tattoo · Bilingual)
+- https://jonathan777-ui.github.io/orbit-platform/dark-star-tattoo/ — Dark Star Tattoo (Tattoo · Bilingual)
 - https://jonathan777-ui.github.io/orbit-platform/javis-fades/ — Javi's Fades (Barbershop · Bilingual)
 - https://jonathan777-ui.github.io/orbit-platform/the-barbers/ — The Barbers (Barbershop · Bilingual)
 - https://jonathan777-ui.github.io/orbit-platform/reds-barber-shop/ — Red's Barber Shop (Barbershop · Bilingual)
@@ -19,6 +20,8 @@
 - https://jonathan777-ui.github.io/orbit-platform/hernandez-law-office/ — Hernandez Law Office (Immigration · Bilingual)
 - https://jonathan777-ui.github.io/orbit-platform/affordable-immigration/ — Affordable Immigration Services (Immigration · Bilingual)
 - https://jonathan777-ui.github.io/orbit-platform/arellano-law-salem/ — Arellano Law Firm (Immigration · Bilingual)
+- https://jonathan777-ui.github.io/orbit-platform/elite-auto-service/ — Elite Auto Service (Auto Repair · Bilingual)
+- https://jonathan777-ui.github.io/orbit-platform/taqueria-los-panditas/ — Taquería Los Panditas (Mexican Restaurant · Bilingual)
 
 ## About
 - Languages: English, Español

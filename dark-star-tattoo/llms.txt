@@ -1,0 +1,26 @@
+# Dark Star Tattoo — Salem, OR
+> Dark Star Tattoo is a licensed tattoo & piercing studio in Salem, Oregon offering custom tattoos, cover-ups, piercing, and bilingual (English/Spanish) service. 2360 State St. Call (503) 763-9696. Book a free consult. An East-side studio on State St — custom work and walk-ins.
+
+## Services
+- Custom tattoos
+- Cover-ups
+- Fine-line & blackwork
+- Flash & walk-ins
+- Piercing
+- Jewelry
+
+## Service area
+- Salem, Keizer, West Salem, Marion County (ZIPs: 97301)
+
+## Contact
+- Call/text: (503) 763-9696 · Hours: Tue–Sat 12–8pm · Sun–Mon closed · Languages: English, Español
+
+## Key pages
+- https://jonathan777-ui.github.io/orbit-platform/dark-star-tattoo/: Home
+- https://jonathan777-ui.github.io/orbit-platform/dark-star-tattoo/#services: Services
+- https://jonathan777-ui.github.io/orbit-platform/dark-star-tattoo/#book: Book a consult
+- https://jonathan777-ui.github.io/orbit-platform/dark-star-tattoo/#faq: FAQ
+
+## More
+- About: https://jonathan777-ui.github.io/orbit-platform/dark-star-tattoo/
+- Full: https://jonathan777-ui.github.io/orbit-platform/dark-star-tattoo/llms-full.txt

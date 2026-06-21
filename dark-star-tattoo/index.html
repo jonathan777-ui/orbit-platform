@@ -1,0 +1,774 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; connect-src https:; media-src 'self' blob:; base-uri 'self'; frame-ancestors 'none'">
+<title>Dark Star Tattoo — Tattoo & Piercing Studio in Salem, OR | Bilingual EN/ES</title>
+<meta name="description" content="Dark Star Tattoo is a licensed tattoo & piercing studio in Salem, Oregon offering custom tattoos, cover-ups, piercing, and bilingual (English/Spanish) service. 2360 State St. Call (503) 763-9696. Book a free consult. An East-side studio on State St — custom work and walk-ins.">
+<style>
+  :root{
+    /* Brand palette pulled from the logo: deep purple, ornate gold, red ✗, cream */
+    --bg:#150b22; --panel:#20132f; --line:#3a2550; --fg:#f4ecdd; --muted:#b6a4c8;
+    --accent:#d4324a; --accent2:#e7b24a; --ink:#0e0717;
+    --serif:Georgia,"Times New Roman",serif;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--fg);
+    font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+  a{color:var(--accent2);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .wrap{max-width:1040px;margin:0 auto;padding:0 20px}
+  header{position:sticky;top:0;z-index:40;background:rgba(18,9,26,.85);backdrop-filter:blur(8px);
+    border-bottom:1px solid rgba(231,178,74,.22)}
+  .nav{display:flex;align-items:center;gap:18px;height:62px}
+  .brand{font-family:var(--serif);font-weight:800;letter-spacing:.06em;font-size:19px;margin-right:auto;
+    color:var(--fg);text-shadow:0 0 18px rgba(231,178,74,.22)}
+  .brand span{color:var(--accent);text-shadow:0 0 14px rgba(212,50,74,.4)}
+  .nav a.link{color:var(--fg);font-size:14px}
+  .nav a.link:hover{color:var(--accent2);text-decoration:none}
+  @media(max-width:760px){.nav a.link{display:none}}
+  .langtoggle{border:1px solid var(--line);border-radius:999px;padding:4px;display:flex;gap:2px}
+  .langtoggle button{background:none;border:0;color:var(--muted);padding:4px 10px;border-radius:999px;
+    font-size:13px;cursor:pointer}
+  .langtoggle button.active{background:var(--accent);color:#fff;font-weight:700}
+  .btn{display:inline-block;background:var(--accent);color:#fff;font-weight:700;padding:12px 22px;
+    border-radius:10px;border:0;cursor:pointer;font-size:15px}
+  .btn:hover{filter:brightness(1.08);text-decoration:none}
+  .btn.ghost{background:transparent;border:1px solid var(--line);color:var(--fg)}
+  /* hero */
+  .hero{padding:84px 0 64px;background:
+    radial-gradient(1100px 520px at 82% -5%,rgba(231,178,74,.20),transparent 58%),
+    radial-gradient(1000px 480px at 10% 0%,rgba(150,70,180,.30),transparent 60%),
+    radial-gradient(760px 420px at 55% 125%,rgba(212,50,74,.16),transparent 60%)}
+  .hero h1{font-family:var(--serif);font-size:clamp(34px,6vw,58px);line-height:1.06;margin:0 0 18px;letter-spacing:.005em}
+  .hero p.lede{font-size:clamp(17px,2.4vw,21px);color:var(--muted);max-width:640px;margin:0 0 28px}
+  .cta-row{display:flex;gap:14px;flex-wrap:wrap}
+  .trust{display:flex;gap:10px;flex-wrap:wrap;margin-top:34px}
+  .trust span{font-size:13px;color:var(--muted);border:1px solid var(--line);border-radius:999px;
+    padding:6px 13px}
+  section{padding:58px 0;border-top:1px solid var(--line)}
+  h2.sec{font-family:var(--serif);font-size:clamp(24px,4vw,34px);margin:0 0 6px;letter-spacing:.01em}
+  .sub{color:var(--muted);margin:0 0 30px;max-width:640px}
+  .grid{display:grid;gap:18px}
+  .cards{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px}
+  .card h3{margin:0 0 8px;font-size:18px}
+  .card p{margin:0;color:var(--muted);font-size:14.5px}
+  .card .tag{display:inline-block;font-size:11px;letter-spacing:.06em;text-transform:uppercase;
+    color:var(--accent2);margin-bottom:10px}
+  .faq details{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:4px 18px;
+    margin-bottom:12px}
+  .faq summary{cursor:pointer;font-weight:600;padding:14px 0;list-style:none}
+  .faq summary::-webkit-details-marker{display:none}
+  .faq summary::after{content:"+";float:right;color:var(--accent)}
+  .faq details[open] summary::after{content:"–"}
+  .faq p{color:var(--muted);margin:0 0 16px}
+  .note{background:rgba(240,180,41,.08);border:1px solid rgba(240,180,41,.3);border-radius:12px;
+    padding:16px 18px;color:#f3dca0;font-size:14.5px}
+  /* gallery */
+  .gallery .gArtist{margin-bottom:36px}
+  .gallery .gHead{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+  .gallery .gHead h3{margin:0;font-size:20px}
+  .gallery .gStyles{color:var(--muted);font-size:13px}
+  .gGrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+  .tile{padding:0;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--panel);
+    cursor:pointer;aspect-ratio:1/1}
+  .tile img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .35s}
+  .tile:hover img{transform:scale(1.06)}
+  #lightbox{position:fixed;inset:0;z-index:80;background:rgba(0,0,0,.9);display:none;
+    align-items:center;justify-content:center;padding:24px}
+  #lightbox.open{display:flex}
+  #lightbox img{max-width:92vw;max-height:88vh;border-radius:12px;box-shadow:0 20px 60px rgba(0,0,0,.6)}
+  #lightbox .x{position:absolute;top:16px;right:22px;color:#fff;font-size:32px;background:none;
+    border:0;cursor:pointer;line-height:1}
+  .twocol{display:grid;grid-template-columns:1.2fr 1fr;gap:26px}
+  @media(max-width:760px){.twocol{grid-template-columns:1fr}}
+  footer{border-top:1px solid var(--line);padding:40px 0;color:var(--muted);font-size:14px}
+  .footgrid{display:flex;gap:40px;flex-wrap:wrap;justify-content:space-between}
+  .pill{font-size:12px;color:var(--muted)}
+  /* chat widget */
+  #chatBtn{position:fixed;right:20px;bottom:20px;z-index:60;background:var(--accent);color:#fff;
+    border:0;border-radius:999px;width:60px;height:60px;font-size:26px;cursor:pointer;
+    box-shadow:0 8px 26px rgba(0,0,0,.45)}
+  #chatPanel{position:fixed;right:20px;bottom:92px;z-index:60;width:360px;max-width:calc(100vw - 40px);
+    height:520px;max-height:calc(100vh - 130px);background:var(--panel);border:1px solid var(--line);
+    border-radius:16px;display:none;flex-direction:column;overflow:hidden;box-shadow:0 18px 50px rgba(0,0,0,.5)}
+  #chatPanel.open{display:flex}
+  .chatHead{background:var(--ink);padding:14px 16px;border-bottom:1px solid var(--line);
+    display:flex;align-items:center;gap:10px}
+  .chatHead .dot{width:9px;height:9px;border-radius:50%;background:#2ecc71}
+  .chatHead b{font-size:14px}
+  .chatHead small{color:var(--muted);font-size:12px;display:block}
+  .chatLog{flex:1;overflow:auto;padding:14px;display:flex;flex-direction:column;gap:10px}
+  .msg{max-width:84%;padding:9px 13px;border-radius:13px;font-size:14px;line-height:1.5}
+  .msg.bot{background:#1d1d24;align-self:flex-start;border-bottom-left-radius:4px}
+  .msg.me{background:var(--accent);color:#fff;align-self:flex-end;border-bottom-right-radius:4px}
+  .chips{display:flex;flex-wrap:wrap;gap:7px;padding:0 14px 8px}
+  .chip{background:#1d1d24;border:1px solid var(--line);color:var(--fg);font-size:12.5px;
+    padding:6px 11px;border-radius:999px;cursor:pointer}
+  .chip:hover{border-color:var(--accent)}
+  .chatForm{display:flex;gap:8px;padding:12px;border-top:1px solid var(--line)}
+  .chatForm input{flex:1;background:var(--ink);border:1px solid var(--line);color:var(--fg);
+    border-radius:10px;padding:10px 12px;font-size:14px}
+  .chatForm button{background:var(--accent);border:0;color:#fff;border-radius:10px;padding:0 16px;
+    cursor:pointer;font-weight:700}
+  [data-es]{display:none}
+  html[lang="es"] [data-en]{display:none}
+  html[lang="es"] [data-es]{display:inline}
+  html[lang="es"] [data-es].block{display:block}
+  /* a11y: visible keyboard focus + skip link + screen-reader-only helper */
+  :focus-visible{outline:3px solid var(--accent2);outline-offset:2px}
+  .skip{position:absolute;left:-9999px;top:0;z-index:200;background:var(--accent);color:#fff;
+        padding:10px 16px;border-radius:0 0 8px 0;font-weight:700}
+  .skip:focus{left:0}
+  .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
+           clip:rect(0,0,0,0);white-space:nowrap;border:0}
+  /* front office: sticky mobile call/book bar */
+  .callbar{position:fixed;left:0;right:0;bottom:0;z-index:70;display:none;gap:8px;padding:9px 12px;
+           background:rgba(10,6,16,.92);backdrop-filter:blur(8px);border-top:1px solid var(--line)}
+  .callbar a{flex:1;text-align:center;padding:12px 10px;border-radius:10px;font-weight:700;font-size:15px}
+  .callbar .call{background:var(--accent);color:#fff}
+  .callbar .book{background:transparent;color:var(--fg);border:1px solid var(--line)}
+  @media (max-width:760px){ .callbar{display:flex} body{padding-bottom:64px} }
+  /* social proof / reviews */
+  .reviews .rev{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px 20px}
+  .reviews .stars{color:var(--accent2);letter-spacing:2px;font-size:14px;margin-bottom:8px}
+  .reviews .who{color:var(--muted);font-size:13px;margin-top:10px}
+  .chatForm .mic{background:var(--ink);border:1px solid var(--line);color:var(--fg);border-radius:10px;
+                 width:42px;font-size:18px;cursor:pointer}
+  .chatForm .mic.listening{background:var(--accent);color:#fff;animation:pulse 1s infinite}
+  @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(255,255,255,.0)}50%{box-shadow:0 0 0 6px rgba(255,255,255,.18)}}
+  .agg{display:flex;align-items:center;gap:10px;color:var(--muted);font-size:14px;margin-top:6px}
+  .agg b{color:var(--fg);font-size:22px}
+  /* motion: gentle scroll-reveal, fully disabled for reduced-motion users */
+  .reveal{opacity:0;transform:translateY(14px);transition:opacity .6s ease,transform .6s ease}
+  .reveal.in{opacity:1;transform:none}
+  .btn,.card,.chip,.callbar a{transition:transform .15s ease,filter .15s ease,border-color .15s ease}
+  .btn:hover{filter:brightness(1.08);transform:translateY(-1px)}
+  @media (prefers-reduced-motion: reduce){
+    .reveal{opacity:1;transform:none;transition:none}
+    *{animation-duration:.001ms !important;transition-duration:.001ms !important;scroll-behavior:auto !important}
+  }
+</style>
+<style id="brandvars">:root{--bg:#1a160d;--panel:#2a2315;--line:#4a3e26;--fg:#f1f3f8;--muted:#929396;--accent:#C0A062;--accent2:#7f7f83;--ink:#0f0c08}</style>
+<meta name="x-orbit-template" content="Inkwell"><meta name="x-orbit-palette" content="C25">
+<link rel="canonical" href="https://jonathan777-ui.github.io/orbit-platform/dark-star-tattoo/">
+<meta name="robots" content="index,follow">
+<link rel="alternate" hreflang="en" href="https://jonathan777-ui.github.io/orbit-platform/dark-star-tattoo/">
+<link rel="alternate" hreflang="es" href="https://jonathan777-ui.github.io/orbit-platform/dark-star-tattoo/?lang=es">
+<link rel="alternate" hreflang="x-default" href="https://jonathan777-ui.github.io/orbit-platform/dark-star-tattoo/">
+<meta name="geo.region" content="US-OR"><meta name="geo.placename" content="Salem, Oregon">
+<meta name="geo.position" content="44.9389;-123.017"><meta name="ICBM" content="44.9389, -123.017">
+<meta property="og:type" content="business.business"><meta property="og:site_name" content="Dark Star Tattoo">
+<meta property="og:title" content="Dark Star Tattoo — Tattoo & Piercing Studio in Salem, OR | Bilingual EN/ES"><meta property="og:description" content="Dark Star Tattoo is a licensed tattoo & piercing studio in Salem, Oregon offering custom tattoos, cover-ups, piercing, and bilingual (English/Spanish) service. 2360 State St. Call (503) 763-9696. Book a free consult. An East-side studio on State St — custom work and walk-ins.">
+<meta property="og:url" content="https://jonathan777-ui.github.io/orbit-platform/dark-star-tattoo/"><meta property="og:image" content="https://jonathan777-ui.github.io/orbit-platform/dark-star-tattoo/logo.svg">
+<meta property="og:locale" content="en_US"><meta property="og:locale:alternate" content="es_ES">
+<meta name="twitter:card" content="summary"><meta name="twitter:title" content="Dark Star Tattoo — Tattoo & Piercing Studio in Salem, OR | Bilingual EN/ES"><meta name="twitter:description" content="Dark Star Tattoo is a licensed tattoo & piercing studio in Salem, Oregon offering custom tattoos, cover-ups, piercing, and bilingual (English/Spanish) service. 2360 State St. Call (503) 763-9696. Book a free consult. An East-side studio on State St — custom work and walk-ins.">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TattooParlor", "name": "Dark Star Tattoo", "url": "https://jonathan777-ui.github.io/orbit-platform/dark-star-tattoo/", "telephone": "(503) 763-9696", "priceRange": "$$", "areaServed": "Salem, OR", "knowsLanguage": ["en", "es"], "image": "https://jonathan777-ui.github.io/orbit-platform/dark-star-tattoo/logo.svg", "address": {"@type": "PostalAddress", "streetAddress": "2360 State St", "addressLocality": "Salem", "addressRegion": "OR", "postalCode": "97301", "addressCountry": "US"}, "geo": {"@type": "GeoCoordinates", "latitude": 44.9389, "longitude": -123.017}, "openingHoursSpecification": [{"@type": "OpeningHoursSpecification", "dayOfWeek": ["Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"], "opens": "12:00", "closes": "20:00"}], "sameAs": [""]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "How much does a tattoo cost?", "acceptedAnswer": {"@type": "Answer", "text": "It depends on size, placement and detail, so your artist gives you a real number at the consult. We set expectations up front — no surprises."}}, {"@type": "Question", "name": "How old do I have to be?", "acceptedAnswer": {"@type": "Answer", "text": "You need to be 18 or older with a valid government photo ID — we check it on the day. For piercings and anyone younger, ask us about our policy."}}, {"@type": "Question", "name": "Does it hurt?", "acceptedAnswer": {"@type": "Answer", "text": "Everyone experiences it differently and your artist keeps you comfortable. They walk you through what to expect at the appointment."}}, {"@type": "Question", "name": "Is it clean? Do you use new needles?", "acceptedAnswer": {"@type": "Answer", "text": "Yes — the studio is licensed and follows strict sterilization standards, with single-use needles for every client."}}, {"@type": "Question", "name": "How do I take care of it after?", "acceptedAnswer": {"@type": "Answer", "text": "Your artist gives you full aftercare instructions when you come in. If anything ever looks off while it heals, it is safest to see a doctor."}}]}</script>
+</head>
+<body>
+<a class="skip" href="#main" data-en>Skip to content</a><a class="skip" href="#main" data-es>Saltar al contenido</a>
+<header>
+  <div class="wrap nav">
+    <div class="brand" id="brand">PERMANENT MAR<span>✗</span></div>
+    <a class="link" href="#services" data-en>Services</a><a class="link" href="#services" data-es>Servicios</a>
+    <a class="link" href="#artists" data-en>Artists</a><a class="link" href="#artists" data-es>Artistas</a>
+    <a class="link" href="#gallery" data-en>Gallery</a><a class="link" href="#gallery" data-es>Galería</a>
+    <a class="link" href="#faq">FAQ</a>
+    <a class="link" href="#book" data-en>Book</a><a class="link" href="#book" data-es>Reservar</a>
+    <div class="langtoggle" role="group" aria-label="language">
+      <button id="enBtn" class="active" onclick="setLang('en')">EN</button>
+      <button id="esBtn" onclick="setLang('es')">ES</button>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<div class="hero" id="main" tabindex="-1">
+  <div class="wrap">
+    <h1>
+      <span data-en>Your idea, made permanent — by artists who care.</span>
+      <span data-es>Tu idea, hecha para siempre — por artistas que de verdad se preocupan.</span>
+    </h1>
+    <p class="lede">
+      <span data-en>Dark Star Tattoo — clean, licensed, and serious about the craft. Custom tattoos, cover-ups, piercing and permanent makeup. Book a free consult, in English or Spanish. An East-side studio on State St — custom work and walk-ins.</span>
+      <span data-es>Dark Star Tattoo — limpio, licenciado y serio con el arte. Tatuajes personalizados, cover-ups, piercing y maquillaje permanente. Agenda una consulta gratis, en inglés o español. Un estudio en el lado este (State St) — trabajo personalizado y sin cita.</span>
+    </p>
+    <div class="cta-row">
+      <a class="btn" href="#book" data-en>Book your consult</a><a class="btn" href="#book" data-es>Agenda tu consulta</a>
+      <a class="btn ghost" href="#services" data-en>See our work</a><a class="btn ghost" href="#services" data-es>Mira nuestro trabajo</a>
+    </div>
+    <div class="trust">
+      <span data-en>Licensed &amp; spotless</span><span data-es>Licenciado e impecable</span>
+      <span data-en>Single-use needles</span><span data-es>Agujas de un solo uso</span>
+      <span data-en>Custom &amp; cover-up specialists</span><span data-es>Especialistas en diseño y cover-up</span>
+      <span data-en>Bilingual team</span><span data-es>Equipo bilingüe</span>
+    </div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="wrap">
+    <h2 class="sec" data-en>What we do</h2><h2 class="sec" data-es>Lo que hacemos</h2>
+    <p class="sub" data-en>Every piece starts with a conversation. Tell us the idea — we'll match you with the right artist and walk you through it.</p>
+    <p class="sub" data-es>Cada pieza empieza con una conversación. Cuéntanos la idea — te conectamos con el artista indicado y te guiamos en todo.</p>
+    <div class="grid cards">
+      <div class="card">
+        <span class="tag">Tattoo</span>
+        <h3 data-en>Custom Tattoos</h3><h3 data-es>Tatuajes Personalizados</h3>
+        <p data-en>Fine-line, traditional, realism, blackwork, color, script and large-scale sleeves — drawn for you.</p>
+        <p data-es>Línea fina, tradicional, realismo, blackwork, color, lettering y mangas a gran escala — diseñado para ti.</p>
+      </div>
+      <div class="card">
+        <span class="tag">Rework</span>
+        <h3 data-en>Cover-ups &amp; Reworks</h3><h3 data-es>Cover-ups y Arreglos</h3>
+        <p data-en>Turn an old or unwanted tattoo into something you love. Bring it to a consult and we'll show you the options.</p>
+        <p data-es>Convierte un tatuaje viejo o no deseado en algo que ames. Tráelo a una consulta y te mostramos las opciones.</p>
+      </div>
+      <div class="card">
+        <span class="tag">Piercing</span>
+        <h3 data-en>Piercing</h3><h3 data-es>Perforaciones</h3>
+        <p data-en>Ear, facial and body piercing with quality jewelry and strict cleanliness. Age policy applies.</p>
+        <p data-es>Oreja, cara y cuerpo, con joyería de calidad y limpieza estricta. Aplica política de edad.</p>
+      </div>
+      <div class="card">
+        <span class="tag">Cosmetic</span>
+        <h3 data-en>Permanent Makeup</h3><h3 data-es>Maquillaje Permanente</h3>
+        <p data-en>Microblading and cosmetic tattoo for brows, lips and liner. Consult-first; medical questions go to your provider.</p>
+        <p data-es>Microblading y micropigmentación de cejas, labios y delineado. Primero consulta; dudas médicas con tu proveedor.</p>
+      </div>
+      <div class="card">
+        <span class="tag">Laser</span>
+        <h3 data-en>Tattoo Removal</h3><h3 data-es>Eliminación de Tatuajes</h3>
+        <p data-en>Fading and removal over a series of sessions. We set honest expectations — results vary, so we start with a consult.</p>
+        <p data-es>Aclarado y eliminación en varias sesiones. Somos honestos con las expectativas — los resultados varían, empezamos con una consulta.</p>
+      </div>
+      <div class="card">
+        <span class="tag">First time?</span>
+        <h3 data-en>New to tattoos</h3><h3 data-es>¿Tu primer tatuaje?</h3>
+        <p data-en>Totally normal to be nervous — most first-timers are. Your artist explains every step and goes at your pace.</p>
+        <p data-es>Es normal estar nervioso — a casi todos les pasa. Tu artista te explica cada paso y va a tu ritmo.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ARTISTS -->
+<section id="artists">
+  <div class="wrap">
+    <h2 class="sec" data-en>Our artists</h2><h2 class="sec" data-es>Nuestros artistas</h2>
+    <p class="sub" data-en>A small, talented team. Tell us the style you want and we'll match you.</p>
+    <p class="sub" data-es>Un equipo pequeño y talentoso. Dinos el estilo que quieres y te conectamos.</p>
+    <div class="grid cards" id="artistGrid"><!-- populated from CONFIG.artists --></div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery">
+  <div class="wrap gallery">
+    <h2 class="sec" data-en>Our work</h2><h2 class="sec" data-es>Nuestro trabajo</h2>
+    <p class="sub" data-en>Real pieces by our artists, grouped by who made them. Tap any photo to view it larger.</p>
+    <p class="sub" data-es>Piezas reales de nuestros artistas, agrupadas por quién las hizo. Toca cualquier foto para verla más grande.</p>
+    <div id="galleryWrap"></div>
+  </div>
+</section>
+
+<!-- BOOK -->
+<section id="book">
+  <div class="wrap twocol">
+    <div>
+      <h2 class="sec" data-en>Book a consult</h2><h2 class="sec" data-es>Agenda una consulta</h2>
+      <p class="sub" data-en>Pricing depends on size, placement and detail, so your artist gives you a real quote at the consult. Most consults are free.</p>
+      <p class="sub" data-es>El precio depende del tamaño, la ubicación y el detalle, así que el artista te da el precio en la consulta. La mayoría de las consultas son gratis.</p>
+      <p style="margin:0 0 18px">
+        <a class="btn" id="bookCta" href="#" target="_blank" rel="noopener" data-en>Book now</a><a class="btn" id="bookCtaEs" href="#" target="_blank" rel="noopener" data-es>Reservar ahora</a>
+      </p>
+      <div class="note">
+        <strong data-en>Before you come in:</strong><strong data-es>Antes de venir:</strong>
+        <ul style="margin:8px 0 0;padding-left:18px">
+          <li data-en>Bring a valid government photo ID — you must be 18+ for tattoos (piercing/minor policy on request).</li>
+          <li data-es>Trae una identificación oficial con foto — debes ser mayor de 18 para tatuajes (política de menores/piercing a solicitud).</li>
+          <li data-en>Bring reference images and a note of placement &amp; size.</li>
+          <li data-es>Trae imágenes de referencia y una nota de ubicación y tamaño.</li>
+          <li data-en>Eat beforehand, hydrate, and come clear-headed — we can't tattoo anyone under the influence.</li>
+          <li data-es>Come antes, hidrátate y ven despejado — no podemos tatuar a nadie bajo los efectos del alcohol o drogas.</li>
+        </ul>
+      </div>
+    </div>
+    <div>
+      <div class="card">
+        <h3 data-en>Visit us</h3><h3 data-es>Visítanos</h3>
+        <p id="nap" style="line-height:1.9"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="wrap">
+    <h2 class="sec">FAQ</h2>
+    <div class="faq">
+      <details>
+        <summary data-en>How much does a tattoo cost?</summary><summary data-es>¿Cuánto cuesta un tatuaje?</summary>
+        <p data-en>It depends on size, placement and detail, so your artist gives you a real number at the consult. We'll set expectations up front — no surprises.</p>
+        <p data-es>Depende del tamaño, la ubicación y el detalle, así que el artista te da el precio en la consulta. Te damos una idea desde el principio — sin sorpresas.</p>
+      </details>
+      <details>
+        <summary data-en>How old do I have to be?</summary><summary data-es>¿Qué edad necesito tener?</summary>
+        <p data-en>You'll need to be 18 or older with a valid government photo ID — we check it on the day. For piercings and anyone younger, ask us about our policy.</p>
+        <p data-es>Tienes que ser mayor de 18 con una identificación oficial con foto — la revisamos el mismo día. Para perforaciones y menores, pregúntanos por la política.</p>
+      </details>
+      <details>
+        <summary data-en>Does it hurt?</summary><summary data-es>¿Duele?</summary>
+        <p data-en>Everyone experiences it differently and your artist keeps you comfortable. They'll walk you through what to expect at the appointment.</p>
+        <p data-es>Cada persona lo siente diferente y el artista te mantiene cómodo. Te explican qué esperar en la cita.</p>
+      </details>
+      <details>
+        <summary data-en>Is it clean? Do you use new needles?</summary><summary data-es>¿Es limpio? ¿Usan agujas nuevas?</summary>
+        <p data-en>Absolutely — the studio is licensed and follows strict sterilization standards, with single-use needles for every client.</p>
+        <p data-es>Claro que sí — el estudio está licenciado y sigue estándares estrictos de esterilización, con agujas de un solo uso para cada cliente.</p>
+      </details>
+      <details>
+        <summary data-en>How do I take care of it after?</summary><summary data-es>¿Cómo lo cuido después?</summary>
+        <p data-en>Your artist gives you full aftercare instructions when you come in. If anything ever looks off while it heals, it's safest to see a doctor.</p>
+        <p data-es>Tu artista te da todas las instrucciones de cuidado cuando vienes. Si algo se ve raro mientras sana, lo más seguro es ver a un médico.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section id="reviews" class="reviews"><div class="wrap">
+  <h2 class="sec reveal" data-en>What clients say</h2><h2 class="sec reveal" data-es>Lo que dicen los clientes</h2>
+  <div class="agg reveal" id="revAgg"></div>
+  <div class="grid cards reveal" id="reviewGrid" style="margin-top:16px"></div>
+  <p class="sub reveal" data-en>Sample reviews shown for this demo.</p><p class="sub reveal" data-es>Rese&ntilde;as de muestra para esta demostraci&oacute;n.</p>
+</div></section>
+
+<footer>
+  <div class="wrap footgrid">
+    <div>
+      <div class="brand" id="brandFoot" style="font-size:16px">PERMANENT MAR<span>✗</span></div>
+      <p class="pill" data-en>Custom tattoos · Cover-ups · Piercing · Permanent makeup · Removal</p>
+      <p class="pill" data-es>Tatuajes personalizados · Cover-ups · Piercing · Maquillaje permanente · Eliminación</p>
+    </div>
+    <div class="pill" id="footContact"></div>
+  </div>
+</footer>
+
+<!-- LIGHTBOX -->
+<div id="lightbox" role="dialog" aria-modal="true"><button class="x" aria-label="Close">×</button><img src="" alt=""></div>
+
+<!-- STICKY CALL / BOOK BAR (mobile front office) -->
+<div class="callbar" aria-label="Quick contact">
+  <a class="call" id="cbCall" href="#"><span data-en>Call now</span><span data-es>Llamar</span></a>
+  <a class="book" href="#book"><span data-en>Book</span><span data-es>Reservar</span></a>
+</div>
+
+<!-- CHAT WIDGET -->
+<button id="chatBtn" aria-label="Chat">💬</button>
+<div id="chatPanel" aria-live="polite">
+  <div class="chatHead">
+    <span class="dot"></span>
+    <div>
+      <b data-en>Front Desk · AI Receptionist</b><b data-es>Recepción · Recepcionista IA</b>
+      <small data-en>Type or tap 🎙️ to talk — booking, pricing, hours · EN/ES</small><small data-es>Escribe o toca 🎙️ para hablar — reservas, precios, horario · EN/ES</small>
+    </div>
+  </div>
+  <div class="chatLog" id="chatLog"></div>
+  <p class="sr-consent" style="margin:0 12px;font-size:11px;color:var(--muted)"><span data-en>Please don't share sensitive info (SSN, case numbers) in chat.</span><span data-es>Por favor no compartas datos sensibles (SSN, n&uacute;meros de caso) en el chat.</span></p>
+  <div class="chips" id="chatChips"></div>
+  <form class="chatForm" id="chatForm" autocomplete="off">
+    <button type="button" id="micBtn" class="mic" aria-label="Talk to the receptionist" title="Talk">🎙️</button>
+    <input id="chatInput" placeholder="Type a message…" aria-label="message">
+    <button type="submit" aria-label="Send">➤</button>
+  </form>
+</div>
+
+<script>
+/* ====================================================================
+   CONFIG — EDIT THESE WITH THE STUDIO'S REAL DETAILS
+   These are placeholders. Fill in the verified business info before launch.
+   ==================================================================== */
+const CONFIG = {"name": "Dark Star Tattoo", "logo": "logo.svg", "vertical": "tattoo and piercing", "address": "2360 State St, Salem, OR 97301", "phone": "(503) 763-9696", "hoursEn": "Tue–Sat 12–8pm · Sun–Mon closed", "hoursEs": "Mar–Sáb 12–8pm · Dom–Lun cerrado", "instagram": "", "facebook": "", "bookingUrl": "", "artists": [], "gallery": [], "demo": true, "services": ["Custom tattoos", "Cover-ups", "Fine-line & blackwork", "Flash & walk-ins", "Piercing", "Jewelry"], "faqs": [{"q_en": "How much does a tattoo cost?", "a_en": "It depends on size, placement and detail, so your artist gives you a real number at the consult. We set expectations up front — no surprises.", "q_es": "How much does a tattoo cost?", "a_es": "It depends on size, placement and detail, so your artist gives you a real number at the consult. We set expectations up front — no surprises."}, {"q_en": "How old do I have to be?", "a_en": "You need to be 18 or older with a valid government photo ID — we check it on the day. For piercings and anyone younger, ask us about our policy.", "q_es": "How old do I have to be?", "a_es": "You need to be 18 or older with a valid government photo ID — we check it on the day. For piercings and anyone younger, ask us about our policy."}, {"q_en": "Does it hurt?", "a_en": "Everyone experiences it differently and your artist keeps you comfortable. They walk you through what to expect at the appointment.", "q_es": "Does it hurt?", "a_es": "Everyone experiences it differently and your artist keeps you comfortable. They walk you through what to expect at the appointment."}, {"q_en": "Is it clean? Do you use new needles?", "a_en": "Yes — the studio is licensed and follows strict sterilization standards, with single-use needles for every client.", "q_es": "Is it clean? Do you use new needles?", "a_es": "Yes — the studio is licensed and follows strict sterilization standards, with single-use needles for every client."}, {"q_en": "How do I take care of it after?", "a_en": "Your artist gives you full aftercare instructions when you come in. If anything ever looks off while it heals, it is safest to see a doctor.", "q_es": "How do I take care of it after?", "a_es": "Your artist gives you full aftercare instructions when you come in. If anything ever looks off while it heals, it is safest to see a doctor."}], "useLLM": false, "premiumVoice": true, "voiceTokenEndpoint": "https://jonathan777-ui.app.n8n.cloud/webhook/voice-token", "voiceSiteKey": "ORBIT-SET-LAUNCH-SITE-KEY", "voice": {"sttModel": "nova-3", "ttsEn": "aura-2-thalia-en", "ttsEs": "aura-2-diana-es"}, "reviews": [{"stars": 5, "en": "Took my rough idea and turned it into something I love. Clean shop, zero attitude.", "es": "Tomaron mi idea y la convirtieron en algo que amo. Estudio limpio y buen trato.", "who": "Sample · demo"}, {"stars": 5, "en": "They explained aftercare clearly and checked in after. Felt cared for.", "es": "Me explicaron el cuidado y me dieron seguimiento. Me sentí bien atendido.", "who": "Sample · demo"}, {"stars": 5, "en": "Booked in English, asked questions in Spanish — easy the whole way.", "es": "Reservé en inglés y pregunté en español — fácil de principio a fin.", "who": "Sample · demo"}], "chatEndpoint": "https://jonathan777-ui.app.n8n.cloud/webhook/orbit-turn"};
+
+/* ---------- language ---------- */
+function setLang(l){
+  document.documentElement.lang = l;
+  enBtn.classList.toggle('active', l==='en');
+  esBtn.classList.toggle('active', l==='es');
+  try{ localStorage.setItem('pm_lang', l);}catch(e){}
+  // Reflect language in the URL (?lang=es) so each language has a crawlable,
+  // shareable address that matches the hreflang alternates in <head>.
+  try{
+    const u = new URL(location.href);
+    if(l==='es') u.searchParams.set('lang','es'); else u.searchParams.delete('lang');
+    history.replaceState(null,'',u);
+  }catch(e){}
+  renderNAP();
+  if(typeof renderGallery==='function') renderGallery();
+  if(typeof renderReviews==='function') renderReviews();
+}
+(function initLang(){
+  let l='en';
+  try{
+    const q=new URLSearchParams(location.search).get('lang');           // URL wins (crawlable)
+    l = q || localStorage.getItem('pm_lang') || (navigator.language||'en').slice(0,2);
+  }catch(e){}
+  setLang(l==='es'?'es':'en');
+})();
+
+/* ---------- populate business details ---------- */
+function tel(p){ return (p||'').replace(/[^+\d]/g,''); }
+function renderNAP(){
+  const es = document.documentElement.lang==='es';
+  const hours = es ? CONFIG.hoursEs : CONFIG.hoursEn;
+  const lines = [];
+  lines.push(CONFIG.address ? CONFIG.address : (es?'Dirección: pendiente':'Address: coming soon'));
+  if(CONFIG.phone){ lines.push('<a href="tel:'+tel(CONFIG.phone)+'">'+CONFIG.phone+'</a>'); }
+  lines.push(hours ? hours : (es?'Horario: pendiente':'Hours: coming soon'));
+  const social=[];
+  if(CONFIG.instagram) social.push('<a href="'+CONFIG.instagram+'" target="_blank" rel="noopener">Instagram</a>');
+  if(CONFIG.facebook) social.push('<a href="'+CONFIG.facebook+'" target="_blank" rel="noopener">Facebook</a>');
+  if(social.length) lines.push(social.join(' · '));
+  document.getElementById('nap').innerHTML = lines.join('<br>');
+  document.getElementById('footContact').innerHTML =
+    (CONFIG.address||'') + (CONFIG.phone? ' · '+CONFIG.phone : '') +
+    '<br>© ' + new Date().getFullYear() + ' ' + CONFIG.name;
+  // booking CTAs
+  const url = CONFIG.bookingUrl || '#';
+  ['bookCta','bookCtaEs'].forEach(id=>{
+    const a=document.getElementById(id); if(!a) return;
+    if(CONFIG.bookingUrl){ a.href=CONFIG.bookingUrl; a.target='_blank'; }
+    else { a.href='#'; a.target=''; a.onclick=function(e){e.preventDefault();openChat();}; }
+  });
+}
+function renderArtists(){
+  const grid=document.getElementById('artistGrid');
+  if(!CONFIG.artists || !CONFIG.artists.length){
+    grid.innerHTML='<div class="card"><h3>'+
+      (document.documentElement.lang==='es'?'Equipo en camino':'Team coming soon')+
+      '</h3><p>'+(document.documentElement.lang==='es'
+        ?'Añade aquí los artistas del estudio en CONFIG.artists.'
+        :'Add the studio’s artists in CONFIG.artists.')+'</p></div>';
+    return;
+  }
+  grid.innerHTML = CONFIG.artists.map(a=>
+    '<div class="card"><h3>'+a.name+'</h3><p>'+(a.styles||'')+'</p></div>').join('');
+}
+function demoTile(label, n){
+  const accents=['#d4324a','#f0b429','#7aa2ff','#2ecc71','#b06ad4'];
+  const c=accents[n % accents.length];
+  const svg='<svg xmlns="http://www.w3.org/2000/svg" width="600" height="600" viewBox="0 0 600 600">'
+    +'<rect width="600" height="600" fill="#1b1030"/>'
+    +'<rect x="10" y="10" width="580" height="580" rx="18" fill="none" stroke="'+c+'" stroke-width="3" opacity="0.5"/>'
+    +'<circle cx="300" cy="300" r="150" fill="none" stroke="'+c+'" stroke-width="2" opacity="0.18"/>'
+    +'<circle cx="300" cy="300" r="100" fill="none" stroke="#ffffff" stroke-width="1" opacity="0.12"/>'
+    +'<text x="30" y="52" fill="#9aa4b8" font-family="Arial,sans-serif" font-size="20">'+label+'</text>'
+    +'<text x="300" y="250" fill="#ffffff" font-family="Arial,sans-serif" font-size="36" font-weight="bold" text-anchor="middle">FOR DEMONSTRATION</text>'
+    +'<text x="300" y="296" fill="#ffffff" font-family="Arial,sans-serif" font-size="36" font-weight="bold" text-anchor="middle">PURPOSES ONLY</text>'
+    +'<text x="300" y="344" fill="'+c+'" font-family="Arial,sans-serif" font-size="20" letter-spacing="3" text-anchor="middle">SAMPLE TATTOO IMAGE</text>'
+    +'<text x="300" y="430" fill="#9aa4b8" font-family="Arial,sans-serif" font-size="16" text-anchor="middle">'+(CONFIG.name||'')+' — placeholder, not actual work</text>'
+    +'<text x="570" y="572" fill="#9aa4b8" font-family="Arial,sans-serif" font-size="18" text-anchor="end">#'+(n+1)+'</text>'
+    +'</svg>';
+  return 'data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg);
+}
+function renderGallery(){
+  const wrap=document.getElementById('galleryWrap');
+  const es=document.documentElement.lang==='es';
+  const hasReal=(CONFIG.gallery&&CONFIG.gallery.length)||
+    (CONFIG.artists||[]).some(a=>a.portfolio&&a.portfolio.length);
+  if(CONFIG.demo && !hasReal && !CONFIG._demoBuilt){
+    const demoArtists=[['Sample Artist — A','fine-line · blackwork'],
+      ['Sample Artist — B','color · realism'],
+      ['Sample Artist — C','traditional · lettering']];
+    CONFIG.artists=demoArtists.map((d,gi)=>({name:d[0],styles:d[1],
+      portfolio:[0,1,2].map(i=>demoTile(d[1], gi*3+i))}));
+    CONFIG._demoBuilt=true;
+  }
+  const groups=[];
+  (CONFIG.artists||[]).forEach(a=>{ if(a.portfolio && a.portfolio.length)
+    groups.push({title:a.name, styles:a.styles, instagram:a.instagram, pics:a.portfolio}); });
+  if(CONFIG.gallery && CONFIG.gallery.length)
+    groups.push({title:CONFIG.name, styles:(es?'trabajo del estudio':'studio work'),
+      instagram:CONFIG.instagram, pics:CONFIG.gallery});
+  if(!groups.length){
+    wrap.innerHTML='<div class="note">'+(es
+      ? 'Galería en camino — añade enlaces de imágenes en CONFIG.gallery o en CONFIG.artists[].portfolio y aparecerán aquí.'
+      : 'Gallery coming soon — add image links in CONFIG.gallery or CONFIG.artists[].portfolio and they’ll show here.')+'</div>';
+    return;
+  }
+  const banner=CONFIG.demo?'<div class="note" style="margin-bottom:22px">'+(es
+    ? '⚠️ Estas imágenes son solo de muestra, únicamente para fines de demostración. Reemplázalas con el trabajo real del estudio antes de publicar.'
+    : '⚠️ These images are samples, for demonstration purposes only. Replace them with the studio’s real work before launch.')+'</div>':'';
+  wrap.innerHTML=banner+groups.map(g=>{
+    const tiles=g.pics.map((src,i)=>'<button class="tile" data-src="'+src+'" data-alt="'+
+      (g.title+' — '+(es?'trabajo':'work')+' '+(i+1))+'"><img loading="lazy" src="'+src+'" alt="'+
+      g.title+'"></button>').join('');
+    const handle=g.instagram?g.instagram.split('/').filter(Boolean).pop():'';
+    const ig=g.instagram?'<a href="'+g.instagram+'" target="_blank" rel="noopener">@'+handle+'</a>':'';
+    return '<div class="gArtist"><div class="gHead"><h3>'+g.title+'</h3>'+
+      (g.styles?'<span class="gStyles">'+g.styles+'</span>':'')+ig+'</div>'+
+      '<div class="gGrid">'+tiles+'</div></div>';
+  }).join('');
+  wrap.querySelectorAll('.tile').forEach(b=>b.onclick=()=>openLightbox(b.dataset.src,b.dataset.alt));
+}
+function openLightbox(src,alt){
+  const lb=document.getElementById('lightbox');
+  const img=lb.querySelector('img'); img.src=src; img.alt=alt||'';
+  lb.classList.add('open');
+}
+function renderBrand(){
+  var nm = CONFIG.name || "Studio";
+  var parts = nm.split(" ");
+  var last = parts.length > 1 ? parts.pop() : "";
+  var head = parts.join(" ");
+  var accent = last ? (" <span style='color:var(--accent)'>" + last + "</span>") : "";
+  var wm = "<span style='font-family:var(--serif);font-weight:800;letter-spacing:.04em'>" + head + accent + "</span>";
+  var html = CONFIG.logo ? ("<img src='" + CONFIG.logo + "' alt='" + nm + "' style='height:46px;width:auto;display:block'>") : wm;
+  var h = document.getElementById("brand"); if (h) h.innerHTML = html;
+  var f = document.getElementById("brandFoot"); if (f) f.innerHTML = html;
+}
+renderBrand(); renderNAP(); renderArtists(); renderGallery();
+(function(){
+  const lb=document.getElementById('lightbox');
+  lb.addEventListener('click',()=>lb.classList.remove('open'));
+  document.addEventListener('keydown',e=>{ if(e.key==='Escape') lb.classList.remove('open'); });
+})();
+
+/* ====================================================================
+   FRONT OFFICE — KEYLESS BY DEFAULT (no API, no key).
+   Chatbot: an on-page KB answer engine grounded in CONFIG (hours, address,
+            services, FAQs) — authored answers, bilingual, instant, $0.
+   Voice receptionist: browser Web Speech API (STT + TTS), bilingual, $0.
+   Optional upgrade: set CONFIG.useLLM=true + CONFIG.chatEndpoint to route turns
+   to a Groq brain (n8n /webhook/orbit-turn); Deepgram Nova-3/Aura-2 is the
+   premium voice path. The KB engine always remains the fallback so chat/voice
+   never go dead.
+   ==================================================================== */
+const log=document.getElementById('chatLog');
+const panel=document.getElementById('chatPanel');
+const chips=document.getElementById('chatChips');
+let history=[]; // {role, content}
+let leadMode=false; // collect a callback name/number after a dead-end
+
+const CHIPS = {
+  en:[["Book a consult","I'd like to book a consult."],
+      ["Pricing","How much does a tattoo cost?"],
+      ["Cover-up","Can you cover up an old tattoo?"],
+      ["Age & ID","What's your age and ID policy?"]],
+  es:[["Agendar consulta","Quiero agendar una consulta."],
+      ["Precios","¿Cuánto cuesta un tatuaje?"],
+      ["Cover-up","¿Pueden cubrir un tatuaje viejo?"],
+      ["Edad e ID","¿Cuál es su política de edad e identificación?"]]
+};
+function renderChips(){
+  const es=document.documentElement.lang==='es';
+  chips.innerHTML=(es?CHIPS.es:CHIPS.en).map((c,i)=>
+    '<button class="chip" data-i="'+i+'">'+c[0]+'</button>').join('');
+  chips.querySelectorAll('.chip').forEach(b=>b.onclick=()=>{
+    const es=document.documentElement.lang==='es';
+    send((es?CHIPS.es:CHIPS.en)[+b.dataset.i][1]);
+  });
+}
+function bubble(text, who){
+  const d=document.createElement('div'); d.className='msg '+who; d.textContent=text;
+  log.appendChild(d); log.scrollTop=log.scrollHeight; return d;
+}
+function openChat(){
+  panel.classList.add('open');
+  if(!history.length){
+    const es=document.documentElement.lang==='es'; const nm=CONFIG.name||'';
+    bubble(es ? ('¡Hola! Soy la recepción de '+nm+'. ¿En qué te ayudo — reservar, precios u horario?')
+              : ('Hi! I’m the front desk at '+nm+'. How can I help — booking, pricing, or hours?'),'bot');
+    renderChips();
+  }
+}
+document.getElementById('chatBtn').onclick=()=> panel.classList.contains('open')?panel.classList.remove('open'):openChat();
+
+/* ---------- keyless KB answer engine (grounded in CONFIG) ---------- */
+function _norm(s){ return (s||'').toLowerCase()
+  .replace(/[áàä]/g,'a').replace(/[éèë]/g,'e').replace(/[íìï]/g,'i').replace(/[óòö]/g,'o').replace(/[úùü]/g,'u').replace(/ñ/g,'n'); }
+function _hit(q,w){ for(var i=0;i<w.length;i++){ if(q.indexOf(w[i])>=0) return true; } return false; }
+function kbAnswer(raw){
+  var es=document.documentElement.lang==='es'; var c=CONFIG; var q=_norm(raw);
+  var hours=es?(c.hoursEs||c.hoursEn||''):(c.hoursEn||''); var phone=c.phone||'';
+  if(_hit(q,['book','appoint','schedul','reserv','cita','agend','turno','walk in','sin cita']))
+    return es?('Con gusto. '+(phone?('Llámanos al '+phone+' o '):'')+'usa el botón “Reservar” y lo agendamos. ¿Qué día te conviene?')
+             :('Happy to help. '+(phone?('Call us at '+phone+' or '):'')+'tap “Book” and we’ll set it up. What day works best?');
+  if(_hit(q,['hour','open','clos','today','horari','abre','cierr','hoy','abiert']))
+    return es?('Nuestro horario: '+hours+'.'):('Our hours: '+hours+'.');
+  if(_hit(q,['where','address','locat','direcc','donde','ubica','park','map']))
+    return es?('Estamos en '+(c.address||'Salem, OR')+'.'):('We’re at '+(c.address||'Salem, OR')+'.');
+  if(_hit(q,['phone','call','number','telefon','llam','contact','reach']))
+    return phone?(es?('Llámanos al '+phone+'.'):('Call us at '+phone+'.')):(es?'Escríbenos por aquí y te ayudamos.':'Message us here and we’ll help.');
+  if(_hit(q,['price','cost','how much','precio','cuesta','cuanto','rate','fee','charge','quote']))
+    return es?'El precio depende del servicio. Te damos un estimado claro y sin compromiso — ¿qué buscas?'
+            :'Pricing depends on the service. We’ll give you a clear, no-pressure estimate — what are you looking for?';
+  if(_hit(q,['spanish','espanol','english','ingl','idioma','language','bilingu']))
+    return es?'Sí, atendemos en español e inglés.':'Yes — we help in both English and Spanish.';
+  if(c.services&&c.services.length&&_hit(q,['servic','offer','do you do','do you have','hacen','ofrec','menu']))
+    return (es?'Ofrecemos: ':'We offer: ')+c.services.join(', ')+'.';
+  if(c.faqs&&c.faqs.length){ var best=null,bs=0;
+    for(var i=0;i<c.faqs.length;i++){ var f=c.faqs[i]; var fq=_norm(es?(f.q_es||f.q_en):(f.q_en||''));
+      var toks=fq.split(/[^a-z0-9]+/).filter(function(w){return w.length>3;}); var sc=0;
+      for(var j=0;j<toks.length;j++){ if(q.indexOf(toks[j])>=0) sc++; }
+      if(sc>bs){ bs=sc; best=f; } }
+    if(best&&bs>=1) return es?(best.a_es||best.a_en):(best.a_en); }
+  leadMode=true;
+  return es?('Buena pregunta. '+(phone?('Llámanos al '+phone+' y te ayudamos al instante, o déjame tu nombre y teléfono.'):'Déjame tu nombre y teléfono y te contactamos.'))
+          :('Good question. '+(phone?('Call us at '+phone+' and we’ll help right away, or leave your name and number.'):'Leave your name and number and we’ll reach out.'));
+}
+function buildSystem(){
+  var es=document.documentElement.lang==='es'; var c=CONFIG;
+  var kb=c.name+' — '+(c.vertical||'local business')+' in '+(c.address||'Salem, OR')+'. '
+    +(c.phone?('Phone '+c.phone+'. '):'')+'Hours: '+(es?(c.hoursEs||c.hoursEn):c.hoursEn)+'. '
+    +((c.services&&c.services.length)?('Services: '+c.services.join(', ')+'. '):'');
+  if(c.faqs) for(var i=0;i<c.faqs.length;i++){ kb+=(c.faqs[i].q_en||'')+' '+(c.faqs[i].a_en||'')+' '; }
+  var tone=/law|immigration|attorney/i.test(c.vertical||'')?'Polished, professional, warm.':'Casual, warm, neighborly.';
+  return 'You are the front-desk receptionist for '+c.name+'. Answer ONLY from this KB; never invent prices, dates, or availability — offer a free estimate/consult or a callback. Keep replies to 1-2 sentences, one question at a time, fully bilingual, reply in the customer\'s language ('+(es?'Spanish':'English')+' now). TONE: '+tone+'\nKB: '+kb;
+}
+
+/* ---------- send: keyless KB by default; optional Groq brain ---------- */
+async function send(text, spoken){
+  text=(text||'').trim(); if(!text) return;
+  bubble(text,'me'); document.getElementById('chatInput').value='';
+  var es=document.documentElement.lang==='es';
+  if(leadMode){ leadMode=false;
+    var t=es?'¡Gracias! Te contactaremos en breve. Si es urgente, llámanos directamente.'
+            :'Thanks! We’ll reach out shortly. If it’s urgent, please call us directly.';
+    bubble(t,'bot'); if(spoken) speak(t); return; }
+  history.push({role:'user',content:text});
+  var typing=bubble('…','bot'); var reply=null;
+  if(CONFIG.useLLM && CONFIG.chatEndpoint){           // optional Groq brain
+    try{ var r=await fetch(CONFIG.chatEndpoint,{method:'POST',headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({system:buildSystem(), messages:history})});
+      var data=await r.json(); if(data&&data.reply) reply=data.reply; }catch(e){}
+  }
+  if(!reply) reply=kbAnswer(text);                    // keyless grounded fallback (always works)
+  typing.textContent=reply; history.push({role:'assistant',content:reply});
+  if(spoken) speak(reply);
+}
+
+/* ---------- voice receptionist: Deepgram premium (Nova-3 STT + Aura-2 TTS),
+   keyless KB brain. Push-to-talk: tap 🎙️ to start, tap again to send. Falls
+   back to the browser Web Speech API if premium voice/mic is unavailable, so
+   voice never goes dead. The reply text always comes from the keyless engine. */
+var _SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+var _rec=null,_chunks=[],_recOn=false,_media=null,_tok=null;
+function setMic(on){ var m=document.getElementById('micBtn'); if(m) m.classList.toggle('listening',!!on); }
+function speak(t){ try{ var u=new SpeechSynthesisUtterance(t); u.lang=document.documentElement.lang==='es'?'es-ES':'en-US'; speechSynthesis.cancel(); speechSynthesis.speak(u); }catch(e){} }
+
+function startVoice(){
+  openChat();
+  if(_recOn){ stopRec(); return; }                 // tap again -> send
+  if(CONFIG.premiumVoice && CONFIG.voiceTokenEndpoint){ startPremium(); }
+  else { startWeb(); }
+}
+function stopRec(){ try{ if(_rec&&_rec.state!=='inactive') _rec.stop(); }catch(e){}
+  if(_media){ _media.getTracks().forEach(function(t){t.stop();}); } _recOn=false; setMic(false); }
+
+async function getVoiceToken(){
+  var r=await fetch(CONFIG.voiceTokenEndpoint,{method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({site_key:CONFIG.voiceSiteKey||''})});
+  if(!r.ok) throw new Error('token'); return r.json();
+}
+async function startPremium(){
+  var es=document.documentElement.lang==='es';
+  try{ _tok=await getVoiceToken(); }catch(e){ return startWeb(); }  // vendor down -> Web Speech
+  try{
+    _media=await navigator.mediaDevices.getUserMedia({audio:true});
+    _chunks=[]; _rec=new MediaRecorder(_media);
+    _rec.ondataavailable=function(e){ if(e.data&&e.data.size) _chunks.push(e.data); };
+    _rec.onstop=processPremium;
+    _rec.start(); _recOn=true; setMic(true);
+    bubble(es?'Escuchando… toca 🎙️ para enviar':'Listening… tap 🎙️ to send','bot');
+  }catch(e){ _recOn=false; setMic(false); startWeb(); }   // mic denied -> Web Speech
+}
+async function processPremium(){
+  var es=document.documentElement.lang==='es'; var v=CONFIG.voice||{}; var tok=_tok||{};
+  var typing=bubble('…','bot');
+  try{
+    var blob=new Blob(_chunks,{type:(_chunks[0]&&_chunks[0].type)||'audio/webm'});
+    var url='https://api.deepgram.com/v1/listen?model='+(tok.stt_model||v.sttModel||'nova-3')
+      +'&language='+(es?'es':'en')+'&smart_format=true&punctuate=true';
+    var sr=await fetch(url,{method:'POST',headers:{'Authorization':'Token '+tok.token,'Content-Type':blob.type},body:blob});
+    var sj=await sr.json();
+    var alt=((((sj.results||{}).channels||[])[0]||{}).alternatives||[])[0]||{};
+    var transcript=(alt.transcript||'').trim();
+    if(typing.remove) typing.remove();
+    if(!transcript){ bubble(es?'No te escuché bien. ¿Puedes repetir o escribir?':'I didn’t catch that — mind repeating or typing?','bot'); return; }
+    bubble(transcript,'me'); history.push({role:'user',content:transcript});
+    var reply=kbAnswer(transcript); history.push({role:'assistant',content:reply});
+    bubble(reply,'bot'); speakPremium(reply, tok);
+  }catch(e){ if(typing.remove) typing.remove();
+    bubble(es?'Tuve un problema con la voz — sigamos por texto.':'I had a voice hiccup — let’s keep going by text.','bot'); }
+}
+async function speakPremium(text, tok){
+  var es=document.documentElement.lang==='es'; var v=CONFIG.voice||{};
+  try{
+    var model=es?(v.ttsEs||'aura-2-diana-es'):(v.ttsEn||tok.tts_model||'aura-2-thalia-en');
+    var r=await fetch('https://api.deepgram.com/v1/speak?model='+model,{method:'POST',
+      headers:{'Authorization':'Token '+tok.token,'Content-Type':'application/json'},body:JSON.stringify({text:text})});
+    if(!r.ok) throw new Error('tts'); var buf=await r.arrayBuffer();
+    new Audio(URL.createObjectURL(new Blob([buf],{type:'audio/mpeg'}))).play();
+  }catch(e){ speak(text); }                          // fall back to Web Speech TTS
+}
+function startWeb(){
+  var es=document.documentElement.lang==='es';
+  if(!_SR){ bubble(es?'La voz no está disponible aquí. Escríbeme o llámanos.':'Voice isn’t available here — type or call us.','bot'); return; }
+  var rec=new _SR(); rec.lang=es?'es-ES':'en-US'; rec.interimResults=false; rec.maxAlternatives=1;
+  setMic(true);
+  rec.onresult=function(e){ send(e.results[0][0].transcript, true); };
+  rec.onerror=function(){ setMic(false); };
+  rec.onend=function(){ setMic(false); };
+  try{ rec.start(); }catch(e){ setMic(false); }
+}
+
+/* ---------- social proof, mobile call bar, motion, schema ---------- */
+function _stars(n){ n=Math.max(0,Math.min(5,Math.round(n||5))); return '★★★★★'.slice(0,n)+'☆☆☆☆☆'.slice(0,5-n); }
+function renderReviews(){
+  const grid=document.getElementById('reviewGrid'); if(!grid) return;
+  const es=document.documentElement.lang==='es'; const R=CONFIG.reviews||[];
+  const sec=document.getElementById('reviews');
+  if(!R.length){ if(sec) sec.style.display='none'; return; }
+  grid.innerHTML=R.map(r=>'<div class="rev"><div class="stars" aria-label="'+(r.stars||5)+' / 5">'+_stars(r.stars)+'</div>'
+    +'<p>'+(es?(r.es||r.en||''):(r.en||r.es||''))+'</p><div class="who">'+(r.who||'')+'</div></div>').join('');
+  const agg=document.getElementById('revAgg');
+  const avg=(R.reduce((a,r)=>a+(+r.stars||5),0)/R.length).toFixed(1);
+  if(agg) agg.innerHTML='<b>'+avg+'</b> <span aria-hidden="true">'+_stars(avg)+'</span> · '+R.length+(es?' reseñas':' reviews');
+}
+renderReviews();
+// mobile sticky call bar
+(function(){ var cb=document.getElementById('cbCall'); if(cb&&CONFIG.phone) cb.href='tel:'+tel(CONFIG.phone); })();
+// scroll-reveal motion (skipped entirely for reduced-motion users)
+(function(){
+  try{ if(matchMedia('(prefers-reduced-motion: reduce)').matches) return; }catch(e){ return; }
+  var els=document.querySelectorAll('.hero h1,.lede,.sec,.card,.rev,.agg,.note,.gallery .tile');
+  els.forEach(function(e){ e.classList.add('reveal'); });
+  var io=new IntersectionObserver(function(ents){ ents.forEach(function(en){
+    if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); } }); },{threshold:.12});
+  els.forEach(function(e){ io.observe(e); });
+})();
+// runtime LocalBusiness schema for the bare scaffold; build-time JSON-LD (richer) wins if present
+(function(){
+  if(document.querySelector('script[type="application/ld+json"]')) return;
+  var b=CONFIG, ld={"@context":"https://schema.org","@type":"LocalBusiness","name":b.name,
+    "areaServed":"Salem, OR","knowsLanguage":["en","es"]};
+  if(b.phone) ld.telephone=b.phone; if(b.address) ld.address=b.address;
+  var s=document.createElement('script'); s.type='application/ld+json'; s.textContent=JSON.stringify(ld);
+  document.head.appendChild(s);
+})();
+document.getElementById('micBtn').addEventListener('click',startVoice);
+document.getElementById('chatForm').addEventListener('submit',e=>{
+  e.preventDefault(); send(document.getElementById('chatInput').value);
+});
+</script>
+</body>
+</html>

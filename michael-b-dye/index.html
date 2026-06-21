@@ -387,6 +387,7 @@ const chips=document.getElementById('chatChips');
 let history=[]; // {role, content}
 let leadMode=false; // collect a callback name/number after a dead-end
 let _ordering=false; // lightweight food-order follow-up state
+let _booking=false;  // lightweight appointment/booking follow-up state
 
 const CHIPS = { en:[["Free consult", "I'd like a free consultation."], ["Green card", "Can you help with a green card or family petition?"], ["Citizenship", "I want to apply for citizenship."], ["ICE detention", "A family member was detained by ICE."]],
   es:[["Consulta gratis", "Quiero una consulta gratis."], ["Green card", "¿Pueden ayudar con green card o petición familiar?"], ["Ciudadanía", "Quiero solicitar la ciudadanía."], ["Detención ICE", "Detuvieron a un familiar por ICE."]] };
@@ -438,6 +439,10 @@ function kbAnswer(raw){
              :('Hi! How can I help — '+(food?'the menu, hours, or placing an order?':'booking, pricing, or hours?'));
   if(_hit(q,['thank','thanks','gracias','thx']))
     return es?'¡Con gusto! ¿Algo más?':'You bet! Anything else?';
+  // continuing a booking: capture the time, then ask for name/number to confirm
+  if(_booking){ _booking=false; leadMode=true;
+    return es?('¡Perfecto! Te anoto para eso. ¿A qué nombre y número te confirmo?')
+             :('Perfect — I’ll get you down for that. What’s the best name and number to confirm?'); }
   // hours / location / phone / languages
   if(_hit(q,['hour','open','clos','today','horari','abre','cierr','hoy','abiert']))
     return es?('Nuestro horario: '+hours+'.'):('Our hours: '+hours+'.');
@@ -478,10 +483,17 @@ function kbAnswer(raw){
   // services
   if(c.services&&c.services.length&&(_hit(q,['servic','offer','do you do','do you have','hacen','ofrec','what do you','que ofrecen'])||item))
     return (es?'Ofrecemos: ':'We offer: ')+menu+'.';
-  // booking / appointment (non-food)
-  if(_hit(q,['book','appoint','schedul','reserv','cita','agend','turno','walk in','sin cita']))
-    return es?('Con gusto. '+(phone?('Llámanos al '+phone+' o '):'')+'usa el botón de abajo y lo agendamos. ¿Qué día te conviene?')
-             :('Happy to help. '+(phone?('Call us at '+phone+' or '):'')+'use the button below and we’ll set it up. What day works best?');
+  // booking / appointment intake (non-food) — conversational, asks for a time
+  if(_hit(q,['book','appoint','schedul','reserv','cita','agend','turno','walk in','sin cita','estimate','estimado','quote','cotiz','consult','consulta','make an appointment','set up'])){
+    _booking=true;
+    var what=es?'tu cita':'your appointment';
+    if(/tatto|pierc|tatu|ink/.test(vert)) what=es?'tu consulta':'your consult';
+    else if(/barber|salon|cut|fade/.test(vert)) what=es?'tu corte':'your cut';
+    else if(/auto|repair|mecan|garage/.test(vert)) what=es?'tu visita':'your visit';
+    else if(/law|immig|attorney|legal/.test(vert)) what=es?'tu consulta gratis':'your free consultation';
+    return es?('¡Con gusto! Vamos a agendar '+what+'. ¿Qué día y hora te conviene?')
+             :('Happy to help! Let’s set up '+what+'. What day and time works best for you?');
+  }
   // FAQ keyword match
   if(c.faqs&&c.faqs.length){ var best=null,bs=0;
     for(var i=0;i<c.faqs.length;i++){ var f=c.faqs[i]; var fq=_norm(es?(f.q_es||f.q_en):(f.q_en||''));
@@ -495,9 +507,12 @@ function kbAnswer(raw){
     return es?('Te paso con el equipo. Déjame tu nombre y teléfono y te contactan pronto.')
              :('I’ll get the team to you. Leave your name and number and they’ll reach out shortly.');
   }
-  // helpful fallback — never a dead end
-  return es?('Te puedo ayudar con '+(food?('el menú ('+menu+'), el horario o cómo ordenar'):'servicios, horario, precios o reservar')+'. '+(phone?('O llámanos al '+phone+'.'):'¿Qué necesitas?'))
-          :('I can help with '+(food?('the menu ('+menu+'), hours, or how to order'):'services, hours, pricing, or booking')+'. '+(phone?('Or call us at '+phone+'.'):'What do you need?'));
+  // helpful fallback — never a dead end; funnel toward the next action
+  return food
+    ? (es?('Te puedo ayudar con el menú ('+menu+'), el horario o tomar tu orden. ¿Quieres ordenar algo?')
+         :('I can help with the menu ('+menu+'), hours, or taking your order. Want to place an order?'))
+    : (es?('Te puedo ayudar con servicios, horario o agendarte una cita. ¿Quieres que te reserve un espacio?')
+         :('I can help with services, hours, or booking you in. Want me to set up an appointment?'));
 }
 function buildSystem(){
   var es=document.documentElement.lang==='es'; var c=CONFIG;

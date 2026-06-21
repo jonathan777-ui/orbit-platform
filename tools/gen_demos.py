@@ -10,7 +10,9 @@ CHAT = "https://jonathan777-ui.app.n8n.cloud/webhook/orbit-demo-chat"
 BASE = "https://jonathan777-ui.github.io/orbit-platform/"
 # Reuse the library's per-site llms.txt renderer (one source of truth, AEO guide).
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "skills", "airlock-vertical-kb", "tools"))
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from gen_llms_txt import render_llms, render_llms_full  # noqa: E402
+from demo_content import edge as _edge, reviews_for as _reviews_for  # noqa: E402
 
 raw = open(TPL, encoding="utf-8").read()
 src = re.sub(r"const CONFIG = \{.*?\n\};", "const CONFIG = __CONFIG_JSON__;", raw, count=1, flags=re.S)
@@ -63,7 +65,9 @@ for s in shops:
     svc = "custom tattoos, cover-ups" + (", piercing" if s["piercing"] else "")
     typ = "Tattoo & Piercing Studio" if s["piercing"] else "Tattoo Studio"
     title = f"{disp} — {typ} in Salem, OR | Bilingual EN/ES"
+    edge = _edge(slug)
     desc = f"{disp} is a licensed {typ.lower()} in Salem, Oregon offering {svc}, and bilingual (English/Spanish) service. {s['street']}. Call {s['phone']}. Book a free consult."
+    if edge[0]: desc = desc + " " + edge[0]   # per-site differentiator -> unique meta description
     lat, lng = s["geo"]
     # logo: keep an explicit one (e.g. PM), else generate a badge
     logo_rel = s.get("logo") or "logo.svg"
@@ -97,9 +101,15 @@ for s in shops:
       f'<script type="application/ld+json">{json.dumps(faq, ensure_ascii=False)}</script>\n')
     cfg = {"name":disp,"logo":logo_rel,"vertical":("tattoo and piercing" if s["piercing"] else "tattoo"),
            "address":addr,"phone":s["phone"],"hoursEn":s["hoursEn"],"hoursEs":s["hoursEs"],
-           "instagram":s["ig"],"facebook":"","bookingUrl":"","artists":[],"gallery":[],"demo":True,"chatEndpoint":CHAT}
+           "instagram":s["ig"],"facebook":"","bookingUrl":"","artists":[],"gallery":[],"demo":True,
+           "reviews":_reviews_for("tattoo"),"chatEndpoint":CHAT}
     html = src.replace("__CONFIG_JSON__", json.dumps(cfg, ensure_ascii=False))
     html = html.replace("Permanent Marx Tattoo Studio", disp).replace("Permanent Marx", disp)
+    if edge[0]:  # weave the per-site differentiator into the hero lede (EN + ES)
+        html = html.replace("Book a free consult, in English or Spanish.</span>",
+                            f"Book a free consult, in English or Spanish. {edge[0]}</span>", 1)
+        html = html.replace("Agenda una consulta gratis, en inglés o español.</span>",
+                            f"Agenda una consulta gratis, en inglés o español. {edge[1]}</span>", 1)
     html = re.sub(r"<title>.*?</title>", f"<title>{title}</title>", html, count=1, flags=re.S)
     html = re.sub(r'<meta name="description"[^>]*>', f'<meta name="description" content="{desc}">', html, count=1)
     # Traceability: record the library template + C# palette this demo was built from.

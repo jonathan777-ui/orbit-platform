@@ -4,17 +4,21 @@ REPO=os.environ.get("REPO","/home/user/orbit-platform"); TPL=os.environ.get("TPL
 CHAT="https://jonathan777-ui.app.n8n.cloud/webhook/orbit-demo-chat"
 BASE="https://jonathan777-ui.github.io/orbit-platform/"
 sys.path.insert(0,os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "skills", "airlock-vertical-kb", "tools"))
+sys.path.insert(0,os.path.dirname(os.path.abspath(__file__)))
 from gen_llms_txt import render_llms, render_llms_full  # noqa: E402
+from demo_content import edge as _edge, reviews_for as _reviews_for  # noqa: E402
+VPACK={"barbershop":"barbershop","immigration":"immigration"}
 raw=open(TPL,encoding="utf-8").read()
 
 def sec(html,a,b,new):
     return re.sub(re.escape(a)+r".*?(?="+re.escape(b)+")", a+"\n"+new+"\n", html, count=1, flags=re.S)
 
-def hero_html(p,nm):
+def hero_html(p,nm,edge=("","")):
     tr="".join(f'<span data-en>{e}</span><span data-es>{s}</span>' for e,s in p["trust"])
+    ee=(" "+edge[0]) if edge[0] else ""; es=(" "+edge[1]) if edge[1] else ""
     return (f'<div class="hero" id="main" tabindex="-1"><div class="wrap">'
       f'<h1><span data-en>{p["h1_en"]}</span><span data-es>{p["h1_es"]}</span></h1>'
-      f'<p class="lede"><span data-en>{p["lede_en"].replace("{name}",nm)}</span><span data-es>{p["lede_es"].replace("{name}",nm)}</span></p>'
+      f'<p class="lede"><span data-en>{p["lede_en"].replace("{name}",nm)}{ee}</span><span data-es>{p["lede_es"].replace("{name}",nm)}{es}</span></p>'
       f'<div class="cta-row"><a class="btn" href="#book" data-en>{p["cta_en"]}</a><a class="btn" href="#book" data-es>{p["cta_es"]}</a>'
       f'<a class="btn ghost" href="#services" data-en>{p["cta2_en"]}</a><a class="btn ghost" href="#services" data-es>{p["cta2_es"]}</a></div>'
       f'<div class="trust">{tr}</div></div></div>')
@@ -120,12 +124,13 @@ def build(b):
         "body:JSON.stringify({messages:history, lang:document.documentElement.lang,\n        page:location.pathname, business:{name:CONFIG.name, vertical:CONFIG.vertical, address:CONFIG.address, phone:CONFIG.phone, hours:CONFIG.hoursEn, instagram:CONFIG.instagram}})")
     html=html.replace("function renderGallery(){\n  const wrap=document.getElementById('galleryWrap');",
                       "function renderGallery(){\n  const wrap=document.getElementById('galleryWrap'); if(!wrap){return;}")
-    html=sec(html,"<!-- HERO -->","<!-- SERVICES -->",hero_html(p,nm))
+    edge=_edge(slug)
+    html=sec(html,"<!-- HERO -->","<!-- SERVICES -->",hero_html(p,nm,edge))
     html=sec(html,"<!-- SERVICES -->","<!-- ARTISTS -->",services_html(p))
     html=sec(html,"<!-- ARTISTS -->","<!-- GALLERY -->",team_html(p))
     html=sec(html,"<!-- GALLERY -->","<!-- BOOK -->",(GAL if p["gallery"] else ""))
     html=sec(html,"<!-- BOOK -->","<!-- FAQ -->",book_html(p))
-    html=sec(html,"<!-- FAQ -->","<footer",faq_html(p))
+    html=sec(html,"<!-- FAQ -->","<!-- REVIEWS -->",faq_html(p))
     html=html.replace("data-en>Artists</a>",f'data-en>{p["nav_en"]}</a>').replace("data-es>Artistas</a>",f'data-es>{p["nav_es"]}</a>')
     if not p["gallery"]:
         html=html.replace('<a class="link" href="#gallery" data-en>Gallery</a><a class="link" href="#gallery" data-es>Galería</a>\n    ','')
@@ -143,6 +148,7 @@ def build(b):
         desc=f"{nm} is a barbershop in Salem, Oregon for fades, classic cuts, beard trims and hot-towel shaves. Bilingual (English/Spanish). {b['street']}."+(f" Call {b['phone']}." if b['phone'] else "")
     else:
         desc=f"{nm} — bilingual immigration attorney in Salem, Oregon. Green cards, citizenship, work permits, family petitions and deportation defense. Free, confidential consultation."+(f" {b['street']}." if b['street'] else "")+(f" Call {b['phone']}." if b['phone'] else "")
+    if edge[0]: desc=desc+" "+edge[0]   # per-site differentiator -> unique meta description
     lat,lng=b["geo"]; logo_rel=b.get("logo") or "logo.svg"
     d=os.path.join(REPO,slug); os.makedirs(d,exist_ok=True)
     if not b.get("logo"):
@@ -177,7 +183,7 @@ def build(b):
     addr_disp=(f'{b["street"]}, Salem, OR {b["zip"]}' if b["street"] else "Salem, OR (by appointment)")
     cfg={"name":nm,"logo":logo_rel,"vertical":b["vertical_pack"],"address":addr_disp,"phone":b["phone"],
          "hoursEn":b["hoursEn"],"hoursEs":b["hoursEs"],"instagram":b.get("ig",""),"facebook":"","bookingUrl":"",
-         "artists":[],"gallery":[],"demo":p["gallery"],"chatEndpoint":CHAT}
+         "artists":[],"gallery":[],"demo":p["gallery"],"reviews":_reviews_for(b["vertical_pack"]),"chatEndpoint":CHAT}
     html=html.replace("__CFG__",json.dumps(cfg,ensure_ascii=False))
     html=re.sub(r"<title>.*?</title>",f"<title>{title}</title>",html,count=1,flags=re.S)
     html=re.sub(r'<meta name="description"[^>]*>',f'<meta name="description" content="{desc}">',html,count=1)

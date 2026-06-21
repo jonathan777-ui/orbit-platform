@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://jonathan777-ui.github.io/orbit-platform/sitemap.xml

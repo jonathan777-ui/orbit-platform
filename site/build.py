@@ -163,7 +163,7 @@ def build() -> None:
 
 def write_llms_txt(metas: list[tuple[Path, str, str]]) -> None:
     """Write a machine-readable /llms.txt summary of the docs site."""
-    base = "https://jonathan777-ui.github.io/orbit-platform"
+    base = "https://jonathan777-ui.github.io/orbit-platform/docs"
     lines = [
         "# Airlock Vertical KB — Orbit Platform (docs)",
         "> Documentation for the airlock-vertical-kb Claude Code skill: generates bilingual",

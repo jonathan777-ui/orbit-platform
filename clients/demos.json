@@ -1,0 +1,263 @@
+[
+ {
+  "slug": "permanent-marx-tattoo",
+  "display": "Permanent Marx Tattoo Studio",
+  "piercing": true,
+  "logo": "images/logo.svg",
+  "street": "1373 Edgewater St NW",
+  "zip": "97304",
+  "phone": "(503) 990-7163",
+  "hoursEn": "Mon–Fri 12–10pm · Sat–Sun by appointment",
+  "hoursEs": "Lun–Vie 12–10pm · Sáb–Dom con cita",
+  "ig": "https://www.instagram.com/permanentmarxtattoo",
+  "geo": [
+   44.93935,
+   -123.06155
+  ],
+  "hours": [
+   [
+    [
+     "Mo",
+     "Tu",
+     "We",
+     "Th",
+     "Fr"
+    ],
+    "12:00",
+    "22:00"
+   ]
+  ],
+  "tag": "Tattoo · Piercing",
+  "pal": {
+   "bg": "#0d051a",
+   "panel": "#15082a",
+   "line": "#260e4a",
+   "fg": "#f1f3f8",
+   "muted": "#8582a3",
+   "accent": "#7B2FF2",
+   "accent2": "#3bf2d1",
+   "ink": "#08030f"
+  },
+  "combo": "C20",
+  "template": "Inkwell"
+ },
+ {
+  "slug": "roots-deep-tattoo",
+  "display": "Roots Deep Tattoo",
+  "piercing": false,
+  "logo": "",
+  "street": "2017 25th St SE",
+  "zip": "97302",
+  "phone": "(503) 385-1005",
+  "hoursEn": "Mon 11–5 · Tue–Sat 12–5 · Sun closed",
+  "hoursEs": "Lun 11–5 · Mar–Sáb 12–5 · Dom cerrado",
+  "ig": "https://www.instagram.com/rootsdeeptattoo",
+  "geo": [
+   44.91978,
+   -123.01142
+  ],
+  "hours": [
+   [
+    [
+     "Mo"
+    ],
+    "11:00",
+    "17:00"
+   ],
+   [
+    [
+     "Tu",
+     "We",
+     "Th",
+     "Fr",
+     "Sa"
+    ],
+    "12:00",
+    "17:00"
+   ]
+  ],
+  "tag": "Tattoo · Bilingual",
+  "pal": {
+   "bg": "#1a0713",
+   "panel": "#2a0b1f",
+   "line": "#4a1337",
+   "fg": "#f1f3f8",
+   "muted": "#92849c",
+   "accent": "#A8327E",
+   "accent2": "#e5be67",
+   "ink": "#0f040b"
+  },
+  "combo": "C24",
+  "template": "Body Art"
+ },
+ {
+  "slug": "alchemy-tattoo-collective",
+  "display": "Alchemy Tattoo Collective",
+  "piercing": true,
+  "logo": "",
+  "street": "220 Liberty St NE",
+  "zip": "97301",
+  "phone": "(503) 332-3298",
+  "hoursEn": "Walk-ins 12–6 · otherwise by appointment",
+  "hoursEs": "Sin cita 12–6 · demás horas con cita",
+  "ig": "https://www.instagram.com/alchemytattoocollective_salem",
+  "geo": [
+   44.94135,
+   -123.0378
+  ],
+  "hours": [
+   [
+    [
+     "Mo",
+     "Tu",
+     "We",
+     "Th",
+     "Fr",
+     "Sa"
+    ],
+    "12:00",
+    "18:00"
+   ]
+  ],
+  "tag": "Tattoo · Piercing",
+  "pal": {
+   "bg": "#08101a",
+   "panel": "#0e192a",
+   "line": "#182d4a",
+   "fg": "#f1f3f8",
+   "muted": "#808da3",
+   "accent": "#2FE6D6",
+   "accent2": "#6d7f97",
+   "ink": "#05090f"
+  },
+  "combo": "C27",
+  "template": "Inkwell"
+ },
+ {
+  "slug": "my-living-canvas",
+  "display": "My Living Canvas",
+  "piercing": false,
+  "logo": "",
+  "street": "392 Liberty St",
+  "zip": "97301",
+  "phone": "(503) 884-4043",
+  "hoursEn": "Mon–Fri 3–8:30pm · Sat–Sun closed (by appt)",
+  "hoursEs": "Lun–Vie 3–8:30pm · Sáb–Dom cerrado (con cita)",
+  "ig": "https://www.instagram.com/mylivingcanvastattoostudio",
+  "geo": [
+   44.93716,
+   -123.03992
+  ],
+  "hours": [
+   [
+    [
+     "Mo",
+     "Tu",
+     "We",
+     "Th",
+     "Fr"
+    ],
+    "15:00",
+    "20:30"
+   ]
+  ],
+  "tag": "Tattoo · Bilingual",
+  "pal": {
+   "bg": "#0b091a",
+   "panel": "#120e2a",
+   "line": "#1f184a",
+   "fg": "#f1f3f8",
+   "muted": "#8286a3",
+   "accent": "#6C3FB5",
+   "accent2": "#f26393",
+   "ink": "#06050f"
+  },
+  "combo": "C26",
+  "template": "Body Art"
+ },
+ {
+  "slug": "addictions-bodyart",
+  "display": "Addictions BodyArt",
+  "piercing": true,
+  "logo": "",
+  "street": "198 Liberty St SE",
+  "zip": "97301",
+  "phone": "(503) 825-0888",
+  "hoursEn": "Mon–Sat 10:30am–7:30pm · Sun closed",
+  "hoursEs": "Lun–Sáb 10:30am–7:30pm · Dom cerrado",
+  "ig": "https://www.instagram.com/addictionssalem",
+  "geo": [
+   44.93904,
+   -123.03902
+  ],
+  "hours": [
+   [
+    [
+     "Mo",
+     "Tu",
+     "We",
+     "Th",
+     "Fr",
+     "Sa"
+    ],
+    "10:30",
+    "19:30"
+   ]
+  ],
+  "tag": "Piercing · Tattoo",
+  "pal": {
+   "bg": "#1a0306",
+   "panel": "#2a0409",
+   "line": "#4a0810",
+   "fg": "#f1f3f8",
+   "muted": "#927f8e",
+   "accent": "#D62839",
+   "accent2": "#7c7c7e",
+   "ink": "#0f0203"
+  },
+  "combo": "C19",
+  "template": "Body Art"
+ },
+ {
+  "slug": "desire-ink-lab",
+  "display": "Desire Ink Lab",
+  "piercing": false,
+  "logo": "",
+  "street": "2310 Commercial St SE",
+  "zip": "97302",
+  "phone": "(503) 584-1626",
+  "hoursEn": "Mon–Fri 10am–6pm · Sat–Sun closed",
+  "hoursEs": "Lun–Vie 10am–6pm · Sáb–Dom cerrado",
+  "ig": "https://www.instagram.com/desireinklab",
+  "geo": [
+   44.91897,
+   -123.04426
+  ],
+  "hours": [
+   [
+    [
+     "Mo",
+     "Tu",
+     "We",
+     "Th",
+     "Fr"
+    ],
+    "10:00",
+    "18:00"
+   ]
+  ],
+  "tag": "Tattoo · Bilingual",
+  "pal": {
+   "bg": "#1a0d16",
+   "panel": "#2a1524",
+   "line": "#4a2540",
+   "fg": "#f1f3f8",
+   "muted": "#928a9f",
+   "accent": "#D98BA6",
+   "accent2": "#a17f96",
+   "ink": "#0f080d"
+  },
+  "combo": "C37",
+  "template": "Inkwell"
+ }
+]

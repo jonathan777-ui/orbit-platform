@@ -1,0 +1,384 @@
+[
+ {
+  "slug": "javis-fades",
+  "display": "Javi's Fades",
+  "vertical_pack": "barbershop",
+  "street": "327 State St",
+  "zip": "97301",
+  "phone": "(971) 218-5363",
+  "hoursEn": "Mon–Fri 9am–6pm · Sat 9–5 · Sun 9–4",
+  "hoursEs": "Lun–Vie 9am–6pm · Sáb 9–5 · Dom 9–4",
+  "ig": "https://www.instagram.com/javisfadesbarbershop",
+  "site": "https://javisfades.com",
+  "geo": [
+   44.9388,
+   -123.0395
+  ],
+  "tag": "Barbershop · Bilingual",
+  "hours": [
+   [
+    [
+     "Mo",
+     "Tu",
+     "We",
+     "Th",
+     "Fr"
+    ],
+    "09:00",
+    "18:00"
+   ],
+   [
+    [
+     "Sa"
+    ],
+    "09:00",
+    "17:00"
+   ],
+   [
+    [
+     "Su"
+    ],
+    "09:00",
+    "16:00"
+   ]
+  ],
+  "pal": {
+   "bg": "#1a0405",
+   "panel": "#2a0608",
+   "line": "#4a0b0f",
+   "fg": "#f1f3f8",
+   "muted": "#92818d",
+   "accent": "#D5202B",
+   "accent2": "#86888e",
+   "ink": "#0f0203"
+  },
+  "combo": "C31",
+  "template": "Fade"
+ },
+ {
+  "slug": "the-barbers",
+  "display": "The Barbers",
+  "vertical_pack": "barbershop",
+  "street": "476 Lancaster Dr NE",
+  "zip": "97301",
+  "phone": "(503) 585-0754",
+  "hoursEn": "Walk-ins & appointments — call for today's hours",
+  "hoursEs": "Con y sin cita — llama para el horario",
+  "ig": "",
+  "site": "",
+  "geo": [
+   44.953,
+   -122.992
+  ],
+  "tag": "Barbershop · Bilingual",
+  "pal": {
+   "bg": "#15171a",
+   "panel": "#21252a",
+   "line": "#3b404a",
+   "fg": "#f1f3f8",
+   "muted": "#8d94a3",
+   "accent": "#F2B100",
+   "accent2": "#898e95",
+   "ink": "#0c0d0f"
+  },
+  "combo": "C36",
+  "template": "Fade"
+ },
+ {
+  "slug": "reds-barber-shop",
+  "display": "Red's Barber Shop",
+  "vertical_pack": "barbershop",
+  "street": "3300 Market St, Ste 11",
+  "zip": "97301",
+  "phone": "(503) 371-8955",
+  "hoursEn": "Walk-ins & appointments — call for today's hours",
+  "hoursEs": "Con y sin cita — llama para el horario",
+  "ig": "",
+  "site": "",
+  "geo": [
+   44.947,
+   -123.008
+  ],
+  "tag": "Barbershop · Bilingual",
+  "pal": {
+   "bg": "#1a0505",
+   "panel": "#2a0808",
+   "line": "#4a0f0f",
+   "fg": "#f1f3f8",
+   "muted": "#92828d",
+   "accent": "#E04848",
+   "accent2": "#d56060",
+   "ink": "#0f0303"
+  },
+  "combo": "C16",
+  "template": "Fade"
+ },
+ {
+  "slug": "johnnys-barbershop",
+  "display": "Johnny's Barbershop",
+  "vertical_pack": "barbershop",
+  "street": "388 State St",
+  "zip": "97301",
+  "phone": "(503) 510-8642",
+  "hoursEn": "Walk-ins & appointments — call for today's hours",
+  "hoursEs": "Con y sin cita — llama para el horario",
+  "ig": "",
+  "site": "https://dgbarbers.com",
+  "geo": [
+   44.9388,
+   -123.0388
+  ],
+  "tag": "Barbershop · Bilingual",
+  "pal": {
+   "bg": "#07111a",
+   "panel": "#0b1b2a",
+   "line": "#14304a",
+   "fg": "#f1f3f8",
+   "muted": "#7e8ea3",
+   "accent": "#C2965A",
+   "accent2": "#60849c",
+   "ink": "#040a0f"
+  },
+  "combo": "C40",
+  "template": "Fade"
+ },
+ {
+  "slug": "faded-inc",
+  "display": "Faded Inc.",
+  "vertical_pack": "barbershop",
+  "street": "675 Orchard Heights Rd NW #250",
+  "zip": "97304",
+  "phone": "",
+  "hoursEn": "Walk-ins & appointments — call for today's hours",
+  "hoursEs": "Con y sin cita — llama para el horario",
+  "ig": "",
+  "site": "https://www.fadedoregon.com",
+  "geo": [
+   44.956,
+   -123.07
+  ],
+  "tag": "Barbershop · West Salem",
+  "pal": {
+   "bg": "#12161a",
+   "panel": "#1d232a",
+   "line": "#333e4a",
+   "fg": "#f1f3f8",
+   "muted": "#8a93a3",
+   "accent": "#3B82C4",
+   "accent2": "#798591",
+   "ink": "#0a0d0f"
+  },
+  "combo": "C2",
+  "template": "Fade"
+ },
+ {
+  "slug": "michael-b-dye",
+  "display": "The Law Offices of Michael B. Dye",
+  "vertical_pack": "immigration",
+  "street": "456 State St, Suite 200",
+  "zip": "97301",
+  "phone": "(503) 581-5562",
+  "hoursEn": "Mon–Fri 9am–5pm",
+  "hoursEs": "Lun–Vie 9am–5pm",
+  "ig": "",
+  "site": "https://www.mikedyesalemattorney.com",
+  "geo": [
+   44.939,
+   -123.038
+  ],
+  "tag": "Immigration · Bilingual",
+  "hours": [
+   [
+    [
+     "Mo",
+     "Tu",
+     "We",
+     "Th",
+     "Fr"
+    ],
+    "09:00",
+    "17:00"
+   ]
+  ],
+  "pal": {
+   "bg": "#07101a",
+   "panel": "#0b1a2a",
+   "line": "#132e4a",
+   "fg": "#f1f3f8",
+   "muted": "#7e8ea3",
+   "accent": "#C9A227",
+   "accent2": "#7f858e",
+   "ink": "#04090f"
+  },
+  "combo": "C1",
+  "template": "Justitia"
+ },
+ {
+  "slug": "terrence-green-law",
+  "display": "Terrence Green Law",
+  "vertical_pack": "immigration",
+  "street": "960 Broadway St NE, Suite 4",
+  "zip": "97301",
+  "phone": "(503) 877-3439",
+  "hoursEn": "Mon–Fri 9am–5pm",
+  "hoursEs": "Lun–Vie 9am–5pm",
+  "ig": "",
+  "site": "https://www.terrencegreenlaw.com",
+  "geo": [
+   44.946,
+   -123.036
+  ],
+  "tag": "Immigration · Bilingual",
+  "hours": [
+   [
+    [
+     "Mo",
+     "Tu",
+     "We",
+     "Th",
+     "Fr"
+    ],
+    "09:00",
+    "17:00"
+   ]
+  ],
+  "pal": {
+   "bg": "#031a13",
+   "panel": "#052a1f",
+   "line": "#0a4a37",
+   "fg": "#f1f3f8",
+   "muted": "#7b989c",
+   "accent": "#36C28E",
+   "accent2": "#409d7f",
+   "ink": "#020f0b"
+  },
+  "combo": "C8",
+  "template": "Justitia"
+ },
+ {
+  "slug": "hernandez-law-office",
+  "display": "Hernandez Law Office",
+  "vertical_pack": "immigration",
+  "street": "3850 Portland Rd NE, Ste 200",
+  "zip": "97301",
+  "phone": "(503) 746-9277",
+  "hoursEn": "Mon–Fri 9am–5pm",
+  "hoursEs": "Lun–Vie 9am–5pm",
+  "ig": "",
+  "site": "",
+  "geo": [
+   44.972,
+   -123.001
+  ],
+  "tag": "Immigration · Bilingual",
+  "hours": [
+   [
+    [
+     "Mo",
+     "Tu",
+     "We",
+     "Th",
+     "Fr"
+    ],
+    "09:00",
+    "17:00"
+   ]
+  ],
+  "pal": {
+   "bg": "#050e1a",
+   "panel": "#08172a",
+   "line": "#0f284a",
+   "fg": "#f1f3f8",
+   "muted": "#7c8ba3",
+   "accent": "#4FA3E3",
+   "accent2": "#6185b8",
+   "ink": "#03080f"
+  },
+  "combo": "C6",
+  "template": "Habeas"
+ },
+ {
+  "slug": "affordable-immigration",
+  "display": "Affordable Immigration Services",
+  "vertical_pack": "immigration",
+  "street": "3545 Portland Rd NE, Suite 110",
+  "zip": "97301",
+  "phone": "(971) 308-5892",
+  "hoursEn": "Mon–Fri 9am–5pm",
+  "hoursEs": "Lun–Vie 9am–5pm",
+  "ig": "",
+  "site": "https://www.immigratenw.com",
+  "geo": [
+   44.97,
+   -123.002
+  ],
+  "tag": "Immigration · Bilingual",
+  "hours": [
+   [
+    [
+     "Mo",
+     "Tu",
+     "We",
+     "Th",
+     "Fr"
+    ],
+    "09:00",
+    "17:00"
+   ]
+  ],
+  "pal": {
+   "bg": "#1a0c06",
+   "panel": "#2a130a",
+   "line": "#4a2211",
+   "fg": "#f1f3f8",
+   "muted": "#92898e",
+   "accent": "#D08A52",
+   "accent2": "#85905b",
+   "ink": "#0f0703"
+  },
+  "combo": "C13",
+  "template": "Statute"
+ },
+ {
+  "slug": "arellano-law-salem",
+  "display": "Arellano Law Firm",
+  "vertical_pack": "immigration",
+  "street": "",
+  "zip": "97301",
+  "phone": "(503) 305-3425",
+  "hoursEn": "Mon–Fri 9am–5pm · by appointment",
+  "hoursEs": "Lun–Vie 9am–5pm · con cita",
+  "ig": "",
+  "site": "https://arellanolegal.com/salem/",
+  "geo": [
+   44.94,
+   -123.04
+  ],
+  "tag": "Immigration · Bilingual",
+  "hours": [
+   [
+    [
+     "Mo",
+     "Tu",
+     "We",
+     "Th",
+     "Fr"
+    ],
+    "09:00",
+    "17:00"
+   ]
+  ],
+  "pal": {
+   "bg": "#1a090c",
+   "panel": "#2a0e14",
+   "line": "#4a1923",
+   "fg": "#f1f3f8",
+   "muted": "#928695",
+   "accent": "#C9A66B",
+   "accent2": "#aa7781",
+   "ink": "#0f0507"
+  },
+  "combo": "C7",
+  "template": "Counsel"
+ }
+]

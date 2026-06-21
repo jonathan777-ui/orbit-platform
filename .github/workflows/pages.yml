@@ -52,15 +52,23 @@ jobs:
         run: pip install "markdown==3.10.2"
       - name: Build static site
         run: python site/build.py
-      - name: Publish to gh-pages branch
+      - name: Publish docs to gh-pages/docs (preserving demo sites)
         run: |
-          cd site/_site
-          touch .nojekyll
-          git init -q -b gh-pages
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          # gh-pages also hosts the in-session-generated demo sites at the root.
+          # Publish docs into the /docs/ subpath and PRESERVE everything else
+          # (no force-push, no fresh git init) so demos are never clobbered.
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git clone --depth 1 --branch gh-pages \
+            "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" gh-pages-out \
+            || (mkdir gh-pages-out && cd gh-pages-out && git init -q -b gh-pages && cd ..)
+          rm -rf gh-pages-out/docs
+          mkdir -p gh-pages-out/docs
+          cp -R site/_site/. gh-pages-out/docs/
+          touch gh-pages-out/.nojekyll
+          cd gh-pages-out
           git add -A
-          git commit -q -m "Deploy docs site ${GITHUB_SHA}"
-          git push -f "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" gh-pages
+          git commit -q -m "Deploy docs site (/docs) ${GITHUB_SHA}" || { echo "No docs changes."; exit 0; }
+          git push "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" gh-pages
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

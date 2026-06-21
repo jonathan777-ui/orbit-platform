@@ -107,6 +107,20 @@ receptionist from the same KB), compliance, and a **pass/fail launch-gate scorec
 generators ship a *website*; Orbit ships a *front office*. Never ship to clear a checkbox — ship to
 win the side-by-side.
 
+## Growth playbooks & site audit
+
+Four references operationalize the growth side of a build:
+- `references/website-audit.md` — **paste any URL** (client's or a competitor's) and grade it against
+  the quality bar; returns a scored teardown + the recommended Orbit tier/template. A lead magnet and
+  scoping tool (the productized Presence Audit).
+- `references/local-seo-gbp.md` — the **local-first foundation** (GBP, reviews, NAP/citations, on-site
+  local, speed-to-lead) with a 30/60/90 cadence.
+- `references/local-landing-pages.md` — the **per-city landing-page system**: cities (not ZIP doorway
+  pages), curated city × money-service grid, 2–3 per batch, uniqueness bar, silo + schema.
+- `references/aeo-guide.md` — **AEO / `llms.txt`**: how to win AI answer-engine citations (Google AI
+  Overviews, ChatGPT, Perplexity, Gemini). Geographic scope is the Local→Regional→National ladder in
+  `quality-bar.md` §2.5b — default local-first, climb by business model + tier.
+
 ## Output structure
 
 ALWAYS follow `references/kb-template.md`. Never skip the compliance section or the data schema —

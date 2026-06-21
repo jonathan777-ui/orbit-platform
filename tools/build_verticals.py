@@ -2,6 +2,9 @@
 import re, json, os, sys
 REPO=os.environ.get("REPO","/home/user/orbit-platform"); TPL=os.environ.get("TPL", os.path.join(os.path.dirname(os.path.abspath(__file__)), "templates", "demo-base.html"))
 CHAT="https://jonathan777-ui.app.n8n.cloud/webhook/orbit-turn"  # optional Groq brain (useLLM)
+VOICE_TOKEN="https://jonathan777-ui.app.n8n.cloud/webhook/voice-token"  # Deepgram 30s grant vendor
+VOICE_SITE_KEY="ORBIT-SET-LAUNCH-SITE-KEY"
+VOICE_MODELS={"sttModel":"nova-3","ttsEn":"aura-2-thalia-en","ttsEs":"aura-2-celeste-es"}
 BASE="https://jonathan777-ui.github.io/orbit-platform/"
 sys.path.insert(0,os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "skills", "airlock-vertical-kb", "tools"))
 sys.path.insert(0,os.path.dirname(os.path.abspath(__file__)))
@@ -184,6 +187,7 @@ def build(b):
     cfg={"name":nm,"logo":logo_rel,"vertical":b["vertical_pack"],"address":addr_disp,"phone":b["phone"],
          "hoursEn":b["hoursEn"],"hoursEs":b["hoursEs"],"instagram":b.get("ig",""),"facebook":"","bookingUrl":"",
          "artists":[],"gallery":[],"demo":p["gallery"],"services":kb_services,"faqs":kb_faqs,"useLLM":False,
+         "premiumVoice":True,"voiceTokenEndpoint":VOICE_TOKEN,"voiceSiteKey":VOICE_SITE_KEY,"voice":VOICE_MODELS,
          "reviews":_reviews_for(b["vertical_pack"]),"chatEndpoint":CHAT}
     html=html.replace("__CFG__",json.dumps(cfg,ensure_ascii=False))
     html=re.sub(r"<title>.*?</title>",f"<title>{title}</title>",html,count=1,flags=re.S)

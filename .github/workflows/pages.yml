@@ -1,8 +1,10 @@
-name: Deploy docs site to GitHub Pages
+name: Build & (gated) deploy docs site
 
-# Builds the static docs site and publishes it to the `gh-pages` branch.
-# Pages "Source" should be set to: Deploy from a branch -> gh-pages -> / (root).
-# (The built site includes a .nojekyll file so GitHub serves the HTML as-is.)
+# Human go-live gate: pushes only BUILD-CHECK (catch breakage). Publishing to the
+# gh-pages branch happens only on a MANUAL run (workflow_dispatch) — that manual
+# run IS the human go-live approval. Nothing reaches the live site automatically.
+# (For a formal approval record, add a GitHub Environment with required reviewers
+# to the `publish` job.)
 
 on:
   push:
@@ -21,21 +23,35 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  build-and-publish:
+  build-check:
+    # Every push: build the site to catch breakage. Does NOT publish.
+    if: github.event_name != 'workflow_dispatch'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-
       - name: Install build deps
         run: pip install "markdown==3.10.2"
+      - name: Build static site (validate)
+        run: python site/build.py
+      - name: Note
+        run: echo "Build OK. Publish is GATED — run this workflow manually (Run workflow) to go live."
 
+  publish:
+    # Human go-live gate: only a manual run publishes to gh-pages.
+    if: github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install build deps
+        run: pip install "markdown==3.10.2"
       - name: Build static site
         run: python site/build.py
-
       - name: Publish to gh-pages branch
         run: |
           cd site/_site

@@ -130,6 +130,13 @@ Four references operationalize the growth side of a build:
 - `tools/audit_batch.py` — competitor-audit **batch mode**: several audited URLs → one weighted
   comparison grid (markdown) graded against the launch gate. Hand the output file to the right conversation.
 
+## The build pipeline (run it the same way every time)
+
+`references/build-pipeline.md` is the ordered end-to-end path — **audit → scope → compile KB → template
+→ scaffold/build → fill → front office → §4 gate → build-review gate → human go-live → deploy →
+continue** — with a Definition-of-Ready (before build) and Definition-of-Done (before go-live)
+checklist. Every demo clears it before it ships.
+
 ## Output structure
 
 ALWAYS follow `references/kb-template.md`. Never skip the compliance section or the data schema —

@@ -236,7 +236,7 @@
    CONFIG — EDIT THESE WITH THE STUDIO'S REAL DETAILS
    These are placeholders. Fill in the verified business info before launch.
    ==================================================================== */
-const CONFIG = {"name": "Faded Inc.", "logo": "logo.svg", "vertical": "barbershop", "address": "675 Orchard Heights Rd NW #250, Salem, OR 97304", "phone": "", "hoursEn": "Walk-ins & appointments — call for today's hours", "hoursEs": "Con y sin cita — llama para el horario", "instagram": "", "facebook": "", "bookingUrl": "", "artists": [], "gallery": [], "demo": true, "services": ["Haircuts & Fades", "Beard & Line-up", "Hot-Towel Shave", "Kids' Cuts", "Designs & Details"], "faqs": [{"q_en": "How much is a haircut?", "a_en": "Pricing depends on the service &mdash; your barber confirms it before the cut, with shop rates posted in-store.", "q_es": "&iquest;Cu&aacute;nto cuesta un corte?", "a_es": "El precio depende del servicio &mdash; tu barbero lo confirma antes de empezar, con las tarifas a la vista."}, {"q_en": "Do you take walk-ins?", "a_en": "Yes &mdash; walk in during open hours, or book ahead to skip the wait.", "q_es": "&iquest;Atienden sin cita?", "a_es": "S&iacute; &mdash; llega en horario, o reserva para no esperar."}, {"q_en": "Do you do beard trims and shaves?", "a_en": "We do &mdash; beard shaping, line-ups and hot-towel straight-razor shaves.", "q_es": "&iquest;Hacen barba y afeitado?", "a_es": "S&iacute; &mdash; dise&ntilde;o de barba, perfilado y afeitado a navaja con toalla caliente."}, {"q_en": "Do you cut kids' hair?", "a_en": "Absolutely &mdash; we keep it quick and patient for the little ones.", "q_es": "&iquest;Cortan a ni&ntilde;os?", "a_es": "Claro &mdash; r&aacute;pido y con paciencia para los peque&ntilde;os."}, {"q_en": "Can I request a specific barber?", "a_en": "Yes &mdash; tell us who, or book directly with your barber.", "q_es": "&iquest;Puedo pedir un barbero?", "a_es": "S&iacute; &mdash; dinos cu&aacute;l, o reserva directo con tu barbero."}], "useLLM": false, "premiumVoice": true, "voiceTokenEndpoint": "https://jonathan777-ui.app.n8n.cloud/webhook/voice-token", "voiceSiteKey": "ORBIT-SET-LAUNCH-SITE-KEY", "voice": {"sttModel": "nova-3", "ttsEn": "aura-2-thalia-en", "ttsEs": "aura-2-diana-es"}, "reviews": [{"stars": 5, "en": "Best fade I've had in Salem. In and out, looked sharp.", "es": "El mejor fade que me han hecho en Salem. Rápido y quedó muy bien.", "who": "Sample · demo"}, {"stars": 5, "en": "Walked in on a Saturday, short wait, great line-up and beard trim.", "es": "Llegué sin cita un sábado, poca espera, excelente perfilado y barba.", "who": "Sample · demo"}, {"stars": 5, "en": "They speak Spanish and English — my whole family comes here now.", "es": "Hablan español e inglés — ahora viene toda mi familia.", "who": "Sample · demo"}], "chatEndpoint": "https://jonathan777-ui.app.n8n.cloud/webhook/orbit-turn"};
+const CONFIG = {"name": "Faded Inc.", "logo": "logo.svg", "vertical": "barbershop", "address": "675 Orchard Heights Rd NW #250, Salem, OR 97304", "phone": "", "hoursEn": "Walk-ins & appointments — call for today's hours", "hoursEs": "Con y sin cita — llama para el horario", "instagram": "", "facebook": "", "bookingUrl": "", "artists": [], "gallery": [], "demo": true, "services": ["Haircuts & Fades", "Beard & Line-up", "Hot-Towel Shave", "Kids' Cuts", "Designs & Details"], "faqs": [{"q_en": "How much is a haircut?", "a_en": "Pricing depends on the service — your barber confirms it before the cut, with shop rates posted in-store.", "q_es": "¿Cuánto cuesta un corte?", "a_es": "El precio depende del servicio — tu barbero lo confirma antes de empezar, con las tarifas a la vista."}, {"q_en": "Do you take walk-ins?", "a_en": "Yes — walk in during open hours, or book ahead to skip the wait.", "q_es": "¿Atienden sin cita?", "a_es": "Sí — llega en horario, o reserva para no esperar."}, {"q_en": "Do you do beard trims and shaves?", "a_en": "We do — beard shaping, line-ups and hot-towel straight-razor shaves.", "q_es": "¿Hacen barba y afeitado?", "a_es": "Sí — diseño de barba, perfilado y afeitado a navaja con toalla caliente."}, {"q_en": "Do you cut kids' hair?", "a_en": "Absolutely — we keep it quick and patient for the little ones.", "q_es": "¿Cortan a niños?", "a_es": "Claro — rápido y con paciencia para los pequeños."}, {"q_en": "Can I request a specific barber?", "a_en": "Yes — tell us who, or book directly with your barber.", "q_es": "¿Puedo pedir un barbero?", "a_es": "Sí — dinos cuál, o reserva directo con tu barbero."}], "useLLM": false, "premiumVoice": true, "voiceTokenEndpoint": "https://jonathan777-ui.app.n8n.cloud/webhook/voice-token", "voiceSiteKey": "ORBIT-SET-LAUNCH-SITE-KEY", "voice": {"sttModel": "nova-3", "ttsEn": "aura-2-thalia-en", "ttsEs": "aura-2-diana-es"}, "reviews": [{"stars": 5, "en": "Best fade I've had in Salem. In and out, looked sharp.", "es": "El mejor fade que me han hecho en Salem. Rápido y quedó muy bien.", "who": "Sample · demo"}, {"stars": 5, "en": "Walked in on a Saturday, short wait, great line-up and beard trim.", "es": "Llegué sin cita un sábado, poca espera, excelente perfilado y barba.", "who": "Sample · demo"}, {"stars": 5, "en": "They speak Spanish and English — my whole family comes here now.", "es": "Hablan español e inglés — ahora viene toda mi familia.", "who": "Sample · demo"}], "chatEndpoint": "https://jonathan777-ui.app.n8n.cloud/webhook/orbit-turn"};
 
 /* ---------- language ---------- */
 function setLang(l){
@@ -418,34 +418,73 @@ document.getElementById('chatBtn').onclick=()=> panel.classList.contains('open')
 function _norm(s){ return (s||'').toLowerCase()
   .replace(/[áàä]/g,'a').replace(/[éèë]/g,'e').replace(/[íìï]/g,'i').replace(/[óòö]/g,'o').replace(/[úùü]/g,'u').replace(/ñ/g,'n'); }
 function _hit(q,w){ for(var i=0;i<w.length;i++){ if(q.indexOf(w[i])>=0) return true; } return false; }
+function _mentionsService(q){
+  var s=CONFIG.services||[];
+  for(var i=0;i<s.length;i++){ var w=_norm(s[i]).split(/[^a-z0-9]+/);
+    for(var j=0;j<w.length;j++){ if(w[j].length>3 && q.indexOf(w[j])>=0) return s[i]; } }
+  return null;
+}
 function kbAnswer(raw){
   var es=document.documentElement.lang==='es'; var c=CONFIG; var q=_norm(raw);
   var hours=es?(c.hoursEs||c.hoursEn||''):(c.hoursEn||''); var phone=c.phone||'';
-  if(_hit(q,['book','appoint','schedul','reserv','cita','agend','turno','walk in','sin cita']))
-    return es?('Con gusto. '+(phone?('Llámanos al '+phone+' o '):'')+'usa el botón “Reservar” y lo agendamos. ¿Qué día te conviene?')
-             :('Happy to help. '+(phone?('Call us at '+phone+' or '):'')+'tap “Book” and we’ll set it up. What day works best?');
+  var vert=_norm(c.vertical||'');
+  var food=/restaur|taquer|cocina|food|menu|pizza|cafe|grill|diner|bakery/.test(vert)
+    || _hit(_norm((c.services||[]).join(' ')),['taco','burrito','torta','pizza','menu','plato']);
+  var menu=(c.services||[]).join(', ');
+  var item=_mentionsService(q) || (_hit(q,['taco','burrito','torta','quesadilla','nacho','horchata','agua','plato','plate','combo','enchilada','tamale','asada','pastor','pollo'])?'that':null);
+  // greeting / thanks (short messages only)
+  if(q.length<22 && _hit(q,['hello','hi','hey','good morning','good afternoon','hola','buenas','buenos','que tal','que onda']))
+    return es?('¡Hola! ¿En qué te ayudo — '+(food?'el menú, el horario o para ordenar?':'reservar, precios u horario?'))
+             :('Hi! How can I help — '+(food?'the menu, hours, or placing an order?':'booking, pricing, or hours?'));
+  if(_hit(q,['thank','thanks','gracias','thx']))
+    return es?'¡Con gusto! ¿Algo más?':'You bet! Anything else?';
+  // hours / location / phone / languages
   if(_hit(q,['hour','open','clos','today','horari','abre','cierr','hoy','abiert']))
     return es?('Nuestro horario: '+hours+'.'):('Our hours: '+hours+'.');
-  if(_hit(q,['where','address','locat','direcc','donde','ubica','park','map']))
+  if(_hit(q,['where','address','locat','direcc','donde','ubica','park','map','find you']))
     return es?('Estamos en '+(c.address||'Salem, OR')+'.'):('We’re at '+(c.address||'Salem, OR')+'.');
-  if(_hit(q,['phone','call','number','telefon','llam','contact','reach']))
+  if(_hit(q,['phone','number','telefon','llamar','contact','reach']))
     return phone?(es?('Llámanos al '+phone+'.'):('Call us at '+phone+'.')):(es?'Escríbenos por aquí y te ayudamos.':'Message us here and we’ll help.');
-  if(_hit(q,['price','cost','how much','precio','cuesta','cuanto','rate','fee','charge','quote']))
-    return es?'El precio depende del servicio. Te damos un estimado claro y sin compromiso — ¿qué buscas?'
-            :'Pricing depends on the service. We’ll give you a clear, no-pressure estimate — what are you looking for?';
   if(_hit(q,['spanish','espanol','english','ingl','idioma','language','bilingu']))
     return es?'Sí, atendemos en español e inglés.':'Yes — we help in both English and Spanish.';
-  if(c.services&&c.services.length&&_hit(q,['servic','offer','do you do','do you have','hacen','ofrec','menu']))
-    return (es?'Ofrecemos: ':'We offer: ')+c.services.join(', ')+'.';
+  // FOOD: menu, ordering, and item mentions
+  if(food){
+    if(_hit(q,['menu','what do you have','what do you serve','que tienen','que hay','que sirven','options','opciones','special','especial']))
+      return (es?('En el menú: '+menu+'. ¿Qué se te antoja?'):('On the menu: '+menu+'. What sounds good?'));
+    if(item || _hit(q,['order','ordenar','to go','to-go','pickup','pick up','recoger','para llevar','i want','i would like','i\'ll have','quiero','me da','dame','can i get','give me','delivery','entrega','hungry','hambre','eat','comer']))
+      return es?('¡Claro! '+(item&&item!=='that'?(item+' — excelente elección. '):'')+'Puedes ordenar por teléfono al '+(phone||'(ver arriba)')+' o pasar a recoger. ¿Qué te preparo?')
+               :('Absolutely! '+(item&&item!=='that'?(item+' — great choice. '):'')+'You can order by phone at '+(phone||'the number above')+' or come by for pickup. What can I get started for you?');
+    if(_hit(q,['price','cost','how much','precio','cuesta','cuanto']))
+      return es?('Los precios están en el menú en la tienda — llámanos al '+(phone||'')+' y te decimos. ¿Qué quieres ordenar?')
+               :('Prices are on the in-store menu — call us at '+(phone||'')+' and we’ll tell you. What would you like to order?');
+  }
+  // price (non-food)
+  if(_hit(q,['price','cost','how much','precio','cuesta','cuanto','rate','fee','charge','quote','estimate','estimado','cotiz']))
+    return es?'El precio depende del servicio. Te damos un estimado claro y sin compromiso — ¿qué necesitas?'
+            :'Pricing depends on the service. We’ll give you a clear, no-pressure estimate — what do you need?';
+  // services
+  if(c.services&&c.services.length&&(_hit(q,['servic','offer','do you do','do you have','hacen','ofrec','what do you','que ofrecen'])||item))
+    return (es?'Ofrecemos: ':'We offer: ')+menu+'.';
+  // booking / appointment (non-food)
+  if(_hit(q,['book','appoint','schedul','reserv','cita','agend','turno','walk in','sin cita']))
+    return es?('Con gusto. '+(phone?('Llámanos al '+phone+' o '):'')+'usa el botón de abajo y lo agendamos. ¿Qué día te conviene?')
+             :('Happy to help. '+(phone?('Call us at '+phone+' or '):'')+'use the button below and we’ll set it up. What day works best?');
+  // FAQ keyword match
   if(c.faqs&&c.faqs.length){ var best=null,bs=0;
     for(var i=0;i<c.faqs.length;i++){ var f=c.faqs[i]; var fq=_norm(es?(f.q_es||f.q_en):(f.q_en||''));
       var toks=fq.split(/[^a-z0-9]+/).filter(function(w){return w.length>3;}); var sc=0;
       for(var j=0;j<toks.length;j++){ if(q.indexOf(toks[j])>=0) sc++; }
       if(sc>bs){ bs=sc; best=f; } }
     if(best&&bs>=1) return es?(best.a_es||best.a_en):(best.a_en); }
-  leadMode=true;
-  return es?('Buena pregunta. '+(phone?('Llámanos al '+phone+' y te ayudamos al instante, o déjame tu nombre y teléfono.'):'Déjame tu nombre y teléfono y te contactamos.'))
-          :('Good question. '+(phone?('Call us at '+phone+' and we’ll help right away, or leave your name and number.'):'Leave your name and number and we’ll reach out.'));
+  // explicit human handoff -> capture a callback
+  if(_hit(q,['human','person','agent','manager','representative','persona','humano','agente','gerente'])){
+    leadMode=true;
+    return es?('Te paso con el equipo. Déjame tu nombre y teléfono y te contactan pronto.')
+             :('I’ll get the team to you. Leave your name and number and they’ll reach out shortly.');
+  }
+  // helpful fallback — never a dead end
+  return es?('Te puedo ayudar con '+(food?('el menú ('+menu+'), el horario o cómo ordenar'):'servicios, horario, precios o reservar')+'. '+(phone?('O llámanos al '+phone+'.'):'¿Qué necesitas?'))
+          :('I can help with '+(food?('the menu ('+menu+'), hours, or how to order'):'services, hours, pricing, or booking')+'. '+(phone?('Or call us at '+phone+'.'):'What do you need?'));
 }
 function buildSystem(){
   var es=document.documentElement.lang==='es'; var c=CONFIG;

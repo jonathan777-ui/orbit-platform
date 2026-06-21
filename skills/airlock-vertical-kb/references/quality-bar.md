@@ -30,7 +30,7 @@ time to one that does. We don't win by having more templates — we win on the c
 | **Pro design tools** | Webflow, Framer | Beautiful layouts, strong motion, design control | DIY (you do the work), no content/ops, no bilingual/compliance, costs grow, no answering layer | Same craft level, **done-for-you**, plus content + ops + voice + compliance built in |
 | **AI wireframe/components** | Relume | Great structure/sitemaps, component speed | Wireframes only — no real content, brand, SEO, or operations | We take structure to a finished, branded, **operating** front office |
 | **Code-gen AI** | v0, Lovable, Bolt, Replit | Fast app scaffolds, flexible | Raw output, not brand/SEO/conversion-tuned, no local-business ops, no voice, maintenance burden | Conversion- and AEO-engineered, managed, with the receptionist/CRM wired in |
-| **AI WordPress** | 10Web | Flexible, plugin ecosystem | Bloat, performance/security overhead, plugin sprawl, still DIY ops | Fast static delivery, no plugin rot, ops handled |
+| **AI WordPress** | 10Web | AI generation + managed WP hosting, flexible plugin ecosystem | **WordPress + page-builder DOM bloat → weak mobile CWV**, security-patch/plugin-update treadmill, hosting lock-in, plugin sprawl, and *still* no voice/CRM/native-bilingual ops | **Static/edge delivery (no plugin rot, no patch treadmill)**, faster CWV, plus the AI front office + native bilingual + DFY ops 10Web has no answer for |
 
 **The structural gap:** every generator stops at the **page**. None of them ship the thing a local
 business actually needs — a system that gets found, converts, and **answers every call in two
@@ -79,6 +79,42 @@ Numbers are **launch targets**, not aspirations. Measure on a mid-tier mobile de
   AI answer engines (Google AI Overviews, ChatGPT, Perplexity, Gemini) — clear Q&A blocks, entity
   clarity, concise factual answers, `FAQPage` schema, and an **`llms.txt`** + machine-readable summary
   so AI agents can read the business accurately. Generators do none of this.
+
+### 2.5b Geographic reach — the Local → Regional → National ladder
+**Default every build to a local-first foundation, then climb the ladder by business model + tier.**
+Don't choose "specific markets only" (leaves compounding organic on the table) or "national for
+everyone" (wastes spend on a single-location business). Match scope to how far the client actually
+sells.
+
+- **Local** *(default — ~80% of clients, single-location service businesses)*: Google Business
+  Profile optimization, `LocalBusiness` + vertical schema, NAP consistency, service-area + city/
+  neighborhood pages, review velocity, map-pack + "near me" / **"cerca de mí"** intent. Fastest
+  payback (weeks); captures ready-to-call demand.
+- **Regional** *(multi-location, metro-wide, or wide service-area businesses)*: per-city/per-location
+  landing pages, county/metro keyword clusters, multiple GBP listings, regional content hubs, local
+  link building. Fits home services covering a metro, dental/law groups, franchises.
+- **National** *(geo-independent offerings)*: topic/authority content, programmatic category pages,
+  national keywords, digital PR + backlinks, e-commerce SEO. Fits mail-order/specialty pharmacy,
+  online courses, consulting, staffing, logistics, DTC retail, SaaS-like services.
+
+**Do both, on two clocks:** local SEO + reviews + GBP compound in **weeks**; content + AEO authority
+compound over **6–18 months**. Run local-first for immediate ROI and layer content/AEO for the
+long-tail moat — organic that grows on its own over time. **AEO applies at every scope** (be the
+answer AI engines give from "best X in [city]" up to "[category] question"). The near-uncontested
+moat is **native Spanish-language organic** — almost no competitor ships genuine ES content, so
+bilingual local + AEO captures demand rivals can't see.
+
+| Business model | Recommended scope | Tier sweet-spot |
+|---|---|---|
+| Single-location service (solo dentist, plumber, restaurant, salon) | **Local** (+ AEO) | Gold–Platinum |
+| Multi-location / wide service area (metro HVAC, dental/law group) | **Regional** (per-city pages) | Platinum–Iridium |
+| Geo-independent (e-commerce, mail-order Rx, courses, consulting, staffing, logistics) | **National** (authority + programmatic) | Iridium |
+| Franchise / white-label | **Regional per unit + National brand** | Rhodium |
+
+**Tier mapping:** Gold = local foundation · Platinum = local + content + AEO · Iridium = regional/
+multi-location + programmatic · Rhodium = national authority + digital PR + multi-site. Set the
+client's scope at kickoff; never ship national tactics to a business that only serves one city, and
+never cap a geo-independent business at a single map pin.
 
 ### 2.6 Conversion (CRO — generators ship pages, not pipelines)
 - **Above the fold:** who/what/where + a primary CTA (call / book / quote) visible without scrolling.
@@ -156,7 +192,7 @@ Content quality 12 · SEO+AEO 12 · AI front office 12 · Accessibility 8 · Bil
 Motion 3 · Security/compliance 2.
 
 > **Beat test:** put the Orbit build next to the same business generated by Wix ADI, Squarespace
-> Blueprint, and Durable. It must win on **first-impression craft, mobile speed, findability,
+> Blueprint, Durable, and **10Web**. It must win on **first-impression craft, mobile speed, findability,
 > conversion path, and — the knockout — that it answers the phone in two languages.** If it doesn't
 > clearly win, it isn't done.
 

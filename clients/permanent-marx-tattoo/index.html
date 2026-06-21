@@ -480,12 +480,30 @@ function openLightbox(src,alt){
   const img=lb.querySelector('img'); img.src=src; img.alt=alt||'';
   lb.classList.add('open');
 }
+function brandSVG(){
+  const ornate=function(outline, front, y, size, sp){
+    const a='text-anchor="middle" font-weight="bold" font-family="Georgia, serif" font-size="'+size+'" letter-spacing="'+(sp||0)+'"';
+    return '<text x="380" y="'+y+'" '+a+' fill="none" stroke="#140a20" stroke-width="10" stroke-linejoin="round">'+outline+'</text>'
+      +'<text x="380" y="'+y+'" '+a+' fill="none" stroke="#d4324a" stroke-width="4.5" stroke-linejoin="round">'+outline+'</text>'
+      +'<text x="380" y="'+y+'" '+a+' fill="#f4ecdd">'+front+'</text>';
+  };
+  const svg='<svg xmlns="http://www.w3.org/2000/svg" width="760" height="300" viewBox="0 0 760 300">'
+    +ornate('PERMANENT','PERMANENT',74,56,6)
+    +ornate('MARX','MAR<tspan fill="#d4324a">X</tspan>',160,98,4)
+    +ornate('TATTOO','TATTOO',240,92,8)
+    +'<line x1="148" y1="272" x2="250" y2="272" stroke="#e7b24a" stroke-width="2"/>'
+    +'<line x1="510" y1="272" x2="612" y2="272" stroke="#e7b24a" stroke-width="2"/>'
+    +'<rect x="250" y="253" width="260" height="38" rx="6" fill="#241537" stroke="#e7b24a" stroke-width="2"/>'
+    +'<text x="380" y="280" text-anchor="middle" font-weight="bold" font-family="Georgia, serif" font-size="22" letter-spacing="10" fill="#e7b24a">STUDIO</text>'
+    +'</svg>';
+  return 'data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg);
+}
 function renderBrand(){
-  if(!CONFIG.logo) return;
+  const src=CONFIG.logo||brandSVG();
   const head=document.getElementById('brand');
-  if(head) head.innerHTML='<img src="'+CONFIG.logo+'" alt="'+CONFIG.name+'" style="height:42px;width:auto;display:block">';
+  if(head) head.innerHTML='<img src="'+src+'" alt="'+CONFIG.name+'" style="height:52px;width:auto;display:block;filter:drop-shadow(0 0 12px rgba(231,178,74,.22))">';
   const foot=document.getElementById('brandFoot');
-  if(foot) foot.innerHTML='<img src="'+CONFIG.logo+'" alt="'+CONFIG.name+'" style="height:30px;width:auto;display:block">';
+  if(foot) foot.innerHTML='<img src="'+src+'" alt="'+CONFIG.name+'" style="height:40px;width:auto;display:block">';
 }
 renderBrand(); renderNAP(); renderArtists(); renderGallery();
 (function(){

@@ -15,7 +15,7 @@ and fill in:
 
 | Field | What to put |
 |---|---|
-| `logo` | URL or local path (e.g. `images/logo.png`) to the studio logo; replaces the text wordmark in header + footer. Blank = wordmark |
+| `logo` | URL or local path to the studio logo; replaces the header/footer mark. **Blank = a built-in SVG wordmark emblem** (PERMANENT MARX TATTOO / STUDIO with the red ✗). A ready-made `images/logo.svg` also ships — set `logo:"images/logo.svg"`, or drop in the real logo art |
 | `demo` | `true` fills the gallery with clearly-labelled "for demonstration purposes only" sample tiles until real images are added; set `false` for launch |
 | `address` | Street address (enables the "Visit us" block) |
 | `phone` | Phone in display form, e.g. `+1 (555) 123-4567` (powers click-to-call) |

@@ -1550,3 +1550,7 @@ secure forms (no PHI/PII leakage) · uptime monitoring.
 - **Service level.** This library is the **build** axis (what it looks like). Delivery — DIY kit,
   Hybrid/Guru-assisted, DFY, or Diamond — is the independent **service level** axis in
   `service-levels.md`.
+- **Quality bar.** A template is the starting look, not the finish line. Every build must clear
+  `quality-bar.md` — **The Beat-the-Generators Standard** (measurable performance/design/SEO+AEO/
+  CRO/accessibility targets, the AI front office, and a pass/fail launch gate) — so the result
+  out-classes what Wix, Squarespace, Webflow, Framer, Durable, or v0 would produce.

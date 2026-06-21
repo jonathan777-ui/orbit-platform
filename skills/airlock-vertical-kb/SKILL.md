@@ -96,6 +96,17 @@ a **World-Class Feature Stack**, and a **Template Anatomy** guide. Pick by **Ver
 Tier → Template → Palette (+ Type)**; the template is the *build* axis (what it looks like),
 assembled from the catalog's blocks and gated by the same tier matrix.
 
+## The quality bar (beat the generators)
+
+Every build must clear `references/quality-bar.md` — **The Beat-the-Generators Standard** — before it
+ships. It defines the measurable bar that out-classes the top website generators (Wix, Squarespace,
+Webflow, Framer, Durable, GoDaddy Airo, v0, Lovable…): performance + Core Web Vitals targets, real
+design tokens/motion, WCAG 2.2 AA, SEO **+ AEO** (answer-engine optimization), CRO, domain-accurate
+content, native bilingual/dialect, the **AI front office** (grounded chat + 24/7 bilingual voice
+receptionist from the same KB), compliance, and a **pass/fail launch-gate scorecard**. The thesis:
+generators ship a *website*; Orbit ships a *front office*. Never ship to clear a checkbox — ship to
+win the side-by-side.
+
 ## Output structure
 
 ALWAYS follow `references/kb-template.md`. Never skip the compliance section or the data schema —

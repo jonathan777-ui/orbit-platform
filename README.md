@@ -17,6 +17,7 @@ AI voice receptionist, a chatbot, and website copy from one source.
 - **Regional Spanish Dialect Module** (`references/dialect-module.md`, `dialect-glossary.md`).
 - **Voice Runtime Layer** (`references/voice-runtime-layer.md`): turn-taking, barge-in, SSML, read-back, safety.
 - **Compliance hard-lines** (`references/compliance-patterns.md`) and the **KB template** (`references/kb-template.md`).
+- **The Beat-the-Generators Standard** (`references/quality-bar.md`): the measurable quality bar (performance, design, accessibility, SEO+AEO, CRO, the AI front office) and a pass/fail launch gate that out-classes Wix/Squarespace/Webflow/Framer/Durable/v0.
 - **Niche atlas** (`references/niche-atlas.md`): 40 verticals / 318 niches, with a worked example in `references/verticals/law-firms.md`.
 - **Template Library** (`references/template-library.md`): the complete 40-vertical atlas — 25 website templates per vertical (**1,000 total**), each mapped to niche, build-tier, layout, and palette — plus the **Top 40 Color Combinations**, **Top 50 Typography Pairings**, a **World-Class Feature Stack**, and a **Template Anatomy** guide.
 - **Live compiler** (`tools/compile_agent.py`): renders a gold base + niche overlay + voice layer into a deployable agent

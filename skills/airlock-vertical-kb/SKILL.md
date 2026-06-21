@@ -87,6 +87,14 @@ When the user is packaging an offer (pricing, tiers, what's included, add-ons), 
 options, development services, the master tier matrix, the service/support levels, and the
 pricing framework. Premium add-ons are tier-gated there (premium-of-premium = Rhodium / Diamond).
 
+When the user wants to **pick or show a website design** (a template, theme, layout, or color
+scheme) for a vertical/niche, use `references/template-library.md` — the **Template Library**:
+**25 named templates per vertical** (500 total) mapped to niche, build-tier sweet-spot, layout
+signature, and a recommended palette, plus the **Top 20 Color Combinations** (hex roles +
+accessibility notes). Pick by **Vertical → Niche → Tier → Template → Palette**; the template is
+the *build* axis (what it looks like), assembled from the catalog's blocks and gated by the same
+tier matrix.
+
 ## Output structure
 
 ALWAYS follow `references/kb-template.md`. Never skip the compliance section or the data schema —

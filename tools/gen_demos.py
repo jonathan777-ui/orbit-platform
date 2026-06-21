@@ -7,9 +7,8 @@ import re, json, os, sys
 REPO = os.environ.get("REPO", "/home/user/orbit-platform")
 TPL = os.environ.get("TPL", os.path.join(os.path.dirname(os.path.abspath(__file__)), "templates", "demo-base.html"))
 CHAT = "https://jonathan777-ui.app.n8n.cloud/webhook/orbit-turn"  # optional Groq brain (useLLM)
-VOICE_TOKEN = "https://jonathan777-ui.app.n8n.cloud/webhook/voice-token"  # Deepgram 30s grant vendor
-VOICE_SITE_KEY = "ORBIT-SET-LAUNCH-SITE-KEY"
-VOICE_MODELS = {"sttModel": "nova-3", "ttsEn": "aura-2-thalia-en", "ttsEs": "aura-2-diana-es"}
+VOICE_TTS = "https://jonathan777-ui.app.n8n.cloud/webhook/orbit-tts"  # Deepgram Aura-2 proxy
+VOICE_MODELS = {"ttsEn": "aura-2-thalia-en", "ttsEs": "aura-2-diana-es"}
 BASE = "https://jonathan777-ui.github.io/orbit-platform/"
 # Reuse the library's per-site llms.txt renderer (one source of truth, AEO guide).
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "skills", "airlock-vertical-kb", "tools"))
@@ -105,7 +104,7 @@ for s in shops:
            "address":addr,"phone":s["phone"],"hoursEn":s["hoursEn"],"hoursEs":s["hoursEs"],
            "instagram":s["ig"],"facebook":"","bookingUrl":"","artists":[],"gallery":[],"demo":True,
            "services":kb_services,"faqs":kb_faqs,"useLLM":False,
-           "premiumVoice":True,"voiceTokenEndpoint":VOICE_TOKEN,"voiceSiteKey":VOICE_SITE_KEY,"voice":VOICE_MODELS,
+           "ttsEndpoint":VOICE_TTS,"voice":VOICE_MODELS,
            "reviews":_reviews_for("tattoo"),"chatEndpoint":CHAT}
     html = src.replace("__CONFIG_JSON__", json.dumps(cfg, ensure_ascii=False))
     html = html.replace("Permanent Marx Tattoo Studio", disp).replace("Permanent Marx", disp)

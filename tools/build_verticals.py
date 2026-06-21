@@ -12,7 +12,7 @@ def sec(html,a,b,new):
 
 def hero_html(p,nm):
     tr="".join(f'<span data-en>{e}</span><span data-es>{s}</span>' for e,s in p["trust"])
-    return (f'<div class="hero"><div class="wrap">'
+    return (f'<div class="hero" id="main" tabindex="-1"><div class="wrap">'
       f'<h1><span data-en>{p["h1_en"]}</span><span data-es>{p["h1_es"]}</span></h1>'
       f'<p class="lede"><span data-en>{p["lede_en"].replace("{name}",nm)}</span><span data-es>{p["lede_es"].replace("{name}",nm)}</span></p>'
       f'<div class="cta-row"><a class="btn" href="#book" data-en>{p["cta_en"]}</a><a class="btn" href="#book" data-es>{p["cta_es"]}</a>'
@@ -166,6 +166,9 @@ def build(b):
     pp=b["pal"]
     bv=(f'<style id="brandvars">:root{{--bg:{pp["bg"]};--panel:{pp["panel"]};--line:{pp["line"]};--fg:{pp["fg"]};--muted:{pp["muted"]};--accent:{pp["accent"]};--accent2:{pp["accent2"]};--ink:{pp["ink"]}}}</style>')
     seo=(f'<link rel="canonical" href="{canonical}"><meta name="robots" content="index,follow">'
+      f'<link rel="alternate" hreflang="en" href="{canonical}">'
+      f'<link rel="alternate" hreflang="es" href="{canonical}?lang=es">'
+      f'<link rel="alternate" hreflang="x-default" href="{canonical}">'
       f'<meta name="geo.region" content="US-OR"><meta name="geo.placename" content="Salem, Oregon"><meta name="geo.position" content="{lat};{lng}"><meta name="ICBM" content="{lat}, {lng}">'
       f'<meta property="og:type" content="business.business"><meta property="og:site_name" content="{nm}"><meta property="og:title" content="{title}"><meta property="og:description" content="{desc}">'
       f'<meta property="og:url" content="{canonical}"><meta property="og:image" content="{canonical}{logo_rel}"><meta property="og:locale" content="en_US"><meta property="og:locale:alternate" content="es_ES">'

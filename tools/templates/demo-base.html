@@ -117,10 +117,17 @@
   html[lang="es"] [data-en]{display:none}
   html[lang="es"] [data-es]{display:inline}
   html[lang="es"] [data-es].block{display:block}
+  /* a11y: visible keyboard focus + skip link + screen-reader-only helper */
+  :focus-visible{outline:3px solid var(--accent2);outline-offset:2px}
+  .skip{position:absolute;left:-9999px;top:0;z-index:200;background:var(--accent);color:#fff;
+        padding:10px 16px;border-radius:0 0 8px 0;font-weight:700}
+  .skip:focus{left:0}
+  .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
+           clip:rect(0,0,0,0);white-space:nowrap;border:0}
 </style>
 </head>
 <body>
-
+<a class="skip" href="#main" data-en>Skip to content</a><a class="skip" href="#main" data-es>Saltar al contenido</a>
 <header>
   <div class="wrap nav">
     <div class="brand" id="brand">PERMANENT MAR<span>✗</span></div>
@@ -137,7 +144,7 @@
 </header>
 
 <!-- HERO -->
-<div class="hero">
+<div class="hero" id="main" tabindex="-1">
   <div class="wrap">
     <h1>
       <span data-en>Your idea, made permanent — by artists who care.</span>
@@ -371,12 +378,22 @@ function setLang(l){
   enBtn.classList.toggle('active', l==='en');
   esBtn.classList.toggle('active', l==='es');
   try{ localStorage.setItem('pm_lang', l);}catch(e){}
+  // Reflect language in the URL (?lang=es) so each language has a crawlable,
+  // shareable address that matches the hreflang alternates in <head>.
+  try{
+    const u = new URL(location.href);
+    if(l==='es') u.searchParams.set('lang','es'); else u.searchParams.delete('lang');
+    history.replaceState(null,'',u);
+  }catch(e){}
   renderNAP();
   if(typeof renderGallery==='function') renderGallery();
 }
 (function initLang(){
   let l='en';
-  try{ l = localStorage.getItem('pm_lang') || (navigator.language||'en').slice(0,2); }catch(e){}
+  try{
+    const q=new URLSearchParams(location.search).get('lang');           // URL wins (crawlable)
+    l = q || localStorage.getItem('pm_lang') || (navigator.language||'en').slice(0,2);
+  }catch(e){}
   setLang(l==='es'?'es':'en');
 })();
 

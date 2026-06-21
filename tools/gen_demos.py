@@ -83,6 +83,9 @@ for s in shops:
                  f'--fg:{p["fg"]};--muted:{p["muted"]};--accent:{p["accent"]};--accent2:{p["accent2"]};--ink:{p["ink"]}}}</style>')
     seo = (
       f'<link rel="canonical" href="{canonical}">\n<meta name="robots" content="index,follow">\n'
+      f'<link rel="alternate" hreflang="en" href="{canonical}">\n'
+      f'<link rel="alternate" hreflang="es" href="{canonical}?lang=es">\n'
+      f'<link rel="alternate" hreflang="x-default" href="{canonical}">\n'
       f'<meta name="geo.region" content="US-OR"><meta name="geo.placename" content="Salem, Oregon">\n'
       f'<meta name="geo.position" content="{lat};{lng}"><meta name="ICBM" content="{lat}, {lng}">\n'
       f'<meta property="og:type" content="business.business"><meta property="og:site_name" content="{disp}">\n'

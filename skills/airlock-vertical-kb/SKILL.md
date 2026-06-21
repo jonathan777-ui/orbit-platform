@@ -87,6 +87,56 @@ When the user is packaging an offer (pricing, tiers, what's included, add-ons), 
 options, development services, the master tier matrix, the service/support levels, and the
 pricing framework. Premium add-ons are tier-gated there (premium-of-premium = Rhodium / Diamond).
 
+When the user wants to **pick or show a website design** (a template, theme, layout, or color
+scheme) for a vertical/niche, use `references/template-library.md` — the **Template Library**:
+the **complete 40-vertical atlas** at **25 named templates per vertical** (**1,000 total**) mapped
+to niche, build-tier sweet-spot, layout signature, and a recommended palette, plus the **Top 40
+Color Combinations**, **Top 50 Typography Pairings** (hex roles, font pairs + accessibility notes),
+a **World-Class Feature Stack**, and a **Template Anatomy** guide. Pick by **Vertical → Niche →
+Tier → Template → Palette (+ Type)**; the template is the *build* axis (what it looks like),
+assembled from the catalog's blocks and gated by the same tier matrix.
+
+## The quality bar (beat the generators)
+
+Every build must clear `references/quality-bar.md` — **The Beat-the-Generators Standard** — before it
+ships. It defines the measurable bar that out-classes the top website generators (Wix, Squarespace,
+Webflow, Framer, Durable, GoDaddy Airo, v0, Lovable…): performance + Core Web Vitals targets, real
+design tokens/motion, WCAG 2.2 AA, SEO **+ AEO** (answer-engine optimization), CRO, domain-accurate
+content, native bilingual/dialect, the **AI front office** (grounded chat + 24/7 bilingual voice
+receptionist from the same KB), compliance, and a **pass/fail launch-gate scorecard**. The thesis:
+generators ship a *website*; Orbit ships a *front office*. Never ship to clear a checkbox — ship to
+win the side-by-side. **Gating (`quality-bar.md` §8):** Gold + low-risk Platinum scaffold automatically;
+high-risk Platinum and all Iridium/Rhodium get human content review — and **every new deploy passes a
+universal human go-live gate** before it publishes.
+
+## Growth playbooks & site audit
+
+Four references operationalize the growth side of a build:
+- `references/website-audit.md` — **paste any URL** (client's or a competitor's) and grade it against
+  the quality bar; returns a scored teardown + the recommended Orbit tier/template. A lead magnet and
+  scoping tool (the productized Presence Audit).
+- `references/local-seo-gbp.md` — the **local-first foundation** (GBP, reviews, NAP/citations, on-site
+  local, speed-to-lead) with a 30/60/90 cadence.
+- `references/local-landing-pages.md` — the **per-city landing-page system**: cities (not ZIP doorway
+  pages), curated city × money-service grid, 2–3 per batch, uniqueness bar, silo + schema.
+- `references/aeo-guide.md` — **AEO / `llms.txt`**: how to win AI answer-engine citations (Google AI
+  Overviews, ChatGPT, Perplexity, Gemini). Geographic scope is the Local→Regional→National ladder in
+  `quality-bar.md` §2.5b — default local-first, climb by business model + tier.
+
+**Build tools (every Orbit build uses them):**
+- `tools/gen_llms_txt.py` — emits `/llms.txt` (+ `/llms-full.txt`) from a business manifest so AI
+  answer engines read the business accurately. Wired into `site/build.py` (the docs site ships one);
+  client builds call it on the compiled KB.
+- `tools/audit_batch.py` — competitor-audit **batch mode**: several audited URLs → one weighted
+  comparison grid (markdown) graded against the launch gate. Hand the output file to the right conversation.
+
+## The build pipeline (run it the same way every time)
+
+`references/build-pipeline.md` is the ordered end-to-end path — **audit → scope → compile KB → template
+→ scaffold/build → fill → front office → §4 gate → build-review gate → human go-live → deploy →
+continue** — with a Definition-of-Ready (before build) and Definition-of-Done (before go-live)
+checklist. Every demo clears it before it ships.
+
 ## Output structure
 
 ALWAYS follow `references/kb-template.md`. Never skip the compliance section or the data schema —

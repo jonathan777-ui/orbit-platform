@@ -10,6 +10,7 @@ sys.path.insert(0,os.path.join(os.path.dirname(os.path.abspath(__file__)), "..",
 sys.path.insert(0,os.path.dirname(os.path.abspath(__file__)))
 from gen_llms_txt import render_llms, render_llms_full  # noqa: E402
 from demo_content import edge as _edge, reviews_for as _reviews_for  # noqa: E402
+from html import unescape as _unescape  # decode entities for chat (textContent) use
 VPACK={"barbershop":"barbershop","immigration":"immigration"}
 raw=open(TPL,encoding="utf-8").read()
 
@@ -247,8 +248,8 @@ def build(b):
       f'<meta name="twitter:card" content="summary"><meta name="twitter:title" content="{title}"><meta name="twitter:description" content="{desc}">'
       f'<script type="application/ld+json">{json.dumps(lb,ensure_ascii=False)}</script><script type="application/ld+json">{json.dumps(faqjson,ensure_ascii=False)}</script>')
     addr_disp=(f'{b["street"]}, Salem, OR {b["zip"]}' if b["street"] else "Salem, OR (by appointment)")
-    kb_services=[c[1].replace("&amp;","&") for c in p["services"] if "?" not in c[1]]
-    kb_faqs=[{"q_en":q[0],"a_en":q[1],"q_es":q[2],"a_es":q[3]} for q in p["faqs"]]
+    kb_services=[_unescape(c[1]) for c in p["services"] if "?" not in c[1]]
+    kb_faqs=[{"q_en":_unescape(q[0]),"a_en":_unescape(q[1]),"q_es":_unescape(q[2]),"a_es":_unescape(q[3])} for q in p["faqs"]]
     cfg={"name":nm,"logo":logo_rel,"vertical":b["vertical_pack"],"address":addr_disp,"phone":b["phone"],
          "hoursEn":b["hoursEn"],"hoursEs":b["hoursEs"],"instagram":b.get("ig",""),"facebook":"","bookingUrl":"",
          "artists":[],"gallery":[],"demo":p["gallery"],"services":kb_services,"faqs":kb_faqs,"useLLM":False,

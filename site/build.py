@@ -152,6 +152,21 @@ def build() -> None:
         page = PAGE.format(title=html.escape(title), navhtml=nav_for(out_name), body=body)
         (OUT / out_name).write_text(page, encoding="utf-8")
 
+    # Copy client microsites (self-contained static pages) into the output.
+    clients_dir = ROOT / "clients"
+    if clients_dir.exists():
+        for client in sorted(clients_dir.iterdir()):
+            index = client / "index.html"
+            if not client.is_dir() or not index.exists():
+                continue
+            dest = OUT / client.name
+            dest.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(index, dest / "index.html")
+            assets = client / "images"
+            if assets.exists():
+                shutil.copytree(assets, dest / "images", dirs_exist_ok=True)
+            print(f"Copied client site '{client.name}' into {dest}")
+
     # Disable Jekyll processing on Pages.
     (OUT / ".nojekyll").write_text("", encoding="utf-8")
     print(f"Built {len(metas)} pages into {OUT}")

@@ -3,8 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; connect-src https:; base-uri 'self'; frame-ancestors 'none'">
 <title>Johnny's Barbershop — Barbershop in Salem, OR | Bilingual EN/ES</title>
-<meta name="description" content="Johnny's Barbershop is a barbershop in Salem, Oregon for fades, classic cuts, beard trims and hot-towel shaves. Bilingual (English/Spanish). 388 State St. Call (503) 510-8642.">
+<meta name="description" content="Johnny's Barbershop is a barbershop in Salem, Oregon for fades, classic cuts, beard trims and hot-towel shaves. Bilingual (English/Spanish). 388 State St. Call (503) 510-8642. Downtown on State Street — fades, line-ups and hot-towel shaves.">
 <style>
   :root{
     /* Brand palette pulled from the logo: deep purple, ornate gold, red ✗, cream */
@@ -124,8 +126,30 @@
   .skip:focus{left:0}
   .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
            clip:rect(0,0,0,0);white-space:nowrap;border:0}
+  /* front office: sticky mobile call/book bar */
+  .callbar{position:fixed;left:0;right:0;bottom:0;z-index:70;display:none;gap:8px;padding:9px 12px;
+           background:rgba(10,6,16,.92);backdrop-filter:blur(8px);border-top:1px solid var(--line)}
+  .callbar a{flex:1;text-align:center;padding:12px 10px;border-radius:10px;font-weight:700;font-size:15px}
+  .callbar .call{background:var(--accent);color:#fff}
+  .callbar .book{background:transparent;color:var(--fg);border:1px solid var(--line)}
+  @media (max-width:760px){ .callbar{display:flex} body{padding-bottom:64px} }
+  /* social proof / reviews */
+  .reviews .rev{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px 20px}
+  .reviews .stars{color:var(--accent2);letter-spacing:2px;font-size:14px;margin-bottom:8px}
+  .reviews .who{color:var(--muted);font-size:13px;margin-top:10px}
+  .agg{display:flex;align-items:center;gap:10px;color:var(--muted);font-size:14px;margin-top:6px}
+  .agg b{color:var(--fg);font-size:22px}
+  /* motion: gentle scroll-reveal, fully disabled for reduced-motion users */
+  .reveal{opacity:0;transform:translateY(14px);transition:opacity .6s ease,transform .6s ease}
+  .reveal.in{opacity:1;transform:none}
+  .btn,.card,.chip,.callbar a{transition:transform .15s ease,filter .15s ease,border-color .15s ease}
+  .btn:hover{filter:brightness(1.08);transform:translateY(-1px)}
+  @media (prefers-reduced-motion: reduce){
+    .reveal{opacity:1;transform:none;transition:none}
+    *{animation-duration:.001ms !important;transition-duration:.001ms !important;scroll-behavior:auto !important}
+  }
 </style>
-<style id="brandvars">:root{--bg:#07111a;--panel:#0b1b2a;--line:#14304a;--fg:#f1f3f8;--muted:#7e8ea3;--accent:#C2965A;--accent2:#60849c;--ink:#040a0f}</style><meta name="x-orbit-template" content="Fade"><meta name="x-orbit-palette" content="C40"><link rel="canonical" href="https://jonathan777-ui.github.io/orbit-platform/johnnys-barbershop/"><meta name="robots" content="index,follow"><link rel="alternate" hreflang="en" href="https://jonathan777-ui.github.io/orbit-platform/johnnys-barbershop/"><link rel="alternate" hreflang="es" href="https://jonathan777-ui.github.io/orbit-platform/johnnys-barbershop/?lang=es"><link rel="alternate" hreflang="x-default" href="https://jonathan777-ui.github.io/orbit-platform/johnnys-barbershop/"><meta name="geo.region" content="US-OR"><meta name="geo.placename" content="Salem, Oregon"><meta name="geo.position" content="44.9388;-123.0388"><meta name="ICBM" content="44.9388, -123.0388"><meta property="og:type" content="business.business"><meta property="og:site_name" content="Johnny's Barbershop"><meta property="og:title" content="Johnny's Barbershop — Barbershop in Salem, OR | Bilingual EN/ES"><meta property="og:description" content="Johnny's Barbershop is a barbershop in Salem, Oregon for fades, classic cuts, beard trims and hot-towel shaves. Bilingual (English/Spanish). 388 State St. Call (503) 510-8642."><meta property="og:url" content="https://jonathan777-ui.github.io/orbit-platform/johnnys-barbershop/"><meta property="og:image" content="https://jonathan777-ui.github.io/orbit-platform/johnnys-barbershop/logo.svg"><meta property="og:locale" content="en_US"><meta property="og:locale:alternate" content="es_ES"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="Johnny's Barbershop — Barbershop in Salem, OR | Bilingual EN/ES"><meta name="twitter:description" content="Johnny's Barbershop is a barbershop in Salem, Oregon for fades, classic cuts, beard trims and hot-towel shaves. Bilingual (English/Spanish). 388 State St. Call (503) 510-8642."><script type="application/ld+json">{"@context": "https://schema.org", "@type": "HairSalon", "name": "Johnny's Barbershop", "url": "https://jonathan777-ui.github.io/orbit-platform/johnnys-barbershop/", "priceRange": "$$", "areaServed": "Salem, OR", "knowsLanguage": ["en", "es"], "image": "https://jonathan777-ui.github.io/orbit-platform/johnnys-barbershop/logo.svg", "address": {"@type": "PostalAddress", "addressLocality": "Salem", "addressRegion": "OR", "postalCode": "97301", "addressCountry": "US", "streetAddress": "388 State St"}, "geo": {"@type": "GeoCoordinates", "latitude": 44.9388, "longitude": -123.0388}, "telephone": "(503) 510-8642", "sameAs": ["https://dgbarbers.com"]}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "How much is a haircut?", "acceptedAnswer": {"@type": "Answer", "text": "Pricing depends on the service &mdash; your barber confirms it before the cut, with shop rates posted in-store."}}, {"@type": "Question", "name": "Do you take walk-ins?", "acceptedAnswer": {"@type": "Answer", "text": "Yes &mdash; walk in during open hours, or book ahead to skip the wait."}}, {"@type": "Question", "name": "Do you do beard trims and shaves?", "acceptedAnswer": {"@type": "Answer", "text": "We do &mdash; beard shaping, line-ups and hot-towel straight-razor shaves."}}, {"@type": "Question", "name": "Do you cut kids' hair?", "acceptedAnswer": {"@type": "Answer", "text": "Absolutely &mdash; we keep it quick and patient for the little ones."}}, {"@type": "Question", "name": "Can I request a specific barber?", "acceptedAnswer": {"@type": "Answer", "text": "Yes &mdash; tell us who, or book directly with your barber."}}]}</script></head>
+<style id="brandvars">:root{--bg:#07111a;--panel:#0b1b2a;--line:#14304a;--fg:#f1f3f8;--muted:#7e8ea3;--accent:#C2965A;--accent2:#60849c;--ink:#040a0f}</style><meta name="x-orbit-template" content="Fade"><meta name="x-orbit-palette" content="C40"><link rel="canonical" href="https://jonathan777-ui.github.io/orbit-platform/johnnys-barbershop/"><meta name="robots" content="index,follow"><link rel="alternate" hreflang="en" href="https://jonathan777-ui.github.io/orbit-platform/johnnys-barbershop/"><link rel="alternate" hreflang="es" href="https://jonathan777-ui.github.io/orbit-platform/johnnys-barbershop/?lang=es"><link rel="alternate" hreflang="x-default" href="https://jonathan777-ui.github.io/orbit-platform/johnnys-barbershop/"><meta name="geo.region" content="US-OR"><meta name="geo.placename" content="Salem, Oregon"><meta name="geo.position" content="44.9388;-123.0388"><meta name="ICBM" content="44.9388, -123.0388"><meta property="og:type" content="business.business"><meta property="og:site_name" content="Johnny's Barbershop"><meta property="og:title" content="Johnny's Barbershop — Barbershop in Salem, OR | Bilingual EN/ES"><meta property="og:description" content="Johnny's Barbershop is a barbershop in Salem, Oregon for fades, classic cuts, beard trims and hot-towel shaves. Bilingual (English/Spanish). 388 State St. Call (503) 510-8642. Downtown on State Street — fades, line-ups and hot-towel shaves."><meta property="og:url" content="https://jonathan777-ui.github.io/orbit-platform/johnnys-barbershop/"><meta property="og:image" content="https://jonathan777-ui.github.io/orbit-platform/johnnys-barbershop/logo.svg"><meta property="og:locale" content="en_US"><meta property="og:locale:alternate" content="es_ES"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="Johnny's Barbershop — Barbershop in Salem, OR | Bilingual EN/ES"><meta name="twitter:description" content="Johnny's Barbershop is a barbershop in Salem, Oregon for fades, classic cuts, beard trims and hot-towel shaves. Bilingual (English/Spanish). 388 State St. Call (503) 510-8642. Downtown on State Street — fades, line-ups and hot-towel shaves."><script type="application/ld+json">{"@context": "https://schema.org", "@type": "HairSalon", "name": "Johnny's Barbershop", "url": "https://jonathan777-ui.github.io/orbit-platform/johnnys-barbershop/", "priceRange": "$$", "areaServed": "Salem, OR", "knowsLanguage": ["en", "es"], "image": "https://jonathan777-ui.github.io/orbit-platform/johnnys-barbershop/logo.svg", "address": {"@type": "PostalAddress", "addressLocality": "Salem", "addressRegion": "OR", "postalCode": "97301", "addressCountry": "US", "streetAddress": "388 State St"}, "geo": {"@type": "GeoCoordinates", "latitude": 44.9388, "longitude": -123.0388}, "telephone": "(503) 510-8642", "sameAs": ["https://dgbarbers.com"]}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "How much is a haircut?", "acceptedAnswer": {"@type": "Answer", "text": "Pricing depends on the service &mdash; your barber confirms it before the cut, with shop rates posted in-store."}}, {"@type": "Question", "name": "Do you take walk-ins?", "acceptedAnswer": {"@type": "Answer", "text": "Yes &mdash; walk in during open hours, or book ahead to skip the wait."}}, {"@type": "Question", "name": "Do you do beard trims and shaves?", "acceptedAnswer": {"@type": "Answer", "text": "We do &mdash; beard shaping, line-ups and hot-towel straight-razor shaves."}}, {"@type": "Question", "name": "Do you cut kids' hair?", "acceptedAnswer": {"@type": "Answer", "text": "Absolutely &mdash; we keep it quick and patient for the little ones."}}, {"@type": "Question", "name": "Can I request a specific barber?", "acceptedAnswer": {"@type": "Answer", "text": "Yes &mdash; tell us who, or book directly with your barber."}}]}</script></head>
 <body>
 <a class="skip" href="#main" data-en>Skip to content</a><a class="skip" href="#main" data-es>Saltar al contenido</a>
 <header>
@@ -144,7 +168,7 @@
 </header>
 
 <!-- HERO -->
-<div class="hero" id="main" tabindex="-1"><div class="wrap"><h1><span data-en>Sharp cuts. Clean lines. Walk in or book ahead.</span><span data-es>Cortes precisos. L&iacute;neas limpias. Llega o reserva.</span></h1><p class="lede"><span data-en>Johnny's Barbershop &mdash; Salem's barbershop for fades, classic cuts, beard work and hot-towel shaves. Book in seconds, in English or Spanish.</span><span data-es>Johnny's Barbershop &mdash; la barber&iacute;a de Salem para fades, cortes cl&aacute;sicos, barba y afeitado con toalla caliente. Reserva en segundos, en ingl&eacute;s o espa&ntilde;ol.</span></p><div class="cta-row"><a class="btn" href="#book" data-en>Book a cut</a><a class="btn" href="#book" data-es>Reserva tu corte</a><a class="btn ghost" href="#services" data-en>See services</a><a class="btn ghost" href="#services" data-es>Ver servicios</a></div><div class="trust"><span data-en>Skilled barbers</span><span data-es>Barberos expertos</span><span data-en>Walk-ins &amp; appointments</span><span data-es>Con y sin cita</span><span data-en>Beard &amp; line-ups</span><span data-es>Barba y perfilado</span><span data-en>Bilingual</span><span data-es>Biling&uuml;e</span></div></div></div>
+<div class="hero" id="main" tabindex="-1"><div class="wrap"><h1><span data-en>Sharp cuts. Clean lines. Walk in or book ahead.</span><span data-es>Cortes precisos. L&iacute;neas limpias. Llega o reserva.</span></h1><p class="lede"><span data-en>Johnny's Barbershop &mdash; Salem's barbershop for fades, classic cuts, beard work and hot-towel shaves. Book in seconds, in English or Spanish. Downtown on State Street — fades, line-ups and hot-towel shaves.</span><span data-es>Johnny's Barbershop &mdash; la barber&iacute;a de Salem para fades, cortes cl&aacute;sicos, barba y afeitado con toalla caliente. Reserva en segundos, en ingl&eacute;s o espa&ntilde;ol. En el centro (State Street) — fades, perfilado y afeitado con toalla caliente.</span></p><div class="cta-row"><a class="btn" href="#book" data-en>Book a cut</a><a class="btn" href="#book" data-es>Reserva tu corte</a><a class="btn ghost" href="#services" data-en>See services</a><a class="btn ghost" href="#services" data-es>Ver servicios</a></div><div class="trust"><span data-en>Skilled barbers</span><span data-es>Barberos expertos</span><span data-en>Walk-ins &amp; appointments</span><span data-es>Con y sin cita</span><span data-en>Beard &amp; line-ups</span><span data-es>Barba y perfilado</span><span data-en>Bilingual</span><span data-es>Biling&uuml;e</span></div></div></div>
 <!-- SERVICES -->
 <section id="services"><div class="wrap"><h2 class="sec" data-en>What we do</h2><h2 class="sec" data-es>Lo que hacemos</h2><p class="sub" data-en>Tell us the look &mdash; we'll dial it in.</p><p class="sub" data-es>Dinos el estilo &mdash; lo afinamos.</p><div class="grid cards"><div class="card"><span class="tag">Cuts</span><h3 data-en>Haircuts &amp; Fades</h3><h3 data-es>Cortes y Fades</h3><p data-en>Skin fades, tapers, scissor cuts and classic styles, dialed to you.</p><p data-es>Skin fades, tapers, a tijera y cl&aacute;sicos, a tu medida.</p></div><div class="card"><span class="tag">Beard</span><h3 data-en>Beard &amp; Line-up</h3><h3 data-es>Barba y Perfilado</h3><p data-en>Beard shaping, trims and crisp line-ups.</p><p data-es>Dise&ntilde;o de barba, recortes y perfilado limpio.</p></div><div class="card"><span class="tag">Shave</span><h3 data-en>Hot-Towel Shave</h3><h3 data-es>Afeitado con Toalla</h3><p data-en>Classic straight-razor shave with a hot towel.</p><p data-es>Afeitado cl&aacute;sico a navaja con toalla caliente.</p></div><div class="card"><span class="tag">Kids</span><h3 data-en>Kids' Cuts</h3><h3 data-es>Cortes para Ni&ntilde;os</h3><p data-en>Patient, quick cuts for the little ones.</p><p data-es>Cortes r&aacute;pidos y con paciencia para los peque&ntilde;os.</p></div><div class="card"><span class="tag">Design</span><h3 data-en>Designs &amp; Details</h3><h3 data-es>Dise&ntilde;os y Detalles</h3><p data-en>Hair designs, parts and custom detailing.</p><p data-es>Dise&ntilde;os, l&iacute;neas y detalles personalizados.</p></div><div class="card"><span class="tag">New?</span><h3 data-en>New here?</h3><h3 data-es>&iquest;Primera vez?</h3><p data-en>Tell us your style or bring a photo &mdash; we'll match it.</p><p data-es>Dinos tu estilo o trae una foto &mdash; lo igualamos.</p></div></div></div></section>
 <!-- ARTISTS -->
@@ -155,6 +179,14 @@
 <section id="book"><div class="wrap twocol"><div><h2 class="sec" data-en>Book a cut</h2><h2 class="sec" data-es>Reserva tu corte</h2><p class="sub" data-en>Walk in during open hours, or book ahead to skip the wait.</p><p class="sub" data-es>Llega en horario, o reserva para no esperar.</p><p style="margin:0 0 18px"><a class="btn" id="bookCta" href="#" target="_blank" rel="noopener" data-en>Book now</a><a class="btn" id="bookCtaEs" href="#" target="_blank" rel="noopener" data-es>Reservar</a></p><div class="note"><strong data-en>Good to know:</strong><strong data-es>Bueno saber:</strong><ul style="margin:8px 0 0;padding-left:18px"><li data-en>Walk-ins welcome &mdash; or book ahead to skip the wait.</li><li data-es>Con o sin cita &mdash; reserva para no esperar.</li><li data-en>Bring a reference photo for the cut you want.</li><li data-es>Trae una foto de referencia del corte.</li><li data-en>Kids and groups welcome.</li><li data-es>Ni&ntilde;os y grupos bienvenidos.</li></ul></div></div><div><div class="card"><h3 data-en>Visit us</h3><h3 data-es>Vis&iacute;tanos</h3><p id="nap" style="line-height:1.9"></p></div></div></div></section>
 <!-- FAQ -->
 <section id="faq"><div class="wrap"><h2 class="sec">FAQ</h2><div class="faq"><details><summary data-en>How much is a haircut?</summary><summary data-es>&iquest;Cu&aacute;nto cuesta un corte?</summary><p data-en>Pricing depends on the service &mdash; your barber confirms it before the cut, with shop rates posted in-store.</p><p data-es>El precio depende del servicio &mdash; tu barbero lo confirma antes de empezar, con las tarifas a la vista.</p></details><details><summary data-en>Do you take walk-ins?</summary><summary data-es>&iquest;Atienden sin cita?</summary><p data-en>Yes &mdash; walk in during open hours, or book ahead to skip the wait.</p><p data-es>S&iacute; &mdash; llega en horario, o reserva para no esperar.</p></details><details><summary data-en>Do you do beard trims and shaves?</summary><summary data-es>&iquest;Hacen barba y afeitado?</summary><p data-en>We do &mdash; beard shaping, line-ups and hot-towel straight-razor shaves.</p><p data-es>S&iacute; &mdash; dise&ntilde;o de barba, perfilado y afeitado a navaja con toalla caliente.</p></details><details><summary data-en>Do you cut kids' hair?</summary><summary data-es>&iquest;Cortan a ni&ntilde;os?</summary><p data-en>Absolutely &mdash; we keep it quick and patient for the little ones.</p><p data-es>Claro &mdash; r&aacute;pido y con paciencia para los peque&ntilde;os.</p></details><details><summary data-en>Can I request a specific barber?</summary><summary data-es>&iquest;Puedo pedir un barbero?</summary><p data-en>Yes &mdash; tell us who, or book directly with your barber.</p><p data-es>S&iacute; &mdash; dinos cu&aacute;l, o reserva directo con tu barbero.</p></details></div></div></section>
+<!-- REVIEWS -->
+<section id="reviews" class="reviews"><div class="wrap">
+  <h2 class="sec reveal" data-en>What clients say</h2><h2 class="sec reveal" data-es>Lo que dicen los clientes</h2>
+  <div class="agg reveal" id="revAgg"></div>
+  <div class="grid cards reveal" id="reviewGrid" style="margin-top:16px"></div>
+  <p class="sub reveal" data-en>Sample reviews shown for this demo.</p><p class="sub reveal" data-es>Rese&ntilde;as de muestra para esta demostraci&oacute;n.</p>
+</div></section>
+
 <footer>
   <div class="wrap footgrid">
     <div>
@@ -169,6 +201,12 @@
 <!-- LIGHTBOX -->
 <div id="lightbox" role="dialog" aria-modal="true"><button class="x" aria-label="Close">×</button><img src="" alt=""></div>
 
+<!-- STICKY CALL / BOOK BAR (mobile front office) -->
+<div class="callbar" aria-label="Quick contact">
+  <a class="call" id="cbCall" href="#"><span data-en>Call now</span><span data-es>Llamar</span></a>
+  <a class="book" href="#book"><span data-en>Book</span><span data-es>Reservar</span></a>
+</div>
+
 <!-- CHAT WIDGET -->
 <button id="chatBtn" aria-label="Chat">💬</button>
 <div id="chatPanel" aria-live="polite">
@@ -180,6 +218,7 @@
     </div>
   </div>
   <div class="chatLog" id="chatLog"></div>
+  <p class="sr-consent" style="margin:0 12px;font-size:11px;color:var(--muted)"><span data-en>Please don't share sensitive info (SSN, case numbers) in chat.</span><span data-es>Por favor no compartas datos sensibles (SSN, n&uacute;meros de caso) en el chat.</span></p>
   <div class="chips" id="chatChips"></div>
   <form class="chatForm" id="chatForm" autocomplete="off">
     <input id="chatInput" placeholder="Type a message…" aria-label="message">
@@ -192,7 +231,7 @@
    CONFIG — EDIT THESE WITH THE STUDIO'S REAL DETAILS
    These are placeholders. Fill in the verified business info before launch.
    ==================================================================== */
-const CONFIG = {"name": "Johnny's Barbershop", "logo": "logo.svg", "vertical": "barbershop", "address": "388 State St, Salem, OR 97301", "phone": "(503) 510-8642", "hoursEn": "Walk-ins & appointments — call for today's hours", "hoursEs": "Con y sin cita — llama para el horario", "instagram": "", "facebook": "", "bookingUrl": "", "artists": [], "gallery": [], "demo": true, "chatEndpoint": "https://jonathan777-ui.app.n8n.cloud/webhook/orbit-demo-chat"};
+const CONFIG = {"name": "Johnny's Barbershop", "logo": "logo.svg", "vertical": "barbershop", "address": "388 State St, Salem, OR 97301", "phone": "(503) 510-8642", "hoursEn": "Walk-ins & appointments — call for today's hours", "hoursEs": "Con y sin cita — llama para el horario", "instagram": "", "facebook": "", "bookingUrl": "", "artists": [], "gallery": [], "demo": true, "reviews": [{"stars": 5, "en": "Best fade I've had in Salem. In and out, looked sharp.", "es": "El mejor fade que me han hecho en Salem. Rápido y quedó muy bien.", "who": "Sample · demo"}, {"stars": 5, "en": "Walked in on a Saturday, short wait, great line-up and beard trim.", "es": "Llegué sin cita un sábado, poca espera, excelente perfilado y barba.", "who": "Sample · demo"}, {"stars": 5, "en": "They speak Spanish and English — my whole family comes here now.", "es": "Hablan español e inglés — ahora viene toda mi familia.", "who": "Sample · demo"}], "chatEndpoint": "https://jonathan777-ui.app.n8n.cloud/webhook/orbit-demo-chat"};
 
 /* ---------- language ---------- */
 function setLang(l){
@@ -209,6 +248,7 @@ function setLang(l){
   }catch(e){}
   renderNAP();
   if(typeof renderGallery==='function') renderGallery();
+  if(typeof renderReviews==='function') renderReviews();
 }
 (function initLang(){
   let l='en';
@@ -335,6 +375,7 @@ const log=document.getElementById('chatLog');
 const panel=document.getElementById('chatPanel');
 const chips=document.getElementById('chatChips');
 let history=[]; // {role, content}
+let leadMode=false; // front-office fallback: collect a callback name/number if the brain is offline
 
 const CHIPS = { en:[["Book a cut", "I'd like to book a haircut."], ["Walk-ins?", "Do you take walk-ins right now?"], ["Beard trim", "Do you do beard trims and line-ups?"], ["Prices", "How much is a haircut and beard trim?"]],
   es:[["Reservar corte", "Quiero reservar un corte."], ["Sin cita", "¿Atienden sin cita ahora?"], ["Barba", "¿Hacen arreglo de barba y perfilado?"], ["Precios", "¿Cuánto cuesta corte y barba?"]] };
@@ -365,8 +406,16 @@ document.getElementById('chatBtn').onclick=()=> panel.classList.contains('open')
 
 async function send(text){
   text=(text||'').trim(); if(!text) return;
-  bubble(text,'me'); history.push({role:'user',content:text});
+  bubble(text,'me');
   document.getElementById('chatInput').value='';
+  const es0=document.documentElement.lang==='es';
+  if(leadMode){ // collecting a callback detail after an offline fallback
+    leadMode=false;
+    bubble(es0?'¡Gracias! El estudio te contactará en breve. Si es urgente, llámanos directamente.'
+              :'Thanks! The studio will reach out shortly. If it’s urgent, please call us directly.','bot');
+    return;
+  }
+  history.push({role:'user',content:text});
   const typing=bubble('…','bot');
   try{
     const r=await fetch(CONFIG.chatEndpoint,{
@@ -375,17 +424,56 @@ async function send(text){
         page:location.pathname, business:{name:CONFIG.name, vertical:CONFIG.vertical, address:CONFIG.address, phone:CONFIG.phone, hours:CONFIG.hoursEn, instagram:CONFIG.instagram}})
     });
     const data=await r.json();
-    const reply=(data && data.reply) ? data.reply :
-      (document.documentElement.lang==='es'
-        ? 'Perdona, tuve un problema. ¿Quieres que te conecte con el estudio?'
-        : 'Sorry, I had trouble there. Want me to connect you to the studio?');
-    typing.textContent=reply; history.push({role:'assistant',content:reply});
+    if(data && data.reply){
+      typing.textContent=data.reply; history.push({role:'assistant',content:data.reply});
+    }else{
+      leadMode=true;
+      typing.textContent=(document.documentElement.lang==='es'
+        ? 'Perdona, tuve un problema. Déjame tu nombre y teléfono y el estudio te llama.'
+        : 'Sorry, I had trouble there. Leave your name and number and the studio will call you back.');
+    }
   }catch(e){
+    leadMode=true;
     typing.textContent=(document.documentElement.lang==='es'
-      ? 'No me pude conectar. Llámanos o escríbenos por Instagram y te ayudamos.'
-      : 'I couldn’t connect. Call us or DM us on Instagram and we’ll help you out.');
+      ? 'No me pude conectar ahora. Déjame tu nombre y teléfono y te llamamos.'
+      : 'I couldn’t connect right now. Leave your name and number and we’ll call you back.');
   }
 }
+
+/* ---------- social proof, mobile call bar, motion, schema ---------- */
+function _stars(n){ n=Math.max(0,Math.min(5,Math.round(n||5))); return '★★★★★'.slice(0,n)+'☆☆☆☆☆'.slice(0,5-n); }
+function renderReviews(){
+  const grid=document.getElementById('reviewGrid'); if(!grid) return;
+  const es=document.documentElement.lang==='es'; const R=CONFIG.reviews||[];
+  const sec=document.getElementById('reviews');
+  if(!R.length){ if(sec) sec.style.display='none'; return; }
+  grid.innerHTML=R.map(r=>'<div class="rev"><div class="stars" aria-label="'+(r.stars||5)+' / 5">'+_stars(r.stars)+'</div>'
+    +'<p>'+(es?(r.es||r.en||''):(r.en||r.es||''))+'</p><div class="who">'+(r.who||'')+'</div></div>').join('');
+  const agg=document.getElementById('revAgg');
+  const avg=(R.reduce((a,r)=>a+(+r.stars||5),0)/R.length).toFixed(1);
+  if(agg) agg.innerHTML='<b>'+avg+'</b> <span aria-hidden="true">'+_stars(avg)+'</span> · '+R.length+(es?' reseñas':' reviews');
+}
+renderReviews();
+// mobile sticky call bar
+(function(){ var cb=document.getElementById('cbCall'); if(cb&&CONFIG.phone) cb.href='tel:'+tel(CONFIG.phone); })();
+// scroll-reveal motion (skipped entirely for reduced-motion users)
+(function(){
+  try{ if(matchMedia('(prefers-reduced-motion: reduce)').matches) return; }catch(e){ return; }
+  var els=document.querySelectorAll('.hero h1,.lede,.sec,.card,.rev,.agg,.note,.gallery .tile');
+  els.forEach(function(e){ e.classList.add('reveal'); });
+  var io=new IntersectionObserver(function(ents){ ents.forEach(function(en){
+    if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); } }); },{threshold:.12});
+  els.forEach(function(e){ io.observe(e); });
+})();
+// runtime LocalBusiness schema for the bare scaffold; build-time JSON-LD (richer) wins if present
+(function(){
+  if(document.querySelector('script[type="application/ld+json"]')) return;
+  var b=CONFIG, ld={"@context":"https://schema.org","@type":"LocalBusiness","name":b.name,
+    "areaServed":"Salem, OR","knowsLanguage":["en","es"]};
+  if(b.phone) ld.telephone=b.phone; if(b.address) ld.address=b.address;
+  var s=document.createElement('script'); s.type='application/ld+json'; s.textContent=JSON.stringify(ld);
+  document.head.appendChild(s);
+})();
 document.getElementById('chatForm').addEventListener('submit',e=>{
   e.preventDefault(); send(document.getElementById('chatInput').value);
 });

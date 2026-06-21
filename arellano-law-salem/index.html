@@ -3,8 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; connect-src https:; base-uri 'self'; frame-ancestors 'none'">
 <title>Arellano Law Firm — Immigration Law Firm in Salem, OR | Bilingual EN/ES</title>
-<meta name="description" content="Arellano Law Firm — bilingual immigration attorney in Salem, Oregon. Green cards, citizenship, work permits, family petitions and deportation defense. Free, confidential consultation. Call (503) 305-3425.">
+<meta name="description" content="Arellano Law Firm — bilingual immigration attorney in Salem, Oregon. Green cards, citizenship, work permits, family petitions and deportation defense. Free, confidential consultation. Call (503) 305-3425. A bilingual immigration firm serving Salem by appointment — free consultation.">
 <style>
   :root{
     /* Brand palette pulled from the logo: deep purple, ornate gold, red ✗, cream */
@@ -124,8 +126,30 @@
   .skip:focus{left:0}
   .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
            clip:rect(0,0,0,0);white-space:nowrap;border:0}
+  /* front office: sticky mobile call/book bar */
+  .callbar{position:fixed;left:0;right:0;bottom:0;z-index:70;display:none;gap:8px;padding:9px 12px;
+           background:rgba(10,6,16,.92);backdrop-filter:blur(8px);border-top:1px solid var(--line)}
+  .callbar a{flex:1;text-align:center;padding:12px 10px;border-radius:10px;font-weight:700;font-size:15px}
+  .callbar .call{background:var(--accent);color:#fff}
+  .callbar .book{background:transparent;color:var(--fg);border:1px solid var(--line)}
+  @media (max-width:760px){ .callbar{display:flex} body{padding-bottom:64px} }
+  /* social proof / reviews */
+  .reviews .rev{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px 20px}
+  .reviews .stars{color:var(--accent2);letter-spacing:2px;font-size:14px;margin-bottom:8px}
+  .reviews .who{color:var(--muted);font-size:13px;margin-top:10px}
+  .agg{display:flex;align-items:center;gap:10px;color:var(--muted);font-size:14px;margin-top:6px}
+  .agg b{color:var(--fg);font-size:22px}
+  /* motion: gentle scroll-reveal, fully disabled for reduced-motion users */
+  .reveal{opacity:0;transform:translateY(14px);transition:opacity .6s ease,transform .6s ease}
+  .reveal.in{opacity:1;transform:none}
+  .btn,.card,.chip,.callbar a{transition:transform .15s ease,filter .15s ease,border-color .15s ease}
+  .btn:hover{filter:brightness(1.08);transform:translateY(-1px)}
+  @media (prefers-reduced-motion: reduce){
+    .reveal{opacity:1;transform:none;transition:none}
+    *{animation-duration:.001ms !important;transition-duration:.001ms !important;scroll-behavior:auto !important}
+  }
 </style>
-<style id="brandvars">:root{--bg:#1a090c;--panel:#2a0e14;--line:#4a1923;--fg:#f1f3f8;--muted:#928695;--accent:#C9A66B;--accent2:#aa7781;--ink:#0f0507}</style><meta name="x-orbit-template" content="Counsel"><meta name="x-orbit-palette" content="C7"><link rel="canonical" href="https://jonathan777-ui.github.io/orbit-platform/arellano-law-salem/"><meta name="robots" content="index,follow"><link rel="alternate" hreflang="en" href="https://jonathan777-ui.github.io/orbit-platform/arellano-law-salem/"><link rel="alternate" hreflang="es" href="https://jonathan777-ui.github.io/orbit-platform/arellano-law-salem/?lang=es"><link rel="alternate" hreflang="x-default" href="https://jonathan777-ui.github.io/orbit-platform/arellano-law-salem/"><meta name="geo.region" content="US-OR"><meta name="geo.placename" content="Salem, Oregon"><meta name="geo.position" content="44.94;-123.04"><meta name="ICBM" content="44.94, -123.04"><meta property="og:type" content="business.business"><meta property="og:site_name" content="Arellano Law Firm"><meta property="og:title" content="Arellano Law Firm — Immigration Law Firm in Salem, OR | Bilingual EN/ES"><meta property="og:description" content="Arellano Law Firm — bilingual immigration attorney in Salem, Oregon. Green cards, citizenship, work permits, family petitions and deportation defense. Free, confidential consultation. Call (503) 305-3425."><meta property="og:url" content="https://jonathan777-ui.github.io/orbit-platform/arellano-law-salem/"><meta property="og:image" content="https://jonathan777-ui.github.io/orbit-platform/arellano-law-salem/logo.svg"><meta property="og:locale" content="en_US"><meta property="og:locale:alternate" content="es_ES"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="Arellano Law Firm — Immigration Law Firm in Salem, OR | Bilingual EN/ES"><meta name="twitter:description" content="Arellano Law Firm — bilingual immigration attorney in Salem, Oregon. Green cards, citizenship, work permits, family petitions and deportation defense. Free, confidential consultation. Call (503) 305-3425."><script type="application/ld+json">{"@context": "https://schema.org", "@type": "Attorney", "name": "Arellano Law Firm", "url": "https://jonathan777-ui.github.io/orbit-platform/arellano-law-salem/", "priceRange": "$$", "areaServed": "Salem, OR", "knowsLanguage": ["en", "es"], "image": "https://jonathan777-ui.github.io/orbit-platform/arellano-law-salem/logo.svg", "address": {"@type": "PostalAddress", "addressLocality": "Salem", "addressRegion": "OR", "postalCode": "97301", "addressCountry": "US"}, "geo": {"@type": "GeoCoordinates", "latitude": 44.94, "longitude": -123.04}, "telephone": "(503) 305-3425", "sameAs": ["https://arellanolegal.com/salem/"], "openingHoursSpecification": [{"@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], "opens": "09:00", "closes": "17:00"}]}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "How much does a consultation cost?", "acceptedAnswer": {"@type": "Answer", "text": "The consultation is free. The attorney explains any fees clearly before you decide &mdash; no surprises."}}, {"@type": "Question", "name": "Do you speak Spanish?", "acceptedAnswer": {"@type": "Answer", "text": "Yes &mdash; our team is fully bilingual and your consultation can be entirely in Spanish."}}, {"@type": "Question", "name": "Is what I share confidential?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. What you share is kept confidential, and the attorney is bound by strict confidentiality."}}, {"@type": "Question", "name": "Does my immigration status affect talking to you?", "acceptedAnswer": {"@type": "Answer", "text": "No &mdash; speaking with us is confidential, and we never treat your status as a barrier to getting help."}}, {"@type": "Question", "name": "Someone was detained by ICE &mdash; what do I do?", "acceptedAnswer": {"@type": "Answer", "text": "Call us right away with the person's full name, A-number if known, and the facility. If it is an emergency, call 911."}}]}</script></head>
+<style id="brandvars">:root{--bg:#1a090c;--panel:#2a0e14;--line:#4a1923;--fg:#f1f3f8;--muted:#928695;--accent:#C9A66B;--accent2:#aa7781;--ink:#0f0507}</style><meta name="x-orbit-template" content="Counsel"><meta name="x-orbit-palette" content="C7"><link rel="canonical" href="https://jonathan777-ui.github.io/orbit-platform/arellano-law-salem/"><meta name="robots" content="index,follow"><link rel="alternate" hreflang="en" href="https://jonathan777-ui.github.io/orbit-platform/arellano-law-salem/"><link rel="alternate" hreflang="es" href="https://jonathan777-ui.github.io/orbit-platform/arellano-law-salem/?lang=es"><link rel="alternate" hreflang="x-default" href="https://jonathan777-ui.github.io/orbit-platform/arellano-law-salem/"><meta name="geo.region" content="US-OR"><meta name="geo.placename" content="Salem, Oregon"><meta name="geo.position" content="44.94;-123.04"><meta name="ICBM" content="44.94, -123.04"><meta property="og:type" content="business.business"><meta property="og:site_name" content="Arellano Law Firm"><meta property="og:title" content="Arellano Law Firm — Immigration Law Firm in Salem, OR | Bilingual EN/ES"><meta property="og:description" content="Arellano Law Firm — bilingual immigration attorney in Salem, Oregon. Green cards, citizenship, work permits, family petitions and deportation defense. Free, confidential consultation. Call (503) 305-3425. A bilingual immigration firm serving Salem by appointment — free consultation."><meta property="og:url" content="https://jonathan777-ui.github.io/orbit-platform/arellano-law-salem/"><meta property="og:image" content="https://jonathan777-ui.github.io/orbit-platform/arellano-law-salem/logo.svg"><meta property="og:locale" content="en_US"><meta property="og:locale:alternate" content="es_ES"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="Arellano Law Firm — Immigration Law Firm in Salem, OR | Bilingual EN/ES"><meta name="twitter:description" content="Arellano Law Firm — bilingual immigration attorney in Salem, Oregon. Green cards, citizenship, work permits, family petitions and deportation defense. Free, confidential consultation. Call (503) 305-3425. A bilingual immigration firm serving Salem by appointment — free consultation."><script type="application/ld+json">{"@context": "https://schema.org", "@type": "Attorney", "name": "Arellano Law Firm", "url": "https://jonathan777-ui.github.io/orbit-platform/arellano-law-salem/", "priceRange": "$$", "areaServed": "Salem, OR", "knowsLanguage": ["en", "es"], "image": "https://jonathan777-ui.github.io/orbit-platform/arellano-law-salem/logo.svg", "address": {"@type": "PostalAddress", "addressLocality": "Salem", "addressRegion": "OR", "postalCode": "97301", "addressCountry": "US"}, "geo": {"@type": "GeoCoordinates", "latitude": 44.94, "longitude": -123.04}, "telephone": "(503) 305-3425", "sameAs": ["https://arellanolegal.com/salem/"], "openingHoursSpecification": [{"@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], "opens": "09:00", "closes": "17:00"}]}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "How much does a consultation cost?", "acceptedAnswer": {"@type": "Answer", "text": "The consultation is free. The attorney explains any fees clearly before you decide &mdash; no surprises."}}, {"@type": "Question", "name": "Do you speak Spanish?", "acceptedAnswer": {"@type": "Answer", "text": "Yes &mdash; our team is fully bilingual and your consultation can be entirely in Spanish."}}, {"@type": "Question", "name": "Is what I share confidential?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. What you share is kept confidential, and the attorney is bound by strict confidentiality."}}, {"@type": "Question", "name": "Does my immigration status affect talking to you?", "acceptedAnswer": {"@type": "Answer", "text": "No &mdash; speaking with us is confidential, and we never treat your status as a barrier to getting help."}}, {"@type": "Question", "name": "Someone was detained by ICE &mdash; what do I do?", "acceptedAnswer": {"@type": "Answer", "text": "Call us right away with the person's full name, A-number if known, and the facility. If it is an emergency, call 911."}}]}</script></head>
 <body>
 <a class="skip" href="#main" data-en>Skip to content</a><a class="skip" href="#main" data-es>Saltar al contenido</a>
 <header>
@@ -143,7 +167,7 @@
 </header>
 
 <!-- HERO -->
-<div class="hero" id="main" tabindex="-1"><div class="wrap"><h1><span data-en>Serious immigration matters deserve serious attention.</span><span data-es>Los asuntos de inmigraci&oacute;n serios merecen atenci&oacute;n seria.</span></h1><p class="lede"><span data-en>Arellano Law Firm &mdash; bilingual immigration counsel in Salem. Green cards, citizenship, work permits, family petitions and removal defense. Free, confidential consultation &mdash; in English or Spanish.</span><span data-es>Arellano Law Firm &mdash; abogac&iacute;a de inmigraci&oacute;n biling&uuml;e en Salem. Green cards, ciudadan&iacute;a, permisos de trabajo, peticiones familiares y defensa de deportaci&oacute;n. Consulta gratis y confidencial &mdash; en ingl&eacute;s o espa&ntilde;ol.</span></p><div class="cta-row"><a class="btn" href="#book" data-en>Free consultation</a><a class="btn" href="#book" data-es>Consulta gratis</a><a class="btn ghost" href="#services" data-en>How we help</a><a class="btn ghost" href="#services" data-es>C&oacute;mo ayudamos</a></div><div class="trust"><span data-en>Bilingual team</span><span data-es>Equipo biling&uuml;e</span><span data-en>Confidential</span><span data-es>Confidencial</span><span data-en>Free consultation</span><span data-es>Consulta gratis</span><span data-en>Serving all of Oregon</span><span data-es>Servimos todo Oreg&oacute;n</span></div></div></div>
+<div class="hero" id="main" tabindex="-1"><div class="wrap"><h1><span data-en>Serious immigration matters deserve serious attention.</span><span data-es>Los asuntos de inmigraci&oacute;n serios merecen atenci&oacute;n seria.</span></h1><p class="lede"><span data-en>Arellano Law Firm &mdash; bilingual immigration counsel in Salem. Green cards, citizenship, work permits, family petitions and removal defense. Free, confidential consultation &mdash; in English or Spanish. A bilingual immigration firm serving Salem by appointment — free consultation.</span><span data-es>Arellano Law Firm &mdash; abogac&iacute;a de inmigraci&oacute;n biling&uuml;e en Salem. Green cards, ciudadan&iacute;a, permisos de trabajo, peticiones familiares y defensa de deportaci&oacute;n. Consulta gratis y confidencial &mdash; en ingl&eacute;s o espa&ntilde;ol. Una firma de inmigración bilingüe que atiende Salem con cita — consulta gratis.</span></p><div class="cta-row"><a class="btn" href="#book" data-en>Free consultation</a><a class="btn" href="#book" data-es>Consulta gratis</a><a class="btn ghost" href="#services" data-en>How we help</a><a class="btn ghost" href="#services" data-es>C&oacute;mo ayudamos</a></div><div class="trust"><span data-en>Bilingual team</span><span data-es>Equipo biling&uuml;e</span><span data-en>Confidential</span><span data-es>Confidencial</span><span data-en>Free consultation</span><span data-es>Consulta gratis</span><span data-en>Serving all of Oregon</span><span data-es>Servimos todo Oreg&oacute;n</span></div></div></div>
 <!-- SERVICES -->
 <section id="services"><div class="wrap"><h2 class="sec" data-en>How we help</h2><h2 class="sec" data-es>C&oacute;mo ayudamos</h2><p class="sub" data-en>Tell us your situation &mdash; we'll explain your options at the consultation.</p><p class="sub" data-es>Cu&eacute;ntanos tu situaci&oacute;n &mdash; te explicamos tus opciones en la consulta.</p><div class="grid cards"><div class="card"><span class="tag">Family</span><h3 data-en>Family &amp; Green Cards</h3><h3 data-es>Familia y Green Cards</h3><p data-en>Family petitions, adjustment of status, green card renewals.</p><p data-es>Peticiones familiares, ajuste de estatus, renovaci&oacute;n de green card.</p></div><div class="card"><span class="tag">Citizenship</span><h3 data-en>Citizenship &amp; Naturalization</h3><h3 data-es>Ciudadan&iacute;a y Naturalizaci&oacute;n</h3><p data-en>Naturalization applications and interview prep.</p><p data-es>Solicitudes de naturalizaci&oacute;n y preparaci&oacute;n para la entrevista.</p></div><div class="card"><span class="tag">Work</span><h3 data-en>Work Permits &amp; Visas</h3><h3 data-es>Permisos de Trabajo y Visas</h3><p data-en>Employment authorization and visa petitions.</p><p data-es>Autorizaci&oacute;n de empleo y peticiones de visa.</p></div><div class="card"><span class="tag">Defense</span><h3 data-en>Removal / Deportation Defense</h3><h3 data-es>Defensa de Deportaci&oacute;n</h3><p data-en>Defense in immigration court and detention cases.</p><p data-es>Defensa en corte de inmigraci&oacute;n y casos de detenci&oacute;n.</p></div><div class="card"><span class="tag">Asylum</span><h3 data-en>Asylum &amp; Humanitarian</h3><h3 data-es>Asilo y Humanitario</h3><p data-en>Asylum, U-visa, VAWA and humanitarian relief.</p><p data-es>Asilo, visa U, VAWA y alivio humanitario.</p></div><div class="card"><span class="tag">DACA</span><h3 data-en>DACA &amp; Renewals</h3><h3 data-es>DACA y Renovaciones</h3><p data-en>DACA applications and renewals.</p><p data-es>Solicitudes y renovaciones de DACA.</p></div></div></div></section>
 <!-- ARTISTS -->
@@ -154,6 +178,14 @@
 <section id="book"><div class="wrap twocol"><div><h2 class="sec" data-en>Book a free consultation</h2><h2 class="sec" data-es>Agenda una consulta gratis</h2><p class="sub" data-en>The consultation is free and confidential. Tell us your situation and we'll set a time.</p><p class="sub" data-es>La consulta es gratis y confidencial. Cu&eacute;ntanos tu situaci&oacute;n y agendamos.</p><p style="margin:0 0 18px"><a class="btn" id="bookCta" href="#" target="_blank" rel="noopener" data-en>Request consult</a><a class="btn" id="bookCtaEs" href="#" target="_blank" rel="noopener" data-es>Pedir consulta</a></p><div class="note"><strong data-en>What to bring:</strong><strong data-es>Qu&eacute; traer:</strong><ul style="margin:8px 0 0;padding-left:18px"><li data-en>Any immigration documents or notices you have &mdash; bring them all.</li><li data-es>Cualquier documento o aviso de inmigraci&oacute;n que tengas &mdash; tr&aacute;elos todos.</li><li data-en>Government photo ID and any case or A-numbers.</li><li data-es>Identificaci&oacute;n con foto y cualquier n&uacute;mero de caso o A-number.</li><li data-en>Names and dates for the family members involved.</li><li data-es>Nombres y fechas de los familiares involucrados.</li></ul></div></div><div><div class="card"><h3 data-en>Visit us</h3><h3 data-es>Vis&iacute;tanos</h3><p id="nap" style="line-height:1.9"></p></div></div></div></section>
 <!-- FAQ -->
 <section id="faq"><div class="wrap"><h2 class="sec">FAQ</h2><div class="faq"><details><summary data-en>How much does a consultation cost?</summary><summary data-es>&iquest;Cu&aacute;nto cuesta la consulta?</summary><p data-en>The consultation is free. The attorney explains any fees clearly before you decide &mdash; no surprises.</p><p data-es>La consulta es gratis. El abogado explica los honorarios con claridad antes de decidir &mdash; sin sorpresas.</p></details><details><summary data-en>Do you speak Spanish?</summary><summary data-es>&iquest;Hablan espa&ntilde;ol?</summary><p data-en>Yes &mdash; our team is fully bilingual and your consultation can be entirely in Spanish.</p><p data-es>S&iacute; &mdash; el equipo es completamente biling&uuml;e y tu consulta puede ser en espa&ntilde;ol.</p></details><details><summary data-en>Is what I share confidential?</summary><summary data-es>&iquest;Es confidencial lo que comparto?</summary><p data-en>Yes. What you share is kept confidential, and the attorney is bound by strict confidentiality.</p><p data-es>S&iacute;. Lo que compartes se mantiene confidencial, y el abogado est&aacute; obligado a estricta confidencialidad.</p></details><details><summary data-en>Does my immigration status affect talking to you?</summary><summary data-es>&iquest;Mi estatus afecta hablar con ustedes?</summary><p data-en>No &mdash; speaking with us is confidential, and we never treat your status as a barrier to getting help.</p><p data-es>No &mdash; hablar con nosotros es confidencial, y nunca tratamos tu estatus como una barrera para ayudarte.</p></details><details><summary data-en>Someone was detained by ICE &mdash; what do I do?</summary><summary data-es>Detuvieron a alguien por ICE &mdash; &iquest;qu&eacute; hago?</summary><p data-en>Call us right away with the person's full name, A-number if known, and the facility. If it is an emergency, call 911.</p><p data-es>Ll&aacute;manos de inmediato con el nombre completo, el A-number si lo sabes, y el centro. Si es una emergencia, llama al 911.</p></details></div></div></section>
+<!-- REVIEWS -->
+<section id="reviews" class="reviews"><div class="wrap">
+  <h2 class="sec reveal" data-en>What clients say</h2><h2 class="sec reveal" data-es>Lo que dicen los clientes</h2>
+  <div class="agg reveal" id="revAgg"></div>
+  <div class="grid cards reveal" id="reviewGrid" style="margin-top:16px"></div>
+  <p class="sub reveal" data-en>Sample reviews shown for this demo.</p><p class="sub reveal" data-es>Rese&ntilde;as de muestra para esta demostraci&oacute;n.</p>
+</div></section>
+
 <footer>
   <div class="wrap footgrid">
     <div>
@@ -168,6 +200,12 @@
 <!-- LIGHTBOX -->
 <div id="lightbox" role="dialog" aria-modal="true"><button class="x" aria-label="Close">×</button><img src="" alt=""></div>
 
+<!-- STICKY CALL / BOOK BAR (mobile front office) -->
+<div class="callbar" aria-label="Quick contact">
+  <a class="call" id="cbCall" href="#"><span data-en>Call now</span><span data-es>Llamar</span></a>
+  <a class="book" href="#book"><span data-en>Book</span><span data-es>Reservar</span></a>
+</div>
+
 <!-- CHAT WIDGET -->
 <button id="chatBtn" aria-label="Chat">💬</button>
 <div id="chatPanel" aria-live="polite">
@@ -179,6 +217,7 @@
     </div>
   </div>
   <div class="chatLog" id="chatLog"></div>
+  <p class="sr-consent" style="margin:0 12px;font-size:11px;color:var(--muted)"><span data-en>Please don't share sensitive info (SSN, case numbers) in chat.</span><span data-es>Por favor no compartas datos sensibles (SSN, n&uacute;meros de caso) en el chat.</span></p>
   <div class="chips" id="chatChips"></div>
   <form class="chatForm" id="chatForm" autocomplete="off">
     <input id="chatInput" placeholder="Type a message…" aria-label="message">
@@ -191,7 +230,7 @@
    CONFIG — EDIT THESE WITH THE STUDIO'S REAL DETAILS
    These are placeholders. Fill in the verified business info before launch.
    ==================================================================== */
-const CONFIG = {"name": "Arellano Law Firm", "logo": "logo.svg", "vertical": "immigration", "address": "Salem, OR (by appointment)", "phone": "(503) 305-3425", "hoursEn": "Mon–Fri 9am–5pm · by appointment", "hoursEs": "Lun–Vie 9am–5pm · con cita", "instagram": "", "facebook": "", "bookingUrl": "", "artists": [], "gallery": [], "demo": false, "chatEndpoint": "https://jonathan777-ui.app.n8n.cloud/webhook/orbit-demo-chat"};
+const CONFIG = {"name": "Arellano Law Firm", "logo": "logo.svg", "vertical": "immigration", "address": "Salem, OR (by appointment)", "phone": "(503) 305-3425", "hoursEn": "Mon–Fri 9am–5pm · by appointment", "hoursEs": "Lun–Vie 9am–5pm · con cita", "instagram": "", "facebook": "", "bookingUrl": "", "artists": [], "gallery": [], "demo": false, "reviews": [{"stars": 5, "en": "Explained my options clearly and never made me feel rushed. The free consult was real.", "es": "Explicaron mis opciones con claridad y sin prisa. La consulta gratis fue real.", "who": "Sample · demo"}, {"stars": 5, "en": "Bilingual from the first call — my parents finally understood the process.", "es": "Bilingüe desde la primera llamada — mis papás por fin entendieron el proceso.", "who": "Sample · demo"}, {"stars": 5, "en": "Honest about fees and timelines up front. Highly recommend.", "es": "Honestos con los costos y los tiempos desde el inicio. Muy recomendado.", "who": "Sample · demo"}], "chatEndpoint": "https://jonathan777-ui.app.n8n.cloud/webhook/orbit-demo-chat"};
 
 /* ---------- language ---------- */
 function setLang(l){
@@ -208,6 +247,7 @@ function setLang(l){
   }catch(e){}
   renderNAP();
   if(typeof renderGallery==='function') renderGallery();
+  if(typeof renderReviews==='function') renderReviews();
 }
 (function initLang(){
   let l='en';
@@ -334,6 +374,7 @@ const log=document.getElementById('chatLog');
 const panel=document.getElementById('chatPanel');
 const chips=document.getElementById('chatChips');
 let history=[]; // {role, content}
+let leadMode=false; // front-office fallback: collect a callback name/number if the brain is offline
 
 const CHIPS = { en:[["Free consult", "I'd like a free consultation."], ["Green card", "Can you help with a green card or family petition?"], ["Citizenship", "I want to apply for citizenship."], ["ICE detention", "A family member was detained by ICE."]],
   es:[["Consulta gratis", "Quiero una consulta gratis."], ["Green card", "¿Pueden ayudar con green card o petición familiar?"], ["Ciudadanía", "Quiero solicitar la ciudadanía."], ["Detención ICE", "Detuvieron a un familiar por ICE."]] };
@@ -364,8 +405,16 @@ document.getElementById('chatBtn').onclick=()=> panel.classList.contains('open')
 
 async function send(text){
   text=(text||'').trim(); if(!text) return;
-  bubble(text,'me'); history.push({role:'user',content:text});
+  bubble(text,'me');
   document.getElementById('chatInput').value='';
+  const es0=document.documentElement.lang==='es';
+  if(leadMode){ // collecting a callback detail after an offline fallback
+    leadMode=false;
+    bubble(es0?'¡Gracias! El estudio te contactará en breve. Si es urgente, llámanos directamente.'
+              :'Thanks! The studio will reach out shortly. If it’s urgent, please call us directly.','bot');
+    return;
+  }
+  history.push({role:'user',content:text});
   const typing=bubble('…','bot');
   try{
     const r=await fetch(CONFIG.chatEndpoint,{
@@ -374,17 +423,56 @@ async function send(text){
         page:location.pathname, business:{name:CONFIG.name, vertical:CONFIG.vertical, address:CONFIG.address, phone:CONFIG.phone, hours:CONFIG.hoursEn, instagram:CONFIG.instagram}})
     });
     const data=await r.json();
-    const reply=(data && data.reply) ? data.reply :
-      (document.documentElement.lang==='es'
-        ? 'Perdona, tuve un problema. ¿Quieres que te conecte con el estudio?'
-        : 'Sorry, I had trouble there. Want me to connect you to the studio?');
-    typing.textContent=reply; history.push({role:'assistant',content:reply});
+    if(data && data.reply){
+      typing.textContent=data.reply; history.push({role:'assistant',content:data.reply});
+    }else{
+      leadMode=true;
+      typing.textContent=(document.documentElement.lang==='es'
+        ? 'Perdona, tuve un problema. Déjame tu nombre y teléfono y el estudio te llama.'
+        : 'Sorry, I had trouble there. Leave your name and number and the studio will call you back.');
+    }
   }catch(e){
+    leadMode=true;
     typing.textContent=(document.documentElement.lang==='es'
-      ? 'No me pude conectar. Llámanos o escríbenos por Instagram y te ayudamos.'
-      : 'I couldn’t connect. Call us or DM us on Instagram and we’ll help you out.');
+      ? 'No me pude conectar ahora. Déjame tu nombre y teléfono y te llamamos.'
+      : 'I couldn’t connect right now. Leave your name and number and we’ll call you back.');
   }
 }
+
+/* ---------- social proof, mobile call bar, motion, schema ---------- */
+function _stars(n){ n=Math.max(0,Math.min(5,Math.round(n||5))); return '★★★★★'.slice(0,n)+'☆☆☆☆☆'.slice(0,5-n); }
+function renderReviews(){
+  const grid=document.getElementById('reviewGrid'); if(!grid) return;
+  const es=document.documentElement.lang==='es'; const R=CONFIG.reviews||[];
+  const sec=document.getElementById('reviews');
+  if(!R.length){ if(sec) sec.style.display='none'; return; }
+  grid.innerHTML=R.map(r=>'<div class="rev"><div class="stars" aria-label="'+(r.stars||5)+' / 5">'+_stars(r.stars)+'</div>'
+    +'<p>'+(es?(r.es||r.en||''):(r.en||r.es||''))+'</p><div class="who">'+(r.who||'')+'</div></div>').join('');
+  const agg=document.getElementById('revAgg');
+  const avg=(R.reduce((a,r)=>a+(+r.stars||5),0)/R.length).toFixed(1);
+  if(agg) agg.innerHTML='<b>'+avg+'</b> <span aria-hidden="true">'+_stars(avg)+'</span> · '+R.length+(es?' reseñas':' reviews');
+}
+renderReviews();
+// mobile sticky call bar
+(function(){ var cb=document.getElementById('cbCall'); if(cb&&CONFIG.phone) cb.href='tel:'+tel(CONFIG.phone); })();
+// scroll-reveal motion (skipped entirely for reduced-motion users)
+(function(){
+  try{ if(matchMedia('(prefers-reduced-motion: reduce)').matches) return; }catch(e){ return; }
+  var els=document.querySelectorAll('.hero h1,.lede,.sec,.card,.rev,.agg,.note,.gallery .tile');
+  els.forEach(function(e){ e.classList.add('reveal'); });
+  var io=new IntersectionObserver(function(ents){ ents.forEach(function(en){
+    if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); } }); },{threshold:.12});
+  els.forEach(function(e){ io.observe(e); });
+})();
+// runtime LocalBusiness schema for the bare scaffold; build-time JSON-LD (richer) wins if present
+(function(){
+  if(document.querySelector('script[type="application/ld+json"]')) return;
+  var b=CONFIG, ld={"@context":"https://schema.org","@type":"LocalBusiness","name":b.name,
+    "areaServed":"Salem, OR","knowsLanguage":["en","es"]};
+  if(b.phone) ld.telephone=b.phone; if(b.address) ld.address=b.address;
+  var s=document.createElement('script'); s.type='application/ld+json'; s.textContent=JSON.stringify(ld);
+  document.head.appendChild(s);
+})();
 document.getElementById('chatForm').addEventListener('submit',e=>{
   e.preventDefault(); send(document.getElementById('chatInput').value);
 });

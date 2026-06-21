@@ -386,6 +386,7 @@ const panel=document.getElementById('chatPanel');
 const chips=document.getElementById('chatChips');
 let history=[]; // {role, content}
 let leadMode=false; // collect a callback name/number after a dead-end
+let _ordering=false; // lightweight food-order follow-up state
 
 const CHIPS = { en:[["Get an estimate", "I'd like an estimate for a repair."], ["Check engine", "My check engine light is on."], ["Brakes", "I need my brakes looked at."], ["Hours", "What are your hours?"]],
   es:[["Pedir estimado", "Quiero un estimado para una reparación."], ["Check engine", "Tengo la luz de check engine encendida."], ["Frenos", "Necesito revisar los frenos."], ["Horario", "¿Cuál es su horario?"]] };
@@ -448,14 +449,27 @@ function kbAnswer(raw){
     return es?'Sí, atendemos en español e inglés.':'Yes — we help in both English and Spanish.';
   // FOOD: menu, ordering, and item mentions
   if(food){
+    // continuing an order: a quantity or "that's all" -> move it along, ask for drinks
+    if(_ordering && (/\b(\d+|one|two|three|four|five|six|dozen|un|una|dos|tres|cuatro|cinco|seis|media|docena)\b/.test(q)
+        || _hit(q,['that is it','thats it','that\'s it','eso es todo','nada mas','no thanks','no gracias','listo','ready','done','order','to go','to-go','pickup','para llevar'])))
+      { _ordering=false;
+        return es?('¡Perfecto, lo tengo en marcha! ¿Algo de tomar — horchata o jamaica? Cuando estés listo pasa a '+(c.address||'la taquería')+' y lo tendremos calientito. 🌮')
+                 :('Perfect — got it started! Anything to drink, like horchata or jamaica? When you’re ready, come by '+(c.address||'us')+' and we’ll have it hot and ready. 🌮'); }
     if(_hit(q,['menu','what do you have','what do you serve','que tienen','que hay','que sirven','options','opciones','special','especial']))
       return (es?('En el menú: '+menu+'. ¿Qué se te antoja?'):('On the menu: '+menu+'. What sounds good?'));
-    if(item || _hit(q,['order','ordenar','to go','to-go','pickup','pick up','recoger','para llevar','i want','i would like','i\'ll have','quiero','me da','dame','can i get','give me','delivery','entrega','hungry','hambre','eat','comer']))
-      return es?('¡Claro! '+(item&&item!=='that'?(item+' — excelente elección. '):'')+'Puedes ordenar por teléfono al '+(phone||'(ver arriba)')+' o pasar a recoger. ¿Qué te preparo?')
-               :('Absolutely! '+(item&&item!=='that'?(item+' — great choice. '):'')+'You can order by phone at '+(phone||'the number above')+' or come by for pickup. What can I get started for you?');
+    if(item || _hit(q,['order','ordenar','i want','i would like','i\'ll have','quiero','me gustaria','me da','dame','can i get','give me','hungry','hambre','eat','comer'])){
+      _ordering=true;
+      if(item && item!=='that')
+        return es?('¡Mmm, '+item+' — excelente elección! ¿Cuántos quieres, y es para llevar o para comer aquí? Te lo preparo.')
+                 :('Mmm, '+item+' — great choice! How many would you like, and is it for pickup or to enjoy here? I’ll get it started.');
+      return es?('¡Claro, yo te tomo la orden! ¿Qué se te antoja, y es para llevar o para comer aquí?')
+               :('Of course — I’ll take your order! What are you craving, and is it for pickup or dine-in?');
+    }
+    if(_hit(q,['to go','to-go','pickup','pick up','recoger','para llevar','delivery','entrega']))
+      { _ordering=true; return es?('¡Va para llevar! ¿Qué te preparo?'):('Pickup it is! What would you like me to get started?'); }
     if(_hit(q,['price','cost','how much','precio','cuesta','cuanto']))
-      return es?('Los precios están en el menú en la tienda — llámanos al '+(phone||'')+' y te decimos. ¿Qué quieres ordenar?')
-               :('Prices are on the in-store menu — call us at '+(phone||'')+' and we’ll tell you. What would you like to order?');
+      return es?('Los precios están en el menú de la tienda — dime qué quieres y lo anoto. ¿Qué te preparo?')
+               :('Prices are on the in-store menu — tell me what you’d like and I’ll note it. What can I get you?');
   }
   // price (non-food)
   if(_hit(q,['price','cost','how much','precio','cuesta','cuanto','rate','fee','charge','quote','estimate','estimado','cotiz']))

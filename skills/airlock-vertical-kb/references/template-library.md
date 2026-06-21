@@ -1,12 +1,14 @@
 # Orbit AI — TEMPLATE LIBRARY
 
 *The exhaustive, KB-grounded catalog of website templates for the Airlock / Orbit
-platform — **25 templates per vertical** across all 20 verticals (**500 templates**),
-plus the **Top 20 Color Combinations**. Each template is a named starting point that
-maps to a **niche** (from `niche-atlas.md`), a **build-tier sweet-spot**
-(`tier-ladder.md`: Gold → Platinum → Iridium → Rhodium), a **layout signature** and
-**key blocks** (from `website-catalog.md` §B), and a **recommended palette** (the C-number
-references the color table at the bottom).*
+platform — **25 templates per vertical** across all 24 verticals (**600 templates**),
+plus the **Top 20 Color Combinations** and **Top 12 Typography Pairings**. Each template
+is a named starting point that maps to a **niche** (from `niche-atlas.md`), a **build-tier
+sweet-spot** (`tier-ladder.md`: Gold → Platinum → Iridium → Rhodium), a **layout signature**
+and **key blocks** (from `website-catalog.md` §B), and a **recommended palette** (the C-number
+references the color table below). Verticals 1–20 are the atlas core; 21–24 are the bench
+verticals (Funeral & Memorial, Moving & Storage, Education & Childcare, Logistics & Trucking),
+extensible toward the full 40-vertical atlas.*
 
 > **How to pick:** **Vertical → Niche → Tier → Template → Palette.**
 > 1. Find the vertical section. 2. Choose the row whose **niche fit** matches the client.
@@ -682,6 +684,138 @@ references the color table at the bottom).*
 
 ---
 
+## 21. Funeral & Memorial Services
+*Register `usted`, gentle/grief-aware, unhurried. Hard lines: **FTC Funeral Rule** (price list on request), never upsell grieving families, immediate-need vs pre-need, sensitive handling. Niches: Funeral home · Cremation · Pre-need · Cemetery/burial · Celebration of life · Veterans honors · Pet memorial · Grief support · Green burial · Monuments.*
+
+| # | Template | Niche fit | Tier | Hero/Layout & key blocks | Palette |
+|---|---|---|:---:|---|:---:|
+| 1 | **Serenity** | Funeral home (traditional) | Iridium | Soft full-bleed, services-with-care grid, obituaries, immediate-need line | C12 |
+| 2 | **Tribute** | Celebration of life | Iridium | Warm hero, memorial-package cards, photo/video tribute gallery | C3 |
+| 3 | **Everlight** | Cremation services | Platinum | Calm hero, cremation-option cards, transparent pricing band | C9 |
+| 4 | **Restful Gardens** | Cemetery / burial | Iridium | Landscape hero, plot/section map, pre-need consult | C3 |
+| 5 | **Foresight Memorial** | Pre-planning / pre-need | Iridium | Reassuring hero, plan-ahead steps, no-pressure CTA | C1 |
+| 6 | **Honor Guard** | Veterans / military honors | Iridium | Respectful hero, honors info, benefits coordination | C2 |
+| 7 | **Gentle Paws** | Pet memorial / cremation | Platinum | Tender hero, pet-memorial options, keepsakes | C12 |
+| 8 | **Solace** | Grief support / resources | Platinum | Quiet hero, grief resources, support-group calendar | C12 |
+| 9 | **Evergreen** | Green / natural burial | Iridium | Botanical hero, eco-option cards, conservation note | C3 |
+| 10 | **Legacy Stone** | Monuments / headstones | Platinum | Stone-texture hero, design gallery, quote | C2 |
+| 11 | **Eternal Rest** | Full-service funeral home | Iridium | Dignified hero, full services grid, obituaries, livestream note | C1 |
+| 12 | **Memoria** | Bilingual funeral home | Gold | ES-warm hero, servicios, immediate-need, map+hours | C13 |
+| 13 | **Lily** | Boutique / modern memorial | Iridium | Minimal elegant hero, modern packages, tribute wall | C7 |
+| 14 | **Chapel** | Faith-based services | Platinum | Reverent hero, service options, clergy coordination | C1 |
+| 15 | **Farewell** | Direct / simple cremation | Platinum | Clean hero, simple pricing, online arrangement | C9 |
+| 16 | **Remembrance** | Online obituary / memorial site | Iridium | Tribute hero, guestbook, flowers/donation links | C12 |
+| 17 | **Sunset Cremation** | Cremation + scattering | Platinum | Coastal-calm hero, scattering options, booking | C18 |
+| 18 | **Veterans Rest** | Veterans cemetery / services | Iridium | Solemn hero, eligibility/benefits, honors | C2 |
+| 19 | **Comfort** | Hospice-partner / aftercare | Iridium | Gentle hero, aftercare resources, coordination | C12 |
+| 20 | **Quiet Meadow** | Green cemetery | Iridium | Meadow hero, natural-burial map, consult | C3 |
+| 21 | **Despedida** | Spanish-first memorial | Platinum | ES tender hero, celebración de vida, packages | C13 |
+| 22 | **Keepsake** | Cremation jewelry / keepsakes | Platinum | Product hero, keepsake catalog, order | C7 |
+| 23 | **Pillars** | Family-owned, multi-generational | Iridium | Heritage hero, family story, services | C1 |
+| 24 | **Memorial Network** | Multi-location funeral group | Rhodium | White-label shell, locator, unified arrangements | C1 |
+| 25 | **Everpeace Premier** | Flagship memorial provider | Rhodium | Bespoke system, grief-aware AI voice intake, family portal | C1 |
+
+---
+
+## 22. Moving & Storage
+*Register plain-warm, bilingual heavy. Hard lines: binding vs non-binding estimates, licensing (USDOT/MC#), valuation/insurance disclosure, no bait-and-switch or hostage-load. Niches: Local · Long-distance · Commercial · Self-storage · Full-service storage · Packing · Labor-only · Specialty · International · Junk removal.*
+
+| # | Template | Niche fit | Tier | Hero/Layout & key blocks | Palette |
+|---|---|---|:---:|---|:---:|
+| 1 | **Movewell** | Local moving | Platinum | Action hero, instant-quote by size, "what we move" grid, booking | C15 |
+| 2 | **Crosscountry** | Long-distance / interstate | Iridium | Map hero, route/timeline, binding-estimate band, intake | C6 |
+| 3 | **Office Shift** | Commercial / office moving | Iridium | B2B hero, project cards, after-hours band, quote | C2 |
+| 4 | **Storespace** | Self-storage | Platinum | Units hero, size selector, reserve online, access info | C6 |
+| 5 | **Vaultkeep** | Full-service storage | Iridium | Secure hero, pickup-and-store flow, inventory portal teaser | C2 |
+| 6 | **Boxright** | Packing services | Platinum | Friendly hero, packing-package cards, supplies, booking | C14 |
+| 7 | **Liftcrew** | Labor-only / loading help | Platinum | Hourly hero, crew-size selector, same-day band | C15 |
+| 8 | **Whiteglove** | Specialty (piano/art/safe) | Iridium | Premium hero, specialty-item cards, custom quote | C1 |
+| 9 | **Worldmove** | International moving | Iridium | Globe hero, customs/timeline explainer, consult | C6 |
+| 10 | **Haulaway** | Junk removal | Platinum | Before/after hero, volume pricing, same-day booking | C15 |
+| 11 | **Mudanzas** | Bilingual moving | Gold | ES-warm hero, servicios, presupuesto, map | C13 |
+| 12 | **Swiftbox** | Same-day / urgent local | Platinum | Urgent hero, on-demand booking, live-ETA teaser | C16 |
+| 13 | **Campus Move** | Student / apartment moving | Platinum | Energetic hero, small-move packages, booking | C20 |
+| 14 | **Senior Transition** | Senior / downsizing moves | Iridium | Warm hero, compassionate steps, coordination | C3 |
+| 15 | **Portable Pods** | Portable storage containers | Iridium | Container hero, drop-and-go flow, pricing | C6 |
+| 16 | **Climate Vault** | Climate-controlled storage | Platinum | Cool hero, unit features, reserve | C18 |
+| 17 | **Heavy Haul** | Heavy / industrial moving | Iridium | Industrial hero, equipment-move cards, RFP | C15 |
+| 18 | **Pack & Ship** | Packing + shipping retail | Platinum | Retail hero, services grid, quote | C14 |
+| 19 | **Estate Move** | Estate / full-home + storage | Iridium | Dignified hero, full-service flow, valuation band | C3 |
+| 20 | **Quickquote Move** | Starter solo mover | Gold | One-page, hero + services + quote + reviews | C15 |
+| 21 | **Almacenaje** | Spanish-first storage | Platinum | ES hero, unidades, reservar, acceso | C13 |
+| 22 | **Corporate Relo** | Corporate relocation programs | Iridium | Corporate hero, employee-relo packages, account portal | C2 |
+| 23 | **Fine Art Logistics** | Art / gallery transport | Rhodium | Gallery hero, climate/crating, white-glove, consult | C1 |
+| 24 | **Move Network** | Multi-branch moving company | Rhodium | White-label shell, branch locator, unified quoting | C6 |
+| 25 | **Summit Move Premier** | Flagship moving + storage | Rhodium | Bespoke system, AI voice quote, customer portal | C1 |
+
+---
+
+## 23. Education & Childcare
+*Register warm, parent-facing (`tú`/`usted` by audience), bilingual common. Hard lines: child safety/privacy (FERPA/COPPA-minded), licensing/ratios, no medical/diagnostic claims, mandatory-reporter awareness (route, don't probe). Niches: Daycare/preschool · Montessori · After-school · Tutoring/test prep · Music/arts · STEM camps · Language · Private K-12 · Special-needs · Summer camps · Driving school · Online courses.*
+
+| # | Template | Niche fit | Tier | Hero/Layout & key blocks | Palette |
+|---|---|---|:---:|---|:---:|
+| 1 | **Little Sprouts** | Daycare / preschool | Platinum | Playful hero, programs-by-age, enrollment, ratios/licensing band | C14 |
+| 2 | **Discovery** | Montessori | Iridium | Calm bright hero, philosophy, classroom gallery, tour booking | C8 |
+| 3 | **Afterbell** | After-school programs | Platinum | Energetic hero, activity cards, pickup info, enroll | C17 |
+| 4 | **BrightMinds Tutoring** | Tutoring / test prep | Iridium | Achievement hero, subject grid, results band, assessment | C6 |
+| 5 | **Crescendo** | Music / arts lessons | Platinum | Warm hero, instrument/class cards, recital info, enroll | C11 |
+| 6 | **CodeLab** | STEM / coding camps | Iridium | Techy hero, camp tracks, project showcase, register | C20 |
+| 7 | **Lingua** | Language schools | Platinum | Global hero, level cards, placement quiz, enroll | C18 |
+| 8 | **Cornerstone Academy** | Private K-12 | Rhodium | Prestigious hero, academics/admissions, virtual tour, apply | C1 |
+| 9 | **Steppingstones** | Special-needs education | Iridium | Gentle hero, supportive-services cards, route-don't-probe intake | C12 |
+| 10 | **Camp Sunshine** | Summer camps | Platinum | Vibrant hero, session calendar, activities gallery, register | C14 |
+| 11 | **RoadReady** | Driving school | Platinum | Friendly hero, package cards, scheduling, permit info | C6 |
+| 12 | **Scholar** | Online courses / e-learning | Iridium | App-style hero, course catalog, enroll, dashboard teaser | C20 |
+| 13 | **Tiny Tots** | Infant / toddler care | Platinum | Soft hero, care-program cards, webcam teaser, enroll | C11 |
+| 14 | **Prep Academy** | College / SAT / ACT prep | Iridium | Focused hero, results band, program cards, assessment | C2 |
+| 15 | **Maker Studio** | Arts & maker classes | Platinum | Creative hero, class cards, gallery, enroll | C14 |
+| 16 | **Genius Camp** | Enrichment / gifted programs | Iridium | Bright hero, program tracks, register | C17 |
+| 17 | **Aprende** | Bilingual childcare / preschool | Gold | ES-warm hero, programas, matrícula, map | C13 |
+| 18 | **Honor Roll** | Private elementary / middle | Iridium | Warm-academic hero, curriculum, tour, apply | C3 |
+| 19 | **Athletic Academy** | Youth sports academy | Iridium | Active hero, program cards, tryout / register | C19 |
+| 20 | **Mindful Kids Learning** | Social-emotional / early learning | Platinum | Calm hero, approach, parent FAQ, enroll | C12 |
+| 21 | **Quick Enroll** | Starter solo tutor / teacher | Gold | One-page, hero + subjects + book + reviews | C6 |
+| 22 | **Escuela** | Spanish-first school | Platinum | ES hero, académicos, admisiones, contacto | C13 |
+| 23 | **Virtual Classroom** | Live online tutoring platform | Iridium | Modern hero, match + schedule, video note | C20 |
+| 24 | **Learning Network** | Multi-location school / center group | Rhodium | White-label shell, locator, unified enrollment | C8 |
+| 25 | **Pinnacle Prep Premier** | Flagship academy | Rhodium | Bespoke system, AI voice admissions, parent/student portal | C1 |
+
+---
+
+## 24. Logistics & Trucking
+*Register plain, B2B; bilingual workforce. Hard lines: no rate guarantees without details, USDOT/MC + FMCSA compliance, hazmat handling, safety; no binding without specifics. Niches: Freight brokerage · Trucking (FTL/LTL) · Last-mile · Warehousing/3PL · Courier/same-day · Cold-chain · Flatbed/heavy haul · Drayage/port · Owner-operator recruiting · Customs/import-export.*
+
+| # | Template | Niche fit | Tier | Hero/Layout & key blocks | Palette |
+|---|---|---|:---:|---|:---:|
+| 1 | **Freightline** | Freight brokerage | Iridium | Data hero, lane/quote request, carrier + shipper paths | C2 |
+| 2 | **Haulpro** | Trucking / carrier (FTL/LTL) | Iridium | Fleet hero, services grid, get-a-quote, safety band | C15 |
+| 3 | **Lastmile** | Last-mile delivery | Iridium | Map hero, coverage area, API/integration teaser, quote | C6 |
+| 4 | **Warehouse 3PL** | Warehousing / 3PL | Iridium | Facility hero, fulfillment services, capacity, RFP | C2 |
+| 5 | **Rushcourier** | Courier / same-day | Platinum | Urgent hero, on-demand booking, live-track teaser | C16 |
+| 6 | **Coldchain** | Refrigerated / cold-chain | Iridium | Cool hero, temp-controlled cards, compliance band | C18 |
+| 7 | **Flatbed Co** | Flatbed / heavy haul | Iridium | Rugged hero, equipment cards, oversize/permit note, quote | C15 |
+| 8 | **Portlink** | Drayage / port logistics | Iridium | Port hero, container services, scheduling, contact | C2 |
+| 9 | **Drive With Us** | Owner-operator recruiting | Platinum | Recruiting hero, pay/benefits cards, driver-apply intake | C19 |
+| 10 | **Clearway** | Customs / import-export | Iridium | Global hero, customs-clearance steps, consult | C6 |
+| 11 | **Transporte** | Bilingual trucking / logistics | Gold | ES hero, servicios, cotización, contacto | C13 |
+| 12 | **Dispatch Pro** | Dispatch services (carriers) | Iridium | Ops hero, dispatch packages, onboard CTA | C2 |
+| 13 | **Cargo Air** | Air freight forwarding | Iridium | Sky hero, service lanes, quote, tracking | C18 |
+| 14 | **Whitecap Reefer** | Food-grade cold transport | Iridium | Clean hero, compliance cards, quote | C8 |
+| 15 | **Expedite** | Expedited / hotshot freight | Platinum | Fast hero, instant-quote, live ETA | C19 |
+| 16 | **Bulkflow** | Bulk / tanker transport | Iridium | Industrial hero, commodity cards, safety band, RFP | C15 |
+| 17 | **Smartwarehouse** | Tech-enabled fulfillment | Iridium | App-style hero, integrations, dashboard teaser | C20 |
+| 18 | **Final Mile Med** | Medical / pharma courier | Iridium | Clinical hero, chain-of-custody band, contract | C9 |
+| 19 | **Cross-Border** | Mexico / Canada cross-border | Iridium | Map hero, cross-border lanes, customs note | C6 |
+| 20 | **Quick Quote Freight** | Starter brokerage / owner-op | Gold | One-page, hero + services + quote + MC# | C2 |
+| 21 | **Logística** | Spanish-first logistics | Platinum | ES hero, soluciones, cotización, contacto | C13 |
+| 22 | **Enterprise Supply** | Enterprise supply-chain / 4PL | Rhodium | Corporate hero, solutions matrix, integrations, RFP | C1 |
+| 23 | **Fleet Recruit** | Driver-recruiting campaign site | Platinum | Bold hero, pay calculator, fast apply | C19 |
+| 24 | **Logistics Network** | Multi-terminal carrier / 3PL | Rhodium | White-label shell, terminal locator, unified portals | C2 |
+| 25 | **Vanguard Logistics Premier** | Flagship logistics provider | Rhodium | Bespoke system, AI voice quote/dispatch, shipper portal | C1 |
+
+---
+
 # Top 20 Color Combinations
 
 *Brand-safe, accessibility-aware palettes referenced as `C#` throughout the library. Each gives
@@ -723,6 +857,58 @@ meets **WCAG AA (≥4.5:1)**; verify final CTA/contrast in the chosen template b
 
 ---
 
+# Top 12 Typography Pairings
+
+*Font pairings (**heading / body**) that complete a template's look alongside a `C#` palette. All
+use widely available web/Google fonts (free, fast-loading, self-hostable). Default to the per-row
+pairing for a vertical's vibe; Rhodium builds may license a bespoke type system instead. Pick for
+**readability first** (body ≥16px, generous line-height) — premium feel comes from restraint.*
+
+| T# | Pairing | Heading | Body | Mood | Best-fit verticals · palettes |
+|:---:|---|---|---|---|---|
+| **T1** | Editorial Prestige | Playfair Display | Source Sans 3 | Authoritative, timeless, luxe | Law · Fine dining · Luxury flagships · C1/C7 |
+| **T2** | Refined Serif | Cormorant Garamond | Inter | Elegant, graceful, high-end | Wealth · Hospitality · Med spa · C7/C3 |
+| **T3** | Trusted Classic | Libre Baskerville | Lato | Credible, established, calm | Law · Accounting · Insurance · C1/C6 |
+| **T4** | Modern Workhorse | Montserrat | Open Sans | Clean, dependable, neutral | Home services · Automotive · General · C15/C6 |
+| **T5** | Friendly Geometric | Poppins | Roboto | Approachable, upbeat, fresh | Med spa · Beauty · Fitness · C11/C10 |
+| **T6** | System Neutral | Inter | Inter | Precise, product-like, technical | Finance/tech · PM · Logistics · C2/C20 |
+| **T7** | Boutique Editorial | DM Serif Display | DM Sans | Stylish, contemporary, curated | Real estate · Boutique hotels · C5/C7 |
+| **T8** | Bold Condensed | Oswald | Roboto | Energetic, strong, sporty | Gyms · Sports bars · Auto performance · C19/C15 |
+| **T9** | Warm Humanist | Lora | Nunito Sans | Gentle, caring, human | Therapy · Healthcare · Childcare · C12/C9 |
+| **T10** | Gracious Contrast | Raleway | Merriweather | Welcoming, polished, readable | Hospitality · Events · Funeral · C18/C3 |
+| **T11** | Approachable Pro | Work Sans | Source Serif 4 | Clear, professional, steady | Medical · Dental · Vet · C9/C8 |
+| **T12** | Contemporary Brand | Archivo | Karla | Crisp, modern, brandy | Med spa · Modern beauty · Tech · C10/C20 |
+
+> **Bilingual note.** All twelve cover full Latin-extended glyphs (Spanish accents, ¿¡, ñ) — verify
+> the body face renders `á é í ó ú ü ñ` cleanly at small sizes before launch. **Scale rule:** one
+> heading face + one body face per site; use weight/size for hierarchy, not a third font.
+
+---
+
+# Template Anatomy
+
+*What a template ships with, regardless of vertical — and how it grows by build tier. The named
+template sets the **look**; these are the **parts** (drawn from `website-catalog.md` §B/§C).*
+
+**Every template (Gold floor) includes:** mobile-first responsive shell · bilingual EN/ES toggle ·
+sticky header + mega-footer · hero (per the row's style) · primary CTA + click-to-call · business
+hours + Google Map · contact form · social/favicon/SSL · basic on-page SEO · the niche's
+**compliance/urgency band** wired to the hard lines in `compliance-patterns.md`.
+
+**Tier layers stack on the same template (per `website-catalog.md` §F):**
+- **Platinum** — booking/scheduling, grounded chat assistant, reviews, gallery, blog/CMS, analytics,
+  device-preview, full 13-dialect tuning.
+- **Iridium** — e-commerce/catalog, AI voice receptionist, CRM + n8n automation, customer portal,
+  order desk, abandoned-cart, validated dialect + TTS.
+- **Rhodium** — bespoke design system + tokens (replaces the stock `C#`/`T#`), voice-clone
+  receptionist, white-label/multi-site, custom integrations, self-learning loop.
+
+**Recommended block order (home page):** hero → trust strip (logos/credentials) → services/feature
+grid → social proof (reviews) → process/urgency band → secondary CTA → map + hours → footer. Reorder
+for the niche (e.g., emergency verticals push the 24/7 urgency band directly under the hero).
+
+---
+
 ## Using this library with the rest of the skill
 
 - **Template ↔ catalog.** Every template is assembled from the page types, hero styles, and
@@ -739,5 +925,3 @@ meets **WCAG AA (≥4.5:1)**; verify final CTA/contrast in the chosen template b
 - **Service level.** This library is the **build** axis (what it looks like). Delivery — DIY kit,
   Hybrid/Guru-assisted, DFY, or Diamond — is the independent **service level** axis in
   `service-levels.md`.
-</content>
-</invoke>

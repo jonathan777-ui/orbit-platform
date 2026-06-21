@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import re, json, os, sys
 REPO=os.environ.get("REPO","/home/user/orbit-platform"); TPL=os.environ.get("TPL", os.path.join(os.path.dirname(os.path.abspath(__file__)), "templates", "demo-base.html"))
-CHAT="https://jonathan777-ui.app.n8n.cloud/webhook/orbit-demo-chat"
+CHAT="https://jonathan777-ui.app.n8n.cloud/webhook/orbit-turn"  # optional Groq brain (useLLM)
 BASE="https://jonathan777-ui.github.io/orbit-platform/"
 sys.path.insert(0,os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "skills", "airlock-vertical-kb", "tools"))
 sys.path.insert(0,os.path.dirname(os.path.abspath(__file__)))
@@ -120,8 +120,6 @@ def build(b):
         'var h2=CONFIG.logo?("<img src=\'"+CONFIG.logo+"\' alt=\'"+nm+"\' style=\'height:46px;width:auto;display:block\'>"):wm;'
         'var h=document.getElementById("brand");if(h)h.innerHTML=h2;var f=document.getElementById("brandFoot");if(f)f.innerHTML=h2;}')
     html=re.sub(r"function brandSVG\(\)\{.*?(?=\nrenderBrand\(\); renderNAP)",nb,html,count=1,flags=re.S)
-    html=html.replace("body:JSON.stringify({messages:history, lang:document.documentElement.lang,\n        page:location.pathname})",
-        "body:JSON.stringify({messages:history, lang:document.documentElement.lang,\n        page:location.pathname, business:{name:CONFIG.name, vertical:CONFIG.vertical, address:CONFIG.address, phone:CONFIG.phone, hours:CONFIG.hoursEn, instagram:CONFIG.instagram}})")
     html=html.replace("function renderGallery(){\n  const wrap=document.getElementById('galleryWrap');",
                       "function renderGallery(){\n  const wrap=document.getElementById('galleryWrap'); if(!wrap){return;}")
     edge=_edge(slug)
@@ -181,9 +179,12 @@ def build(b):
       f'<meta name="twitter:card" content="summary"><meta name="twitter:title" content="{title}"><meta name="twitter:description" content="{desc}">'
       f'<script type="application/ld+json">{json.dumps(lb,ensure_ascii=False)}</script><script type="application/ld+json">{json.dumps(faqjson,ensure_ascii=False)}</script>')
     addr_disp=(f'{b["street"]}, Salem, OR {b["zip"]}' if b["street"] else "Salem, OR (by appointment)")
+    kb_services=[c[1].replace("&amp;","&") for c in p["services"] if "?" not in c[1]]
+    kb_faqs=[{"q_en":q[0],"a_en":q[1],"q_es":q[2],"a_es":q[3]} for q in p["faqs"]]
     cfg={"name":nm,"logo":logo_rel,"vertical":b["vertical_pack"],"address":addr_disp,"phone":b["phone"],
          "hoursEn":b["hoursEn"],"hoursEs":b["hoursEs"],"instagram":b.get("ig",""),"facebook":"","bookingUrl":"",
-         "artists":[],"gallery":[],"demo":p["gallery"],"reviews":_reviews_for(b["vertical_pack"]),"chatEndpoint":CHAT}
+         "artists":[],"gallery":[],"demo":p["gallery"],"services":kb_services,"faqs":kb_faqs,"useLLM":False,
+         "reviews":_reviews_for(b["vertical_pack"]),"chatEndpoint":CHAT}
     html=html.replace("__CFG__",json.dumps(cfg,ensure_ascii=False))
     html=re.sub(r"<title>.*?</title>",f"<title>{title}</title>",html,count=1,flags=re.S)
     html=re.sub(r'<meta name="description"[^>]*>',f'<meta name="description" content="{desc}">',html,count=1)

@@ -6,7 +6,7 @@ import re, json, os, sys
 
 REPO = os.environ.get("REPO", "/home/user/orbit-platform")
 TPL = os.environ.get("TPL", os.path.join(os.path.dirname(os.path.abspath(__file__)), "templates", "demo-base.html"))
-CHAT = "https://jonathan777-ui.app.n8n.cloud/webhook/orbit-demo-chat"
+CHAT = "https://jonathan777-ui.app.n8n.cloud/webhook/orbit-turn"  # optional Groq brain (useLLM)
 BASE = "https://jonathan777-ui.github.io/orbit-platform/"
 # Reuse the library's per-site llms.txt renderer (one source of truth, AEO guide).
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "skills", "airlock-vertical-kb", "tools"))
@@ -28,9 +28,6 @@ new_brand = '''function renderBrand(){
   var f = document.getElementById("brandFoot"); if (f) f.innerHTML = html;
 }'''
 src = re.sub(r"function brandSVG\(\)\{.*?(?=\nrenderBrand\(\); renderNAP)", new_brand, src, count=1, flags=re.S)
-old_body = "body:JSON.stringify({messages:history, lang:document.documentElement.lang,\n        page:location.pathname})"
-new_body = "body:JSON.stringify({messages:history, lang:document.documentElement.lang,\n        page:location.pathname, business:{name:CONFIG.name, vertical:CONFIG.vertical, address:CONFIG.address, phone:CONFIG.phone, hours:CONFIG.hoursEn, instagram:CONFIG.instagram}})"
-src = src.replace(old_body, new_body)
 
 DAYW = {"Mo":"Monday","Tu":"Tuesday","We":"Wednesday","Th":"Thursday","Fr":"Friday","Sa":"Saturday","Su":"Sunday"}
 FAQ = [
@@ -99,9 +96,12 @@ for s in shops:
       f'<meta name="twitter:card" content="summary"><meta name="twitter:title" content="{title}"><meta name="twitter:description" content="{desc}">\n'
       f'<script type="application/ld+json">{json.dumps(lb, ensure_ascii=False)}</script>\n'
       f'<script type="application/ld+json">{json.dumps(faq, ensure_ascii=False)}</script>\n')
+    kb_services = ["Custom tattoos","Cover-ups","Fine-line & blackwork","Flash & walk-ins"] + (["Piercing","Jewelry"] if s["piercing"] else [])
+    kb_faqs = [{"q_en":q,"a_en":a,"q_es":q,"a_es":a} for q,a in FAQ]
     cfg = {"name":disp,"logo":logo_rel,"vertical":("tattoo and piercing" if s["piercing"] else "tattoo"),
            "address":addr,"phone":s["phone"],"hoursEn":s["hoursEn"],"hoursEs":s["hoursEs"],
            "instagram":s["ig"],"facebook":"","bookingUrl":"","artists":[],"gallery":[],"demo":True,
+           "services":kb_services,"faqs":kb_faqs,"useLLM":False,
            "reviews":_reviews_for("tattoo"),"chatEndpoint":CHAT}
     html = src.replace("__CONFIG_JSON__", json.dumps(cfg, ensure_ascii=False))
     html = html.replace("Permanent Marx Tattoo Studio", disp).replace("Permanent Marx", disp)

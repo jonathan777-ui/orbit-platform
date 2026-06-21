@@ -91,7 +91,7 @@ When the user wants to **pick or show a website design** (a template, theme, lay
 scheme) for a vertical/niche, use `references/template-library.md` — the **Template Library**:
 **25 named templates per vertical** (600 total across 24 verticals) mapped to niche, build-tier
 sweet-spot, layout signature, and a recommended palette, plus the **Top 20 Color Combinations**
-and **Top 12 Typography Pairings** (hex roles, font pairs + accessibility notes) and a **Template
+and **Top 50 Typography Pairings** (hex roles, font pairs + accessibility notes) and a **Template
 Anatomy** guide. Pick by **Vertical → Niche → Tier → Template → Palette (+ Type)**; the template is
 the *build* axis (what it looks like), assembled from the catalog's blocks and gated by the same
 tier matrix.

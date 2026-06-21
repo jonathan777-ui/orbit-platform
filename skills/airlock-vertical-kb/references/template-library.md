@@ -2,7 +2,7 @@
 
 *The exhaustive, KB-grounded catalog of website templates for the Airlock / Orbit
 platform — **25 templates per vertical** across all 24 verticals (**600 templates**),
-plus the **Top 20 Color Combinations** and **Top 12 Typography Pairings**. Each template
+plus the **Top 20 Color Combinations** and **Top 50 Typography Pairings**. Each template
 is a named starting point that maps to a **niche** (from `niche-atlas.md`), a **build-tier
 sweet-spot** (`tier-ladder.md`: Gold → Platinum → Iridium → Rhodium), a **layout signature**
 and **key blocks** (from `website-catalog.md` §B), and a **recommended palette** (the C-number
@@ -857,12 +857,14 @@ meets **WCAG AA (≥4.5:1)**; verify final CTA/contrast in the chosen template b
 
 ---
 
-# Top 12 Typography Pairings
+# Top 50 Typography Pairings
 
 *Font pairings (**heading / body**) that complete a template's look alongside a `C#` palette. All
 use widely available web/Google fonts (free, fast-loading, self-hostable). Default to the per-row
 pairing for a vertical's vibe; Rhodium builds may license a bespoke type system instead. Pick for
-**readability first** (body ≥16px, generous line-height) — premium feel comes from restraint.*
+**readability first** (body ≥16px, generous line-height) — premium feel comes from restraint.
+T1–T12 are the core go-tos; T13–T50 broaden coverage across every vertical and mood (serif/sans,
+luxe/playful, editorial/technical, display/impact).*
 
 | T# | Pairing | Heading | Body | Mood | Best-fit verticals · palettes |
 |:---:|---|---|---|---|---|
@@ -878,8 +880,46 @@ pairing for a vertical's vibe; Rhodium builds may license a bespoke type system 
 | **T10** | Gracious Contrast | Raleway | Merriweather | Welcoming, polished, readable | Hospitality · Events · Funeral · C18/C3 |
 | **T11** | Approachable Pro | Work Sans | Source Serif 4 | Clear, professional, steady | Medical · Dental · Vet · C9/C8 |
 | **T12** | Contemporary Brand | Archivo | Karla | Crisp, modern, brandy | Med spa · Modern beauty · Tech · C10/C20 |
+| **T13** | High-Fashion Serif | Bodoni Moda | Inter | Glamorous, couture, bold contrast | Luxury beauty · Aesthetics · Fashion · C7/C11 |
+| **T14** | Quiet Luxury | Marcellus | Nunito Sans | Understated, serene, premium | Spa · Aesthetics · Boutique hotel · C11/C12 |
+| **T15** | Monumental | Cinzel | Lato | Engraved, weighty, ceremonial | Litigation law · Memorials · Heritage · C1/C3 |
+| **T16** | Literary Editorial | Spectral | Inter | Considered, intelligent, calm | Wealth · Advisory · Publishing · C1/C2 |
+| **T17** | Modern Old-Style | Fraunces | Inter | Characterful, warm, crafted | Boutique · Bakery · Editorial food · C14/C7 |
+| **T18** | Rounded Modern | Rubik | Inter | Approachable, app-like, upbeat | Tech · SaaS · Fitness apps · C20/C2 |
+| **T19** | Clean Geometric | Manrope | Inter | Trustworthy, modern, fintech | Mortgage · PM · Fintech · C6/C2 |
+| **T20** | Futuristic Geometric | Sora | Inter | Forward, clean-energy, optimistic | Solar · EV · Tech · C17/C20 |
+| **T21** | Technical Modern | Space Grotesk | Inter | Engineered, sharp, startup | Logistics tech · Cyber · Startups · C20/C2 |
+| **T22** | Neutral Brand | Epilogue | Inter | Versatile, corporate, calm | Agencies · B2B · General · C2/C6 |
+| **T23** | Minimal Geometric | Outfit | Inter | Sleek, restrained, modern | Modern beauty · Studios · Salon · C10/C11 |
+| **T24** | Friendly Professional | Plus Jakarta Sans | Inter | Warm, clinical-clean, modern | Healthcare · Clinics · Dental · C9/C8 |
+| **T25** | News Classic | Libre Franklin | Lora | Editorial, credible, steady | Insurance · Accounting · Legal · C6/C3 |
+| **T26** | Scholarly | Crimson Pro | Work Sans | Academic, refined, readable | Education · Private schools · Tutoring · C1/C6 |
+| **T27** | Editorial Readable | Newsreader | Inter | Journalistic, clear, trustworthy | Blogs · Advisory · Content · C2/C3 |
+| **T28** | Versatile Pro | Source Serif 4 | Source Sans 3 | Balanced, official, dependable | Medical · Finance · Civic · C9/C6 |
+| **T29** | Dependable Reading | Merriweather | Open Sans | Sturdy, legible, reassuring | Accounting · Insurance · Legal · C3/C6 |
+| **T30** | Utility Classic | PT Serif | PT Sans | Practical, neutral, civic | Government · Healthcare · Nonprofit · C2/C9 |
+| **T31** | Expressive Display | Bricolage Grotesque | Inter | Playful-bold, creative, current | Creative · Events · Food halls · C14/C20 |
+| **T32** | Impact Poster | Anton | Roboto | Loud, punchy, attention-grabbing | Sports bars · Nightlife · BBQ · C19/C15 |
+| **T33** | Condensed Impact | Bebas Neue | Montserrat | Tall, bold, energetic | Gyms · Automotive · Events · C19/C2 |
+| **T34** | Athletic Tall | Teko | Roboto | Sporty, lean, dynamic | CrossFit · Combat sports · Auto · C19/C15 |
+| **T35** | Avant-Garde | Syne | Inter | Artistic, distinctive, edgy | Art · Tattoo · Design studios · C20/C7 |
+| **T36** | Bold Rounded Display | Unbounded | Inter | Friendly-bold, fun, modern | Kids · Camps · Playful brands · C14/C17 |
+| **T37** | Playful Rounded | Baloo 2 | Nunito | Cheerful, soft, kid-friendly | Childcare · Pediatrics · Pet · C14/C8 |
+| **T38** | Soft Geometric | Quicksand | Nunito Sans | Gentle, calm, wellness | Beauty · Wellness · Spa · C11/C12 |
+| **T39** | Friendly Rounded | Comfortaa | Open Sans | Cozy, welcoming, light | Bakery · Café · Kids · C11/C14 |
+| **T40** | Vintage Geometric | Josefin Sans | Lato | Retro-elegant, airy, boutique | Boutique · Salon · Fashion · C11/C7 |
+| **T41** | Display Serif Pop | Abril Fatface | Poppins | Bold-pretty, expressive, sweet | Bakery · Beauty · Events · C11/C14 |
+| **T42** | Elegant Display | Yeseva One | Mulish | Romantic, graceful, celebratory | Weddings · Fine dining · Spa · C7/C3 |
+| **T43** | Fashion Editorial | Prata | Mulish | Chic, slender, magazine | Luxury · Aesthetics · Bridal · C7/C11 |
+| **T44** | Couture Minimal | Italiana | Jost | Refined, whisper-luxe, sparse | High-end spa · Fashion · Jewelry · C7/C1 |
+| **T45** | Geometric Elegant | Jost | Inter | Architectural, modern, clean | Architecture · Modern real estate · C2/C5 |
+| **T46** | Understated Luxe | Tenor Sans | Inter | Quiet, premium, spacious | Boutique hotel · Spa · Interiors · C7/C3 |
+| **T47** | Classical Serif | Cardo | Mulish | Scholarly, timeless, dignified | Law · Academia · Memorials · C1/C3 |
+| **T48** | Timeless Book | EB Garamond | Inter | Literary, elegant, enduring | Wealth · Estate · Publishing · C1/C2 |
+| **T49** | Sturdy Serif | Vollkorn | Inter | Solid, humane, readable | Healthcare · Education · Civic · C9/C6 |
+| **T50** | Engineered Pro | IBM Plex Sans | IBM Plex Serif | Systematic, modern, technical | Tech · Finance · Logistics · Cyber · C2/C20 |
 
-> **Bilingual note.** All twelve cover full Latin-extended glyphs (Spanish accents, ¿¡, ñ) — verify
+> **Bilingual note.** All fifty cover full Latin-extended glyphs (Spanish accents, ¿¡, ñ) — verify
 > the body face renders `á é í ó ú ü ñ` cleanly at small sizes before launch. **Scale rule:** one
 > heading face + one body face per site; use weight/size for hierarchy, not a third font.
 

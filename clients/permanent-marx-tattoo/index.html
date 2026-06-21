@@ -7,8 +7,10 @@
 <meta name="description" content="Permanent Marx Tattoo Studio — West Salem, Oregon. Clean, licensed, artist-driven custom tattoos, cover-ups, piercing and permanent makeup. Book a free consult, in English or Spanish.">
 <style>
   :root{
-    --bg:#0b0b0d; --panel:#141418; --line:#26262e; --fg:#f2f2f4; --muted:#9a9aa6;
-    --accent:#d4324a; --accent2:#f0b429; --ink:#0b0b0d;
+    /* Brand palette pulled from the logo: deep purple, ornate gold, red ✗, cream */
+    --bg:#150b22; --panel:#20132f; --line:#3a2550; --fg:#f4ecdd; --muted:#b6a4c8;
+    --accent:#d4324a; --accent2:#e7b24a; --ink:#0e0717;
+    --serif:Georgia,"Times New Roman",serif;
   }
   *{box-sizing:border-box}
   html{scroll-behavior:smooth}
@@ -17,11 +19,12 @@
   a{color:var(--accent2);text-decoration:none}
   a:hover{text-decoration:underline}
   .wrap{max-width:1040px;margin:0 auto;padding:0 20px}
-  header{position:sticky;top:0;z-index:40;background:rgba(11,11,13,.82);backdrop-filter:blur(8px);
-    border-bottom:1px solid var(--line)}
+  header{position:sticky;top:0;z-index:40;background:rgba(18,9,26,.85);backdrop-filter:blur(8px);
+    border-bottom:1px solid rgba(231,178,74,.22)}
   .nav{display:flex;align-items:center;gap:18px;height:62px}
-  .brand{font-weight:800;letter-spacing:.04em;font-size:18px;margin-right:auto}
-  .brand span{color:var(--accent)}
+  .brand{font-family:var(--serif);font-weight:800;letter-spacing:.06em;font-size:19px;margin-right:auto;
+    color:var(--fg);text-shadow:0 0 18px rgba(231,178,74,.22)}
+  .brand span{color:var(--accent);text-shadow:0 0 14px rgba(212,50,74,.4)}
   .nav a.link{color:var(--fg);font-size:14px}
   .nav a.link:hover{color:var(--accent2);text-decoration:none}
   @media(max-width:760px){.nav a.link{display:none}}
@@ -35,16 +38,17 @@
   .btn.ghost{background:transparent;border:1px solid var(--line);color:var(--fg)}
   /* hero */
   .hero{padding:84px 0 64px;background:
-    radial-gradient(1200px 480px at 70% -10%,rgba(212,50,74,.22),transparent 60%),
-    radial-gradient(900px 420px at 0% 0%,rgba(240,180,41,.10),transparent 55%)}
-  .hero h1{font-size:clamp(34px,6vw,58px);line-height:1.05;margin:0 0 18px;letter-spacing:-.01em}
+    radial-gradient(1100px 520px at 82% -5%,rgba(231,178,74,.20),transparent 58%),
+    radial-gradient(1000px 480px at 10% 0%,rgba(150,70,180,.30),transparent 60%),
+    radial-gradient(760px 420px at 55% 125%,rgba(212,50,74,.16),transparent 60%)}
+  .hero h1{font-family:var(--serif);font-size:clamp(34px,6vw,58px);line-height:1.06;margin:0 0 18px;letter-spacing:.005em}
   .hero p.lede{font-size:clamp(17px,2.4vw,21px);color:var(--muted);max-width:640px;margin:0 0 28px}
   .cta-row{display:flex;gap:14px;flex-wrap:wrap}
   .trust{display:flex;gap:10px;flex-wrap:wrap;margin-top:34px}
   .trust span{font-size:13px;color:var(--muted);border:1px solid var(--line);border-radius:999px;
     padding:6px 13px}
   section{padding:58px 0;border-top:1px solid var(--line)}
-  h2.sec{font-size:clamp(24px,4vw,34px);margin:0 0 6px}
+  h2.sec{font-family:var(--serif);font-size:clamp(24px,4vw,34px);margin:0 0 6px;letter-spacing:.01em}
   .sub{color:var(--muted);margin:0 0 30px;max-width:640px}
   .grid{display:grid;gap:18px}
   .cards{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
@@ -119,7 +123,7 @@
 
 <header>
   <div class="wrap nav">
-    <div class="brand" id="brand">PERMANENT <span>MARX</span></div>
+    <div class="brand" id="brand">PERMANENT MAR<span>✗</span></div>
     <a class="link" href="#services" data-en>Services</a><a class="link" href="#services" data-es>Servicios</a>
     <a class="link" href="#artists" data-en>Artists</a><a class="link" href="#artists" data-es>Artistas</a>
     <a class="link" href="#gallery" data-en>Gallery</a><a class="link" href="#gallery" data-es>Galería</a>
@@ -291,7 +295,7 @@
 <footer>
   <div class="wrap footgrid">
     <div>
-      <div class="brand" id="brandFoot" style="font-size:16px">PERMANENT <span>MARX</span></div>
+      <div class="brand" id="brandFoot" style="font-size:16px">PERMANENT MAR<span>✗</span></div>
       <p class="pill" data-en>Custom tattoos · Cover-ups · Piercing · Permanent makeup · Removal</p>
       <p class="pill" data-es>Tatuajes personalizados · Cover-ups · Piercing · Maquillaje permanente · Eliminación</p>
     </div>
@@ -418,7 +422,7 @@ function demoTile(label, n){
   const accents=['#d4324a','#f0b429','#7aa2ff','#2ecc71','#b06ad4'];
   const c=accents[n % accents.length];
   const svg='<svg xmlns="http://www.w3.org/2000/svg" width="600" height="600" viewBox="0 0 600 600">'
-    +'<rect width="600" height="600" fill="#141418"/>'
+    +'<rect width="600" height="600" fill="#1b1030"/>'
     +'<rect x="10" y="10" width="580" height="580" rx="18" fill="none" stroke="'+c+'" stroke-width="3" opacity="0.5"/>'
     +'<circle cx="300" cy="300" r="150" fill="none" stroke="'+c+'" stroke-width="2" opacity="0.18"/>'
     +'<circle cx="300" cy="300" r="100" fill="none" stroke="#ffffff" stroke-width="1" opacity="0.12"/>'

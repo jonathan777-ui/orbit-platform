@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="referrer" content="strict-origin-when-cross-origin">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; connect-src https:; base-uri 'self'; frame-ancestors 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; connect-src https:; media-src 'self' blob:; base-uri 'self'; frame-ancestors 'none'">
 <title>Desire Ink Lab — Tattoo Studio in Salem, OR | Bilingual EN/ES</title>
 <meta name="description" content="Desire Ink Lab is a licensed tattoo studio in Salem, Oregon offering custom tattoos, cover-ups, and bilingual (English/Spanish) service. 2310 Commercial St SE. Call (503) 584-1626. Book a free consult. A South Commercial studio with weekday daytime appointments.">
 <style>
@@ -396,7 +396,7 @@
    CONFIG — EDIT THESE WITH THE STUDIO'S REAL DETAILS
    These are placeholders. Fill in the verified business info before launch.
    ==================================================================== */
-const CONFIG = {"name": "Desire Ink Lab", "logo": "logo.svg", "vertical": "tattoo", "address": "2310 Commercial St SE, Salem, OR 97302", "phone": "(503) 584-1626", "hoursEn": "Mon–Fri 10am–6pm · Sat–Sun closed", "hoursEs": "Lun–Vie 10am–6pm · Sáb–Dom cerrado", "instagram": "https://www.instagram.com/desireinklab", "facebook": "", "bookingUrl": "", "artists": [], "gallery": [], "demo": true, "services": ["Custom tattoos", "Cover-ups", "Fine-line & blackwork", "Flash & walk-ins"], "faqs": [{"q_en": "How much does a tattoo cost?", "a_en": "It depends on size, placement and detail, so your artist gives you a real number at the consult. We set expectations up front — no surprises.", "q_es": "How much does a tattoo cost?", "a_es": "It depends on size, placement and detail, so your artist gives you a real number at the consult. We set expectations up front — no surprises."}, {"q_en": "How old do I have to be?", "a_en": "You need to be 18 or older with a valid government photo ID — we check it on the day. For piercings and anyone younger, ask us about our policy.", "q_es": "How old do I have to be?", "a_es": "You need to be 18 or older with a valid government photo ID — we check it on the day. For piercings and anyone younger, ask us about our policy."}, {"q_en": "Does it hurt?", "a_en": "Everyone experiences it differently and your artist keeps you comfortable. They walk you through what to expect at the appointment.", "q_es": "Does it hurt?", "a_es": "Everyone experiences it differently and your artist keeps you comfortable. They walk you through what to expect at the appointment."}, {"q_en": "Is it clean? Do you use new needles?", "a_en": "Yes — the studio is licensed and follows strict sterilization standards, with single-use needles for every client.", "q_es": "Is it clean? Do you use new needles?", "a_es": "Yes — the studio is licensed and follows strict sterilization standards, with single-use needles for every client."}, {"q_en": "How do I take care of it after?", "a_en": "Your artist gives you full aftercare instructions when you come in. If anything ever looks off while it heals, it is safest to see a doctor.", "q_es": "How do I take care of it after?", "a_es": "Your artist gives you full aftercare instructions when you come in. If anything ever looks off while it heals, it is safest to see a doctor."}], "useLLM": false, "reviews": [{"stars": 5, "en": "Took my rough idea and turned it into something I love. Clean shop, zero attitude.", "es": "Tomaron mi idea y la convirtieron en algo que amo. Estudio limpio y buen trato.", "who": "Sample · demo"}, {"stars": 5, "en": "They explained aftercare clearly and checked in after. Felt cared for.", "es": "Me explicaron el cuidado y me dieron seguimiento. Me sentí bien atendido.", "who": "Sample · demo"}, {"stars": 5, "en": "Booked in English, asked questions in Spanish — easy the whole way.", "es": "Reservé en inglés y pregunté en español — fácil de principio a fin.", "who": "Sample · demo"}], "chatEndpoint": "https://jonathan777-ui.app.n8n.cloud/webhook/orbit-turn"};
+const CONFIG = {"name": "Desire Ink Lab", "logo": "logo.svg", "vertical": "tattoo", "address": "2310 Commercial St SE, Salem, OR 97302", "phone": "(503) 584-1626", "hoursEn": "Mon–Fri 10am–6pm · Sat–Sun closed", "hoursEs": "Lun–Vie 10am–6pm · Sáb–Dom cerrado", "instagram": "https://www.instagram.com/desireinklab", "facebook": "", "bookingUrl": "", "artists": [], "gallery": [], "demo": true, "services": ["Custom tattoos", "Cover-ups", "Fine-line & blackwork", "Flash & walk-ins"], "faqs": [{"q_en": "How much does a tattoo cost?", "a_en": "It depends on size, placement and detail, so your artist gives you a real number at the consult. We set expectations up front — no surprises.", "q_es": "How much does a tattoo cost?", "a_es": "It depends on size, placement and detail, so your artist gives you a real number at the consult. We set expectations up front — no surprises."}, {"q_en": "How old do I have to be?", "a_en": "You need to be 18 or older with a valid government photo ID — we check it on the day. For piercings and anyone younger, ask us about our policy.", "q_es": "How old do I have to be?", "a_es": "You need to be 18 or older with a valid government photo ID — we check it on the day. For piercings and anyone younger, ask us about our policy."}, {"q_en": "Does it hurt?", "a_en": "Everyone experiences it differently and your artist keeps you comfortable. They walk you through what to expect at the appointment.", "q_es": "Does it hurt?", "a_es": "Everyone experiences it differently and your artist keeps you comfortable. They walk you through what to expect at the appointment."}, {"q_en": "Is it clean? Do you use new needles?", "a_en": "Yes — the studio is licensed and follows strict sterilization standards, with single-use needles for every client.", "q_es": "Is it clean? Do you use new needles?", "a_es": "Yes — the studio is licensed and follows strict sterilization standards, with single-use needles for every client."}, {"q_en": "How do I take care of it after?", "a_en": "Your artist gives you full aftercare instructions when you come in. If anything ever looks off while it heals, it is safest to see a doctor.", "q_es": "How do I take care of it after?", "a_es": "Your artist gives you full aftercare instructions when you come in. If anything ever looks off while it heals, it is safest to see a doctor."}], "useLLM": false, "premiumVoice": true, "voiceTokenEndpoint": "https://jonathan777-ui.app.n8n.cloud/webhook/voice-token", "voiceSiteKey": "ORBIT-SET-LAUNCH-SITE-KEY", "voice": {"sttModel": "nova-3", "ttsEn": "aura-2-thalia-en", "ttsEs": "aura-2-celeste-es"}, "reviews": [{"stars": 5, "en": "Took my rough idea and turned it into something I love. Clean shop, zero attitude.", "es": "Tomaron mi idea y la convirtieron en algo que amo. Estudio limpio y buen trato.", "who": "Sample · demo"}, {"stars": 5, "en": "They explained aftercare clearly and checked in after. Felt cared for.", "es": "Me explicaron el cuidado y me dieron seguimiento. Me sentí bien atendido.", "who": "Sample · demo"}, {"stars": 5, "en": "Booked in English, asked questions in Spanish — easy the whole way.", "es": "Reservé en inglés y pregunté en español — fácil de principio a fin.", "who": "Sample · demo"}], "chatEndpoint": "https://jonathan777-ui.app.n8n.cloud/webhook/orbit-turn"};
 
 /* ---------- language ---------- */
 function setLang(l){
@@ -656,18 +656,79 @@ async function send(text, spoken){
   if(spoken) speak(reply);
 }
 
-/* ---------- voice receptionist: Web Speech API (keyless) ---------- */
+/* ---------- voice receptionist: Deepgram premium (Nova-3 STT + Aura-2 TTS),
+   keyless KB brain. Push-to-talk: tap 🎙️ to start, tap again to send. Falls
+   back to the browser Web Speech API if premium voice/mic is unavailable, so
+   voice never goes dead. The reply text always comes from the keyless engine. */
 var _SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+var _rec=null,_chunks=[],_recOn=false,_media=null,_tok=null;
+function setMic(on){ var m=document.getElementById('micBtn'); if(m) m.classList.toggle('listening',!!on); }
 function speak(t){ try{ var u=new SpeechSynthesisUtterance(t); u.lang=document.documentElement.lang==='es'?'es-ES':'en-US'; speechSynthesis.cancel(); speechSynthesis.speak(u); }catch(e){} }
+
 function startVoice(){
-  var es=document.documentElement.lang==='es'; openChat();
-  if(!_SR){ bubble(es?'La voz no está disponible en este navegador. Escríbeme aquí o llámanos.':'Voice isn’t supported in this browser. Type here or call us.','bot'); return; }
+  openChat();
+  if(_recOn){ stopRec(); return; }                 // tap again -> send
+  if(CONFIG.premiumVoice && CONFIG.voiceTokenEndpoint){ startPremium(); }
+  else { startWeb(); }
+}
+function stopRec(){ try{ if(_rec&&_rec.state!=='inactive') _rec.stop(); }catch(e){}
+  if(_media){ _media.getTracks().forEach(function(t){t.stop();}); } _recOn=false; setMic(false); }
+
+async function getVoiceToken(){
+  var r=await fetch(CONFIG.voiceTokenEndpoint,{method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({site_key:CONFIG.voiceSiteKey||''})});
+  if(!r.ok) throw new Error('token'); return r.json();
+}
+async function startPremium(){
+  var es=document.documentElement.lang==='es';
+  try{ _tok=await getVoiceToken(); }catch(e){ return startWeb(); }  // vendor down -> Web Speech
+  try{
+    _media=await navigator.mediaDevices.getUserMedia({audio:true});
+    _chunks=[]; _rec=new MediaRecorder(_media);
+    _rec.ondataavailable=function(e){ if(e.data&&e.data.size) _chunks.push(e.data); };
+    _rec.onstop=processPremium;
+    _rec.start(); _recOn=true; setMic(true);
+    bubble(es?'Escuchando… toca 🎙️ para enviar':'Listening… tap 🎙️ to send','bot');
+  }catch(e){ _recOn=false; setMic(false); startWeb(); }   // mic denied -> Web Speech
+}
+async function processPremium(){
+  var es=document.documentElement.lang==='es'; var v=CONFIG.voice||{}; var tok=_tok||{};
+  var typing=bubble('…','bot');
+  try{
+    var blob=new Blob(_chunks,{type:(_chunks[0]&&_chunks[0].type)||'audio/webm'});
+    var url='https://api.deepgram.com/v1/listen?model='+(tok.stt_model||v.sttModel||'nova-3')
+      +'&language='+(es?'es':'en')+'&smart_format=true&punctuate=true';
+    var sr=await fetch(url,{method:'POST',headers:{'Authorization':'Token '+tok.token,'Content-Type':blob.type},body:blob});
+    var sj=await sr.json();
+    var alt=((((sj.results||{}).channels||[])[0]||{}).alternatives||[])[0]||{};
+    var transcript=(alt.transcript||'').trim();
+    if(typing.remove) typing.remove();
+    if(!transcript){ bubble(es?'No te escuché bien. ¿Puedes repetir o escribir?':'I didn’t catch that — mind repeating or typing?','bot'); return; }
+    bubble(transcript,'me'); history.push({role:'user',content:transcript});
+    var reply=kbAnswer(transcript); history.push({role:'assistant',content:reply});
+    bubble(reply,'bot'); speakPremium(reply, tok);
+  }catch(e){ if(typing.remove) typing.remove();
+    bubble(es?'Tuve un problema con la voz — sigamos por texto.':'I had a voice hiccup — let’s keep going by text.','bot'); }
+}
+async function speakPremium(text, tok){
+  var es=document.documentElement.lang==='es'; var v=CONFIG.voice||{};
+  try{
+    var model=es?(v.ttsEs||'aura-2-celeste-es'):(v.ttsEn||tok.tts_model||'aura-2-thalia-en');
+    var r=await fetch('https://api.deepgram.com/v1/speak?model='+model,{method:'POST',
+      headers:{'Authorization':'Token '+tok.token,'Content-Type':'application/json'},body:JSON.stringify({text:text})});
+    if(!r.ok) throw new Error('tts'); var buf=await r.arrayBuffer();
+    new Audio(URL.createObjectURL(new Blob([buf],{type:'audio/mpeg'}))).play();
+  }catch(e){ speak(text); }                          // fall back to Web Speech TTS
+}
+function startWeb(){
+  var es=document.documentElement.lang==='es';
+  if(!_SR){ bubble(es?'La voz no está disponible aquí. Escríbeme o llámanos.':'Voice isn’t available here — type or call us.','bot'); return; }
   var rec=new _SR(); rec.lang=es?'es-ES':'en-US'; rec.interimResults=false; rec.maxAlternatives=1;
-  var mic=document.getElementById('micBtn'); if(mic) mic.classList.add('listening');
+  setMic(true);
   rec.onresult=function(e){ send(e.results[0][0].transcript, true); };
-  rec.onerror=function(){ if(mic) mic.classList.remove('listening'); };
-  rec.onend=function(){ if(mic) mic.classList.remove('listening'); };
-  try{ rec.start(); }catch(e){}
+  rec.onerror=function(){ setMic(false); };
+  rec.onend=function(){ setMic(false); };
+  try{ rec.start(); }catch(e){ setMic(false); }
 }
 
 /* ---------- social proof, mobile call bar, motion, schema ---------- */

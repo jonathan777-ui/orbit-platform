@@ -20,7 +20,15 @@ and fill in:
 | `hoursEn` / `hoursEs` | Opening hours in each language |
 | `instagram` / `facebook` | Social links (Facebook prefilled to the page you sent) |
 | `bookingUrl` | Online booking / deposit link. If blank, the "Book" buttons open the chat |
-| `artists` | Array of `{ name, styles }` for the team grid |
+| `artists` | Array of `{ name, styles, instagram, portfolio:[urls] }`. `portfolio` images fill the gallery grouped under that artist |
+| `gallery` | Plain list of image URLs for studio-wide work when you don't know which artist made which piece |
+
+### Gallery / "Our work"
+The gallery renders from images, grouped by artist (`artists[].portfolio`) plus an
+optional ungrouped studio set (`gallery`). Tap a photo for a lightbox. Until you add
+image URLs it shows a "coming soon" note. Best sources are the studio's own
+Instagram/Facebook posts — save the images and host them next to `index.html`
+(e.g. an `images/` folder) or paste stable URLs.
 
 Nothing is fabricated — blank fields show a tasteful "coming soon" until you fill them.
 

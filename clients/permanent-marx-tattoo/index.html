@@ -62,6 +62,22 @@
   .faq p{color:var(--muted);margin:0 0 16px}
   .note{background:rgba(240,180,41,.08);border:1px solid rgba(240,180,41,.3);border-radius:12px;
     padding:16px 18px;color:#f3dca0;font-size:14.5px}
+  /* gallery */
+  .gallery .gArtist{margin-bottom:36px}
+  .gallery .gHead{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+  .gallery .gHead h3{margin:0;font-size:20px}
+  .gallery .gStyles{color:var(--muted);font-size:13px}
+  .gGrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+  .tile{padding:0;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--panel);
+    cursor:pointer;aspect-ratio:1/1}
+  .tile img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .35s}
+  .tile:hover img{transform:scale(1.06)}
+  #lightbox{position:fixed;inset:0;z-index:80;background:rgba(0,0,0,.9);display:none;
+    align-items:center;justify-content:center;padding:24px}
+  #lightbox.open{display:flex}
+  #lightbox img{max-width:92vw;max-height:88vh;border-radius:12px;box-shadow:0 20px 60px rgba(0,0,0,.6)}
+  #lightbox .x{position:absolute;top:16px;right:22px;color:#fff;font-size:32px;background:none;
+    border:0;cursor:pointer;line-height:1}
   .twocol{display:grid;grid-template-columns:1.2fr 1fr;gap:26px}
   @media(max-width:760px){.twocol{grid-template-columns:1fr}}
   footer{border-top:1px solid var(--line);padding:40px 0;color:var(--muted);font-size:14px}
@@ -106,6 +122,7 @@
     <div class="brand">PERMANENT <span>MARX</span></div>
     <a class="link" href="#services" data-en>Services</a><a class="link" href="#services" data-es>Servicios</a>
     <a class="link" href="#artists" data-en>Artists</a><a class="link" href="#artists" data-es>Artistas</a>
+    <a class="link" href="#gallery" data-en>Gallery</a><a class="link" href="#gallery" data-es>Galería</a>
     <a class="link" href="#faq">FAQ</a>
     <a class="link" href="#book" data-en>Book</a><a class="link" href="#book" data-es>Reservar</a>
     <div class="langtoggle" role="group" aria-label="language">
@@ -196,6 +213,16 @@
   </div>
 </section>
 
+<!-- GALLERY -->
+<section id="gallery">
+  <div class="wrap gallery">
+    <h2 class="sec" data-en>Our work</h2><h2 class="sec" data-es>Nuestro trabajo</h2>
+    <p class="sub" data-en>Real pieces by our artists, grouped by who made them. Tap any photo to view it larger.</p>
+    <p class="sub" data-es>Piezas reales de nuestros artistas, agrupadas por quién las hizo. Toca cualquier foto para verla más grande.</p>
+    <div id="galleryWrap"></div>
+  </div>
+</section>
+
 <!-- BOOK -->
 <section id="book">
   <div class="wrap twocol">
@@ -272,6 +299,9 @@
   </div>
 </footer>
 
+<!-- LIGHTBOX -->
+<div id="lightbox" role="dialog" aria-modal="true"><button class="x" aria-label="Close">×</button><img src="" alt=""></div>
+
 <!-- CHAT WIDGET -->
 <button id="chatBtn" aria-label="Chat">💬</button>
 <div id="chatPanel" aria-live="polite">
@@ -305,9 +335,20 @@ const CONFIG = {
   instagram: "https://www.instagram.com/permanentmarxtattoo",
   facebook: "https://www.facebook.com/permanentmarxtattoo",
   bookingUrl: "",       // online booking / deposit link; falls back to chat if blank
-  // Replace with the studio's real artists:
+  // Artists & their work. Add image URLs to `portfolio` (their Instagram post
+  // image links, or files you host) and they fill the gallery, grouped by artist.
   artists: [
-    // { name: "Artist Name", styles: "fine-line · color · realism" },
+    // {
+    //   name: "Artist Name",
+    //   styles: "fine-line · color · realism",
+    //   instagram: "https://www.instagram.com/their_handle",
+    //   portfolio: ["https://.../piece1.jpg", "https://.../piece2.jpg"]
+    // },
+  ],
+  // Studio-wide photos when you don't know which artist did which piece
+  // (e.g. shots saved from the shop's Google/Bing/Instagram). Plain URL list:
+  gallery: [
+    // "https://.../work1.jpg", "https://.../work2.jpg"
   ],
   // n8n chatbot brain webhook (see permanent-marx-chat workflow):
   chatEndpoint: "https://jonathan777-ui.app.n8n.cloud/webhook/permanent-marx-chat"
@@ -320,6 +361,7 @@ function setLang(l){
   esBtn.classList.toggle('active', l==='es');
   try{ localStorage.setItem('pm_lang', l);}catch(e){}
   renderNAP();
+  if(typeof renderGallery==='function') renderGallery();
 }
 (function initLang(){
   let l='en';
@@ -365,7 +407,44 @@ function renderArtists(){
   grid.innerHTML = CONFIG.artists.map(a=>
     '<div class="card"><h3>'+a.name+'</h3><p>'+(a.styles||'')+'</p></div>').join('');
 }
-renderNAP(); renderArtists();
+function renderGallery(){
+  const wrap=document.getElementById('galleryWrap');
+  const es=document.documentElement.lang==='es';
+  const groups=[];
+  (CONFIG.artists||[]).forEach(a=>{ if(a.portfolio && a.portfolio.length)
+    groups.push({title:a.name, styles:a.styles, instagram:a.instagram, pics:a.portfolio}); });
+  if(CONFIG.gallery && CONFIG.gallery.length)
+    groups.push({title:CONFIG.name, styles:(es?'trabajo del estudio':'studio work'),
+      instagram:CONFIG.instagram, pics:CONFIG.gallery});
+  if(!groups.length){
+    wrap.innerHTML='<div class="note">'+(es
+      ? 'Galería en camino — añade enlaces de imágenes en CONFIG.gallery o en CONFIG.artists[].portfolio y aparecerán aquí.'
+      : 'Gallery coming soon — add image links in CONFIG.gallery or CONFIG.artists[].portfolio and they’ll show here.')+'</div>';
+    return;
+  }
+  wrap.innerHTML=groups.map(g=>{
+    const tiles=g.pics.map((src,i)=>'<button class="tile" data-src="'+src+'" data-alt="'+
+      (g.title+' — '+(es?'trabajo':'work')+' '+(i+1))+'"><img loading="lazy" src="'+src+'" alt="'+
+      g.title+'"></button>').join('');
+    const handle=g.instagram?g.instagram.split('/').filter(Boolean).pop():'';
+    const ig=g.instagram?'<a href="'+g.instagram+'" target="_blank" rel="noopener">@'+handle+'</a>':'';
+    return '<div class="gArtist"><div class="gHead"><h3>'+g.title+'</h3>'+
+      (g.styles?'<span class="gStyles">'+g.styles+'</span>':'')+ig+'</div>'+
+      '<div class="gGrid">'+tiles+'</div></div>';
+  }).join('');
+  wrap.querySelectorAll('.tile').forEach(b=>b.onclick=()=>openLightbox(b.dataset.src,b.dataset.alt));
+}
+function openLightbox(src,alt){
+  const lb=document.getElementById('lightbox');
+  const img=lb.querySelector('img'); img.src=src; img.alt=alt||'';
+  lb.classList.add('open');
+}
+renderNAP(); renderArtists(); renderGallery();
+(function(){
+  const lb=document.getElementById('lightbox');
+  lb.addEventListener('click',()=>lb.classList.remove('open'));
+  document.addEventListener('keydown',e=>{ if(e.key==='Escape') lb.classList.remove('open'); });
+})();
 
 /* ====================================================================
    CHAT WIDGET — posts to the n8n chatbot brain (CONFIG.chatEndpoint)

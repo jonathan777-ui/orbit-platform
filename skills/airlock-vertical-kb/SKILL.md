@@ -105,7 +105,9 @@ design tokens/motion, WCAG 2.2 AA, SEO **+ AEO** (answer-engine optimization), C
 content, native bilingual/dialect, the **AI front office** (grounded chat + 24/7 bilingual voice
 receptionist from the same KB), compliance, and a **pass/fail launch-gate scorecard**. The thesis:
 generators ship a *website*; Orbit ships a *front office*. Never ship to clear a checkbox — ship to
-win the side-by-side.
+win the side-by-side. **Gating (`quality-bar.md` §8):** Gold + low-risk Platinum scaffold automatically;
+high-risk Platinum and all Iridium/Rhodium get human content review — and **every new deploy passes a
+universal human go-live gate** before it publishes.
 
 ## Growth playbooks & site audit
 

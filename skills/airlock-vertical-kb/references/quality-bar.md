@@ -251,3 +251,54 @@ every surface elite *and improving*, every month:
 **service level** (`service-levels.md`: DIY → Hybrid → DFY → **Diamond**) sets **how much elite
 continuation** the client gets each month. Retention and results come from continuing the level across
 every component, every month — **not** from a one-time launch and **not** from gating build quality.
+
+---
+
+## 8. Review gating — two gates: a universal go-live gate + build review (risk × tier)
+
+**Universal rule — every new deploy is human-approved before it goes live.** Regardless of tier,
+vertical, or whether the build was scaffolded, **a person gives explicit go-live approval after the §4
+launch gate passes.** Scaffolding automates *building*, never the *decision to publish.* Nothing reaches
+a public URL or a client demo link without that sign-off. Pipeline: `scaffold/build → §4 self-check →
+human go-live approval (always) → deploy`.
+
+The **build-review gate** below maps the §7 scaffold rule to **risk** — it decides whether a human
+reviews the *content during the build*, **not** whether a human approves the *deploy* (always yes).
+
+- **Scaffold (automated build, no per-content reviewer):** **Gold builds (any vertical)** and
+  **Platinum builds in Standard/Low-risk verticals.** The pipeline pre-seeds the plumbing, generates
+  content, and self-checks against the §4 launch gate — then routes to the universal go-live gate.
+- **Human-gate review (a person signs off before demo/publish):** **Platinum builds in High-risk
+  verticals**, and **all Iridium and all Rhodium builds (every vertical).** The reviewer clears
+  compliance hard-lines, claims, and — where applicable — the Rhodium honesty pillars (attorney
+  sign-off, native-dialect validation, real-call learning).
+
+**Risk classification** (criteria: regulated advice · PHI/PII · safety/emergency · vulnerable people ·
+child safety · fair-housing/EEOC · grief/sensitive · financial exposure):
+- **High-risk → gate at Platinum+:** Law · Accounting/Tax · Insurance · Financial/Wealth · Medical/
+  Dental · Med Spa/Aesthetics · Behavioral Health · Mortgage/Lending · Pharmacy/Medical Supply · Home
+  Health & Senior Care · Veterinary · Real Estate · Property Management · Security & Safety · Funeral &
+  Memorial · Education & Childcare · Staffing & Recruiting.
+- **Standard/Low-risk → scaffold at Gold + Platinum:** Home Services · Construction · Solar · Automotive ·
+  Restaurants · Fine Dining/Events · Hospitality · Beauty/Hair · Fitness · Pet Services · Travel · Events
+  & Entertainment · Photography · Marketing · IT/MSP · Consulting · Commercial Cleaning · Agriculture ·
+  Retail/Florists · Industrial/Trades · Moving & Storage · Logistics.
+
+| Tier | Standard/Low-risk vertical | High-risk vertical |
+|---|:---:|:---:|
+| **Gold** | Scaffold | Scaffold\* |
+| **Platinum** | Scaffold | **Human-gate** |
+| **Iridium** | **Human-gate** | **Human-gate** |
+| **Rhodium** | **Human-gate** | **Human-gate** |
+
+*(Build review per the matrix; the **go-live approval is universal** — every cell still requires human
+sign-off before the deploy goes live.)*
+
+**Always human-gated, regardless of tier or vertical** (these never auto-ship as net-new): any
+**emergency/safety script** (gas/CO/flood/911/988/crisis), any **advice boundary** (legal/medical/
+financial/tax), any **claim** (efficacy/outcome/rate/savings guarantee), the **"native-validated"
+dialect** sign-off, and any custom **compliance hard-line** copy (`compliance-patterns.md`).
+
+\*A Gold high-risk site **scaffolds** because it inherits **pre-validated** compliance/emergency modules
+from the KB layer (already human-authored) — only **net-new** claims/scripts trigger the always-gated
+review above. Scaffolding reuses validated content; it never generates fresh regulated copy unreviewed.

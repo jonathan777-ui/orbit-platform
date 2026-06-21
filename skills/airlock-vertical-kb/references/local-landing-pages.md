@@ -82,6 +82,10 @@ clarity (business = provider of <service> in <city>). See `aeo-guide.md`.
 - **For demos:** ship **2–3 fully-built** city pages (real or realistic local proof) so the demo shows
   the local system working — elite, never placeholder.
 
+> **Gating:** scaffolding applies to Gold + low-risk Platinum (`quality-bar.md` §8); high-risk Platinum
+> and all Iridium/Rhodium get human content review. **Every** new deploy — scaffolded or not — passes the
+> **universal human go-live gate** before it publishes.
+
 ## Anti-patterns (these get you penalized)
 - ZIP-code doorway pages · every-city×every-service thin grids · duplicate/boilerplate "[city]" swaps ·
   fake locations or reviews · NAP that doesn't match reality (NAP must be **true** everywhere) ·

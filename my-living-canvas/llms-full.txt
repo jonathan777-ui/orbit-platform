@@ -1,0 +1,41 @@
+# My Living Canvas — Salem, OR
+> My Living Canvas is a licensed tattoo studio in Salem, Oregon offering custom tattoos, cover-ups, and bilingual (English/Spanish) service. 392 Liberty St. Call (503) 884-4043. Book a free consult.
+
+## Services
+- Custom tattoos
+- Cover-ups
+- Fine-line & blackwork
+- Flash & walk-ins
+
+## Service area
+- Salem, Keizer, West Salem, Marion County (ZIPs: 97301)
+
+## Contact
+- Call/text: (503) 884-4043 · Hours: Mon–Fri 3–8:30pm · Sat–Sun closed (by appt) · Languages: English, Español
+
+## Key pages
+- https://jonathan777-ui.github.io/orbit-platform/my-living-canvas/: Home
+- https://jonathan777-ui.github.io/orbit-platform/my-living-canvas/#services: Services
+- https://jonathan777-ui.github.io/orbit-platform/my-living-canvas/#book: Book a consult
+- https://jonathan777-ui.github.io/orbit-platform/my-living-canvas/#faq: FAQ
+
+## More
+- About: https://jonathan777-ui.github.io/orbit-platform/my-living-canvas/
+- Full: https://jonathan777-ui.github.io/orbit-platform/my-living-canvas/llms-full.txt
+- https://www.instagram.com/mylivingcanvastattoostudio
+
+## FAQ
+### How much does a tattoo cost?
+It depends on size, placement and detail, so your artist gives you a real number at the consult. We set expectations up front — no surprises.
+
+### How old do I have to be?
+You need to be 18 or older with a valid government photo ID — we check it on the day. For piercings and anyone younger, ask us about our policy.
+
+### Does it hurt?
+Everyone experiences it differently and your artist keeps you comfortable. They walk you through what to expect at the appointment.
+
+### Is it clean? Do you use new needles?
+Yes — the studio is licensed and follows strict sterilization standards, with single-use needles for every client.
+
+### How do I take care of it after?
+Your artist gives you full aftercare instructions when you come in. If anything ever looks off while it heals, it is safest to see a doctor.

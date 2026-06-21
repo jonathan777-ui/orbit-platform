@@ -1,0 +1,27 @@
+# Javi's Fades — Salem, OR
+> Javi's Fades is a barbershop in Salem, Oregon for fades, classic cuts, beard trims and hot-towel shaves. Bilingual (English/Spanish). 327 State St. Call (971) 218-5363.
+
+## Services
+- Haircuts & Fades
+- Beard & Line-up
+- Hot-Towel Shave
+- Kids' Cuts
+- Designs & Details
+
+## Service area
+- Salem, Keizer, West Salem, Marion County (ZIPs: 97301)
+
+## Contact
+- Call/text: (971) 218-5363 · Hours: Mon–Fri 9am–6pm · Sat 9–5 · Sun 9–4 · Languages: English, Español
+
+## Key pages
+- https://jonathan777-ui.github.io/orbit-platform/javis-fades/: Home
+- https://jonathan777-ui.github.io/orbit-platform/javis-fades/#services: What we do
+- https://jonathan777-ui.github.io/orbit-platform/javis-fades/#book: Book a cut
+- https://jonathan777-ui.github.io/orbit-platform/javis-fades/#faq: FAQ
+
+## More
+- About: https://jonathan777-ui.github.io/orbit-platform/javis-fades/
+- Full: https://jonathan777-ui.github.io/orbit-platform/javis-fades/llms-full.txt
+- https://www.instagram.com/javisfadesbarbershop
+- https://javisfades.com

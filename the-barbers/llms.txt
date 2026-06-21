@@ -1,0 +1,25 @@
+# The Barbers — Salem, OR
+> The Barbers is a barbershop in Salem, Oregon for fades, classic cuts, beard trims and hot-towel shaves. Bilingual (English/Spanish). 476 Lancaster Dr NE. Call (503) 585-0754.
+
+## Services
+- Haircuts & Fades
+- Beard & Line-up
+- Hot-Towel Shave
+- Kids' Cuts
+- Designs & Details
+
+## Service area
+- Salem, Keizer, West Salem, Marion County (ZIPs: 97301)
+
+## Contact
+- Call/text: (503) 585-0754 · Hours: Walk-ins & appointments — call for today's hours · Languages: English, Español
+
+## Key pages
+- https://jonathan777-ui.github.io/orbit-platform/the-barbers/: Home
+- https://jonathan777-ui.github.io/orbit-platform/the-barbers/#services: What we do
+- https://jonathan777-ui.github.io/orbit-platform/the-barbers/#book: Book a cut
+- https://jonathan777-ui.github.io/orbit-platform/the-barbers/#faq: FAQ
+
+## More
+- About: https://jonathan777-ui.github.io/orbit-platform/the-barbers/
+- Full: https://jonathan777-ui.github.io/orbit-platform/the-barbers/llms-full.txt

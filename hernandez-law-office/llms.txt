@@ -1,0 +1,26 @@
+# Hernandez Law Office — Salem, OR
+> Hernandez Law Office — bilingual immigration attorney in Salem, Oregon. Green cards, citizenship, work permits, family petitions and deportation defense. Free, confidential consultation. 3850 Portland Rd NE, Ste 200. Call (503) 746-9277.
+
+## Services
+- Family & Green Cards
+- Citizenship & Naturalization
+- Work Permits & Visas
+- Removal / Deportation Defense
+- Asylum & Humanitarian
+- DACA & Renewals
+
+## Service area
+- Salem, Keizer, West Salem, Marion County (ZIPs: 97301)
+
+## Contact
+- Call/text: (503) 746-9277 · Hours: Mon–Fri 9am–5pm · Languages: English, Español
+
+## Key pages
+- https://jonathan777-ui.github.io/orbit-platform/hernandez-law-office/: Home
+- https://jonathan777-ui.github.io/orbit-platform/hernandez-law-office/#services: How we help
+- https://jonathan777-ui.github.io/orbit-platform/hernandez-law-office/#book: Book a free consultation
+- https://jonathan777-ui.github.io/orbit-platform/hernandez-law-office/#faq: FAQ
+
+## More
+- About: https://jonathan777-ui.github.io/orbit-platform/hernandez-law-office/
+- Full: https://jonathan777-ui.github.io/orbit-platform/hernandez-law-office/llms-full.txt

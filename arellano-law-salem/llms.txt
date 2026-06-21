@@ -1,0 +1,27 @@
+# Arellano Law Firm — Salem, OR
+> Arellano Law Firm — bilingual immigration attorney in Salem, Oregon. Green cards, citizenship, work permits, family petitions and deportation defense. Free, confidential consultation. Call (503) 305-3425.
+
+## Services
+- Family & Green Cards
+- Citizenship & Naturalization
+- Work Permits & Visas
+- Removal / Deportation Defense
+- Asylum & Humanitarian
+- DACA & Renewals
+
+## Service area
+- Salem, Keizer, West Salem, Marion County (ZIPs: 97301)
+
+## Contact
+- Call/text: (503) 305-3425 · Hours: Mon–Fri 9am–5pm · by appointment · Languages: English, Español
+
+## Key pages
+- https://jonathan777-ui.github.io/orbit-platform/arellano-law-salem/: Home
+- https://jonathan777-ui.github.io/orbit-platform/arellano-law-salem/#services: How we help
+- https://jonathan777-ui.github.io/orbit-platform/arellano-law-salem/#book: Book a free consultation
+- https://jonathan777-ui.github.io/orbit-platform/arellano-law-salem/#faq: FAQ
+
+## More
+- About: https://jonathan777-ui.github.io/orbit-platform/arellano-law-salem/
+- Full: https://jonathan777-ui.github.io/orbit-platform/arellano-law-salem/llms-full.txt
+- https://arellanolegal.com/salem/

@@ -1,0 +1,25 @@
+# Red's Barber Shop — Salem, OR
+> Red's Barber Shop is a barbershop in Salem, Oregon for fades, classic cuts, beard trims and hot-towel shaves. Bilingual (English/Spanish). 3300 Market St, Ste 11. Call (503) 371-8955.
+
+## Services
+- Haircuts & Fades
+- Beard & Line-up
+- Hot-Towel Shave
+- Kids' Cuts
+- Designs & Details
+
+## Service area
+- Salem, Keizer, West Salem, Marion County (ZIPs: 97301)
+
+## Contact
+- Call/text: (503) 371-8955 · Hours: Walk-ins & appointments — call for today's hours · Languages: English, Español
+
+## Key pages
+- https://jonathan777-ui.github.io/orbit-platform/reds-barber-shop/: Home
+- https://jonathan777-ui.github.io/orbit-platform/reds-barber-shop/#services: What we do
+- https://jonathan777-ui.github.io/orbit-platform/reds-barber-shop/#book: Book a cut
+- https://jonathan777-ui.github.io/orbit-platform/reds-barber-shop/#faq: FAQ
+
+## More
+- About: https://jonathan777-ui.github.io/orbit-platform/reds-barber-shop/
+- Full: https://jonathan777-ui.github.io/orbit-platform/reds-barber-shop/llms-full.txt

@@ -1,0 +1,377 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Barbers — Barbershop in Salem, OR | Bilingual EN/ES</title>
+<meta name="description" content="The Barbers is a barbershop in Salem, Oregon for fades, classic cuts, beard trims and hot-towel shaves. Bilingual (English/Spanish). 476 Lancaster Dr NE. Call (503) 585-0754.">
+<style>
+  :root{
+    /* Brand palette pulled from the logo: deep purple, ornate gold, red ✗, cream */
+    --bg:#150b22; --panel:#20132f; --line:#3a2550; --fg:#f4ecdd; --muted:#b6a4c8;
+    --accent:#d4324a; --accent2:#e7b24a; --ink:#0e0717;
+    --serif:Georgia,"Times New Roman",serif;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--fg);
+    font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+  a{color:var(--accent2);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .wrap{max-width:1040px;margin:0 auto;padding:0 20px}
+  header{position:sticky;top:0;z-index:40;background:rgba(18,9,26,.85);backdrop-filter:blur(8px);
+    border-bottom:1px solid rgba(231,178,74,.22)}
+  .nav{display:flex;align-items:center;gap:18px;height:62px}
+  .brand{font-family:var(--serif);font-weight:800;letter-spacing:.06em;font-size:19px;margin-right:auto;
+    color:var(--fg);text-shadow:0 0 18px rgba(231,178,74,.22)}
+  .brand span{color:var(--accent);text-shadow:0 0 14px rgba(212,50,74,.4)}
+  .nav a.link{color:var(--fg);font-size:14px}
+  .nav a.link:hover{color:var(--accent2);text-decoration:none}
+  @media(max-width:760px){.nav a.link{display:none}}
+  .langtoggle{border:1px solid var(--line);border-radius:999px;padding:4px;display:flex;gap:2px}
+  .langtoggle button{background:none;border:0;color:var(--muted);padding:4px 10px;border-radius:999px;
+    font-size:13px;cursor:pointer}
+  .langtoggle button.active{background:var(--accent);color:#fff;font-weight:700}
+  .btn{display:inline-block;background:var(--accent);color:#fff;font-weight:700;padding:12px 22px;
+    border-radius:10px;border:0;cursor:pointer;font-size:15px}
+  .btn:hover{filter:brightness(1.08);text-decoration:none}
+  .btn.ghost{background:transparent;border:1px solid var(--line);color:var(--fg)}
+  /* hero */
+  .hero{padding:84px 0 64px;background:
+    radial-gradient(1100px 520px at 82% -5%,rgba(231,178,74,.20),transparent 58%),
+    radial-gradient(1000px 480px at 10% 0%,rgba(150,70,180,.30),transparent 60%),
+    radial-gradient(760px 420px at 55% 125%,rgba(212,50,74,.16),transparent 60%)}
+  .hero h1{font-family:var(--serif);font-size:clamp(34px,6vw,58px);line-height:1.06;margin:0 0 18px;letter-spacing:.005em}
+  .hero p.lede{font-size:clamp(17px,2.4vw,21px);color:var(--muted);max-width:640px;margin:0 0 28px}
+  .cta-row{display:flex;gap:14px;flex-wrap:wrap}
+  .trust{display:flex;gap:10px;flex-wrap:wrap;margin-top:34px}
+  .trust span{font-size:13px;color:var(--muted);border:1px solid var(--line);border-radius:999px;
+    padding:6px 13px}
+  section{padding:58px 0;border-top:1px solid var(--line)}
+  h2.sec{font-family:var(--serif);font-size:clamp(24px,4vw,34px);margin:0 0 6px;letter-spacing:.01em}
+  .sub{color:var(--muted);margin:0 0 30px;max-width:640px}
+  .grid{display:grid;gap:18px}
+  .cards{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px}
+  .card h3{margin:0 0 8px;font-size:18px}
+  .card p{margin:0;color:var(--muted);font-size:14.5px}
+  .card .tag{display:inline-block;font-size:11px;letter-spacing:.06em;text-transform:uppercase;
+    color:var(--accent2);margin-bottom:10px}
+  .faq details{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:4px 18px;
+    margin-bottom:12px}
+  .faq summary{cursor:pointer;font-weight:600;padding:14px 0;list-style:none}
+  .faq summary::-webkit-details-marker{display:none}
+  .faq summary::after{content:"+";float:right;color:var(--accent)}
+  .faq details[open] summary::after{content:"–"}
+  .faq p{color:var(--muted);margin:0 0 16px}
+  .note{background:rgba(240,180,41,.08);border:1px solid rgba(240,180,41,.3);border-radius:12px;
+    padding:16px 18px;color:#f3dca0;font-size:14.5px}
+  /* gallery */
+  .gallery .gArtist{margin-bottom:36px}
+  .gallery .gHead{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+  .gallery .gHead h3{margin:0;font-size:20px}
+  .gallery .gStyles{color:var(--muted);font-size:13px}
+  .gGrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+  .tile{padding:0;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--panel);
+    cursor:pointer;aspect-ratio:1/1}
+  .tile img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .35s}
+  .tile:hover img{transform:scale(1.06)}
+  #lightbox{position:fixed;inset:0;z-index:80;background:rgba(0,0,0,.9);display:none;
+    align-items:center;justify-content:center;padding:24px}
+  #lightbox.open{display:flex}
+  #lightbox img{max-width:92vw;max-height:88vh;border-radius:12px;box-shadow:0 20px 60px rgba(0,0,0,.6)}
+  #lightbox .x{position:absolute;top:16px;right:22px;color:#fff;font-size:32px;background:none;
+    border:0;cursor:pointer;line-height:1}
+  .twocol{display:grid;grid-template-columns:1.2fr 1fr;gap:26px}
+  @media(max-width:760px){.twocol{grid-template-columns:1fr}}
+  footer{border-top:1px solid var(--line);padding:40px 0;color:var(--muted);font-size:14px}
+  .footgrid{display:flex;gap:40px;flex-wrap:wrap;justify-content:space-between}
+  .pill{font-size:12px;color:var(--muted)}
+  /* chat widget */
+  #chatBtn{position:fixed;right:20px;bottom:20px;z-index:60;background:var(--accent);color:#fff;
+    border:0;border-radius:999px;width:60px;height:60px;font-size:26px;cursor:pointer;
+    box-shadow:0 8px 26px rgba(0,0,0,.45)}
+  #chatPanel{position:fixed;right:20px;bottom:92px;z-index:60;width:360px;max-width:calc(100vw - 40px);
+    height:520px;max-height:calc(100vh - 130px);background:var(--panel);border:1px solid var(--line);
+    border-radius:16px;display:none;flex-direction:column;overflow:hidden;box-shadow:0 18px 50px rgba(0,0,0,.5)}
+  #chatPanel.open{display:flex}
+  .chatHead{background:var(--ink);padding:14px 16px;border-bottom:1px solid var(--line);
+    display:flex;align-items:center;gap:10px}
+  .chatHead .dot{width:9px;height:9px;border-radius:50%;background:#2ecc71}
+  .chatHead b{font-size:14px}
+  .chatHead small{color:var(--muted);font-size:12px;display:block}
+  .chatLog{flex:1;overflow:auto;padding:14px;display:flex;flex-direction:column;gap:10px}
+  .msg{max-width:84%;padding:9px 13px;border-radius:13px;font-size:14px;line-height:1.5}
+  .msg.bot{background:#1d1d24;align-self:flex-start;border-bottom-left-radius:4px}
+  .msg.me{background:var(--accent);color:#fff;align-self:flex-end;border-bottom-right-radius:4px}
+  .chips{display:flex;flex-wrap:wrap;gap:7px;padding:0 14px 8px}
+  .chip{background:#1d1d24;border:1px solid var(--line);color:var(--fg);font-size:12.5px;
+    padding:6px 11px;border-radius:999px;cursor:pointer}
+  .chip:hover{border-color:var(--accent)}
+  .chatForm{display:flex;gap:8px;padding:12px;border-top:1px solid var(--line)}
+  .chatForm input{flex:1;background:var(--ink);border:1px solid var(--line);color:var(--fg);
+    border-radius:10px;padding:10px 12px;font-size:14px}
+  .chatForm button{background:var(--accent);border:0;color:#fff;border-radius:10px;padding:0 16px;
+    cursor:pointer;font-weight:700}
+  [data-es]{display:none}
+  html[lang="es"] [data-en]{display:none}
+  html[lang="es"] [data-es]{display:inline}
+  html[lang="es"] [data-es].block{display:block}
+</style>
+<style id="brandvars">:root{--bg:#121212;--panel:#1c1c1c;--line:#2e2e2e;--fg:#f0efed;--muted:#b2ada4;--accent:#e0902a;--accent2:#d6d2cc;--ink:#0a0a0a}</style><link rel="canonical" href="https://jonathan777-ui.github.io/orbit-platform/the-barbers/"><meta name="robots" content="index,follow"><meta name="geo.region" content="US-OR"><meta name="geo.placename" content="Salem, Oregon"><meta name="geo.position" content="44.953;-122.992"><meta name="ICBM" content="44.953, -122.992"><meta property="og:type" content="business.business"><meta property="og:site_name" content="The Barbers"><meta property="og:title" content="The Barbers — Barbershop in Salem, OR | Bilingual EN/ES"><meta property="og:description" content="The Barbers is a barbershop in Salem, Oregon for fades, classic cuts, beard trims and hot-towel shaves. Bilingual (English/Spanish). 476 Lancaster Dr NE. Call (503) 585-0754."><meta property="og:url" content="https://jonathan777-ui.github.io/orbit-platform/the-barbers/"><meta property="og:image" content="https://jonathan777-ui.github.io/orbit-platform/the-barbers/logo.svg"><meta property="og:locale" content="en_US"><meta property="og:locale:alternate" content="es_ES"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="The Barbers — Barbershop in Salem, OR | Bilingual EN/ES"><meta name="twitter:description" content="The Barbers is a barbershop in Salem, Oregon for fades, classic cuts, beard trims and hot-towel shaves. Bilingual (English/Spanish). 476 Lancaster Dr NE. Call (503) 585-0754."><script type="application/ld+json">{"@context": "https://schema.org", "@type": "HairSalon", "name": "The Barbers", "url": "https://jonathan777-ui.github.io/orbit-platform/the-barbers/", "priceRange": "$$", "areaServed": "Salem, OR", "knowsLanguage": ["en", "es"], "image": "https://jonathan777-ui.github.io/orbit-platform/the-barbers/logo.svg", "address": {"@type": "PostalAddress", "addressLocality": "Salem", "addressRegion": "OR", "postalCode": "97301", "addressCountry": "US", "streetAddress": "476 Lancaster Dr NE"}, "geo": {"@type": "GeoCoordinates", "latitude": 44.953, "longitude": -122.992}, "telephone": "(503) 585-0754"}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "How much is a haircut?", "acceptedAnswer": {"@type": "Answer", "text": "Pricing depends on the service &mdash; your barber confirms it before the cut, with shop rates posted in-store."}}, {"@type": "Question", "name": "Do you take walk-ins?", "acceptedAnswer": {"@type": "Answer", "text": "Yes &mdash; walk in during open hours, or book ahead to skip the wait."}}, {"@type": "Question", "name": "Do you do beard trims and shaves?", "acceptedAnswer": {"@type": "Answer", "text": "We do &mdash; beard shaping, line-ups and hot-towel straight-razor shaves."}}, {"@type": "Question", "name": "Do you cut kids' hair?", "acceptedAnswer": {"@type": "Answer", "text": "Absolutely &mdash; we keep it quick and patient for the little ones."}}, {"@type": "Question", "name": "Can I request a specific barber?", "acceptedAnswer": {"@type": "Answer", "text": "Yes &mdash; tell us who, or book directly with your barber."}}]}</script></head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <div class="brand" id="brand">PERMANENT MAR<span>✗</span></div>
+    <a class="link" href="#services" data-en>Services</a><a class="link" href="#services" data-es>Servicios</a>
+    <a class="link" href="#artists" data-en>Barbers</a><a class="link" href="#artists" data-es>Barberos</a>
+    <a class="link" href="#gallery" data-en>Gallery</a><a class="link" href="#gallery" data-es>Galería</a>
+    <a class="link" href="#faq">FAQ</a>
+    <a class="link" href="#book" data-en>Book</a><a class="link" href="#book" data-es>Reservar</a>
+    <div class="langtoggle" role="group" aria-label="language">
+      <button id="enBtn" class="active" onclick="setLang('en')">EN</button>
+      <button id="esBtn" onclick="setLang('es')">ES</button>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<div class="hero"><div class="wrap"><h1><span data-en>Sharp cuts. Clean lines. Walk in or book ahead.</span><span data-es>Cortes precisos. L&iacute;neas limpias. Llega o reserva.</span></h1><p class="lede"><span data-en>The Barbers &mdash; Salem's barbershop for fades, classic cuts, beard work and hot-towel shaves. Book in seconds, in English or Spanish.</span><span data-es>The Barbers &mdash; la barber&iacute;a de Salem para fades, cortes cl&aacute;sicos, barba y afeitado con toalla caliente. Reserva en segundos, en ingl&eacute;s o espa&ntilde;ol.</span></p><div class="cta-row"><a class="btn" href="#book" data-en>Book a cut</a><a class="btn" href="#book" data-es>Reserva tu corte</a><a class="btn ghost" href="#services" data-en>See services</a><a class="btn ghost" href="#services" data-es>Ver servicios</a></div><div class="trust"><span data-en>Skilled barbers</span><span data-es>Barberos expertos</span><span data-en>Walk-ins &amp; appointments</span><span data-es>Con y sin cita</span><span data-en>Beard &amp; line-ups</span><span data-es>Barba y perfilado</span><span data-en>Bilingual</span><span data-es>Biling&uuml;e</span></div></div></div>
+<!-- SERVICES -->
+<section id="services"><div class="wrap"><h2 class="sec" data-en>What we do</h2><h2 class="sec" data-es>Lo que hacemos</h2><p class="sub" data-en>Tell us the look &mdash; we'll dial it in.</p><p class="sub" data-es>Dinos el estilo &mdash; lo afinamos.</p><div class="grid cards"><div class="card"><span class="tag">Cuts</span><h3 data-en>Haircuts &amp; Fades</h3><h3 data-es>Cortes y Fades</h3><p data-en>Skin fades, tapers, scissor cuts and classic styles, dialed to you.</p><p data-es>Skin fades, tapers, a tijera y cl&aacute;sicos, a tu medida.</p></div><div class="card"><span class="tag">Beard</span><h3 data-en>Beard &amp; Line-up</h3><h3 data-es>Barba y Perfilado</h3><p data-en>Beard shaping, trims and crisp line-ups.</p><p data-es>Dise&ntilde;o de barba, recortes y perfilado limpio.</p></div><div class="card"><span class="tag">Shave</span><h3 data-en>Hot-Towel Shave</h3><h3 data-es>Afeitado con Toalla</h3><p data-en>Classic straight-razor shave with a hot towel.</p><p data-es>Afeitado cl&aacute;sico a navaja con toalla caliente.</p></div><div class="card"><span class="tag">Kids</span><h3 data-en>Kids' Cuts</h3><h3 data-es>Cortes para Ni&ntilde;os</h3><p data-en>Patient, quick cuts for the little ones.</p><p data-es>Cortes r&aacute;pidos y con paciencia para los peque&ntilde;os.</p></div><div class="card"><span class="tag">Design</span><h3 data-en>Designs &amp; Details</h3><h3 data-es>Dise&ntilde;os y Detalles</h3><p data-en>Hair designs, parts and custom detailing.</p><p data-es>Dise&ntilde;os, l&iacute;neas y detalles personalizados.</p></div><div class="card"><span class="tag">New?</span><h3 data-en>New here?</h3><h3 data-es>&iquest;Primera vez?</h3><p data-en>Tell us your style or bring a photo &mdash; we'll match it.</p><p data-es>Dinos tu estilo o trae una foto &mdash; lo igualamos.</p></div></div></div></section>
+<!-- ARTISTS -->
+<section id="artists"><div class="wrap"><h2 class="sec" data-en>Our barbers</h2><h2 class="sec" data-es>Nuestros barberos</h2><p class="sub" data-en>A skilled chair for every style.</p><p class="sub" data-es>Una silla experta para cada estilo.</p><div class="grid cards" id="artistGrid"></div></div></section>
+<!-- GALLERY -->
+<section id="gallery"><div class="wrap gallery"><h2 class="sec" data-en>Our work</h2><h2 class="sec" data-es>Nuestro trabajo</h2><p class="sub" data-en>A sample of the work &mdash; demo images only.</p><p class="sub" data-es>Una muestra del trabajo &mdash; solo im&aacute;genes de demostraci&oacute;n.</p><div id="galleryWrap"></div></div></section>
+<!-- BOOK -->
+<section id="book"><div class="wrap twocol"><div><h2 class="sec" data-en>Book a cut</h2><h2 class="sec" data-es>Reserva tu corte</h2><p class="sub" data-en>Walk in during open hours, or book ahead to skip the wait.</p><p class="sub" data-es>Llega en horario, o reserva para no esperar.</p><p style="margin:0 0 18px"><a class="btn" id="bookCta" href="#" target="_blank" rel="noopener" data-en>Book now</a><a class="btn" id="bookCtaEs" href="#" target="_blank" rel="noopener" data-es>Reservar</a></p><div class="note"><strong data-en>Good to know:</strong><strong data-es>Bueno saber:</strong><ul style="margin:8px 0 0;padding-left:18px"><li data-en>Walk-ins welcome &mdash; or book ahead to skip the wait.</li><li data-es>Con o sin cita &mdash; reserva para no esperar.</li><li data-en>Bring a reference photo for the cut you want.</li><li data-es>Trae una foto de referencia del corte.</li><li data-en>Kids and groups welcome.</li><li data-es>Ni&ntilde;os y grupos bienvenidos.</li></ul></div></div><div><div class="card"><h3 data-en>Visit us</h3><h3 data-es>Vis&iacute;tanos</h3><p id="nap" style="line-height:1.9"></p></div></div></div></section>
+<!-- FAQ -->
+<section id="faq"><div class="wrap"><h2 class="sec">FAQ</h2><div class="faq"><details><summary data-en>How much is a haircut?</summary><summary data-es>&iquest;Cu&aacute;nto cuesta un corte?</summary><p data-en>Pricing depends on the service &mdash; your barber confirms it before the cut, with shop rates posted in-store.</p><p data-es>El precio depende del servicio &mdash; tu barbero lo confirma antes de empezar, con las tarifas a la vista.</p></details><details><summary data-en>Do you take walk-ins?</summary><summary data-es>&iquest;Atienden sin cita?</summary><p data-en>Yes &mdash; walk in during open hours, or book ahead to skip the wait.</p><p data-es>S&iacute; &mdash; llega en horario, o reserva para no esperar.</p></details><details><summary data-en>Do you do beard trims and shaves?</summary><summary data-es>&iquest;Hacen barba y afeitado?</summary><p data-en>We do &mdash; beard shaping, line-ups and hot-towel straight-razor shaves.</p><p data-es>S&iacute; &mdash; dise&ntilde;o de barba, perfilado y afeitado a navaja con toalla caliente.</p></details><details><summary data-en>Do you cut kids' hair?</summary><summary data-es>&iquest;Cortan a ni&ntilde;os?</summary><p data-en>Absolutely &mdash; we keep it quick and patient for the little ones.</p><p data-es>Claro &mdash; r&aacute;pido y con paciencia para los peque&ntilde;os.</p></details><details><summary data-en>Can I request a specific barber?</summary><summary data-es>&iquest;Puedo pedir un barbero?</summary><p data-en>Yes &mdash; tell us who, or book directly with your barber.</p><p data-es>S&iacute; &mdash; dinos cu&aacute;l, o reserva directo con tu barbero.</p></details></div></div></section>
+<footer>
+  <div class="wrap footgrid">
+    <div>
+      <div class="brand" id="brandFoot" style="font-size:16px">PERMANENT MAR<span>✗</span></div>
+      <p class="pill" data-en>Haircuts · Fades · Beard &amp; line-ups · Hot-towel shaves · Kids' cuts</p>
+      <p class="pill" data-es>Cortes · Fades · Barba y perfilado · Afeitado con toalla · Cortes para niños</p>
+    </div>
+    <div class="pill" id="footContact"></div>
+  </div>
+</footer>
+
+<!-- LIGHTBOX -->
+<div id="lightbox" role="dialog" aria-modal="true"><button class="x" aria-label="Close">×</button><img src="" alt=""></div>
+
+<!-- CHAT WIDGET -->
+<button id="chatBtn" aria-label="Chat">💬</button>
+<div id="chatPanel" aria-live="polite">
+  <div class="chatHead">
+    <span class="dot"></span>
+    <div>
+      <b data-en>Studio Front Desk</b><b data-es>Recepción del Estudio</b>
+      <small data-en>Ask about booking, pricing, styles — EN/ES</small><small data-es>Pregunta por reservas, precios, estilos — EN/ES</small>
+    </div>
+  </div>
+  <div class="chatLog" id="chatLog"></div>
+  <div class="chips" id="chatChips"></div>
+  <form class="chatForm" id="chatForm" autocomplete="off">
+    <input id="chatInput" placeholder="Type a message…" aria-label="message">
+    <button type="submit">➤</button>
+  </form>
+</div>
+
+<script>
+/* ====================================================================
+   CONFIG — EDIT THESE WITH THE STUDIO'S REAL DETAILS
+   These are placeholders. Fill in the verified business info before launch.
+   ==================================================================== */
+const CONFIG = {"name": "The Barbers", "logo": "logo.svg", "vertical": "barbershop", "address": "476 Lancaster Dr NE, Salem, OR 97301", "phone": "(503) 585-0754", "hoursEn": "Walk-ins & appointments — call for today's hours", "hoursEs": "Con y sin cita — llama para el horario", "instagram": "", "facebook": "", "bookingUrl": "", "artists": [], "gallery": [], "demo": true, "chatEndpoint": "https://jonathan777-ui.app.n8n.cloud/webhook/orbit-demo-chat"};
+
+/* ---------- language ---------- */
+function setLang(l){
+  document.documentElement.lang = l;
+  enBtn.classList.toggle('active', l==='en');
+  esBtn.classList.toggle('active', l==='es');
+  try{ localStorage.setItem('pm_lang', l);}catch(e){}
+  renderNAP();
+  if(typeof renderGallery==='function') renderGallery();
+}
+(function initLang(){
+  let l='en';
+  try{ l = localStorage.getItem('pm_lang') || (navigator.language||'en').slice(0,2); }catch(e){}
+  setLang(l==='es'?'es':'en');
+})();
+
+/* ---------- populate business details ---------- */
+function tel(p){ return (p||'').replace(/[^+\d]/g,''); }
+function renderNAP(){
+  const es = document.documentElement.lang==='es';
+  const hours = es ? CONFIG.hoursEs : CONFIG.hoursEn;
+  const lines = [];
+  lines.push(CONFIG.address ? CONFIG.address : (es?'Dirección: pendiente':'Address: coming soon'));
+  if(CONFIG.phone){ lines.push('<a href="tel:'+tel(CONFIG.phone)+'">'+CONFIG.phone+'</a>'); }
+  lines.push(hours ? hours : (es?'Horario: pendiente':'Hours: coming soon'));
+  const social=[];
+  if(CONFIG.instagram) social.push('<a href="'+CONFIG.instagram+'" target="_blank" rel="noopener">Instagram</a>');
+  if(CONFIG.facebook) social.push('<a href="'+CONFIG.facebook+'" target="_blank" rel="noopener">Facebook</a>');
+  if(social.length) lines.push(social.join(' · '));
+  document.getElementById('nap').innerHTML = lines.join('<br>');
+  document.getElementById('footContact').innerHTML =
+    (CONFIG.address||'') + (CONFIG.phone? ' · '+CONFIG.phone : '') +
+    '<br>© ' + new Date().getFullYear() + ' ' + CONFIG.name;
+  // booking CTAs
+  const url = CONFIG.bookingUrl || '#';
+  ['bookCta','bookCtaEs'].forEach(id=>{
+    const a=document.getElementById(id); if(!a) return;
+    if(CONFIG.bookingUrl){ a.href=CONFIG.bookingUrl; a.target='_blank'; }
+    else { a.href='#'; a.target=''; a.onclick=function(e){e.preventDefault();openChat();}; }
+  });
+}
+function renderArtists(){
+  const grid=document.getElementById('artistGrid');
+  if(!CONFIG.artists || !CONFIG.artists.length){
+    grid.innerHTML='<div class="card"><h3>'+
+      (document.documentElement.lang==='es'?'Equipo en camino':'Team coming soon')+
+      '</h3><p>'+(document.documentElement.lang==='es'
+        ?'Añade aquí los artistas del estudio en CONFIG.artists.'
+        :'Add the studio’s artists in CONFIG.artists.')+'</p></div>';
+    return;
+  }
+  grid.innerHTML = CONFIG.artists.map(a=>
+    '<div class="card"><h3>'+a.name+'</h3><p>'+(a.styles||'')+'</p></div>').join('');
+}
+function demoTile(label, n){
+  const accents=['#d4324a','#f0b429','#7aa2ff','#2ecc71','#b06ad4'];
+  const c=accents[n % accents.length];
+  const svg='<svg xmlns="http://www.w3.org/2000/svg" width="600" height="600" viewBox="0 0 600 600">'
+    +'<rect width="600" height="600" fill="#1b1030"/>'
+    +'<rect x="10" y="10" width="580" height="580" rx="18" fill="none" stroke="'+c+'" stroke-width="3" opacity="0.5"/>'
+    +'<circle cx="300" cy="300" r="150" fill="none" stroke="'+c+'" stroke-width="2" opacity="0.18"/>'
+    +'<circle cx="300" cy="300" r="100" fill="none" stroke="#ffffff" stroke-width="1" opacity="0.12"/>'
+    +'<text x="30" y="52" fill="#9aa4b8" font-family="Arial,sans-serif" font-size="20">'+label+'</text>'
+    +'<text x="300" y="250" fill="#ffffff" font-family="Arial,sans-serif" font-size="36" font-weight="bold" text-anchor="middle">FOR DEMONSTRATION</text>'
+    +'<text x="300" y="296" fill="#ffffff" font-family="Arial,sans-serif" font-size="36" font-weight="bold" text-anchor="middle">PURPOSES ONLY</text>'
+    +'<text x="300" y="344" fill="'+c+'" font-family="Arial,sans-serif" font-size="20" letter-spacing="3" text-anchor="middle">SAMPLE — DEMO</text>'
+    +'<text x="300" y="430" fill="#9aa4b8" font-family="Arial,sans-serif" font-size="16" text-anchor="middle">The Barbers — placeholder, not actual work</text>'
+    +'<text x="570" y="572" fill="#9aa4b8" font-family="Arial,sans-serif" font-size="18" text-anchor="end">#'+(n+1)+'</text>'
+    +'</svg>';
+  return 'data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg);
+}
+function renderGallery(){
+  const wrap=document.getElementById('galleryWrap'); if(!wrap){return;}
+  const es=document.documentElement.lang==='es';
+  const hasReal=(CONFIG.gallery&&CONFIG.gallery.length)||
+    (CONFIG.artists||[]).some(a=>a.portfolio&&a.portfolio.length);
+  if(CONFIG.demo && !hasReal && !CONFIG._demoBuilt){
+    const demoArtists=[['Sample Artist — A','fine-line · blackwork'],
+      ['Sample Artist — B','color · realism'],
+      ['Sample Artist — C','traditional · lettering']];
+    CONFIG.artists=demoArtists.map((d,gi)=>({name:d[0],styles:d[1],
+      portfolio:[0,1,2].map(i=>demoTile(d[1], gi*3+i))}));
+    CONFIG._demoBuilt=true;
+  }
+  const groups=[];
+  (CONFIG.artists||[]).forEach(a=>{ if(a.portfolio && a.portfolio.length)
+    groups.push({title:a.name, styles:a.styles, instagram:a.instagram, pics:a.portfolio}); });
+  if(CONFIG.gallery && CONFIG.gallery.length)
+    groups.push({title:CONFIG.name, styles:(es?'trabajo del estudio':'studio work'),
+      instagram:CONFIG.instagram, pics:CONFIG.gallery});
+  if(!groups.length){
+    wrap.innerHTML='<div class="note">'+(es
+      ? 'Galería en camino — añade enlaces de imágenes en CONFIG.gallery o en CONFIG.artists[].portfolio y aparecerán aquí.'
+      : 'Gallery coming soon — add image links in CONFIG.gallery or CONFIG.artists[].portfolio and they’ll show here.')+'</div>';
+    return;
+  }
+  const banner=CONFIG.demo?'<div class="note" style="margin-bottom:22px">'+(es
+    ? '⚠️ Estas imágenes son solo de muestra, únicamente para fines de demostración. Reemplázalas con el trabajo real del estudio antes de publicar.'
+    : '⚠️ These images are samples, for demonstration purposes only. Replace them with the studio’s real work before launch.')+'</div>':'';
+  wrap.innerHTML=banner+groups.map(g=>{
+    const tiles=g.pics.map((src,i)=>'<button class="tile" data-src="'+src+'" data-alt="'+
+      (g.title+' — '+(es?'trabajo':'work')+' '+(i+1))+'"><img loading="lazy" src="'+src+'" alt="'+
+      g.title+'"></button>').join('');
+    const handle=g.instagram?g.instagram.split('/').filter(Boolean).pop():'';
+    const ig=g.instagram?'<a href="'+g.instagram+'" target="_blank" rel="noopener">@'+handle+'</a>':'';
+    return '<div class="gArtist"><div class="gHead"><h3>'+g.title+'</h3>'+
+      (g.styles?'<span class="gStyles">'+g.styles+'</span>':'')+ig+'</div>'+
+      '<div class="gGrid">'+tiles+'</div></div>';
+  }).join('');
+  wrap.querySelectorAll('.tile').forEach(b=>b.onclick=()=>openLightbox(b.dataset.src,b.dataset.alt));
+}
+function openLightbox(src,alt){
+  const lb=document.getElementById('lightbox');
+  const img=lb.querySelector('img'); img.src=src; img.alt=alt||'';
+  lb.classList.add('open');
+}
+function renderBrand(){var nm=CONFIG.name||"Studio";var pp=nm.split(" ");var last=pp.length>1?pp.pop():"";var head=pp.join(" ");var ac=last?(" <span style='color:var(--accent)'>"+last+"</span>"):"";var wm="<span style='font-family:var(--serif);font-weight:800;letter-spacing:.04em'>"+head+ac+"</span>";var h2=CONFIG.logo?("<img src='"+CONFIG.logo+"' alt='"+nm+"' style='height:46px;width:auto;display:block'>"):wm;var h=document.getElementById("brand");if(h)h.innerHTML=h2;var f=document.getElementById("brandFoot");if(f)f.innerHTML=h2;}
+renderBrand(); renderNAP(); renderArtists(); renderGallery();
+(function(){
+  const lb=document.getElementById('lightbox');
+  lb.addEventListener('click',()=>lb.classList.remove('open'));
+  document.addEventListener('keydown',e=>{ if(e.key==='Escape') lb.classList.remove('open'); });
+})();
+
+/* ====================================================================
+   CHAT WIDGET — posts to the n8n chatbot brain (CONFIG.chatEndpoint)
+   Payload: { messages:[{role,content}...], lang, page }  →  { reply }
+   ==================================================================== */
+const log=document.getElementById('chatLog');
+const panel=document.getElementById('chatPanel');
+const chips=document.getElementById('chatChips');
+let history=[]; // {role, content}
+
+const CHIPS = { en:[["Book a cut", "I'd like to book a haircut."], ["Walk-ins?", "Do you take walk-ins right now?"], ["Beard trim", "Do you do beard trims and line-ups?"], ["Prices", "How much is a haircut and beard trim?"]],
+  es:[["Reservar corte", "Quiero reservar un corte."], ["Sin cita", "¿Atienden sin cita ahora?"], ["Barba", "¿Hacen arreglo de barba y perfilado?"], ["Precios", "¿Cuánto cuesta corte y barba?"]] };
+function renderChips(){
+  const es=document.documentElement.lang==='es';
+  chips.innerHTML=(es?CHIPS.es:CHIPS.en).map((c,i)=>
+    '<button class="chip" data-i="'+i+'">'+c[0]+'</button>').join('');
+  chips.querySelectorAll('.chip').forEach(b=>b.onclick=()=>{
+    const es=document.documentElement.lang==='es';
+    send((es?CHIPS.es:CHIPS.en)[+b.dataset.i][1]);
+  });
+}
+function bubble(text, who){
+  const d=document.createElement('div'); d.className='msg '+who; d.textContent=text;
+  log.appendChild(d); log.scrollTop=log.scrollHeight; return d;
+}
+function openChat(){
+  panel.classList.add('open');
+  if(!history.length){
+    const es=document.documentElement.lang==='es';
+    bubble(es
+      ? "¡Hola! Bienvenido a The Barbers. ¿Un corte, arreglo de barba, o reservar?"
+      : "Hey! Welcome to The Barbers. Want a cut, a beard trim, or to book a time?",'bot');
+    renderChips();
+  }
+}
+document.getElementById('chatBtn').onclick=()=> panel.classList.contains('open')?panel.classList.remove('open'):openChat();
+
+async function send(text){
+  text=(text||'').trim(); if(!text) return;
+  bubble(text,'me'); history.push({role:'user',content:text});
+  document.getElementById('chatInput').value='';
+  const typing=bubble('…','bot');
+  try{
+    const r=await fetch(CONFIG.chatEndpoint,{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({messages:history, lang:document.documentElement.lang,
+        page:location.pathname, business:{name:CONFIG.name, vertical:CONFIG.vertical, address:CONFIG.address, phone:CONFIG.phone, hours:CONFIG.hoursEn, instagram:CONFIG.instagram}})
+    });
+    const data=await r.json();
+    const reply=(data && data.reply) ? data.reply :
+      (document.documentElement.lang==='es'
+        ? 'Perdona, tuve un problema. ¿Quieres que te conecte con el estudio?'
+        : 'Sorry, I had trouble there. Want me to connect you to the studio?');
+    typing.textContent=reply; history.push({role:'assistant',content:reply});
+  }catch(e){
+    typing.textContent=(document.documentElement.lang==='es'
+      ? 'No me pude conectar. Llámanos o escríbenos por Instagram y te ayudamos.'
+      : 'I couldn’t connect. Call us or DM us on Instagram and we’ll help you out.');
+  }
+}
+document.getElementById('chatForm').addEventListener('submit',e=>{
+  e.preventDefault(); send(document.getElementById('chatInput').value);
+});
+</script>
+</body>
+</html>

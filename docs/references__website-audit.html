@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Orbit AI — WEBSITE AUDIT (Paste-a-URL) — Airlock Vertical KB</title>
+<style>
+:root { --bg:#0f1117; --panel:#161a23; --line:#262c39; --fg:#e6e9ef; --muted:#9aa4b8;
+        --accent:#7aa2ff; --code:#11141b; }
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:var(--fg);
+       font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; }
+a { color:var(--accent); text-decoration:none; }
+a:hover { text-decoration:underline; }
+.layout { display:flex; min-height:100vh; }
+nav { width:280px; flex:none; background:var(--panel); border-right:1px solid var(--line);
+       padding:24px 18px; position:sticky; top:0; align-self:flex-start; height:100vh; overflow:auto; }
+nav h2 { font-size:13px; text-transform:uppercase; letter-spacing:.08em; color:var(--muted);
+          margin:22px 0 8px; }
+nav .brand { font-size:16px; font-weight:700; margin:0 0 4px; color:var(--fg); }
+nav .tag { color:var(--muted); font-size:12px; margin-bottom:8px; }
+nav ul { list-style:none; margin:0; padding:0; }
+nav li { margin:2px 0; }
+nav a { display:block; padding:5px 8px; border-radius:6px; color:var(--fg); font-size:14px; }
+nav a:hover { background:#1d2330; text-decoration:none; }
+nav a.active { background:#23314f; color:#fff; }
+main { flex:1; min-width:0; padding:40px clamp(20px,5vw,72px); max-width:920px; }
+main h1 { margin-top:0; }
+h1,h2,h3 { line-height:1.25; }
+h2 { border-bottom:1px solid var(--line); padding-bottom:6px; margin-top:2em; }
+code { background:var(--code); padding:.15em .4em; border-radius:4px; font-size:.88em; }
+pre { background:var(--code); padding:16px; border-radius:10px; overflow:auto;
+       border:1px solid var(--line); }
+pre code { background:none; padding:0; }
+table { border-collapse:collapse; width:100%; margin:1em 0; font-size:.94em; }
+th,td { border:1px solid var(--line); padding:8px 10px; text-align:left; vertical-align:top; }
+th { background:#1b2230; }
+blockquote { border-left:3px solid var(--accent); margin:1em 0; padding:.2em 1em; color:var(--muted); }
+hr { border:none; border-top:1px solid var(--line); margin:2em 0; }
+.footer { color:var(--muted); font-size:13px; margin-top:48px; border-top:1px solid var(--line);
+           padding-top:16px; }
+@media (max-width:760px) { .layout{flex-direction:column} nav{width:auto;height:auto;position:static} }
+</style>
+</head>
+<body>
+<div class="layout">
+<nav>
+  <p class="brand">Airlock Vertical KB</p>
+  <p class="tag">v2 · Elemental · skill docs</p>
+  <ul>
+<li><a href="index.html">Airlock Vertical Knowledge Base Generator — v2 (Elemental)</a></li>
+<li><a href="UPGRADE-NOTES.html">Airlock Vertical KB — v2 Upgrade Notes</a></li>
+</ul>
+<h2>References</h2><ul>
+<li><a href="references__aeo-guide.html">Orbit AI — AEO / llms.txt IMPLEMENTATION GUIDE</a></li>
+<li><a href="references__build-pipeline.html">Orbit AI — BUILD PIPELINE &amp; DEFINITION-OF-READY</a></li>
+<li><a href="references__compiler-workflow.html">Compiler Workflow — `tools/compile_agent.py`</a></li>
+<li><a href="references__compliance-patterns.html">Compliance Patterns (cross-vertical)</a></li>
+<li><a href="references__dialect-glossary.html">Airlock — REGIONAL SPANISH DIALECT GLOSSARY</a></li>
+<li><a href="references__dialect-module.html">Airlock — REGIONAL SPANISH DIALECT MODULE</a></li>
+<li><a href="references__kb-template.html">KB Template — required section structure for every vertical/niche</a></li>
+<li><a href="references__language-dialect-layer.html">Language &amp; Dialect Layer (shared by every Airlock agent)</a></li>
+<li><a href="references__local-landing-pages.html">Orbit AI — LOCAL LANDING PAGE SYSTEM</a></li>
+<li><a href="references__local-seo-gbp.html">Orbit AI — LOCAL SEO + GOOGLE BUSINESS PROFILE PLAYBOOK</a></li>
+<li><a href="references__niche-atlas.html">Airlock Niche Atlas — Extended Dive (all 20 verticals)</a></li>
+<li><a href="references__quality-bar.html">Orbit AI — THE BEAT-THE-GENERATORS STANDARD</a></li>
+<li><a href="references__service-levels.html">Airlock Service &amp; Support Levels</a></li>
+<li><a href="references__template-library.html">Orbit AI — TEMPLATE LIBRARY</a></li>
+<li><a href="references__tier-ladder.html">Airlock Elemental Tier Ladder</a></li>
+<li><a href="references__voice-runtime-layer.html">Airlock PLATINUM — Universal Voice &amp; Runtime Layer</a></li>
+<li><a href="references__website-audit.html" class="active">Orbit AI — WEBSITE AUDIT (Paste-a-URL)</a></li>
+<li><a href="references__website-catalog.html">Orbit AI — WEBSITE &amp; PLATFORM CATALOG</a></li>
+</ul>
+<h2>Verticals</h2><ul>
+<li><a href="references__verticals__law-firms.html">Airlock Knowledge Base — Vertical: LAW FIRMS (Base Layer)</a></li>
+<li><a href="references__verticals__tattoo-shops.html">Airlock Knowledge Base — Vertical: TATTOO SHOPS (Base Layer)</a></li>
+</ul>
+</nav>
+<main>
+<h1 id="orbit-ai-website-audit-paste-a-url">Orbit AI — WEBSITE AUDIT (Paste-a-URL)</h1>
+<p><em>Paste any live website URL — the client's current site </em><em>or a competitor's</em><em> — and Orbit grades it
+against <code>quality-bar.md</code> (The Beat-the-Generators Standard), returning a scored teardown and a
+prioritized upgrade path. It's a </em><em>lead magnet, a pre-sale scoping tool, a competitor teardown, and
+a post-launch re-check</em><em> in one. It's the productized "Presence Audit" in <code>website-catalog.md</code>.</em></p>
+<hr />
+<h2 id="when-to-use-it">When to use it</h2>
+<ul>
+<li><strong>Lead magnet / pre-sale:</strong> "Paste your site, get a free scorecard" → instant value → scoped upsell.</li>
+<li><strong>Competitor teardown:</strong> audit the market leader's site to show the gap Orbit closes.</li>
+<li><strong>Scoping:</strong> the findings map directly to a recommended tier + template + palette.</li>
+<li><strong>Re-audit:</strong> prove the lift after an Orbit build (before/after scorecard).</li>
+</ul>
+<h2 id="inputs">Inputs</h2>
+<ul>
+<li><strong>Required:</strong> the URL.</li>
+<li><strong>Optional (sharpens the audit):</strong> business name, vertical/niche (→ <code>niche-atlas.md</code>), target cities,
+  languages served, Google Business Profile link, the competitor URL(s) to benchmark against.</li>
+</ul>
+<h2 id="what-it-scores-mirrors-quality-barmd-same-weights">What it scores (mirrors <code>quality-bar.md</code>, same weights)</h2>
+<p>Run real signals, not guesses:</p>
+<table>
+<thead>
+<tr>
+<th>Dimension</th>
+<th>What we check</th>
+<th>Signal source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Performance / CWV</strong></td>
+<td>LCP, CLS, INP, weight, mobile score</td>
+<td>Lighthouse / PageSpeed, throttled mobile</td>
+</tr>
+<tr>
+<td><strong>Design &amp; craft</strong></td>
+<td>template-look vs. real system, hierarchy, imagery</td>
+<td>rendered screenshot review</td>
+</tr>
+<tr>
+<td><strong>Accessibility</strong></td>
+<td>WCAG 2.2 AA: contrast, alt, labels, keyboard, focus</td>
+<td>axe-style scan + manual spot check</td>
+</tr>
+<tr>
+<td><strong>Technical + Local SEO</strong></td>
+<td>titles/meta, headings, schema, sitemap, <strong>GBP/NAP</strong>, city pages</td>
+<td>HTML + schema + GBP lookup</td>
+</tr>
+<tr>
+<td><strong>AEO</strong></td>
+<td>FAQ/answer blocks, entity clarity, <code>llms.txt</code>, AI-citability</td>
+<td>content structure scan</td>
+</tr>
+<tr>
+<td><strong>Conversion / CRO</strong></td>
+<td>above-fold CTA, click-to-call, trust stack, form friction</td>
+<td>rendered review</td>
+</tr>
+<tr>
+<td><strong>Content</strong></td>
+<td>domain accuracy vs. <strong>filler/AI-tells</strong>, freshness</td>
+<td>copy read against niche</td>
+</tr>
+<tr>
+<td><strong>Bilingual</strong></td>
+<td>native EN/ES vs. none/machine-translated, <code>hreflang</code></td>
+<td>language + hreflang check</td>
+</tr>
+<tr>
+<td><strong>Trust / reputation</strong></td>
+<td>reviews, ratings, credentials, recency</td>
+<td>on-page + GBP/reviews</td>
+</tr>
+<tr>
+<td><strong>The front-office gap</strong></td>
+<td>is there chat? does it hallucinate? <strong>any voice/after-hours answering?</strong></td>
+<td>interaction probe</td>
+</tr>
+<tr>
+<td><strong>Security / compliance</strong></td>
+<td>HTTPS/HSTS, vertical hard-lines, PII exposure</td>
+<td>headers + content</td>
+</tr>
+</tbody>
+</table>
+<h2 id="output-the-audit-scorecard">Output — the Audit Scorecard</h2>
+<ol>
+<li><strong>Headline score / 100</strong> (same weighting as the launch gate) + per-dimension grade (A–F or Pass/Gap).</li>
+<li><strong>Top findings</strong> — the 5–8 things most hurting them, plain-language, with the business impact.</li>
+<li><strong>Quick wins</strong> (days) vs. <strong>strategic fixes</strong> (the rebuild) — separated so the path is obvious.</li>
+<li><strong>The two moats they're almost certainly missing:</strong> <strong>no AI front office</strong> (24/7 bilingual voice +
+   grounded chat) and <strong>no native Spanish / AEO</strong> — quantify the demand they're leaving on the table.</li>
+<li><strong>Recommended Orbit move:</strong> tier + template (<code>template-library.md</code>) + palette <code>C#</code> + type <code>T#</code>,
+   and the <strong>projected after-score</strong>.</li>
+</ol>
+<blockquote>
+<p><strong>Framing:</strong> the audit never just lists problems — it ends on the Orbit build that fixes them and the
+before→after score. A competitor audit ends on "here's what it takes to beat them."</p>
+</blockquote>
+<h2 id="how-to-run-it-workflow">How to run it (workflow)</h2>
+<ol>
+<li>Fetch the URL (public pages only) + render a mobile screenshot.</li>
+<li>Run Lighthouse/CWV (throttled mobile); pull schema, titles, headings, sitemap, <code>hreflang</code>.</li>
+<li>Look up GBP / NAP consistency; detect city/location pages.</li>
+<li>Probe for chat/voice presence; test the chat for grounding/hallucination if present.</li>
+<li>Detect language coverage + translation quality; flag AEO structure (FAQ/schema/<code>llms.txt</code>).</li>
+<li>Score each dimension, assemble the scorecard, map findings → recommended tier/template.</li>
+</ol>
+<h2 id="batch-competitor-comparison-mode">Batch / competitor-comparison mode</h2>
+<p>Paste <strong>several URLs</strong> (the client + competitors) and get one <strong>comparison grid</strong> — scorecard, ranking,
+per-dimension leaders, the client's biggest gaps, and the recommended Orbit move. Run
+<code>tools/audit_batch.py</code> with a JSON of per-site scores (gathered as above); it renders a markdown report
+weighted by the <code>quality-bar.md</code> launch gate.</p>
+<pre><code>python tools/audit_batch.py audits.json --out comparison.md   # → hand the .md to the right conversation
+python tools/audit_batch.py --sample                          # demo report
+</code></pre>
+<p>Input: <code>{ "query", "date", "sites": [ {"label","url","client":bool,"scores":{dim:0-100},"findings":[…]} ] }</code>.
+Same dimensions/weights as the launch gate; missing scores show as "—".</p>
+<h2 id="guardrails-honesty-ethics">Guardrails (honesty + ethics)</h2>
+<ul>
+<li><strong>Public pages only</strong> — never bypass logins, paywalls, or scrape gated content.</li>
+<li>Competitor audits are fair game (public info), but <strong>be accurate</strong> — never fabricate metrics or
+  invent findings. If a signal can't be measured, say "not measured," don't guess.</li>
+<li>No defamatory framing of competitors — state observable facts and the gap, not insults.</li>
+<li>Respect the same compliance hard-lines (<code>compliance-patterns.md</code>) in anything we publish.</li>
+</ul>
+<h2 id="output-template-fill-in">Output template (fill in)</h2>
+<pre><code>WEBSITE AUDIT — &lt;url&gt;   ·   &lt;date&gt;   ·   vertical: &lt;niche&gt;
+OVERALL: &lt;score&gt;/100   (Perf &lt;&gt; · Design &lt;&gt; · CRO &lt;&gt; · SEO+AEO &lt;&gt; · Front office &lt;&gt; · A11y &lt;&gt; · Bilingual &lt;&gt; · …)
+
+TOP FINDINGS
+1. &lt;finding&gt; — impact: &lt;why it costs them&gt;
+…
+QUICK WINS:        &lt;list&gt;
+STRATEGIC FIXES:   &lt;list&gt;
+MISSING MOATS:     AI front office: &lt;yes/no&gt; · Native ES + AEO: &lt;yes/no&gt;
+RECOMMENDED:       &lt;tier&gt; · template &quot;&lt;name&gt;&quot; · palette C## · type T##  →  projected &lt;after-score&gt;/100
+</code></pre>
+<div class="footer">Static docs for the <code>airlock-vertical-kb</code> Claude Code skill ·
+generated from <code>skills/airlock-vertical-kb/</code>.</div>
+</main>
+</div>
+</body>
+</html>

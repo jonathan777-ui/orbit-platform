@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Airlock Vertical KB — v2 Upgrade Notes — Airlock Vertical KB</title>
+<style>
+:root { --bg:#0f1117; --panel:#161a23; --line:#262c39; --fg:#e6e9ef; --muted:#9aa4b8;
+        --accent:#7aa2ff; --code:#11141b; }
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:var(--fg);
+       font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; }
+a { color:var(--accent); text-decoration:none; }
+a:hover { text-decoration:underline; }
+.layout { display:flex; min-height:100vh; }
+nav { width:280px; flex:none; background:var(--panel); border-right:1px solid var(--line);
+       padding:24px 18px; position:sticky; top:0; align-self:flex-start; height:100vh; overflow:auto; }
+nav h2 { font-size:13px; text-transform:uppercase; letter-spacing:.08em; color:var(--muted);
+          margin:22px 0 8px; }
+nav .brand { font-size:16px; font-weight:700; margin:0 0 4px; color:var(--fg); }
+nav .tag { color:var(--muted); font-size:12px; margin-bottom:8px; }
+nav ul { list-style:none; margin:0; padding:0; }
+nav li { margin:2px 0; }
+nav a { display:block; padding:5px 8px; border-radius:6px; color:var(--fg); font-size:14px; }
+nav a:hover { background:#1d2330; text-decoration:none; }
+nav a.active { background:#23314f; color:#fff; }
+main { flex:1; min-width:0; padding:40px clamp(20px,5vw,72px); max-width:920px; }
+main h1 { margin-top:0; }
+h1,h2,h3 { line-height:1.25; }
+h2 { border-bottom:1px solid var(--line); padding-bottom:6px; margin-top:2em; }
+code { background:var(--code); padding:.15em .4em; border-radius:4px; font-size:.88em; }
+pre { background:var(--code); padding:16px; border-radius:10px; overflow:auto;
+       border:1px solid var(--line); }
+pre code { background:none; padding:0; }
+table { border-collapse:collapse; width:100%; margin:1em 0; font-size:.94em; }
+th,td { border:1px solid var(--line); padding:8px 10px; text-align:left; vertical-align:top; }
+th { background:#1b2230; }
+blockquote { border-left:3px solid var(--accent); margin:1em 0; padding:.2em 1em; color:var(--muted); }
+hr { border:none; border-top:1px solid var(--line); margin:2em 0; }
+.footer { color:var(--muted); font-size:13px; margin-top:48px; border-top:1px solid var(--line);
+           padding-top:16px; }
+@media (max-width:760px) { .layout{flex-direction:column} nav{width:auto;height:auto;position:static} }
+</style>
+</head>
+<body>
+<div class="layout">
+<nav>
+  <p class="brand">Airlock Vertical KB</p>
+  <p class="tag">v2 · Elemental · skill docs</p>
+  <ul>
+<li><a href="index.html">Airlock Vertical Knowledge Base Generator — v2 (Elemental)</a></li>
+<li><a href="UPGRADE-NOTES.html" class="active">Airlock Vertical KB — v2 Upgrade Notes</a></li>
+</ul>
+<h2>References</h2><ul>
+<li><a href="references__aeo-guide.html">Orbit AI — AEO / llms.txt IMPLEMENTATION GUIDE</a></li>
+<li><a href="references__build-pipeline.html">Orbit AI — BUILD PIPELINE &amp; DEFINITION-OF-READY</a></li>
+<li><a href="references__compiler-workflow.html">Compiler Workflow — `tools/compile_agent.py`</a></li>
+<li><a href="references__compliance-patterns.html">Compliance Patterns (cross-vertical)</a></li>
+<li><a href="references__dialect-glossary.html">Airlock — REGIONAL SPANISH DIALECT GLOSSARY</a></li>
+<li><a href="references__dialect-module.html">Airlock — REGIONAL SPANISH DIALECT MODULE</a></li>
+<li><a href="references__kb-template.html">KB Template — required section structure for every vertical/niche</a></li>
+<li><a href="references__language-dialect-layer.html">Language &amp; Dialect Layer (shared by every Airlock agent)</a></li>
+<li><a href="references__local-landing-pages.html">Orbit AI — LOCAL LANDING PAGE SYSTEM</a></li>
+<li><a href="references__local-seo-gbp.html">Orbit AI — LOCAL SEO + GOOGLE BUSINESS PROFILE PLAYBOOK</a></li>
+<li><a href="references__niche-atlas.html">Airlock Niche Atlas — Extended Dive (all 20 verticals)</a></li>
+<li><a href="references__quality-bar.html">Orbit AI — THE BEAT-THE-GENERATORS STANDARD</a></li>
+<li><a href="references__service-levels.html">Airlock Service &amp; Support Levels</a></li>
+<li><a href="references__template-library.html">Orbit AI — TEMPLATE LIBRARY</a></li>
+<li><a href="references__tier-ladder.html">Airlock Elemental Tier Ladder</a></li>
+<li><a href="references__voice-runtime-layer.html">Airlock PLATINUM — Universal Voice &amp; Runtime Layer</a></li>
+<li><a href="references__website-audit.html">Orbit AI — WEBSITE AUDIT (Paste-a-URL)</a></li>
+<li><a href="references__website-catalog.html">Orbit AI — WEBSITE &amp; PLATFORM CATALOG</a></li>
+</ul>
+<h2>Verticals</h2><ul>
+<li><a href="references__verticals__law-firms.html">Airlock Knowledge Base — Vertical: LAW FIRMS (Base Layer)</a></li>
+<li><a href="references__verticals__tattoo-shops.html">Airlock Knowledge Base — Vertical: TATTOO SHOPS (Base Layer)</a></li>
+</ul>
+</nav>
+<main>
+<h1 id="airlock-vertical-kb-v2-upgrade-notes">Airlock Vertical KB — v2 Upgrade Notes</h1>
+<p><strong>Same skill name</strong> (<code>airlock-vertical-kb</code>) → this is a <strong>drop-in replacement</strong> for v1.
+Install: replace your existing <code>airlock-vertical-kb/</code> skill folder with this one.</p>
+<h2 id="whats-new-in-v2">What's new in v2</h2>
+<table>
+<thead>
+<tr>
+<th>Area</th>
+<th>v1</th>
+<th>v2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Scope</td>
+<td>generate a bilingual vertical KB</td>
+<td>generate <strong>+ tier + compile + red-line + human-gate</strong> a deployable agent</td>
+</tr>
+<tr>
+<td>Tiers</td>
+<td>—</td>
+<td><strong>Elemental build ladder</strong> Gold → Platinum → Iridium → Rhodium (<code>references/tier-ladder.md</code>)</td>
+</tr>
+<tr>
+<td>Service model</td>
+<td>—</td>
+<td><strong>DIY / Hybrid (Guru-Assisted) / DFY / Diamond Support</strong> (<code>references/service-levels.md</code>)</td>
+</tr>
+<tr>
+<td>Dialect</td>
+<td>one shared dialect table</td>
+<td><strong>Regional Spanish Dialect Module</strong> — 16 varieties, tiered, AI-validated glossary (<code>references/dialect-module.md</code>, <code>dialect-glossary.md</code>)</td>
+</tr>
+<tr>
+<td>Voice</td>
+<td>(in template)</td>
+<td><strong>Voice Runtime Layer</strong> — turn-taking, barge-in, SSML, read-back, safety (<code>references/voice-runtime-layer.md</code>)</td>
+</tr>
+<tr>
+<td>Build step</td>
+<td>hand-written</td>
+<td><strong>live compiler</strong> <code>tools/compile_agent.py</code> (<code>references/compiler-workflow.md</code>)</td>
+</tr>
+<tr>
+<td>Productizing</td>
+<td>—</td>
+<td><strong>Website &amp; Platform Catalog</strong> — two-axis menu + pricing framework (<code>references/website-catalog.md</code>)</td>
+</tr>
+<tr>
+<td>Honesty</td>
+<td>implicit</td>
+<td>explicit <strong>Rhodium human-gate</strong> (legal · native dialect · real-call) stated in SKILL.md</td>
+</tr>
+</tbody>
+</table>
+<h2 id="files-carried-forward-unchanged">Files carried forward unchanged</h2>
+<p><code>references/language-dialect-layer.md</code>, <code>references/compliance-patterns.md</code>,
+<code>references/kb-template.md</code>, <code>references/niche-atlas.md</code>, <code>references/verticals/law-firms.md</code>.</p>
+<h2 id="two-axis-quick-reference">Two-axis quick reference</h2>
+<ul>
+<li><strong>Build tier = what you get</strong> (Gold→Rhodium). Premium-of-premium build = <strong>Rhodium</strong>.</li>
+<li><strong>Service level = how it's delivered/supported</strong> (DIY→Diamond). Premium-of-premium support = <strong>Diamond</strong>.</li>
+<li>A client picks <strong>one of each</strong>.</li>
+</ul>
+<h2 id="the-full-kb-tree">The full KB tree</h2>
+<p>This skill is the <em>generator</em>. The complete generated corpus (40 Gold bases, 318 Platinum
+overlays + compiled agents, the Iridium spine, the Rhodium work-packages) lives in your
+<code>orbit-vertical-kb-COMPLETE.zip</code>. The skill's references are the authoritative specs that
+corpus is built to.</p>
+<div class="footer">Static docs for the <code>airlock-vertical-kb</code> Claude Code skill ·
+generated from <code>skills/airlock-vertical-kb/</code>.</div>
+</main>
+</div>
+</body>
+</html>

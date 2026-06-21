@@ -1,0 +1,490 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Airlock — REGIONAL SPANISH DIALECT MODULE — Airlock Vertical KB</title>
+<style>
+:root { --bg:#0f1117; --panel:#161a23; --line:#262c39; --fg:#e6e9ef; --muted:#9aa4b8;
+        --accent:#7aa2ff; --code:#11141b; }
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:var(--fg);
+       font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; }
+a { color:var(--accent); text-decoration:none; }
+a:hover { text-decoration:underline; }
+.layout { display:flex; min-height:100vh; }
+nav { width:280px; flex:none; background:var(--panel); border-right:1px solid var(--line);
+       padding:24px 18px; position:sticky; top:0; align-self:flex-start; height:100vh; overflow:auto; }
+nav h2 { font-size:13px; text-transform:uppercase; letter-spacing:.08em; color:var(--muted);
+          margin:22px 0 8px; }
+nav .brand { font-size:16px; font-weight:700; margin:0 0 4px; color:var(--fg); }
+nav .tag { color:var(--muted); font-size:12px; margin-bottom:8px; }
+nav ul { list-style:none; margin:0; padding:0; }
+nav li { margin:2px 0; }
+nav a { display:block; padding:5px 8px; border-radius:6px; color:var(--fg); font-size:14px; }
+nav a:hover { background:#1d2330; text-decoration:none; }
+nav a.active { background:#23314f; color:#fff; }
+main { flex:1; min-width:0; padding:40px clamp(20px,5vw,72px); max-width:920px; }
+main h1 { margin-top:0; }
+h1,h2,h3 { line-height:1.25; }
+h2 { border-bottom:1px solid var(--line); padding-bottom:6px; margin-top:2em; }
+code { background:var(--code); padding:.15em .4em; border-radius:4px; font-size:.88em; }
+pre { background:var(--code); padding:16px; border-radius:10px; overflow:auto;
+       border:1px solid var(--line); }
+pre code { background:none; padding:0; }
+table { border-collapse:collapse; width:100%; margin:1em 0; font-size:.94em; }
+th,td { border:1px solid var(--line); padding:8px 10px; text-align:left; vertical-align:top; }
+th { background:#1b2230; }
+blockquote { border-left:3px solid var(--accent); margin:1em 0; padding:.2em 1em; color:var(--muted); }
+hr { border:none; border-top:1px solid var(--line); margin:2em 0; }
+.footer { color:var(--muted); font-size:13px; margin-top:48px; border-top:1px solid var(--line);
+           padding-top:16px; }
+@media (max-width:760px) { .layout{flex-direction:column} nav{width:auto;height:auto;position:static} }
+</style>
+</head>
+<body>
+<div class="layout">
+<nav>
+  <p class="brand">Airlock Vertical KB</p>
+  <p class="tag">v2 · Elemental · skill docs</p>
+  <ul>
+<li><a href="index.html">Airlock Vertical Knowledge Base Generator — v2 (Elemental)</a></li>
+<li><a href="UPGRADE-NOTES.html">Airlock Vertical KB — v2 Upgrade Notes</a></li>
+</ul>
+<h2>References</h2><ul>
+<li><a href="references__aeo-guide.html">Orbit AI — AEO / llms.txt IMPLEMENTATION GUIDE</a></li>
+<li><a href="references__build-pipeline.html">Orbit AI — BUILD PIPELINE &amp; DEFINITION-OF-READY</a></li>
+<li><a href="references__compiler-workflow.html">Compiler Workflow — `tools/compile_agent.py`</a></li>
+<li><a href="references__compliance-patterns.html">Compliance Patterns (cross-vertical)</a></li>
+<li><a href="references__dialect-glossary.html">Airlock — REGIONAL SPANISH DIALECT GLOSSARY</a></li>
+<li><a href="references__dialect-module.html" class="active">Airlock — REGIONAL SPANISH DIALECT MODULE</a></li>
+<li><a href="references__kb-template.html">KB Template — required section structure for every vertical/niche</a></li>
+<li><a href="references__language-dialect-layer.html">Language &amp; Dialect Layer (shared by every Airlock agent)</a></li>
+<li><a href="references__local-landing-pages.html">Orbit AI — LOCAL LANDING PAGE SYSTEM</a></li>
+<li><a href="references__local-seo-gbp.html">Orbit AI — LOCAL SEO + GOOGLE BUSINESS PROFILE PLAYBOOK</a></li>
+<li><a href="references__niche-atlas.html">Airlock Niche Atlas — Extended Dive (all 20 verticals)</a></li>
+<li><a href="references__quality-bar.html">Orbit AI — THE BEAT-THE-GENERATORS STANDARD</a></li>
+<li><a href="references__service-levels.html">Airlock Service &amp; Support Levels</a></li>
+<li><a href="references__template-library.html">Orbit AI — TEMPLATE LIBRARY</a></li>
+<li><a href="references__tier-ladder.html">Airlock Elemental Tier Ladder</a></li>
+<li><a href="references__voice-runtime-layer.html">Airlock PLATINUM — Universal Voice &amp; Runtime Layer</a></li>
+<li><a href="references__website-audit.html">Orbit AI — WEBSITE AUDIT (Paste-a-URL)</a></li>
+<li><a href="references__website-catalog.html">Orbit AI — WEBSITE &amp; PLATFORM CATALOG</a></li>
+</ul>
+<h2>Verticals</h2><ul>
+<li><a href="references__verticals__law-firms.html">Airlock Knowledge Base — Vertical: LAW FIRMS (Base Layer)</a></li>
+<li><a href="references__verticals__tattoo-shops.html">Airlock Knowledge Base — Vertical: TATTOO SHOPS (Base Layer)</a></li>
+</ul>
+</nav>
+<main>
+<h1 id="airlock-regional-spanish-dialect-module">Airlock — REGIONAL SPANISH DIALECT MODULE</h1>
+<p><em>A cross-cutting layer for every vertical agent. Loads alongside gold §3 + the Platinum voice layer; compiles into the system_prompt. Governed by one principle: </em><em>mirror, don't perform</em><em> — adapt words, register, and warmth; never caricature an accent.</em></p>
+<hr />
+<h2 id="how-many-spanish-dialects">How many Spanish dialects?</h2>
+<p><strong>Headline coverage: 1 neutral floor + 13 regional dialects + 2 cross-cutting varieties = 16 supported Spanish varieties</strong>, plus an indigenous-greeting premium layer and +language extensibility.</p>
+<p>There is no single "correct" count of Spanish dialects — linguists split them dozens of ways. What matters for a US-facing SMB receptionist is <strong>the varieties your callers actually use.</strong> So the module is scoped to the US Hispanic market first, then the rest of Latin America, then Spain.</p>
+<h3 id="the-neutral-floor-ships-with-every-agent">The neutral floor (ships with every agent)</h3>
+<p><strong>Español Neutro</strong> — neutral Latin-American Spanish. No regional slang, <code>usted</code> by default for high-gravity verticals, universally understood vocabulary. Every agent speaks this until a variety is detected, then adapts.</p>
+<h3 id="the-13-regional-dialects-productized-tunable">The 13 regional dialects (productized, tunable)</h3>
+<p>Grouped by macro-region:</p>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Dialect</th>
+<th>Region</th>
+<th>Default register</th>
+<th>Signature markers</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><strong>Mexican (Central/Standard)</strong></td>
+<td>CDMX &amp; central MX</td>
+<td>usted</td>
+<td>"ahorita," "¿mande?," "platicar," "órale"</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>Northern Mexican (Norteño)</strong></td>
+<td>MX border states</td>
+<td>usted/tú</td>
+<td>clipped, direct; "qué onda," "troca" (truck)</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>Yucatec / Southeastern</strong></td>
+<td>Yucatán, Quintana Roo</td>
+<td>usted</td>
+<td>Maya-influenced intonation; "¿qué tanto?"</td>
+</tr>
+<tr>
+<td>4</td>
+<td><strong>Cuban</strong></td>
+<td>Cuba &amp; US Cuban</td>
+<td>tú</td>
+<td>fast, -s aspirated/dropped, "asere," "¿qué bolá?"</td>
+</tr>
+<tr>
+<td>5</td>
+<td><strong>Puerto Rican</strong></td>
+<td>PR &amp; US Boricua</td>
+<td>tú</td>
+<td>-r→-l ("Puelto Rico"), "chévere," "wepa"</td>
+</tr>
+<tr>
+<td>6</td>
+<td><strong>Dominican</strong></td>
+<td>DR &amp; US Dominican</td>
+<td>tú</td>
+<td>very fast, -s dropped, "qué lo que," "vaina"</td>
+</tr>
+<tr>
+<td>7</td>
+<td><strong>Central American (voseo)</strong></td>
+<td>GT, SV, HN, NI</td>
+<td>usted + <strong>vos</strong></td>
+<td>soft, formal; "vaya pues," "cabal," "¿va?"</td>
+</tr>
+<tr>
+<td>8</td>
+<td><strong>Costa Rican &amp; Panamanian</strong></td>
+<td>CR, PA</td>
+<td>usted/vos</td>
+<td>"pura vida" (CR), "¿qué xopá?" (PA)</td>
+</tr>
+<tr>
+<td>9</td>
+<td><strong>Colombian (Andean/Bogotá)</strong></td>
+<td>Bogotá highlands</td>
+<td>usted (warm)</td>
+<td>precise, courteous; "¿me regala…?," "sumercé"</td>
+</tr>
+<tr>
+<td>10</td>
+<td><strong>Coastal Colombian &amp; Venezuelan</strong></td>
+<td>Caribbean coast, VE</td>
+<td>tú</td>
+<td>Caribbean-style, -s aspirated; "¿qué más?," "chévere," "pana"</td>
+</tr>
+<tr>
+<td>11</td>
+<td><strong>Andean (Peru/Ecuador/Bolivia)</strong></td>
+<td>Andes</td>
+<td>usted</td>
+<td>measured, formal; "¿no más?," "casero/a"</td>
+</tr>
+<tr>
+<td>12</td>
+<td><strong>Rioplatense</strong></td>
+<td>AR, UY</td>
+<td><strong>vos</strong></td>
+<td>"che," sh-sound for ll/y ("sho" for "yo"), direct</td>
+</tr>
+<tr>
+<td>13</td>
+<td><strong>Chilean</strong></td>
+<td>Chile</td>
+<td>tú</td>
+<td>very fast, "po," "cachái," clipped endings</td>
+</tr>
+</tbody>
+</table>
+<h3 id="2-cross-cutting-varieties">2 cross-cutting varieties</h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Variety</th>
+<th>What it is</th>
+<th>Why it matters</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>14</td>
+<td><strong>US Latino / Spanglish</strong></td>
+<td>US-born/raised sociolect, fluid code-switching ("una reservation para las 7," "el 401k")</td>
+<td><strong>The most common US caller profile.</strong> Never "correct" it — mirror it.</td>
+</tr>
+<tr>
+<td>15</td>
+<td><strong>Peninsular (Spain)</strong></td>
+<td>Castilian + Andalusian + Canarian; <code>vosotros</code>, "vale," ceceo</td>
+<td>Only when clearly detected; rare for US SMBs but available.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="premium-niche-layer">Premium niche layer</h3>
+<p>| 16 | <strong>Indigenous greeting layer</strong> | Warm greeting + handoff phrases in Nahuatl, K'iche'/Maya, Quechua, Mixteco | Signals deep respect in communities with large indigenous-language populations. Rhodium-only. |</p>
+<blockquote>
+<p><strong>+Language extensibility:</strong> Portuguese, Haitian Creole, Vietnamese, Mandarin, Tagalog attach as sibling profiles with their own register + glossary. Intent map, compliance, intake, and booking are shared and never duplicated per language.</p>
+</blockquote>
+<hr />
+<h2 id="detection-selection-logic-how-the-agent-picks-a-variety">Detection &amp; selection logic (how the agent picks a variety)</h2>
+<ol>
+<li><strong>Language detect</strong> — identify EN vs ES in the first exchange; continue in it; switch instantly if the caller switches (including mid-sentence).</li>
+<li><strong>Regional bias from business location</strong> — pre-seed the <em>likely</em> dialect from the SMB's city (e.g., a Miami business → Cuban/Caribbean bias; El Paso → Northern Mexican; LA → Mexican/US-Latino).</li>
+<li><strong>Mirror the caller</strong> — once cues are heard, adapt vocabulary, register, and warmth to the caller, <strong>overriding</strong> the location bias. The caller always wins.</li>
+<li><strong>Confidence + fallback</strong> — if the variety is unclear, stay on the <strong>neutral floor</strong>. Never guess into slang.</li>
+<li><strong>Mirror, don't perform</strong> — adapt words and warmth only. No exaggerated accents, no stereotype.</li>
+</ol>
+<hr />
+<h2 id="tier-matrix-dialect-capability-by-tier">TIER MATRIX — dialect capability by tier</h2>
+<table>
+<thead>
+<tr>
+<th>Capability</th>
+<th style="text-align: center;"><strong>Gold</strong> (base)</th>
+<th style="text-align: center;"><strong>Platinum</strong></th>
+<th style="text-align: center;"><strong>Iridium</strong></th>
+<th style="text-align: center;"><strong>Rhodium</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Español Neutro floor</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
+</tr>
+<tr>
+<td>Auto language-detect + caller mirroring</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
+</tr>
+<tr>
+<td>Spanglish acceptance (never "corrected")</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
+</tr>
+<tr>
+<td>Per-vertical register default (usted/tú)</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
+</tr>
+<tr>
+<td>6 macro-regions recognized + lightly adapted</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
+</tr>
+<tr>
+<td><strong>All 13 regional dialects, full vocab + register</strong></td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
+</tr>
+<tr>
+<td><strong>Voseo handling</strong> (vos conjugation)</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
+</tr>
+<tr>
+<td><strong>US-Latino / Spanglish sociolect mode</strong></td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
+</tr>
+<tr>
+<td><strong>Regional bias from business location</strong></td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
+</tr>
+<tr>
+<td><strong>Per-client register/formality lock</strong></td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
+</tr>
+<tr>
+<td><strong>Native-speaker-validated dialect content</strong></td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
+</tr>
+<tr>
+<td><strong>Dialect-specific TTS / pronunciation tuning</strong></td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
+</tr>
+<tr>
+<td><strong>Live per-call dialect confidence + dynamic switch</strong></td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
+</tr>
+<tr>
+<td><strong>Dialect-aware number/date/currency read-back</strong></td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
+</tr>
+<tr>
+<td><strong>Custom client-specific dialect tuning</strong> (match the owner)</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">✅</td>
+</tr>
+<tr>
+<td><strong>Brand-voice idiom pack</strong> (the client's signature phrases)</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">✅</td>
+</tr>
+<tr>
+<td><strong>Voice-clone / accent matching</strong></td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">✅</td>
+</tr>
+<tr>
+<td><strong>Self-learning dialect refinement from real calls</strong></td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">✅</td>
+</tr>
+<tr>
+<td><strong>Indigenous-language greeting layer</strong></td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">✅</td>
+</tr>
+<tr>
+<td><strong>+Additional validated language profile</strong></td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">add-on</td>
+<td style="text-align: center;">✅</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="premium-add-ons-a-la-carte-and-where-they-unlock">Premium add-ons (à la carte) and where they unlock</h2>
+<p>Add-ons are sold on top of the base tier. <strong>The richer the add-on, the higher the tier floor it requires</strong> — the premium-of-premium options are gated to the top tiers so they stay a differentiator.</p>
+<table>
+<thead>
+<tr>
+<th>Add-on</th>
+<th>What it adds</th>
+<th>Earliest tier</th>
+<th>Positioning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Extra Dialect Pack</strong></td>
+<td>Any single regional dialect beyond the 6 macro-regions, fully tuned</td>
+<td>Platinum</td>
+<td>premium</td>
+</tr>
+<tr>
+<td><strong>Voseo Pack</strong></td>
+<td>Full vos handling (Central America / Rioplatense)</td>
+<td>Platinum</td>
+<td>premium</td>
+</tr>
+<tr>
+<td><strong>Spanglish / Code-switch Mode</strong></td>
+<td>Native US-Latino sociolect handling</td>
+<td>Platinum</td>
+<td>premium</td>
+</tr>
+<tr>
+<td><strong>Regional Auto-Bias</strong></td>
+<td>Dialect pre-seeded from the SMB's location</td>
+<td>Platinum</td>
+<td>premium</td>
+</tr>
+<tr>
+<td><strong>Dialect TTS Voice</strong></td>
+<td>Region-matched pronunciation in the spoken voice</td>
+<td>Iridium</td>
+<td>premium+</td>
+</tr>
+<tr>
+<td><strong>Dialect-aware Read-back</strong></td>
+<td>Numbers/dates/money said the regional way</td>
+<td>Iridium</td>
+<td>premium+</td>
+</tr>
+<tr>
+<td><strong>+Language Profile</strong></td>
+<td>Portuguese / Haitian Creole / etc. (built)</td>
+<td>Iridium</td>
+<td>premium+</td>
+</tr>
+<tr>
+<td><strong>Indigenous Greeting Layer</strong></td>
+<td>Nahuatl / Maya / Quechua greeting + handoff</td>
+<td><strong>Rhodium only</strong></td>
+<td><strong>premium of premium</strong></td>
+</tr>
+<tr>
+<td><strong>Voice-Clone / Accent Match</strong></td>
+<td>Agent voice matches the region or the owner</td>
+<td><strong>Rhodium only</strong></td>
+<td><strong>premium of premium</strong></td>
+</tr>
+<tr>
+<td><strong>Custom Client Dialect Tuning</strong></td>
+<td>Agent matches the owner's own regional speech</td>
+<td><strong>Rhodium only</strong></td>
+<td><strong>premium of premium</strong></td>
+</tr>
+<tr>
+<td><strong>Self-Learning Dialect Loop</strong></td>
+<td>Dialect phrasing improves from the client's real calls</td>
+<td><strong>Rhodium only</strong></td>
+<td><strong>premium of premium</strong></td>
+</tr>
+<tr>
+<td><strong>Validated +Language</strong></td>
+<td>A second language signed off by native speakers</td>
+<td><strong>Rhodium only</strong></td>
+<td><strong>premium of premium</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>The rule of the ladder:</strong> <em>premium</em> features open at Platinum, <em>premium+</em> at Iridium, and <em>premium-of-premium</em> live only at Rhodium — so upgrading tiers is the only way to unlock the best, and the best can't be bought à la carte on a low tier.</p>
+<hr />
+<h2 id="how-it-plugs-into-the-kb">How it plugs into the KB</h2>
+<ul>
+<li><strong>Loads with</strong> every compiled agent: gold §3 (dialect rules) + this module's selected packs + the Platinum voice layer §A.2 (pronunciation/SSML).</li>
+<li><strong>Compiles into</strong> the <code>system_prompt</code> (dialect rules rendered after persona, before scripts) and feeds <code>voice.say_as</code> for the dialect TTS add-on.</li>
+<li><strong>Validated by</strong> the Rhodium <code>02-spanish-dialect/</code> package (native-speaker worksheets) — Iridium/Rhodium dialect content is exactly that package's signed output.</li>
+<li><strong>Glossary:</strong> see <code>dialect-glossary.md</code> for the neutral floor lexicon, the cross-region swap table, and per-dialect cue cards.</li>
+</ul>
+<p><em>End of Dialect Module spec.</em></p>
+<div class="footer">Static docs for the <code>airlock-vertical-kb</code> Claude Code skill ·
+generated from <code>skills/airlock-vertical-kb/</code>.</div>
+</main>
+</div>
+</body>
+</html>

@@ -1,0 +1,31 @@
+# Airlock Vertical KB — Orbit Platform (docs)
+> Documentation for the airlock-vertical-kb Claude Code skill: generates bilingual
+> (EN/ES) knowledge bases, voice/chat agents, and websites for 40 business verticals.
+
+## Pages
+- https://jonathan777-ui.github.io/orbit-platform/docs/: Airlock Vertical Knowledge Base Generator — v2 (Elemental)
+- https://jonathan777-ui.github.io/orbit-platform/docs/UPGRADE-NOTES.html: Airlock Vertical KB — v2 Upgrade Notes
+- https://jonathan777-ui.github.io/orbit-platform/docs/references__aeo-guide.html: Orbit AI — AEO / llms.txt IMPLEMENTATION GUIDE
+- https://jonathan777-ui.github.io/orbit-platform/docs/references__build-pipeline.html: Orbit AI — BUILD PIPELINE & DEFINITION-OF-READY
+- https://jonathan777-ui.github.io/orbit-platform/docs/references__compiler-workflow.html: Compiler Workflow — `tools/compile_agent.py`
+- https://jonathan777-ui.github.io/orbit-platform/docs/references__compliance-patterns.html: Compliance Patterns (cross-vertical)
+- https://jonathan777-ui.github.io/orbit-platform/docs/references__dialect-glossary.html: Airlock — REGIONAL SPANISH DIALECT GLOSSARY
+- https://jonathan777-ui.github.io/orbit-platform/docs/references__dialect-module.html: Airlock — REGIONAL SPANISH DIALECT MODULE
+- https://jonathan777-ui.github.io/orbit-platform/docs/references__kb-template.html: KB Template — required section structure for every vertical/niche
+- https://jonathan777-ui.github.io/orbit-platform/docs/references__language-dialect-layer.html: Language & Dialect Layer (shared by every Airlock agent)
+- https://jonathan777-ui.github.io/orbit-platform/docs/references__local-landing-pages.html: Orbit AI — LOCAL LANDING PAGE SYSTEM
+- https://jonathan777-ui.github.io/orbit-platform/docs/references__local-seo-gbp.html: Orbit AI — LOCAL SEO + GOOGLE BUSINESS PROFILE PLAYBOOK
+- https://jonathan777-ui.github.io/orbit-platform/docs/references__niche-atlas.html: Airlock Niche Atlas — Extended Dive (all 20 verticals)
+- https://jonathan777-ui.github.io/orbit-platform/docs/references__quality-bar.html: Orbit AI — THE BEAT-THE-GENERATORS STANDARD
+- https://jonathan777-ui.github.io/orbit-platform/docs/references__service-levels.html: Airlock Service & Support Levels
+- https://jonathan777-ui.github.io/orbit-platform/docs/references__template-library.html: Orbit AI — TEMPLATE LIBRARY
+- https://jonathan777-ui.github.io/orbit-platform/docs/references__tier-ladder.html: Airlock Elemental Tier Ladder
+- https://jonathan777-ui.github.io/orbit-platform/docs/references__verticals__law-firms.html: Airlock Knowledge Base — Vertical: LAW FIRMS (Base Layer)
+- https://jonathan777-ui.github.io/orbit-platform/docs/references__verticals__tattoo-shops.html: Airlock Knowledge Base — Vertical: TATTOO SHOPS (Base Layer)
+- https://jonathan777-ui.github.io/orbit-platform/docs/references__voice-runtime-layer.html: Airlock PLATINUM — Universal Voice & Runtime Layer
+- https://jonathan777-ui.github.io/orbit-platform/docs/references__website-audit.html: Orbit AI — WEBSITE AUDIT (Paste-a-URL)
+- https://jonathan777-ui.github.io/orbit-platform/docs/references__website-catalog.html: Orbit AI — WEBSITE & PLATFORM CATALOG
+
+## About
+- Source: https://github.com/jonathan777-ui/orbit-platform
+- Languages: English, Español

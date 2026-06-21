@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Orbit AI — AEO / llms.txt IMPLEMENTATION GUIDE — Airlock Vertical KB</title>
+<style>
+:root { --bg:#0f1117; --panel:#161a23; --line:#262c39; --fg:#e6e9ef; --muted:#9aa4b8;
+        --accent:#7aa2ff; --code:#11141b; }
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:var(--fg);
+       font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; }
+a { color:var(--accent); text-decoration:none; }
+a:hover { text-decoration:underline; }
+.layout { display:flex; min-height:100vh; }
+nav { width:280px; flex:none; background:var(--panel); border-right:1px solid var(--line);
+       padding:24px 18px; position:sticky; top:0; align-self:flex-start; height:100vh; overflow:auto; }
+nav h2 { font-size:13px; text-transform:uppercase; letter-spacing:.08em; color:var(--muted);
+          margin:22px 0 8px; }
+nav .brand { font-size:16px; font-weight:700; margin:0 0 4px; color:var(--fg); }
+nav .tag { color:var(--muted); font-size:12px; margin-bottom:8px; }
+nav ul { list-style:none; margin:0; padding:0; }
+nav li { margin:2px 0; }
+nav a { display:block; padding:5px 8px; border-radius:6px; color:var(--fg); font-size:14px; }
+nav a:hover { background:#1d2330; text-decoration:none; }
+nav a.active { background:#23314f; color:#fff; }
+main { flex:1; min-width:0; padding:40px clamp(20px,5vw,72px); max-width:920px; }
+main h1 { margin-top:0; }
+h1,h2,h3 { line-height:1.25; }
+h2 { border-bottom:1px solid var(--line); padding-bottom:6px; margin-top:2em; }
+code { background:var(--code); padding:.15em .4em; border-radius:4px; font-size:.88em; }
+pre { background:var(--code); padding:16px; border-radius:10px; overflow:auto;
+       border:1px solid var(--line); }
+pre code { background:none; padding:0; }
+table { border-collapse:collapse; width:100%; margin:1em 0; font-size:.94em; }
+th,td { border:1px solid var(--line); padding:8px 10px; text-align:left; vertical-align:top; }
+th { background:#1b2230; }
+blockquote { border-left:3px solid var(--accent); margin:1em 0; padding:.2em 1em; color:var(--muted); }
+hr { border:none; border-top:1px solid var(--line); margin:2em 0; }
+.footer { color:var(--muted); font-size:13px; margin-top:48px; border-top:1px solid var(--line);
+           padding-top:16px; }
+@media (max-width:760px) { .layout{flex-direction:column} nav{width:auto;height:auto;position:static} }
+</style>
+</head>
+<body>
+<div class="layout">
+<nav>
+  <p class="brand">Airlock Vertical KB</p>
+  <p class="tag">v2 · Elemental · skill docs</p>
+  <ul>
+<li><a href="index.html">Airlock Vertical Knowledge Base Generator — v2 (Elemental)</a></li>
+<li><a href="UPGRADE-NOTES.html">Airlock Vertical KB — v2 Upgrade Notes</a></li>
+</ul>
+<h2>References</h2><ul>
+<li><a href="references__aeo-guide.html" class="active">Orbit AI — AEO / llms.txt IMPLEMENTATION GUIDE</a></li>
+<li><a href="references__build-pipeline.html">Orbit AI — BUILD PIPELINE &amp; DEFINITION-OF-READY</a></li>
+<li><a href="references__compiler-workflow.html">Compiler Workflow — `tools/compile_agent.py`</a></li>
+<li><a href="references__compliance-patterns.html">Compliance Patterns (cross-vertical)</a></li>
+<li><a href="references__dialect-glossary.html">Airlock — REGIONAL SPANISH DIALECT GLOSSARY</a></li>
+<li><a href="references__dialect-module.html">Airlock — REGIONAL SPANISH DIALECT MODULE</a></li>
+<li><a href="references__kb-template.html">KB Template — required section structure for every vertical/niche</a></li>
+<li><a href="references__language-dialect-layer.html">Language &amp; Dialect Layer (shared by every Airlock agent)</a></li>
+<li><a href="references__local-landing-pages.html">Orbit AI — LOCAL LANDING PAGE SYSTEM</a></li>
+<li><a href="references__local-seo-gbp.html">Orbit AI — LOCAL SEO + GOOGLE BUSINESS PROFILE PLAYBOOK</a></li>
+<li><a href="references__niche-atlas.html">Airlock Niche Atlas — Extended Dive (all 20 verticals)</a></li>
+<li><a href="references__quality-bar.html">Orbit AI — THE BEAT-THE-GENERATORS STANDARD</a></li>
+<li><a href="references__service-levels.html">Airlock Service &amp; Support Levels</a></li>
+<li><a href="references__template-library.html">Orbit AI — TEMPLATE LIBRARY</a></li>
+<li><a href="references__tier-ladder.html">Airlock Elemental Tier Ladder</a></li>
+<li><a href="references__voice-runtime-layer.html">Airlock PLATINUM — Universal Voice &amp; Runtime Layer</a></li>
+<li><a href="references__website-audit.html">Orbit AI — WEBSITE AUDIT (Paste-a-URL)</a></li>
+<li><a href="references__website-catalog.html">Orbit AI — WEBSITE &amp; PLATFORM CATALOG</a></li>
+</ul>
+<h2>Verticals</h2><ul>
+<li><a href="references__verticals__law-firms.html">Airlock Knowledge Base — Vertical: LAW FIRMS (Base Layer)</a></li>
+<li><a href="references__verticals__tattoo-shops.html">Airlock Knowledge Base — Vertical: TATTOO SHOPS (Base Layer)</a></li>
+</ul>
+</nav>
+<main>
+<h1 id="orbit-ai-aeo-llmstxt-implementation-guide">Orbit AI — AEO / llms.txt IMPLEMENTATION GUIDE</h1>
+<p><em>How to actually win </em><em>AI answer-engine citations</em><em> — be the business that Google AI Overviews,
+ChatGPT, Perplexity, Gemini, and Copilot </em><em>recommend by name.</em><em> AEO (Answer-Engine Optimization, aka
+GEO — Generative Engine Optimization) is the 2026 differentiator generators ignore. This is the "how"
+behind <code>quality-bar.md</code> §2.5.</em></p>
+<hr />
+<h2 id="seo-vs-aeo-why-its-different">SEO vs. AEO (why it's different)</h2>
+<p>Classic SEO earns a <strong>ranked link</strong> a human clicks. AEO earns a <strong>citation inside a generated
+answer</strong> — the AI names you as the recommendation. The engines synthesize from across the web (your
+site <strong>+</strong> GBP, reviews, directories, third-party mentions), so AEO is part on-site structure, part
+off-site presence and entity authority.</p>
+<h2 id="how-answer-engines-pick-sources">How answer engines pick sources</h2>
+<ul>
+<li><strong>Entity clarity</strong> — they must unambiguously know <em>who you are, what you do, where.</em></li>
+<li><strong>Extractable answers</strong> — concise, factual, self-contained statements they can lift.</li>
+<li><strong>Structure</strong> — FAQ/Q&amp;A blocks, headings phrased as questions, lists, comparison tables.</li>
+<li><strong>Corroboration</strong> — consistent facts across your site, GBP, reviews, and directories.</li>
+<li><strong>E-E-A-T + freshness</strong> — experience/expertise signals, authorship, recency, real reviews.</li>
+</ul>
+<h2 id="on-site-implementation">On-site implementation</h2>
+<ol>
+<li><strong>Question-led content:</strong> headings that match how people ask ("How much does X cost in [city]?"),
+   followed by a <strong>direct 1–3 sentence answer</strong>, then detail. Don't bury the answer.</li>
+<li><strong>FAQ blocks + <code>FAQPage</code> schema</strong> on key pages (services, locations, pricing).</li>
+<li><strong>Entity/structured data:</strong> <code>Organization</code> + <code>LocalBusiness</code> (+ vertical subtype), <code>sameAs</code> to GBP
+   and social/profiles, <code>Service</code>, <code>Product</code>/<code>Menu</code>, <code>Article</code> with author, <code>AggregateRating</code> (real).</li>
+<li><strong>Definitions &amp; comparisons:</strong> clear "What is…/X vs. Y" sections and tables — highly liftable.</li>
+<li><strong>Facts with specificity:</strong> named services, areas, hours, credentials, numbers (engines prefer
+   concrete, attributable claims over fluff).</li>
+<li><strong>Freshness:</strong> dates, updated content, active posts.</li>
+</ol>
+<h2 id="llmstxt-the-machine-readable-summary-for-ai-agents"><code>llms.txt</code> (the machine-readable summary for AI agents)</h2>
+<p>A proposed standard: a Markdown file at the site root that gives LLMs a clean, curated map of the
+business so they read it accurately (HTML is noisy; <code>llms.txt</code> is the signal).
+- <strong><code>/llms.txt</code></strong> — concise: who/what/where, key services, key URLs, contact, hours, languages.
+- <strong><code>/llms-full.txt</code></strong> (optional) — expanded: full service descriptions, FAQs, policies.</p>
+<pre><code># Acme Plumbing — San Antonio, TX
+&gt; Licensed 24/7 plumbing for San Antonio &amp; surrounding areas. Bilingual (EN/ES).
+
+## Services
+- Emergency plumbing, water heaters, drain/sewer, repiping, leak detection
+## Service area
+- San Antonio, Alamo Heights, Stone Oak, Boerne, New Braunfels (ZIPs: 78209, 78258, …)
+## Contact
+- Call/text: (210) 555-0100 · Hours: 24/7 · Languages: English, Español
+## Key pages
+- /services/emergency-plumbing/  · /locations/san-antonio/  · /reviews/  · /es/
+</code></pre>
+<p>Keep it truthful and in sync with the site + GBP (same source of truth — the KB).</p>
+<p><strong>Orbit emits this automatically.</strong> <code>tools/gen_llms_txt.py</code> renders <code>/llms.txt</code> (+ <code>/llms-full.txt</code>)
+from a small business manifest compiled from the KB, so <strong>every Orbit build ships one</strong> — and the docs
+site itself emits one via <code>site/build.py</code>. Run: <code>python tools/gen_llms_txt.py business.json --out dist/</code>
+(or <code>--sample</code> for a demo).</p>
+<h2 id="off-site-engines-synthesize-from-the-whole-web">Off-site (engines synthesize from the whole web)</h2>
+<ul>
+<li><strong>Google Business Profile</strong> complete + active (huge for local AI answers).</li>
+<li><strong>Reviews everywhere</strong> (Google, vertical directories) — volume, rating, recency, responses.</li>
+<li><strong>Consistent NAP + citations</strong> across directories (see <code>local-seo-gbp.md</code>).</li>
+<li><strong>Third-party mentions / digital PR</strong> for national/authority topics.</li>
+</ul>
+<h2 id="bilingual-aeo-the-moat">Bilingual AEO (the moat)</h2>
+<p>Answer-engine demand exists in Spanish too. Ship native ES answer blocks + ES <code>FAQPage</code> schema + an ES
+<code>llms.txt</code> section. Near-zero competition for ES citations.</p>
+<h2 id="measurement">Measurement</h2>
+<ul>
+<li>Track <strong>AI-referral traffic</strong> (ChatGPT, Perplexity, Gemini, Google AI) in analytics.</li>
+<li>Monitor <strong>brand/citation mentions</strong> in AI answers for your money queries (manual or tooling).</li>
+<li>Watch GBP insights + review growth as leading indicators.</li>
+</ul>
+<h2 id="tier-mapping">Tier mapping</h2>
+<p>Gold: clean entity data + schema + FAQ. Platinum: full AEO content + <code>llms.txt</code> + GBP/reviews engine.
+Iridium: per-service/per-city AEO + measurement. Rhodium: authority content + digital PR + ongoing
+citation monitoring.</p>
+<h2 id="checklist">Checklist</h2>
+<ul>
+<li>[ ] <code>Organization</code> + <code>LocalBusiness</code> + <code>sameAs</code> valid</li>
+<li>[ ] <code>FAQPage</code> on services/locations/pricing</li>
+<li>[ ] Question-led headings with direct answers</li>
+<li>[ ] <code>/llms.txt</code> (+ <code>/llms-full.txt</code>) truthful and in sync</li>
+<li>[ ] GBP complete + reviews active + NAP consistent</li>
+<li>[ ] ES answer blocks + ES schema</li>
+<li>[ ] AI-referral + citation tracking live</li>
+</ul>
+<div class="footer">Static docs for the <code>airlock-vertical-kb</code> Claude Code skill ·
+generated from <code>skills/airlock-vertical-kb/</code>.</div>
+</main>
+</div>
+</body>
+</html>

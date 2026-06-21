@@ -1,0 +1,527 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Orbit AI — THE BEAT-THE-GENERATORS STANDARD — Airlock Vertical KB</title>
+<style>
+:root { --bg:#0f1117; --panel:#161a23; --line:#262c39; --fg:#e6e9ef; --muted:#9aa4b8;
+        --accent:#7aa2ff; --code:#11141b; }
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:var(--fg);
+       font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; }
+a { color:var(--accent); text-decoration:none; }
+a:hover { text-decoration:underline; }
+.layout { display:flex; min-height:100vh; }
+nav { width:280px; flex:none; background:var(--panel); border-right:1px solid var(--line);
+       padding:24px 18px; position:sticky; top:0; align-self:flex-start; height:100vh; overflow:auto; }
+nav h2 { font-size:13px; text-transform:uppercase; letter-spacing:.08em; color:var(--muted);
+          margin:22px 0 8px; }
+nav .brand { font-size:16px; font-weight:700; margin:0 0 4px; color:var(--fg); }
+nav .tag { color:var(--muted); font-size:12px; margin-bottom:8px; }
+nav ul { list-style:none; margin:0; padding:0; }
+nav li { margin:2px 0; }
+nav a { display:block; padding:5px 8px; border-radius:6px; color:var(--fg); font-size:14px; }
+nav a:hover { background:#1d2330; text-decoration:none; }
+nav a.active { background:#23314f; color:#fff; }
+main { flex:1; min-width:0; padding:40px clamp(20px,5vw,72px); max-width:920px; }
+main h1 { margin-top:0; }
+h1,h2,h3 { line-height:1.25; }
+h2 { border-bottom:1px solid var(--line); padding-bottom:6px; margin-top:2em; }
+code { background:var(--code); padding:.15em .4em; border-radius:4px; font-size:.88em; }
+pre { background:var(--code); padding:16px; border-radius:10px; overflow:auto;
+       border:1px solid var(--line); }
+pre code { background:none; padding:0; }
+table { border-collapse:collapse; width:100%; margin:1em 0; font-size:.94em; }
+th,td { border:1px solid var(--line); padding:8px 10px; text-align:left; vertical-align:top; }
+th { background:#1b2230; }
+blockquote { border-left:3px solid var(--accent); margin:1em 0; padding:.2em 1em; color:var(--muted); }
+hr { border:none; border-top:1px solid var(--line); margin:2em 0; }
+.footer { color:var(--muted); font-size:13px; margin-top:48px; border-top:1px solid var(--line);
+           padding-top:16px; }
+@media (max-width:760px) { .layout{flex-direction:column} nav{width:auto;height:auto;position:static} }
+</style>
+</head>
+<body>
+<div class="layout">
+<nav>
+  <p class="brand">Airlock Vertical KB</p>
+  <p class="tag">v2 · Elemental · skill docs</p>
+  <ul>
+<li><a href="index.html">Airlock Vertical Knowledge Base Generator — v2 (Elemental)</a></li>
+<li><a href="UPGRADE-NOTES.html">Airlock Vertical KB — v2 Upgrade Notes</a></li>
+</ul>
+<h2>References</h2><ul>
+<li><a href="references__aeo-guide.html">Orbit AI — AEO / llms.txt IMPLEMENTATION GUIDE</a></li>
+<li><a href="references__build-pipeline.html">Orbit AI — BUILD PIPELINE &amp; DEFINITION-OF-READY</a></li>
+<li><a href="references__compiler-workflow.html">Compiler Workflow — `tools/compile_agent.py`</a></li>
+<li><a href="references__compliance-patterns.html">Compliance Patterns (cross-vertical)</a></li>
+<li><a href="references__dialect-glossary.html">Airlock — REGIONAL SPANISH DIALECT GLOSSARY</a></li>
+<li><a href="references__dialect-module.html">Airlock — REGIONAL SPANISH DIALECT MODULE</a></li>
+<li><a href="references__kb-template.html">KB Template — required section structure for every vertical/niche</a></li>
+<li><a href="references__language-dialect-layer.html">Language &amp; Dialect Layer (shared by every Airlock agent)</a></li>
+<li><a href="references__local-landing-pages.html">Orbit AI — LOCAL LANDING PAGE SYSTEM</a></li>
+<li><a href="references__local-seo-gbp.html">Orbit AI — LOCAL SEO + GOOGLE BUSINESS PROFILE PLAYBOOK</a></li>
+<li><a href="references__niche-atlas.html">Airlock Niche Atlas — Extended Dive (all 20 verticals)</a></li>
+<li><a href="references__quality-bar.html" class="active">Orbit AI — THE BEAT-THE-GENERATORS STANDARD</a></li>
+<li><a href="references__service-levels.html">Airlock Service &amp; Support Levels</a></li>
+<li><a href="references__template-library.html">Orbit AI — TEMPLATE LIBRARY</a></li>
+<li><a href="references__tier-ladder.html">Airlock Elemental Tier Ladder</a></li>
+<li><a href="references__voice-runtime-layer.html">Airlock PLATINUM — Universal Voice &amp; Runtime Layer</a></li>
+<li><a href="references__website-audit.html">Orbit AI — WEBSITE AUDIT (Paste-a-URL)</a></li>
+<li><a href="references__website-catalog.html">Orbit AI — WEBSITE &amp; PLATFORM CATALOG</a></li>
+</ul>
+<h2>Verticals</h2><ul>
+<li><a href="references__verticals__law-firms.html">Airlock Knowledge Base — Vertical: LAW FIRMS (Base Layer)</a></li>
+<li><a href="references__verticals__tattoo-shops.html">Airlock Knowledge Base — Vertical: TATTOO SHOPS (Base Layer)</a></li>
+</ul>
+</nav>
+<main>
+<h1 id="orbit-ai-the-beat-the-generators-standard">Orbit AI — THE BEAT-THE-GENERATORS STANDARD</h1>
+<p><em>The quality bar every Orbit build must clear to out-class the top website generators —
+Wix ADI / Wix Studio, Squarespace Blueprint, Webflow, Framer, Durable, GoDaddy Airo,
+Hostinger AI, 10Web, B12, Relume, and the code-gen AIs (v0, Lovable, Bolt, Replit). This is
+the </em><em>definition of "world-class"</em><em> for the Template Library (<code>template-library.md</code>) and the
+KB it ships with. If a build doesn't clear Section 4's launch gate, it doesn't ship.</em></p>
+<hr />
+<h2 id="0-the-thesis-brochure-vs-front-office">0. The thesis — brochure vs. front office</h2>
+<p>Generators optimize for <strong>"a site exists, fast."</strong> Orbit optimizes for <strong>"this business looks
+like the market leader and never misses a customer."</strong> A beautiful page that doesn't get found,
+doesn't convert, can't answer the phone, and can't serve a Spanish-speaking caller loses every
+time to one that does. We don't win by having more templates — we win on the compounding 20%:
+<strong>speed, trust, findability, conversion, and 24/7 bilingual answering — generated from one KB.</strong></p>
+<blockquote>
+<p>The generators ship a <strong>website</strong>. Orbit ships a <strong>front office</strong>: website + grounded chat +
+24/7 bilingual AI voice receptionist + CRM/automation, all from the same source of truth, so
+the on-page promise and the phone experience never diverge.</p>
+</blockquote>
+<hr />
+<h2 id="1-competitive-teardown-what-they-do-well-where-they-break-how-we-beat-it">1. Competitive teardown — what they do well, where they break, how we beat it</h2>
+<table>
+<thead>
+<tr>
+<th>Generator class</th>
+<th>Examples</th>
+<th>What they do well</th>
+<th>Where they break</th>
+<th>How Orbit beats it</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>AI site builders</strong></td>
+<td>Wix ADI, Squarespace Blueprint, Durable, GoDaddy Airo, Hostinger AI, B12, Mixo</td>
+<td>Fast first draft, hosting, decent templates, basic SEO</td>
+<td>Generic "template look", <strong>filler/placeholder copy</strong>, weak local SEO, no real CRO, bolt-on chat that hallucinates, no voice, machine-translated "bilingual"</td>
+<td>KB-grounded domain-accurate copy, per-vertical themed design, real CRO, <strong>grounded</strong> chat + <strong>AI voice receptionist</strong>, native EN/ES + dialect</td>
+</tr>
+<tr>
+<td><strong>Pro design tools</strong></td>
+<td>Webflow, Framer</td>
+<td>Beautiful layouts, strong motion, design control</td>
+<td>DIY (you do the work), no content/ops, no bilingual/compliance, costs grow, no answering layer</td>
+<td>Same craft level, <strong>done-for-you</strong>, plus content + ops + voice + compliance built in</td>
+</tr>
+<tr>
+<td><strong>AI wireframe/components</strong></td>
+<td>Relume</td>
+<td>Great structure/sitemaps, component speed</td>
+<td>Wireframes only — no real content, brand, SEO, or operations</td>
+<td>We take structure to a finished, branded, <strong>operating</strong> front office</td>
+</tr>
+<tr>
+<td><strong>Code-gen AI</strong></td>
+<td>v0, Lovable, Bolt, Replit</td>
+<td>Fast app scaffolds, flexible</td>
+<td>Raw output, not brand/SEO/conversion-tuned, no local-business ops, no voice, maintenance burden</td>
+<td>Conversion- and AEO-engineered, managed, with the receptionist/CRM wired in</td>
+</tr>
+<tr>
+<td><strong>AI WordPress</strong></td>
+<td>10Web</td>
+<td>AI generation + managed WP hosting, flexible plugin ecosystem</td>
+<td><strong>WordPress + page-builder DOM bloat → weak mobile CWV</strong>, security-patch/plugin-update treadmill, hosting lock-in, plugin sprawl, and <em>still</em> no voice/CRM/native-bilingual ops</td>
+<td><strong>Static/edge delivery (no plugin rot, no patch treadmill)</strong>, faster CWV, plus the AI front office + native bilingual + DFY ops 10Web has no answer for</td>
+</tr>
+</tbody>
+</table>
+<p><strong>The structural gap:</strong> every generator stops at the <strong>page</strong>. None of them ship the thing a local
+business actually needs — a system that gets found, converts, and <strong>answers every call in two
+languages, 24/7, without hallucinating.</strong> That's the whole game, and it's our home field.</p>
+<hr />
+<h2 id="2-the-non-negotiable-quality-bar-measurable">2. The non-negotiable quality bar (measurable)</h2>
+<p>Numbers are <strong>launch targets</strong>, not aspirations. Measure on a mid-tier mobile device / throttled 4G.</p>
+<h3 id="21-performance-most-generators-quietly-fail-this-on-mobile">2.1 Performance (most generators quietly fail this on mobile)</h3>
+<ul>
+<li><strong>Lighthouse:</strong> Performance ≥ 95, Best-Practices ≥ 95, SEO 100, Accessibility ≥ 95 (mobile).</li>
+<li><strong>Core Web Vitals (field, p75):</strong> <strong>LCP &lt; 1.5s</strong> (elite &lt; 1.2s), <strong>CLS &lt; 0.05</strong>, <strong>INP &lt; 200ms</strong>.</li>
+<li><strong>Weight budget:</strong> initial HTML+CSS+JS &lt; 200KB gzipped; hero image AVIF/WebP, responsive <code>srcset</code>,
+  lazy-load below the fold; fonts <code>font-display: swap</code>, ≤ 2 families, subset + preload.</li>
+<li><strong>Delivery:</strong> static/edge hosting, HTTP/2+, no render-blocking third-party junk. No jQuery-era bloat.</li>
+</ul>
+<h3 id="22-design-craft-beat-the-template-look">2.2 Design &amp; craft (beat the "template look")</h3>
+<ul>
+<li><strong>Design tokens:</strong> a real system — color (the <code>C#</code> palette), type scale (modular, e.g. 1.2–1.25),
+  4/8px spacing grid, radius, shadow, motion tokens. Not ad-hoc pixels.</li>
+<li><strong>Typography:</strong> a deliberate <code>T#</code> heading/body pairing, optical sizes, ≤ 70-char line length,
+  body ≥ 16px, line-height 1.5–1.65.</li>
+<li><strong>Layout:</strong> intentional hierarchy, generous whitespace, consistent vertical rhythm, real grid —
+  not a stack of identical full-width bands (the generator tell).</li>
+<li><strong>Imagery:</strong> cohesive, on-brand, art-directed; no obvious stock-photo soup. Dark-mode variant where apt.</li>
+</ul>
+<h3 id="23-motion-framers-edge-we-match-it-tastefully">2.3 Motion (Framer's edge — we match it, tastefully)</h3>
+<ul>
+<li>Purposeful micro-interactions: scroll-reveal, hover/focus states, sticky transitions, count-ups.</li>
+<li>150–300ms easing, GPU-friendly (transform/opacity only), <strong>respects <code>prefers-reduced-motion</code></strong>.</li>
+<li>Motion guides attention to CTAs; never decorative-only or janky.</li>
+</ul>
+<h3 id="24-accessibility-most-generators-are-aa-in-theory-not-practice">2.4 Accessibility (most generators are AA in theory, not practice)</h3>
+<ul>
+<li><strong>WCAG 2.2 AA</strong>, verified: full keyboard nav + visible focus, semantic landmarks/headings, alt text,
+  labelled forms, ARIA only where needed, contrast ≥ 4.5:1 (3:1 large), 44px touch targets,
+  reduced-motion honored. Screen-reader smoke-tested.</li>
+</ul>
+<h3 id="25-seo-aeo-the-moat-generators-ignore">2.5 SEO + AEO (the moat generators ignore)</h3>
+<ul>
+<li><strong>Technical SEO:</strong> clean semantic HTML, one H1, logical headings, descriptive titles/meta, canonical,
+  sitemap.xml, robots.txt, OpenGraph/Twitter cards, fast indexable static pages.</li>
+<li><strong>Local SEO:</strong> <code>LocalBusiness</code>/vertical schema (<code>Dentist</code>, <code>Attorney</code>, <code>Restaurant</code>…), NAP
+  consistency, Google Business Profile alignment, service-area + per-location pages, embedded map/hours.</li>
+<li><strong>Structured data:</strong> <code>FAQPage</code>, <code>Service</code>, <code>Review/AggregateRating</code>, <code>BreadcrumbList</code>, <code>Product</code>/<code>Menu</code>
+  where relevant — valid against Rich Results.</li>
+<li><strong>AEO / answer-engine optimization (the 2026 differentiator):</strong> content structured to be quoted by
+  AI answer engines (Google AI Overviews, ChatGPT, Perplexity, Gemini) — clear Q&amp;A blocks, entity
+  clarity, concise factual answers, <code>FAQPage</code> schema, and an <strong><code>llms.txt</code></strong> + machine-readable summary
+  so AI agents can read the business accurately. Generators do none of this.</li>
+</ul>
+<h3 id="25b-geographic-reach-the-local-regional-national-ladder">2.5b Geographic reach — the Local → Regional → National ladder</h3>
+<p><strong>Default every build to a local-first foundation, then climb the ladder by business model + tier.</strong>
+Don't choose "specific markets only" (leaves compounding organic on the table) or "national for
+everyone" (wastes spend on a single-location business). Match scope to how far the client actually
+sells.</p>
+<ul>
+<li><strong>Local</strong> <em>(default — ~80% of clients, single-location service businesses)</em>: Google Business
+  Profile optimization, <code>LocalBusiness</code> + vertical schema, NAP consistency, service-area + city/
+  neighborhood pages, review velocity, map-pack + "near me" / <strong>"cerca de mí"</strong> intent. Fastest
+  payback (weeks); captures ready-to-call demand.</li>
+<li><strong>Regional</strong> <em>(multi-location, metro-wide, or wide service-area businesses)</em>: per-city/per-location
+  landing pages, county/metro keyword clusters, multiple GBP listings, regional content hubs, local
+  link building. Fits home services covering a metro, dental/law groups, franchises.</li>
+<li><strong>National</strong> <em>(geo-independent offerings)</em>: topic/authority content, programmatic category pages,
+  national keywords, digital PR + backlinks, e-commerce SEO. Fits mail-order/specialty pharmacy,
+  online courses, consulting, staffing, logistics, DTC retail, SaaS-like services.</li>
+</ul>
+<p><strong>Do both, on two clocks:</strong> local SEO + reviews + GBP compound in <strong>weeks</strong>; content + AEO authority
+compound over <strong>6–18 months</strong>. Run local-first for immediate ROI and layer content/AEO for the
+long-tail moat — organic that grows on its own over time. <strong>AEO applies at every scope</strong> (be the
+answer AI engines give from "best X in [city]" up to "[category] question"). The near-uncontested
+moat is <strong>native Spanish-language organic</strong> — almost no competitor ships genuine ES content, so
+bilingual local + AEO captures demand rivals can't see.</p>
+<table>
+<thead>
+<tr>
+<th>Business model</th>
+<th>Recommended scope</th>
+<th>Tier sweet-spot</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Single-location service (solo dentist, plumber, restaurant, salon)</td>
+<td><strong>Local</strong> (+ AEO)</td>
+<td>Gold–Platinum</td>
+</tr>
+<tr>
+<td>Multi-location / wide service area (metro HVAC, dental/law group)</td>
+<td><strong>Regional</strong> (per-city pages)</td>
+<td>Platinum–Iridium</td>
+</tr>
+<tr>
+<td>Geo-independent (e-commerce, mail-order Rx, courses, consulting, staffing, logistics)</td>
+<td><strong>National</strong> (authority + programmatic)</td>
+<td>Iridium</td>
+</tr>
+<tr>
+<td>Franchise / white-label</td>
+<td><strong>Regional per unit + National brand</strong></td>
+<td>Rhodium</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Tier mapping:</strong> Gold = local foundation · Platinum = local + content + AEO · Iridium = regional/
+multi-location + programmatic · Rhodium = national authority + digital PR + multi-site. Set the
+client's scope at kickoff; never ship national tactics to a business that only serves one city, and
+never cap a geo-independent business at a single map pin.</p>
+<h3 id="26-conversion-cro-generators-ship-pages-not-pipelines">2.6 Conversion (CRO — generators ship pages, not pipelines)</h3>
+<ul>
+<li><strong>Above the fold:</strong> who/what/where + a primary CTA (call / book / quote) visible without scrolling.</li>
+<li><strong>Trust stack:</strong> reviews/ratings, credentials, guarantees, real photos, license/insurance badges.</li>
+<li><strong>Frictionless action:</strong> click-to-call, sticky mobile call/book bar, 1–2 field first step, multi-step
+  forms, WhatsApp/SMS, exit-intent/offer where appropriate.</li>
+<li><strong>Speed-to-lead:</strong> every lead routes to CRM and triggers follow-up <strong>within minutes, not days</strong> —
+  the receptionist/automation answers when a generator's contact form just emails an inbox.</li>
+<li><strong>Measured:</strong> conversion events instrumented from day one; A/B-ready (Platinum+).</li>
+</ul>
+<h3 id="27-content-copy-no-filler-this-is-where-ai-builders-lose-hardest">2.7 Content &amp; copy (no filler — this is where AI builders lose hardest)</h3>
+<ul>
+<li><strong>Domain-accurate</strong>, specific, benefit-led copy from the niche KB — real services, real intents,
+  real FAQs. Zero lorem ipsum, zero generic "We are passionate about quality."</li>
+<li>Scannable: short paragraphs, descriptive subheads, bullets, clear CTAs per section.</li>
+<li>Voice matches the vertical register (<code>niche-atlas.md</code>); proofed, consistent, no AI tells.</li>
+</ul>
+<h3 id="28-bilingual-dialect-generators-translate-we-localize">2.8 Bilingual &amp; dialect (generators "translate"; we localize)</h3>
+<ul>
+<li>Native <strong>EN + ES</strong> (not machine-translated), instant toggle, dialect-aware register
+  (<code>dialect-module.md</code>, <code>language-dialect-layer.md</code>), <code>hreflang</code>, localized CTAs/forms/schema.</li>
+<li>ES is first-class, not an afterthought — the receptionist and chat speak it natively too.</li>
+</ul>
+<h3 id="29-the-ai-front-office-the-unfair-advantage-no-generator-has">2.9 The AI front office (the unfair advantage no generator has)</h3>
+<ul>
+<li><strong>24/7 bilingual AI voice receptionist</strong> (<code>voice-runtime-layer.md</code>): sub-200ms turn-taking, barge-in,
+  AMD-gated, natural prosody, <strong>grounded in the same KB</strong>, with human handoff and post-call CRM
+  disposition.</li>
+<li><strong>Grounded chat</strong> (KB/catalog-grounded, <strong>no hallucination</strong>, transfer-to-human).</li>
+<li><strong>One source of truth:</strong> site copy, chat, and voice are compiled from one KB so they never contradict.</li>
+<li><strong>Automation:</strong> booking → calendar, lead → CRM → follow-up, order → QuickBooks → fulfillment.</li>
+</ul>
+<h3 id="210-security-privacy-compliance-regulated-verticals-generators-cant-touch">2.10 Security, privacy, compliance (regulated verticals generators can't touch)</h3>
+<ul>
+<li>HTTPS/HSTS, form spam/bot protection, no secrets client-side, dependency hygiene.</li>
+<li><strong>Compliance hard-lines per vertical</strong> (<code>compliance-patterns.md</code>): no legal/medical/financial advice,
+  HIPAA-mindedness, no PHI/SSN over open channels, fair-housing, FTC/Funeral-Rule, etc. <strong>Human-gated</strong>
+  for the Rhodium honesty line (attorney sign-off, native-dialect validation).</li>
+</ul>
+<h3 id="211-analytics-the-feedback-loop">2.11 Analytics &amp; the feedback loop</h3>
+<ul>
+<li>Privacy-respecting analytics, call/lead tracking, conversion events, dashboard. Iridium+ adds
+  heatmaps + A/B; Diamond adds proactive optimization. A generator hands you a site and walks away;
+  Orbit measures and improves it.</li>
+</ul>
+<hr />
+<h2 id="3-differentiators-generators-structurally-cannot-match">3. Differentiators generators structurally cannot match</h2>
+<ol>
+<li><strong>One KB → website + chat + voice + automation.</strong> Architectural, not a plugin. Competitors bolt
+   these on from different vendors that drift out of sync.</li>
+<li><strong>A receptionist that actually answers.</strong> 24/7, bilingual, grounded, with handoff — the single
+   biggest revenue lever for a local business, and no site builder ships it.</li>
+<li><strong>Native bilingual + 13-region dialect</strong>, not Google-Translate. Decisive for the Hispanic SMB market.</li>
+<li><strong>Compliance + human-gated validation</strong> for regulated verticals — generators explicitly disclaim this.</li>
+<li><strong>Domain-grounded content</strong> from a niche atlas — accurate, not filler.</li>
+<li><strong>AEO/answer-engine optimization</strong> so AI assistants recommend the business correctly.</li>
+<li><strong>Done-for-you delivery + ongoing optimization</strong> (service levels) — not "here's your editor, good luck."</li>
+</ol>
+<hr />
+<h2 id="4-definition-of-done-the-launch-gate-passfail">4. Definition of Done — the launch gate (pass/fail)</h2>
+<p>A build ships only when <strong>every Must-Pass clears</strong> and the weighted score is <strong>≥ 90/100</strong>.</p>
+<p><strong>Must-Pass (any failure blocks launch):</strong>
+- [ ] Mobile Lighthouse: Perf ≥ 95 · A11y ≥ 95 · SEO 100 · Best-Practices ≥ 95
+- [ ] LCP &lt; 1.5s · CLS &lt; 0.05 · INP &lt; 200ms (throttled mobile)
+- [ ] WCAG 2.2 AA verified (keyboard + contrast + screen-reader smoke test)
+- [ ] Primary CTA above the fold; click-to-call + sticky mobile bar working
+- [ ] Valid structured data (LocalBusiness + FAQPage at minimum)
+- [ ] Native EN/ES parity (no machine-translation tells); <code>hreflang</code> set
+- [ ] Grounded chat answers from KB with <strong>no hallucination</strong> + human handoff
+- [ ] (Iridium+) Voice receptionist answers, books, and writes a clean CRM disposition
+- [ ] Compliance hard-lines for the vertical enforced; no advice/PII leakage
+- [ ] Lead routes to CRM and fires follow-up within minutes</p>
+<p><strong>Weighted scorecard (100 pts):</strong> Performance 15 · Design/craft 15 · Conversion/CRO 15 ·
+Content quality 12 · SEO+AEO 12 · AI front office 12 · Accessibility 8 · Bilingual/dialect 6 ·
+Motion 3 · Security/compliance 2.</p>
+<blockquote>
+<p><strong>Beat test:</strong> put the Orbit build next to the same business generated by Wix ADI, Squarespace
+Blueprint, Durable, and <strong>10Web</strong>. It must win on <strong>first-impression craft, mobile speed, findability,
+conversion path, and — the knockout — that it answers the phone in two languages.</strong> If it doesn't
+clearly win, it isn't done.</p>
+</blockquote>
+<hr />
+<h2 id="5-tier-mapping-the-bar-rises-with-the-tier">5. Tier mapping (the bar rises with the tier)</h2>
+<table>
+<thead>
+<tr>
+<th>Bar</th>
+<th style="text-align: center;">Gold</th>
+<th style="text-align: center;">Platinum</th>
+<th style="text-align: center;">Iridium</th>
+<th style="text-align: center;">Rhodium</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Performance + A11y + technical SEO</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
+</tr>
+<tr>
+<td>Domain-accurate content + native EN/ES</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
+</tr>
+<tr>
+<td>Themed design system + motion + CRO + reviews/booking</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
+</tr>
+<tr>
+<td>Local SEO + <strong>AEO</strong> + analytics + grounded chat</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
+</tr>
+<tr>
+<td><strong>AI voice receptionist</strong> + CRM/automation + portal</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
+</tr>
+<tr>
+<td>Bespoke design system + voice-clone + human-gated validation</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">✅</td>
+</tr>
+</tbody>
+</table>
+<p>Gold already beats a generic generator on speed, content accuracy, and bilingual. Platinum beats the
+"pro design tool" output on craft <strong>and</strong> ships content + conversion. Iridium adds the front office no
+generator has. Rhodium is category-leader, bespoke, human-validated.</p>
+<hr />
+<h2 id="6-how-to-use-this">6. How to use this</h2>
+<ul>
+<li>Build the template (<code>template-library.md</code>) → apply the <strong>World-Class Feature Stack</strong> → then hold it
+  against <strong>this</strong> bar before launch.</li>
+<li>It composes with: <code>website-catalog.md</code> (features/tiers), <code>voice-runtime-layer.md</code> (the receptionist),
+  <code>dialect-module.md</code> / <code>language-dialect-layer.md</code> (bilingual), <code>compliance-patterns.md</code> (hard lines),
+  and <code>tier-ladder.md</code> (what's gated where).</li>
+<li><strong>Rule:</strong> never ship to clear a checkbox — ship to win the side-by-side. The bar exists so the answer
+  to "is this better than what Wix/Framer/Durable would make?" is an obvious <strong>yes</strong>.</li>
+</ul>
+<hr />
+<h2 id="7-delivery-model-elite-from-the-gate-continuation-tiered">7. Delivery model — elite from the gate, continuation-tiered</h2>
+<p><strong>We never cut corners on craft.</strong> The launch gate (§4) applies to <strong>every build at every tier —
+including the demo and Gold.</strong> Quality is <strong>not</strong> the upsell. Build <strong>tiers differ in <em>scope</em></strong> (pages,
+e-commerce, voice receptionist, automation, portals — <code>tier-ladder.md</code>), <strong>not in craft.</strong> A Gold
+one-pager and a Rhodium platform are both elite; one just does more.</p>
+<p><strong>The differentiation and the recurring value is the monthly continuation — applied across <em>all</em>
+components, not just the initial build.</strong> A generator hands over a static site and leaves; Orbit keeps
+every surface elite <em>and improving</em>, every month:</p>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>What "continue the level" means monthly</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Website</td>
+<td>CWV/perf upkeep, A11y, design refinements, new sections, A/B tests</td>
+</tr>
+<tr>
+<td>Local SEO + GBP</td>
+<td>posts, review velocity, citations, rank tracking (<code>local-seo-gbp.md</code>)</td>
+</tr>
+<tr>
+<td>City pages + AEO</td>
+<td>expand the curated grid, refresh answers + <code>llms.txt</code> (<code>local-landing-pages.md</code>, <code>aeo-guide.md</code>)</td>
+</tr>
+<tr>
+<td>Voice receptionist + chat</td>
+<td>prompt tuning, dialect re-validation, new intents (<code>voice-runtime-layer.md</code>)</td>
+</tr>
+<tr>
+<td>Automation</td>
+<td>new flows, integrations, follow-ups</td>
+</tr>
+<tr>
+<td>Content</td>
+<td>fresh, accurate, on-brand</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Packaging:</strong> the initial build is elite and <strong>fairly priced</strong> — win the demo, don't gouge. The
+<strong>service level</strong> (<code>service-levels.md</code>: DIY → Hybrid → DFY → <strong>Diamond</strong>) sets <strong>how much elite
+continuation</strong> the client gets each month. Retention and results come from continuing the level across
+every component, every month — <strong>not</strong> from a one-time launch and <strong>not</strong> from gating build quality.</p>
+<hr />
+<h2 id="8-review-gating-two-gates-a-universal-go-live-gate-build-review-risk-tier">8. Review gating — two gates: a universal go-live gate + build review (risk × tier)</h2>
+<p><strong>Universal rule — every new deploy is human-approved before it goes live.</strong> Regardless of tier,
+vertical, or whether the build was scaffolded, <strong>a person gives explicit go-live approval after the §4
+launch gate passes.</strong> Scaffolding automates <em>building</em>, never the <em>decision to publish.</em> Nothing reaches
+a public URL or a client demo link without that sign-off. Pipeline: <code>scaffold/build → §4 self-check →
+human go-live approval (always) → deploy</code>.</p>
+<p>The <strong>build-review gate</strong> below maps the §7 scaffold rule to <strong>risk</strong> — it decides whether a human
+reviews the <em>content during the build</em>, <strong>not</strong> whether a human approves the <em>deploy</em> (always yes).</p>
+<ul>
+<li><strong>Scaffold (automated build, no per-content reviewer):</strong> <strong>Gold builds (any vertical)</strong> and
+  <strong>Platinum builds in Standard/Low-risk verticals.</strong> The pipeline pre-seeds the plumbing, generates
+  content, and self-checks against the §4 launch gate — then routes to the universal go-live gate.</li>
+<li><strong>Human-gate review (a person signs off before demo/publish):</strong> <strong>Platinum builds in High-risk
+  verticals</strong>, and <strong>all Iridium and all Rhodium builds (every vertical).</strong> The reviewer clears
+  compliance hard-lines, claims, and — where applicable — the Rhodium honesty pillars (attorney
+  sign-off, native-dialect validation, real-call learning).</li>
+</ul>
+<p><strong>Risk classification</strong> (criteria: regulated advice · PHI/PII · safety/emergency · vulnerable people ·
+child safety · fair-housing/EEOC · grief/sensitive · financial exposure):
+- <strong>High-risk → gate at Platinum+:</strong> Law · Accounting/Tax · Insurance · Financial/Wealth · Medical/
+  Dental · Med Spa/Aesthetics · Behavioral Health · Mortgage/Lending · Pharmacy/Medical Supply · Home
+  Health &amp; Senior Care · Veterinary · Real Estate · Property Management · Security &amp; Safety · Funeral &amp;
+  Memorial · Education &amp; Childcare · Staffing &amp; Recruiting.
+- <strong>Standard/Low-risk → scaffold at Gold + Platinum:</strong> Home Services · Construction · Solar · Automotive ·
+  Restaurants · Fine Dining/Events · Hospitality · Beauty/Hair · Fitness · Pet Services · Travel · Events
+  &amp; Entertainment · Photography · Marketing · IT/MSP · Consulting · Commercial Cleaning · Agriculture ·
+  Retail/Florists · Industrial/Trades · Moving &amp; Storage · Logistics.</p>
+<table>
+<thead>
+<tr>
+<th>Tier</th>
+<th style="text-align: center;">Standard/Low-risk vertical</th>
+<th style="text-align: center;">High-risk vertical</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Gold</strong></td>
+<td style="text-align: center;">Scaffold</td>
+<td style="text-align: center;">Scaffold*</td>
+</tr>
+<tr>
+<td><strong>Platinum</strong></td>
+<td style="text-align: center;">Scaffold</td>
+<td style="text-align: center;"><strong>Human-gate</strong></td>
+</tr>
+<tr>
+<td><strong>Iridium</strong></td>
+<td style="text-align: center;"><strong>Human-gate</strong></td>
+<td style="text-align: center;"><strong>Human-gate</strong></td>
+</tr>
+<tr>
+<td><strong>Rhodium</strong></td>
+<td style="text-align: center;"><strong>Human-gate</strong></td>
+<td style="text-align: center;"><strong>Human-gate</strong></td>
+</tr>
+</tbody>
+</table>
+<p><em>(Build review per the matrix; the </em><em>go-live approval is universal</em><em> — every cell still requires human
+sign-off before the deploy goes live.)</em></p>
+<p><strong>Always human-gated, regardless of tier or vertical</strong> (these never auto-ship as net-new): any
+<strong>emergency/safety script</strong> (gas/CO/flood/911/988/crisis), any <strong>advice boundary</strong> (legal/medical/
+financial/tax), any <strong>claim</strong> (efficacy/outcome/rate/savings guarantee), the <strong>"native-validated"
+dialect</strong> sign-off, and any custom <strong>compliance hard-line</strong> copy (<code>compliance-patterns.md</code>).</p>
+<p>*A Gold high-risk site <strong>scaffolds</strong> because it inherits <strong>pre-validated</strong> compliance/emergency modules
+from the KB layer (already human-authored) — only <strong>net-new</strong> claims/scripts trigger the always-gated
+review above. Scaffolding reuses validated content; it never generates fresh regulated copy unreviewed.</p>
+<div class="footer">Static docs for the <code>airlock-vertical-kb</code> Claude Code skill ·
+generated from <code>skills/airlock-vertical-kb/</code>.</div>
+</main>
+</div>
+</body>
+</html>

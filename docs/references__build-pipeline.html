@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Orbit AI — BUILD PIPELINE &amp; DEFINITION-OF-READY — Airlock Vertical KB</title>
+<style>
+:root { --bg:#0f1117; --panel:#161a23; --line:#262c39; --fg:#e6e9ef; --muted:#9aa4b8;
+        --accent:#7aa2ff; --code:#11141b; }
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:var(--fg);
+       font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; }
+a { color:var(--accent); text-decoration:none; }
+a:hover { text-decoration:underline; }
+.layout { display:flex; min-height:100vh; }
+nav { width:280px; flex:none; background:var(--panel); border-right:1px solid var(--line);
+       padding:24px 18px; position:sticky; top:0; align-self:flex-start; height:100vh; overflow:auto; }
+nav h2 { font-size:13px; text-transform:uppercase; letter-spacing:.08em; color:var(--muted);
+          margin:22px 0 8px; }
+nav .brand { font-size:16px; font-weight:700; margin:0 0 4px; color:var(--fg); }
+nav .tag { color:var(--muted); font-size:12px; margin-bottom:8px; }
+nav ul { list-style:none; margin:0; padding:0; }
+nav li { margin:2px 0; }
+nav a { display:block; padding:5px 8px; border-radius:6px; color:var(--fg); font-size:14px; }
+nav a:hover { background:#1d2330; text-decoration:none; }
+nav a.active { background:#23314f; color:#fff; }
+main { flex:1; min-width:0; padding:40px clamp(20px,5vw,72px); max-width:920px; }
+main h1 { margin-top:0; }
+h1,h2,h3 { line-height:1.25; }
+h2 { border-bottom:1px solid var(--line); padding-bottom:6px; margin-top:2em; }
+code { background:var(--code); padding:.15em .4em; border-radius:4px; font-size:.88em; }
+pre { background:var(--code); padding:16px; border-radius:10px; overflow:auto;
+       border:1px solid var(--line); }
+pre code { background:none; padding:0; }
+table { border-collapse:collapse; width:100%; margin:1em 0; font-size:.94em; }
+th,td { border:1px solid var(--line); padding:8px 10px; text-align:left; vertical-align:top; }
+th { background:#1b2230; }
+blockquote { border-left:3px solid var(--accent); margin:1em 0; padding:.2em 1em; color:var(--muted); }
+hr { border:none; border-top:1px solid var(--line); margin:2em 0; }
+.footer { color:var(--muted); font-size:13px; margin-top:48px; border-top:1px solid var(--line);
+           padding-top:16px; }
+@media (max-width:760px) { .layout{flex-direction:column} nav{width:auto;height:auto;position:static} }
+</style>
+</head>
+<body>
+<div class="layout">
+<nav>
+  <p class="brand">Airlock Vertical KB</p>
+  <p class="tag">v2 · Elemental · skill docs</p>
+  <ul>
+<li><a href="index.html">Airlock Vertical Knowledge Base Generator — v2 (Elemental)</a></li>
+<li><a href="UPGRADE-NOTES.html">Airlock Vertical KB — v2 Upgrade Notes</a></li>
+</ul>
+<h2>References</h2><ul>
+<li><a href="references__aeo-guide.html">Orbit AI — AEO / llms.txt IMPLEMENTATION GUIDE</a></li>
+<li><a href="references__build-pipeline.html" class="active">Orbit AI — BUILD PIPELINE &amp; DEFINITION-OF-READY</a></li>
+<li><a href="references__compiler-workflow.html">Compiler Workflow — `tools/compile_agent.py`</a></li>
+<li><a href="references__compliance-patterns.html">Compliance Patterns (cross-vertical)</a></li>
+<li><a href="references__dialect-glossary.html">Airlock — REGIONAL SPANISH DIALECT GLOSSARY</a></li>
+<li><a href="references__dialect-module.html">Airlock — REGIONAL SPANISH DIALECT MODULE</a></li>
+<li><a href="references__kb-template.html">KB Template — required section structure for every vertical/niche</a></li>
+<li><a href="references__language-dialect-layer.html">Language &amp; Dialect Layer (shared by every Airlock agent)</a></li>
+<li><a href="references__local-landing-pages.html">Orbit AI — LOCAL LANDING PAGE SYSTEM</a></li>
+<li><a href="references__local-seo-gbp.html">Orbit AI — LOCAL SEO + GOOGLE BUSINESS PROFILE PLAYBOOK</a></li>
+<li><a href="references__niche-atlas.html">Airlock Niche Atlas — Extended Dive (all 20 verticals)</a></li>
+<li><a href="references__quality-bar.html">Orbit AI — THE BEAT-THE-GENERATORS STANDARD</a></li>
+<li><a href="references__service-levels.html">Airlock Service &amp; Support Levels</a></li>
+<li><a href="references__template-library.html">Orbit AI — TEMPLATE LIBRARY</a></li>
+<li><a href="references__tier-ladder.html">Airlock Elemental Tier Ladder</a></li>
+<li><a href="references__voice-runtime-layer.html">Airlock PLATINUM — Universal Voice &amp; Runtime Layer</a></li>
+<li><a href="references__website-audit.html">Orbit AI — WEBSITE AUDIT (Paste-a-URL)</a></li>
+<li><a href="references__website-catalog.html">Orbit AI — WEBSITE &amp; PLATFORM CATALOG</a></li>
+</ul>
+<h2>Verticals</h2><ul>
+<li><a href="references__verticals__law-firms.html">Airlock Knowledge Base — Vertical: LAW FIRMS (Base Layer)</a></li>
+<li><a href="references__verticals__tattoo-shops.html">Airlock Knowledge Base — Vertical: TATTOO SHOPS (Base Layer)</a></li>
+</ul>
+</nav>
+<main>
+<h1 id="orbit-ai-build-pipeline-definition-of-ready">Orbit AI — BUILD PIPELINE &amp; DEFINITION-OF-READY</h1>
+<p><em>The single ordered path every Orbit build follows — from a pasted URL to a live, elite front office and
+its monthly continuation. It ties together <code>template-library.md</code>, <code>quality-bar.md</code>, <code>website-audit.md</code>,
+the growth playbooks, the build tools, and the two gates in <code>quality-bar.md</code> §8. Anyone on the team runs
+it the same way, so every demo is provably elite before it ships.</em></p>
+<hr />
+<h2 id="the-pipeline-in-order">The pipeline (in order)</h2>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Step</th>
+<th>Mode</th>
+<th>Ref / tool</th>
+<th>Output</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td><strong>Intake &amp; audit</strong> — capture business facts; if they have a site (or a competitor does), audit it</td>
+<td>human + tool</td>
+<td><code>website-audit.md</code>, <code>tools/audit_batch.py</code></td>
+<td>audit scorecard + recommended tier/template</td>
+</tr>
+<tr>
+<td>1</td>
+<td><strong>Scope</strong> — set <strong>build tier</strong> (scope), <strong>service level</strong> (continuation), and <strong>risk class</strong></td>
+<td>human</td>
+<td><code>tier-ladder.md</code>, <code>service-levels.md</code>, <code>quality-bar.md</code> §8</td>
+<td>signed scope</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>Compile KB</strong> — one source of truth for copy + chat + voice</td>
+<td>auto</td>
+<td><code>compiler-workflow.md</code>, <code>tools/compile_agent.py</code></td>
+<td>KB + business manifest</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>Select template</strong> — Vertical → Niche → Tier → Template → Palette <code>C#</code> (+ Type <code>T#</code>)</td>
+<td>auto/human</td>
+<td><code>template-library.md</code></td>
+<td>design blueprint</td>
+</tr>
+<tr>
+<td>4</td>
+<td><strong>Scaffold/build</strong> — assemble pages + World-Class Feature Stack; <strong>pre-seed the plumbing</strong>: <code>llms.txt</code>, location routes + Areas-We-Serve hub, schema templates</td>
+<td>scaffold (Gold + low-risk Platinum) / else human review</td>
+<td><code>tools/gen_llms_txt.py</code>, <code>local-landing-pages.md</code></td>
+<td>built site shell</td>
+</tr>
+<tr>
+<td>5</td>
+<td><strong>Fill content</strong> — domain-accurate copy, native EN/ES, city pages <strong>on-demand with real local data</strong> (no thin stubs)</td>
+<td>on-demand; high-risk = human review</td>
+<td><code>aeo-guide.md</code>, <code>dialect-module.md</code></td>
+<td>finished content</td>
+</tr>
+<tr>
+<td>6</td>
+<td><strong>Front office</strong> — compile voice receptionist + grounded chat + CRM/automation routing</td>
+<td>Iridium+; human-gate</td>
+<td><code>voice-runtime-layer.md</code></td>
+<td><code>system_prompt.txt</code>, routing, manifest</td>
+</tr>
+<tr>
+<td>7</td>
+<td><strong>§4 launch-gate self-check</strong> — score perf/CWV, A11y, SEO+AEO, CRO, content, front office, etc.</td>
+<td>auto + human</td>
+<td><code>quality-bar.md</code> §4</td>
+<td>scorecard (must ≥ 90 + all Must-Pass)</td>
+</tr>
+<tr>
+<td>8</td>
+<td><strong>Build-review gate</strong> — per §8 risk × tier matrix; always-gated modules (safety/advice/claims/dialect) reviewed</td>
+<td>human where required</td>
+<td><code>quality-bar.md</code> §8, <code>compliance-patterns.md</code></td>
+<td>review sign-off</td>
+</tr>
+<tr>
+<td>9</td>
+<td><strong>Human go-live approval</strong> — <strong>UNIVERSAL</strong>: a person approves every new deploy before publish</td>
+<td>human, always</td>
+<td><code>quality-bar.md</code> §8</td>
+<td>recorded go-live approval</td>
+</tr>
+<tr>
+<td>10</td>
+<td><strong>Deploy</strong> — publish via the gated workflow (manual run = the gate)</td>
+<td>gated</td>
+<td><code>.github/workflows/pages.yml</code> pattern</td>
+<td>live site + <code>/llms.txt</code></td>
+</tr>
+<tr>
+<td>11</td>
+<td><strong>Continuation</strong> — monthly elite work across <strong>all</strong> components, by service level</td>
+<td>recurring</td>
+<td><code>quality-bar.md</code> §7</td>
+<td>ongoing results</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="definition-of-ready-dor-before-a-build-starts">Definition of Ready (DoR) — before a build starts</h2>
+<ul>
+<li>[ ] Business facts captured (name, location, services, hours, contact, languages)</li>
+<li>[ ] Vertical + niche identified (<code>niche-atlas.md</code>); <strong>risk class</strong> set (<code>quality-bar.md</code> §8)</li>
+<li>[ ] Build tier (scope) + service level (continuation) agreed</li>
+<li>[ ] Brand assets + chosen palette <code>C#</code> / type <code>T#</code></li>
+<li>[ ] <strong>Real local data</strong> in hand for any city pages (projects, reviews, neighborhoods) — or no city pages yet</li>
+<li>[ ] Compliance hard-lines for the vertical loaded (<code>compliance-patterns.md</code>)</li>
+<li>[ ] KB compiled (copy + chat + voice from one source)</li>
+</ul>
+<h2 id="definition-of-done-dod-before-go-live">Definition of Done (DoD) — before go-live</h2>
+<ul>
+<li>[ ] §4 <strong>Must-Pass all green</strong> + weighted score <strong>≥ 90/100</strong></li>
+<li>[ ] CWV: LCP &lt; 1.5s · CLS &lt; 0.05 · INP &lt; 200ms (throttled mobile)</li>
+<li>[ ] Native EN/ES parity + <code>hreflang</code>; grounded chat answers with <strong>no hallucination</strong></li>
+<li>[ ] (Iridium+) voice receptionist answers, books, writes a clean CRM disposition</li>
+<li>[ ] <code>/llms.txt</code> present + valid structured data (LocalBusiness + FAQPage min.)</li>
+<li>[ ] Analytics + lead→CRM + speed-to-lead wired</li>
+<li>[ ] <strong>Build-review gate</strong> signed where §8 requires it; compliance/safety/claims modules reviewed</li>
+<li>[ ] <strong>Human go-live approval recorded</strong> (universal) — then, and only then, deploy</li>
+</ul>
+<hr />
+<h2 id="the-two-gates-recap-quality-barmd-8">The two gates (recap — <code>quality-bar.md</code> §8)</h2>
+<ol>
+<li><strong>Build-review gate (risk × tier):</strong> scaffold (auto) for Gold + low-risk Platinum; human content
+   review for high-risk Platinum and <strong>all</strong> Iridium/Rhodium; safety/advice/claims/dialect modules are
+   always reviewed.</li>
+<li><strong>Universal go-live gate:</strong> <strong>every</strong> new deploy — scaffolded or not — gets explicit human go-live
+   approval after the §4 gate, before it publishes. Scaffolding automates <em>building</em>, never the
+   <em>decision to publish</em>.</li>
+</ol>
+<h2 id="continuation-recap-quality-barmd-7">Continuation (recap — <code>quality-bar.md</code> §7)</h2>
+<p>The initial build is elite and fairly priced; the recurring value is continuing the level <strong>across all
+components every month</strong> (website, local SEO/GBP, city pages/AEO, voice/chat, automation, content),
+packaged by service level (DIY → Hybrid → DFY → Diamond). Quality is never the upsell — <strong>scope</strong> and
+<strong>continuation</strong> are.</p>
+<blockquote>
+<p>One line: <strong>audit → scope → compile KB → template → scaffold/build → fill → front office → §4 gate →
+build-review gate → human go-live → deploy → continue.</strong> Elite at every step, human-approved before
+live, improved every month.</p>
+</blockquote>
+<div class="footer">Static docs for the <code>airlock-vertical-kb</code> Claude Code skill ·
+generated from <code>skills/airlock-vertical-kb/</code>.</div>
+</main>
+</div>
+</body>
+</html>

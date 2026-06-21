@@ -137,6 +137,10 @@
   .reviews .rev{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px 20px}
   .reviews .stars{color:var(--accent2);letter-spacing:2px;font-size:14px;margin-bottom:8px}
   .reviews .who{color:var(--muted);font-size:13px;margin-top:10px}
+  .chatForm .mic{background:var(--ink);border:1px solid var(--line);color:var(--fg);border-radius:10px;
+                 width:42px;font-size:18px;cursor:pointer}
+  .chatForm .mic.listening{background:var(--accent);color:#fff;animation:pulse 1s infinite}
+  @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(255,255,255,.0)}50%{box-shadow:0 0 0 6px rgba(255,255,255,.18)}}
   .agg{display:flex;align-items:center;gap:10px;color:var(--muted);font-size:14px;margin-top:6px}
   .agg b{color:var(--fg);font-size:22px}
   /* motion: gentle scroll-reveal, fully disabled for reduced-motion users */
@@ -212,16 +216,17 @@
   <div class="chatHead">
     <span class="dot"></span>
     <div>
-      <b data-en>Studio Front Desk</b><b data-es>Recepción del Estudio</b>
-      <small data-en>Ask about booking, pricing, styles — EN/ES</small><small data-es>Pregunta por reservas, precios, estilos — EN/ES</small>
+      <b data-en>Front Desk · AI Receptionist</b><b data-es>Recepción · Recepcionista IA</b>
+      <small data-en>Type or tap 🎙️ to talk — booking, pricing, hours · EN/ES</small><small data-es>Escribe o toca 🎙️ para hablar — reservas, precios, horario · EN/ES</small>
     </div>
   </div>
   <div class="chatLog" id="chatLog"></div>
   <p class="sr-consent" style="margin:0 12px;font-size:11px;color:var(--muted)"><span data-en>Please don't share sensitive info (SSN, case numbers) in chat.</span><span data-es>Por favor no compartas datos sensibles (SSN, n&uacute;meros de caso) en el chat.</span></p>
   <div class="chips" id="chatChips"></div>
   <form class="chatForm" id="chatForm" autocomplete="off">
+    <button type="button" id="micBtn" class="mic" aria-label="Talk to the receptionist" title="Talk">🎙️</button>
     <input id="chatInput" placeholder="Type a message…" aria-label="message">
-    <button type="submit">➤</button>
+    <button type="submit" aria-label="Send">➤</button>
   </form>
 </div>
 
@@ -230,7 +235,7 @@
    CONFIG — EDIT THESE WITH THE STUDIO'S REAL DETAILS
    These are placeholders. Fill in the verified business info before launch.
    ==================================================================== */
-const CONFIG = {"name": "Terrence Green Law", "logo": "logo.svg", "vertical": "immigration", "address": "960 Broadway St NE, Suite 4, Salem, OR 97301", "phone": "(503) 877-3439", "hoursEn": "Mon–Fri 9am–5pm", "hoursEs": "Lun–Vie 9am–5pm", "instagram": "", "facebook": "", "bookingUrl": "", "artists": [], "gallery": [], "demo": false, "reviews": [{"stars": 5, "en": "Explained my options clearly and never made me feel rushed. The free consult was real.", "es": "Explicaron mis opciones con claridad y sin prisa. La consulta gratis fue real.", "who": "Sample · demo"}, {"stars": 5, "en": "Bilingual from the first call — my parents finally understood the process.", "es": "Bilingüe desde la primera llamada — mis papás por fin entendieron el proceso.", "who": "Sample · demo"}, {"stars": 5, "en": "Honest about fees and timelines up front. Highly recommend.", "es": "Honestos con los costos y los tiempos desde el inicio. Muy recomendado.", "who": "Sample · demo"}], "chatEndpoint": "https://jonathan777-ui.app.n8n.cloud/webhook/orbit-demo-chat"};
+const CONFIG = {"name": "Terrence Green Law", "logo": "logo.svg", "vertical": "immigration", "address": "960 Broadway St NE, Suite 4, Salem, OR 97301", "phone": "(503) 877-3439", "hoursEn": "Mon–Fri 9am–5pm", "hoursEs": "Lun–Vie 9am–5pm", "instagram": "", "facebook": "", "bookingUrl": "", "artists": [], "gallery": [], "demo": false, "services": ["Family & Green Cards", "Citizenship & Naturalization", "Work Permits & Visas", "Removal / Deportation Defense", "Asylum & Humanitarian", "DACA & Renewals"], "faqs": [{"q_en": "How much does a consultation cost?", "a_en": "The consultation is free. The attorney explains any fees clearly before you decide &mdash; no surprises.", "q_es": "&iquest;Cu&aacute;nto cuesta la consulta?", "a_es": "La consulta es gratis. El abogado explica los honorarios con claridad antes de decidir &mdash; sin sorpresas."}, {"q_en": "Do you speak Spanish?", "a_en": "Yes &mdash; our team is fully bilingual and your consultation can be entirely in Spanish.", "q_es": "&iquest;Hablan espa&ntilde;ol?", "a_es": "S&iacute; &mdash; el equipo es completamente biling&uuml;e y tu consulta puede ser en espa&ntilde;ol."}, {"q_en": "Is what I share confidential?", "a_en": "Yes. What you share is kept confidential, and the attorney is bound by strict confidentiality.", "q_es": "&iquest;Es confidencial lo que comparto?", "a_es": "S&iacute;. Lo que compartes se mantiene confidencial, y el abogado est&aacute; obligado a estricta confidencialidad."}, {"q_en": "Does my immigration status affect talking to you?", "a_en": "No &mdash; speaking with us is confidential, and we never treat your status as a barrier to getting help.", "q_es": "&iquest;Mi estatus afecta hablar con ustedes?", "a_es": "No &mdash; hablar con nosotros es confidencial, y nunca tratamos tu estatus como una barrera para ayudarte."}, {"q_en": "Someone was detained by ICE &mdash; what do I do?", "a_en": "Call us right away with the person's full name, A-number if known, and the facility. If it is an emergency, call 911.", "q_es": "Detuvieron a alguien por ICE &mdash; &iquest;qu&eacute; hago?", "a_es": "Ll&aacute;manos de inmediato con el nombre completo, el A-number si lo sabes, y el centro. Si es una emergencia, llama al 911."}], "useLLM": false, "reviews": [{"stars": 5, "en": "Explained my options clearly and never made me feel rushed. The free consult was real.", "es": "Explicaron mis opciones con claridad y sin prisa. La consulta gratis fue real.", "who": "Sample · demo"}, {"stars": 5, "en": "Bilingual from the first call — my parents finally understood the process.", "es": "Bilingüe desde la primera llamada — mis papás por fin entendieron el proceso.", "who": "Sample · demo"}, {"stars": 5, "en": "Honest about fees and timelines up front. Highly recommend.", "es": "Honestos con los costos y los tiempos desde el inicio. Muy recomendado.", "who": "Sample · demo"}], "chatEndpoint": "https://jonathan777-ui.app.n8n.cloud/webhook/orbit-turn"};
 
 /* ---------- language ---------- */
 function setLang(l){
@@ -308,7 +313,7 @@ function demoTile(label, n){
     +'<text x="300" y="250" fill="#ffffff" font-family="Arial,sans-serif" font-size="36" font-weight="bold" text-anchor="middle">FOR DEMONSTRATION</text>'
     +'<text x="300" y="296" fill="#ffffff" font-family="Arial,sans-serif" font-size="36" font-weight="bold" text-anchor="middle">PURPOSES ONLY</text>'
     +'<text x="300" y="344" fill="'+c+'" font-family="Arial,sans-serif" font-size="20" letter-spacing="3" text-anchor="middle">SAMPLE — DEMO</text>'
-    +'<text x="300" y="430" fill="#9aa4b8" font-family="Arial,sans-serif" font-size="16" text-anchor="middle">Terrence Green Law — placeholder, not actual work</text>'
+    +'<text x="300" y="430" fill="#9aa4b8" font-family="Arial,sans-serif" font-size="16" text-anchor="middle">'+(CONFIG.name||'')+' — placeholder, not actual work</text>'
     +'<text x="570" y="572" fill="#9aa4b8" font-family="Arial,sans-serif" font-size="18" text-anchor="end">#'+(n+1)+'</text>'
     +'</svg>';
   return 'data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg);
@@ -367,14 +372,20 @@ renderBrand(); renderNAP(); renderArtists(); renderGallery();
 })();
 
 /* ====================================================================
-   CHAT WIDGET — posts to the n8n chatbot brain (CONFIG.chatEndpoint)
-   Payload: { messages:[{role,content}...], lang, page }  →  { reply }
+   FRONT OFFICE — KEYLESS BY DEFAULT (no API, no key).
+   Chatbot: an on-page KB answer engine grounded in CONFIG (hours, address,
+            services, FAQs) — authored answers, bilingual, instant, $0.
+   Voice receptionist: browser Web Speech API (STT + TTS), bilingual, $0.
+   Optional upgrade: set CONFIG.useLLM=true + CONFIG.chatEndpoint to route turns
+   to a Groq brain (n8n /webhook/orbit-turn); Deepgram Nova-3/Aura-2 is the
+   premium voice path. The KB engine always remains the fallback so chat/voice
+   never go dead.
    ==================================================================== */
 const log=document.getElementById('chatLog');
 const panel=document.getElementById('chatPanel');
 const chips=document.getElementById('chatChips');
 let history=[]; // {role, content}
-let leadMode=false; // front-office fallback: collect a callback name/number if the brain is offline
+let leadMode=false; // collect a callback name/number after a dead-end
 
 const CHIPS = { en:[["Free consult", "I'd like a free consultation."], ["Green card", "Can you help with a green card or family petition?"], ["Citizenship", "I want to apply for citizenship."], ["ICE detention", "A family member was detained by ICE."]],
   es:[["Consulta gratis", "Quiero una consulta gratis."], ["Green card", "¿Pueden ayudar con green card o petición familiar?"], ["Ciudadanía", "Quiero solicitar la ciudadanía."], ["Detención ICE", "Detuvieron a un familiar por ICE."]] };
@@ -394,49 +405,90 @@ function bubble(text, who){
 function openChat(){
   panel.classList.add('open');
   if(!history.length){
-    const es=document.documentElement.lang==='es';
-    bubble(es
-      ? "Hola, bienvenido a Terrence Green Law. Puedo ayudarle a agendar una consulta gratis y confidencial — en inglés o español. ¿En qué le ayudo?"
-      : "Hello, and welcome to Terrence Green Law. I can help you set up a free, confidential consultation — in English or Spanish. What's going on?",'bot');
+    const es=document.documentElement.lang==='es'; const nm=CONFIG.name||'';
+    bubble(es ? ('¡Hola! Soy la recepción de '+nm+'. ¿En qué te ayudo — reservar, precios u horario?')
+              : ('Hi! I’m the front desk at '+nm+'. How can I help — booking, pricing, or hours?'),'bot');
     renderChips();
   }
 }
 document.getElementById('chatBtn').onclick=()=> panel.classList.contains('open')?panel.classList.remove('open'):openChat();
 
-async function send(text){
+/* ---------- keyless KB answer engine (grounded in CONFIG) ---------- */
+function _norm(s){ return (s||'').toLowerCase()
+  .replace(/[áàä]/g,'a').replace(/[éèë]/g,'e').replace(/[íìï]/g,'i').replace(/[óòö]/g,'o').replace(/[úùü]/g,'u').replace(/ñ/g,'n'); }
+function _hit(q,w){ for(var i=0;i<w.length;i++){ if(q.indexOf(w[i])>=0) return true; } return false; }
+function kbAnswer(raw){
+  var es=document.documentElement.lang==='es'; var c=CONFIG; var q=_norm(raw);
+  var hours=es?(c.hoursEs||c.hoursEn||''):(c.hoursEn||''); var phone=c.phone||'';
+  if(_hit(q,['book','appoint','schedul','reserv','cita','agend','turno','walk in','sin cita']))
+    return es?('Con gusto. '+(phone?('Llámanos al '+phone+' o '):'')+'usa el botón “Reservar” y lo agendamos. ¿Qué día te conviene?')
+             :('Happy to help. '+(phone?('Call us at '+phone+' or '):'')+'tap “Book” and we’ll set it up. What day works best?');
+  if(_hit(q,['hour','open','clos','today','horari','abre','cierr','hoy','abiert']))
+    return es?('Nuestro horario: '+hours+'.'):('Our hours: '+hours+'.');
+  if(_hit(q,['where','address','locat','direcc','donde','ubica','park','map']))
+    return es?('Estamos en '+(c.address||'Salem, OR')+'.'):('We’re at '+(c.address||'Salem, OR')+'.');
+  if(_hit(q,['phone','call','number','telefon','llam','contact','reach']))
+    return phone?(es?('Llámanos al '+phone+'.'):('Call us at '+phone+'.')):(es?'Escríbenos por aquí y te ayudamos.':'Message us here and we’ll help.');
+  if(_hit(q,['price','cost','how much','precio','cuesta','cuanto','rate','fee','charge','quote']))
+    return es?'El precio depende del servicio. Te damos un estimado claro y sin compromiso — ¿qué buscas?'
+            :'Pricing depends on the service. We’ll give you a clear, no-pressure estimate — what are you looking for?';
+  if(_hit(q,['spanish','espanol','english','ingl','idioma','language','bilingu']))
+    return es?'Sí, atendemos en español e inglés.':'Yes — we help in both English and Spanish.';
+  if(c.services&&c.services.length&&_hit(q,['servic','offer','do you do','do you have','hacen','ofrec','menu']))
+    return (es?'Ofrecemos: ':'We offer: ')+c.services.join(', ')+'.';
+  if(c.faqs&&c.faqs.length){ var best=null,bs=0;
+    for(var i=0;i<c.faqs.length;i++){ var f=c.faqs[i]; var fq=_norm(es?(f.q_es||f.q_en):(f.q_en||''));
+      var toks=fq.split(/[^a-z0-9]+/).filter(function(w){return w.length>3;}); var sc=0;
+      for(var j=0;j<toks.length;j++){ if(q.indexOf(toks[j])>=0) sc++; }
+      if(sc>bs){ bs=sc; best=f; } }
+    if(best&&bs>=1) return es?(best.a_es||best.a_en):(best.a_en); }
+  leadMode=true;
+  return es?('Buena pregunta. '+(phone?('Llámanos al '+phone+' y te ayudamos al instante, o déjame tu nombre y teléfono.'):'Déjame tu nombre y teléfono y te contactamos.'))
+          :('Good question. '+(phone?('Call us at '+phone+' and we’ll help right away, or leave your name and number.'):'Leave your name and number and we’ll reach out.'));
+}
+function buildSystem(){
+  var es=document.documentElement.lang==='es'; var c=CONFIG;
+  var kb=c.name+' — '+(c.vertical||'local business')+' in '+(c.address||'Salem, OR')+'. '
+    +(c.phone?('Phone '+c.phone+'. '):'')+'Hours: '+(es?(c.hoursEs||c.hoursEn):c.hoursEn)+'. '
+    +((c.services&&c.services.length)?('Services: '+c.services.join(', ')+'. '):'');
+  if(c.faqs) for(var i=0;i<c.faqs.length;i++){ kb+=(c.faqs[i].q_en||'')+' '+(c.faqs[i].a_en||'')+' '; }
+  var tone=/law|immigration|attorney/i.test(c.vertical||'')?'Polished, professional, warm.':'Casual, warm, neighborly.';
+  return 'You are the front-desk receptionist for '+c.name+'. Answer ONLY from this KB; never invent prices, dates, or availability — offer a free estimate/consult or a callback. Keep replies to 1-2 sentences, one question at a time, fully bilingual, reply in the customer\'s language ('+(es?'Spanish':'English')+' now). TONE: '+tone+'\nKB: '+kb;
+}
+
+/* ---------- send: keyless KB by default; optional Groq brain ---------- */
+async function send(text, spoken){
   text=(text||'').trim(); if(!text) return;
-  bubble(text,'me');
-  document.getElementById('chatInput').value='';
-  const es0=document.documentElement.lang==='es';
-  if(leadMode){ // collecting a callback detail after an offline fallback
-    leadMode=false;
-    bubble(es0?'¡Gracias! El estudio te contactará en breve. Si es urgente, llámanos directamente.'
-              :'Thanks! The studio will reach out shortly. If it’s urgent, please call us directly.','bot');
-    return;
-  }
+  bubble(text,'me'); document.getElementById('chatInput').value='';
+  var es=document.documentElement.lang==='es';
+  if(leadMode){ leadMode=false;
+    var t=es?'¡Gracias! Te contactaremos en breve. Si es urgente, llámanos directamente.'
+            :'Thanks! We’ll reach out shortly. If it’s urgent, please call us directly.';
+    bubble(t,'bot'); if(spoken) speak(t); return; }
   history.push({role:'user',content:text});
-  const typing=bubble('…','bot');
-  try{
-    const r=await fetch(CONFIG.chatEndpoint,{
-      method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({messages:history, lang:document.documentElement.lang,
-        page:location.pathname, business:{name:CONFIG.name, vertical:CONFIG.vertical, address:CONFIG.address, phone:CONFIG.phone, hours:CONFIG.hoursEn, instagram:CONFIG.instagram}})
-    });
-    const data=await r.json();
-    if(data && data.reply){
-      typing.textContent=data.reply; history.push({role:'assistant',content:data.reply});
-    }else{
-      leadMode=true;
-      typing.textContent=(document.documentElement.lang==='es'
-        ? 'Perdona, tuve un problema. Déjame tu nombre y teléfono y el estudio te llama.'
-        : 'Sorry, I had trouble there. Leave your name and number and the studio will call you back.');
-    }
-  }catch(e){
-    leadMode=true;
-    typing.textContent=(document.documentElement.lang==='es'
-      ? 'No me pude conectar ahora. Déjame tu nombre y teléfono y te llamamos.'
-      : 'I couldn’t connect right now. Leave your name and number and we’ll call you back.');
+  var typing=bubble('…','bot'); var reply=null;
+  if(CONFIG.useLLM && CONFIG.chatEndpoint){           // optional Groq brain
+    try{ var r=await fetch(CONFIG.chatEndpoint,{method:'POST',headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({system:buildSystem(), messages:history})});
+      var data=await r.json(); if(data&&data.reply) reply=data.reply; }catch(e){}
   }
+  if(!reply) reply=kbAnswer(text);                    // keyless grounded fallback (always works)
+  typing.textContent=reply; history.push({role:'assistant',content:reply});
+  if(spoken) speak(reply);
+}
+
+/* ---------- voice receptionist: Web Speech API (keyless) ---------- */
+var _SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+function speak(t){ try{ var u=new SpeechSynthesisUtterance(t); u.lang=document.documentElement.lang==='es'?'es-ES':'en-US'; speechSynthesis.cancel(); speechSynthesis.speak(u); }catch(e){} }
+function startVoice(){
+  var es=document.documentElement.lang==='es'; openChat();
+  if(!_SR){ bubble(es?'La voz no está disponible en este navegador. Escríbeme aquí o llámanos.':'Voice isn’t supported in this browser. Type here or call us.','bot'); return; }
+  var rec=new _SR(); rec.lang=es?'es-ES':'en-US'; rec.interimResults=false; rec.maxAlternatives=1;
+  var mic=document.getElementById('micBtn'); if(mic) mic.classList.add('listening');
+  rec.onresult=function(e){ send(e.results[0][0].transcript, true); };
+  rec.onerror=function(){ if(mic) mic.classList.remove('listening'); };
+  rec.onend=function(){ if(mic) mic.classList.remove('listening'); };
+  try{ rec.start(); }catch(e){}
 }
 
 /* ---------- social proof, mobile call bar, motion, schema ---------- */
@@ -473,6 +525,7 @@ renderReviews();
   var s=document.createElement('script'); s.type='application/ld+json'; s.textContent=JSON.stringify(ld);
   document.head.appendChild(s);
 })();
+document.getElementById('micBtn').addEventListener('click',startVoice);
 document.getElementById('chatForm').addEventListener('submit',e=>{
   e.preventDefault(); send(document.getElementById('chatInput').value);
 });

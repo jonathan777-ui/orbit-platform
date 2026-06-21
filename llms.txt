@@ -1,6 +1,6 @@
 # Orbit — Live Demo Queue (Salem, OR)
 > Orbit builds bilingual (EN/ES) websites, chatbots, and AI voice receptionists for local
-> businesses. Below are live demo sites, each with its own /llms.txt.
+> businesses. Each demo ships a keyless on-page receptionist (chat + voice) and its own /llms.txt.
 
 ## Demos
 - https://jonathan777-ui.github.io/orbit-platform/permanent-marx-tattoo/ — Permanent Marx Tattoo Studio (Tattoo · Piercing)

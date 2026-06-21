@@ -23,6 +23,7 @@ AI voice receptionist, a chatbot, and website copy from one source.
 - **Template Library** (`references/template-library.md`): the complete 40-vertical atlas — 25 website templates per vertical (**1,000 total**), each mapped to niche, build-tier, layout, and palette — plus the **Top 40 Color Combinations**, **Top 50 Typography Pairings**, a **World-Class Feature Stack**, and a **Template Anatomy** guide.
 - **Live compiler** (`tools/compile_agent.py`): renders a gold base + niche overlay + voice layer into a deployable agent
   (`system_prompt.txt`, `attio_field_map.json`, `n8n_routing.json`, `agent.manifest.json`).
+- **Build tools**: `tools/gen_llms_txt.py` (auto-emits `/llms.txt` + `/llms-full.txt` for AI answer engines on every build — also wired into `site/build.py`) and `tools/audit_batch.py` (paste several URLs → a weighted competitor comparison grid).
 
 See [`skills/airlock-vertical-kb/SKILL.md`](skills/airlock-vertical-kb/SKILL.md) for the
 full spec and [`UPGRADE-NOTES.md`](skills/airlock-vertical-kb/UPGRADE-NOTES.md) for the v1 → v2 changes.

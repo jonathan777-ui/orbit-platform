@@ -55,6 +55,18 @@ Run real signals, not guesses:
 5. Detect language coverage + translation quality; flag AEO structure (FAQ/schema/`llms.txt`).
 6. Score each dimension, assemble the scorecard, map findings → recommended tier/template.
 
+## Batch / competitor-comparison mode
+Paste **several URLs** (the client + competitors) and get one **comparison grid** — scorecard, ranking,
+per-dimension leaders, the client's biggest gaps, and the recommended Orbit move. Run
+`tools/audit_batch.py` with a JSON of per-site scores (gathered as above); it renders a markdown report
+weighted by the `quality-bar.md` launch gate.
+```
+python tools/audit_batch.py audits.json --out comparison.md   # → hand the .md to the right conversation
+python tools/audit_batch.py --sample                          # demo report
+```
+Input: `{ "query", "date", "sites": [ {"label","url","client":bool,"scores":{dim:0-100},"findings":[…]} ] }`.
+Same dimensions/weights as the launch gate; missing scores show as "—".
+
 ## Guardrails (honesty + ethics)
 - **Public pages only** — never bypass logins, paywalls, or scrape gated content.
 - Competitor audits are fair game (public info), but **be accurate** — never fabricate metrics or

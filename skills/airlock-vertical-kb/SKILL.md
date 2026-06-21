@@ -121,6 +121,13 @@ Four references operationalize the growth side of a build:
   Overviews, ChatGPT, Perplexity, Gemini). Geographic scope is the Local→Regional→National ladder in
   `quality-bar.md` §2.5b — default local-first, climb by business model + tier.
 
+**Build tools (every Orbit build uses them):**
+- `tools/gen_llms_txt.py` — emits `/llms.txt` (+ `/llms-full.txt`) from a business manifest so AI
+  answer engines read the business accurately. Wired into `site/build.py` (the docs site ships one);
+  client builds call it on the compiled KB.
+- `tools/audit_batch.py` — competitor-audit **batch mode**: several audited URLs → one weighted
+  comparison grid (markdown) graded against the launch gate. Hand the output file to the right conversation.
+
 ## Output structure
 
 ALWAYS follow `references/kb-template.md`. Never skip the compliance section or the data schema —

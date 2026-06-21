@@ -52,6 +52,11 @@ business so they read it accurately (HTML is noisy; `llms.txt` is the signal).
 ```
 Keep it truthful and in sync with the site + GBP (same source of truth — the KB).
 
+**Orbit emits this automatically.** `tools/gen_llms_txt.py` renders `/llms.txt` (+ `/llms-full.txt`)
+from a small business manifest compiled from the KB, so **every Orbit build ships one** — and the docs
+site itself emits one via `site/build.py`. Run: `python tools/gen_llms_txt.py business.json --out dist/`
+(or `--sample` for a demo).
+
 ## Off-site (engines synthesize from the whole web)
 - **Google Business Profile** complete + active (huge for local AI answers).
 - **Reviews everywhere** (Google, vertical directories) — volume, rating, recency, responses.

@@ -152,9 +152,36 @@ def build() -> None:
         page = PAGE.format(title=html.escape(title), navhtml=nav_for(out_name), body=body)
         (OUT / out_name).write_text(page, encoding="utf-8")
 
+    # Emit an llms.txt for AI answer engines (every Orbit build ships one; see
+    # references/aeo-guide.md + tools/gen_llms_txt.py for the client-site generator).
+    write_llms_txt(metas)
+
     # Disable Jekyll processing on Pages.
     (OUT / ".nojekyll").write_text("", encoding="utf-8")
     print(f"Built {len(metas)} pages into {OUT}")
+
+
+def write_llms_txt(metas: list[tuple[Path, str, str]]) -> None:
+    """Write a machine-readable /llms.txt summary of the docs site."""
+    base = "https://jonathan777-ui.github.io/orbit-platform"
+    lines = [
+        "# Airlock Vertical KB — Orbit Platform (docs)",
+        "> Documentation for the airlock-vertical-kb Claude Code skill: generates bilingual",
+        "> (EN/ES) knowledge bases, voice/chat agents, and websites for 40 business verticals.",
+        "",
+        "## Pages",
+    ]
+    for _, out_name, title in metas:
+        path = "/" if out_name == "index.html" else f"/{out_name}"
+        lines.append(f"- {base}{path}: {title}")
+    lines += [
+        "",
+        "## About",
+        "- Source: https://github.com/jonathan777-ui/orbit-platform",
+        "- Languages: English, Español",
+        "",
+    ]
+    (OUT / "llms.txt").write_text("\n".join(lines), encoding="utf-8")
 
 
 if __name__ == "__main__":

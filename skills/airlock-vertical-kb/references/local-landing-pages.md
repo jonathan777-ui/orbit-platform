@@ -71,6 +71,17 @@ clarity (business = provider of <service> in <city>). See `aeo-guide.md`.
 | **Iridium** | regional grid (city × money-service) with programmatic-but-unique generation + schema |
 | **Rhodium** | multi-market / multi-site, white-label per-location, national authority layer |
 
+## Scaffold vs. on-demand (pre-seeding a fresh build)
+**Pre-seed the *system*, fill the *content* on demand — never publish thin stubs.**
+- **Pre-seed automatically (safe, do it):** `/llms.txt` (generated from real manifest data via
+  `tools/gen_llms_txt.py`), the location URL structure + **Areas-We-Serve hub**, the city-page
+  component, and schema templates. The plumbing is ready out of the gate.
+- **Fill on demand (do NOT auto-stub):** a city page is generated and **published only when it has
+  real local data** (projects, reviews, neighborhoods) and clears the uniqueness bar above.
+  Auto-publishing empty "[city]" stubs is the doorway-penalty corner we refuse to cut.
+- **For demos:** ship **2–3 fully-built** city pages (real or realistic local proof) so the demo shows
+  the local system working — elite, never placeholder.
+
 ## Anti-patterns (these get you penalized)
 - ZIP-code doorway pages · every-city×every-service thin grids · duplicate/boilerplate "[city]" swaps ·
   fake locations or reviews · NAP that doesn't match reality (NAP must be **true** everywhere) ·

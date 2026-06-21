@@ -224,3 +224,30 @@ generator has. Rhodium is category-leader, bespoke, human-validated.
   and `tier-ladder.md` (what's gated where).
 - **Rule:** never ship to clear a checkbox — ship to win the side-by-side. The bar exists so the answer
   to "is this better than what Wix/Framer/Durable would make?" is an obvious **yes**.
+
+---
+
+## 7. Delivery model — elite from the gate, continuation-tiered
+
+**We never cut corners on craft.** The launch gate (§4) applies to **every build at every tier —
+including the demo and Gold.** Quality is **not** the upsell. Build **tiers differ in *scope*** (pages,
+e-commerce, voice receptionist, automation, portals — `tier-ladder.md`), **not in craft.** A Gold
+one-pager and a Rhodium platform are both elite; one just does more.
+
+**The differentiation and the recurring value is the monthly continuation — applied across *all*
+components, not just the initial build.** A generator hands over a static site and leaves; Orbit keeps
+every surface elite *and improving*, every month:
+
+| Component | What "continue the level" means monthly |
+|---|---|
+| Website | CWV/perf upkeep, A11y, design refinements, new sections, A/B tests |
+| Local SEO + GBP | posts, review velocity, citations, rank tracking (`local-seo-gbp.md`) |
+| City pages + AEO | expand the curated grid, refresh answers + `llms.txt` (`local-landing-pages.md`, `aeo-guide.md`) |
+| Voice receptionist + chat | prompt tuning, dialect re-validation, new intents (`voice-runtime-layer.md`) |
+| Automation | new flows, integrations, follow-ups |
+| Content | fresh, accurate, on-brand |
+
+**Packaging:** the initial build is elite and **fairly priced** — win the demo, don't gouge. The
+**service level** (`service-levels.md`: DIY → Hybrid → DFY → **Diamond**) sets **how much elite
+continuation** the client gets each month. Retention and results come from continuing the level across
+every component, every month — **not** from a one-time launch and **not** from gating build quality.

@@ -1,58 +1,51 @@
-name: Deploy docs site to GitHub Pages
+name: Deploy site (demos + docs) to GitHub Pages
+
+# Serves the gh-pages branch — all demo sites at the root, docs under /docs —
+# via the GitHub Pages "Actions" source. Run from Actions -> this workflow ->
+# Run workflow after updating the gh-pages branch to refresh the live site.
 
 on:
+  workflow_dispatch:
   push:
     branches: [main]
     paths:
-      - "skills/airlock-vertical-kb/**"
-      - "site/**"
       - ".github/workflows/pages.yml"
-  workflow_dispatch:
 
 permissions:
   contents: read
   pages: write
   id-token: write
 
-# Allow one concurrent deployment; don't cancel an in-progress run.
 concurrency:
   group: pages
   cancel-in-progress: false
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
-
-      - name: Install build deps
-        run: pip install "markdown==3.10.2"
-
-      - name: Build static site
-        run: python site/build.py
-
-      - name: Configure Pages
-        uses: actions/configure-pages@v5
-        with:
-          # Auto-enable Pages (GitHub Actions source) on first run.
-          enablement: true
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: site/_site
-
   deploy:
-    needs: build
     runs-on: ubuntu-latest
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
+      - name: Checkout gh-pages (demos + docs)
+        uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+          path: _site
+
+      - name: Prepare artifact
+        run: |
+          rm -rf _site/.git
+          touch _site/.nojekyll
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4

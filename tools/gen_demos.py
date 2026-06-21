@@ -9,7 +9,7 @@ TPL = os.environ.get("TPL", os.path.join(os.path.dirname(os.path.abspath(__file_
 CHAT = "https://jonathan777-ui.app.n8n.cloud/webhook/orbit-turn"  # optional Groq brain (useLLM)
 VOICE_TOKEN = "https://jonathan777-ui.app.n8n.cloud/webhook/voice-token"  # Deepgram 30s grant vendor
 VOICE_SITE_KEY = "ORBIT-SET-LAUNCH-SITE-KEY"
-VOICE_MODELS = {"sttModel": "nova-3", "ttsEn": "aura-2-thalia-en", "ttsEs": "aura-2-celeste-es"}
+VOICE_MODELS = {"sttModel": "nova-3", "ttsEn": "aura-2-thalia-en", "ttsEs": "aura-2-diana-es"}
 BASE = "https://jonathan777-ui.github.io/orbit-platform/"
 # Reuse the library's per-site llms.txt renderer (one source of truth, AEO guide).
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "skills", "airlock-vertical-kb", "tools"))

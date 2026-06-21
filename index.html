@@ -122,20 +122,95 @@
     </div>
 
     <div class="field">
-      <label>Vertical <span class="hint">(or auto-detect)</span></label>
-      <select name="vertical">
-        <option value="auto">Auto-detect</option>
-        <option value="tattoo">Tattoo / Piercing / Body Art</option>
-        <option value="beauty">Salon / Barber / Beauty</option>
-        <option value="medspa">Med Spa / Aesthetics</option>
-        <option value="law">Law Firm</option>
-        <option value="dental-medical">Dental / Medical</option>
-        <option value="home-services">Home Services / HVAC / Plumbing</option>
-        <option value="restaurant">Restaurant / Hospitality</option>
-        <option value="auto">Automotive</option>
-        <option value="real-estate">Real Estate</option>
-        <option value="fitness">Fitness / Studio</option>
-        <option value="other">Other</option>
+      <label>Industry <span class="req">*</span> <span class="hint">(pick the specific niche)</span></label>
+      <select name="vertical" required>
+        <option value="" disabled selected>Select an industry…</option>
+        <option value="auto">Auto-detect from listing</option>
+        <optgroup label="Tattoo &amp; Body Art">
+          <option value="tattoo-studio">Tattoo studio</option>
+          <option value="piercing-studio">Piercing studio</option>
+          <option value="pmu-microblading">Permanent makeup / Microblading</option>
+          <option value="tattoo-removal">Tattoo removal (laser)</option>
+          <option value="body-modification">Body modification</option>
+        </optgroup>
+        <optgroup label="Beauty &amp; Personal Care">
+          <option value="hair-salon">Hair salon</option>
+          <option value="barbershop">Barbershop</option>
+          <option value="nail-salon">Nail salon</option>
+          <option value="lash-brow">Lash / brow</option>
+          <option value="spa-massage">Spa / massage</option>
+        </optgroup>
+        <optgroup label="Med Spa &amp; Aesthetics">
+          <option value="injectables">Injectables / Botox / filler</option>
+          <option value="laser-skin">Laser / skin</option>
+          <option value="body-contouring">Body contouring</option>
+          <option value="iv-therapy">IV / wellness therapy</option>
+        </optgroup>
+        <optgroup label="Law Firm">
+          <option value="law-personal-injury">Personal injury</option>
+          <option value="law-immigration">Immigration</option>
+          <option value="law-family">Family law</option>
+          <option value="law-criminal">Criminal defense</option>
+          <option value="law-workers-comp">Workers' comp</option>
+          <option value="law-estate">Estate planning / probate</option>
+          <option value="law-bankruptcy">Bankruptcy</option>
+          <option value="law-business">Business / corporate</option>
+          <option value="law-real-estate">Real estate law</option>
+          <option value="law-employment">Employment</option>
+        </optgroup>
+        <optgroup label="Dental &amp; Medical">
+          <option value="general-dentistry">General dentistry</option>
+          <option value="orthodontics">Orthodontics</option>
+          <option value="cosmetic-dentistry">Cosmetic dentistry</option>
+          <option value="family-medicine">Family medicine / urgent care</option>
+          <option value="chiropractic">Chiropractic</option>
+          <option value="physical-therapy">Physical therapy</option>
+          <option value="optometry">Optometry</option>
+          <option value="dermatology">Dermatology</option>
+          <option value="veterinary">Veterinary</option>
+        </optgroup>
+        <optgroup label="Home Services">
+          <option value="hvac">HVAC</option>
+          <option value="plumbing">Plumbing</option>
+          <option value="electrical">Electrical</option>
+          <option value="roofing">Roofing</option>
+          <option value="landscaping">Landscaping / lawn</option>
+          <option value="pest-control">Pest control</option>
+          <option value="cleaning">Cleaning / janitorial</option>
+          <option value="garage-door">Garage door</option>
+          <option value="solar">Solar</option>
+          <option value="pool-service">Pool service</option>
+        </optgroup>
+        <optgroup label="Restaurant &amp; Hospitality">
+          <option value="restaurant">Restaurant</option>
+          <option value="cafe-coffee">Cafe / coffee</option>
+          <option value="bar">Bar / lounge</option>
+          <option value="catering">Catering</option>
+          <option value="food-truck">Food truck</option>
+          <option value="bakery">Bakery</option>
+        </optgroup>
+        <optgroup label="Automotive">
+          <option value="auto-repair">Auto repair</option>
+          <option value="body-shop">Body shop / collision</option>
+          <option value="detailing">Detailing</option>
+          <option value="tire-shop">Tire shop</option>
+          <option value="dealership">Dealership</option>
+        </optgroup>
+        <optgroup label="Real Estate &amp; Finance">
+          <option value="residential-agent">Residential agent / team</option>
+          <option value="property-management">Property management</option>
+          <option value="commercial-re">Commercial real estate</option>
+          <option value="mortgage-broker">Mortgage broker</option>
+          <option value="insurance">Insurance agency</option>
+        </optgroup>
+        <optgroup label="Fitness &amp; Wellness">
+          <option value="gym">Gym / health club</option>
+          <option value="yoga-pilates">Yoga / Pilates studio</option>
+          <option value="crossfit">CrossFit</option>
+          <option value="martial-arts">Martial arts</option>
+          <option value="personal-training">Personal training</option>
+        </optgroup>
+        <option value="other">Other / not listed</option>
       </select>
     </div>
 
@@ -159,6 +234,28 @@
       <label>Current website <span class="hint">(if they have one)</span></label>
       <input type="url" name="current_website" placeholder="https://theirsite.com">
     </div>
+
+    <fieldset class="sources" id="manualBox">
+      <legend>No listing link? <span class="hint" style="font-weight:400">— enter details manually</span></legend>
+      <div class="field" style="margin-bottom:10px">
+        <label>Street address</label>
+        <input type="text" name="address" placeholder="1373 Edgewater St NW">
+      </div>
+      <div class="tiers" style="margin-bottom:10px">
+        <div class="field" style="margin:0">
+          <label>City</label>
+          <input type="text" name="city" placeholder="Salem">
+        </div>
+        <div class="field" style="margin:0">
+          <label>State</label>
+          <input type="text" name="state" placeholder="OR" maxlength="2" style="text-transform:uppercase">
+        </div>
+      </div>
+      <div class="field" style="margin-bottom:0">
+        <label>Phone</label>
+        <input type="tel" name="phone" placeholder="(503) 555-0123">
+      </div>
+    </fieldset>
 
     <div class="field">
       <label>Build tier <span class="req">*</span></label>
@@ -248,12 +345,24 @@
         chamber: f.chamber.value.trim()
       },
       current_website: f.current_website.value.trim(),
+      manual: {
+        address: f.address.value.trim(),
+        city: f.city.value.trim(),
+        state: f.state.value.trim().toUpperCase(),
+        phone: f.phone.value.trim()
+      },
       tier: f.tier.value,
       language: f.language.value
     };
+    var hasSource = payload.sources.google_profile || payload.sources.yelp || payload.sources.chamber || payload.current_website;
     if(!payload.business_name){ setStatus('err','Please enter a business name.'); return; }
-    if(!payload.sources.google_profile && !payload.sources.yelp && !payload.sources.chamber && !payload.current_website){
-      setStatus('err','Add at least one listing (Google, Yelp, or Chamber) or a current website.'); return;
+    if(!payload.vertical){ setStatus('err','Please select an industry.'); return; }
+    if(!hasSource){
+      if(payload.vertical==='auto'){ setStatus('err','Pick a specific industry — auto-detect needs a listing link.'); return; }
+      var m = payload.manual;
+      if(!m.address || !m.city || !m.state || !m.phone){
+        setStatus('err','No listing link — please fill in address, city, state and phone below.'); return;
+      }
     }
     var btn = document.getElementById('submitBtn');
     btn.disabled = true; btn.textContent = 'Generating…';

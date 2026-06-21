@@ -12,6 +12,9 @@ C = {
  "C7":  ("#5A1E2B","#7C2E3D","#C9A66B","#FBF6EF","#2A1015"),  # Burgundy & Champagne
  "C8":  ("#0E6B4F","#1C8A67","#36C28E","#FCFDFB","#10231B"),  # Emerald & Ivory
  "C13": ("#B5532A","#D08A52","#6E7B3C","#FBF6EF","#2C1A12"),  # Terracotta & Olive (ES-first)
+ "C14": ("#F2674E","#F79B86","#FFC65C","#FFFBF6","#3A1E16"),  # Sunset Coral & Cream (food/QSR)
+ "C15": ("#E2620A","#F2873A","#2C3640","#FAFAF8","#20140A"),  # Safety Orange & Steel (trades/auto)
+ "C25": ("#1A1A1D","#3A3A40","#C0A062","#FAFAFA","#16161A"),  # Filmnoir Mono (cinematic/creative)
  "C16": ("#C62828","#E04848","#22262B","#FFFFFF","#1A1D21"),  # Alert Red & Charcoal
  "C19": ("#B11226","#D62839","#1A1A1D","#FAFAFA","#16161A"),  # Crimson & Onyx
  "C20": ("#7B2FF2","#9B5BF5","#16F0C8","#0E0E12","#F2F0F8"),  # Electric Violet & Black (dark)
@@ -84,6 +87,7 @@ TATTOO = {
  "my-living-canvas":           ("C26","Secondary","Accent", "Body Art"),
  "addictions-bodyart":         ("C19","Secondary","Accent", "Body Art"),
  "desire-ink-lab":             ("C37","Accent","Secondary", "Inkwell"),
+ "dark-star-tattoo":           ("C25","Accent","Secondary", "Inkwell"),
 }
 VERTICALS = {
  # barbershops -> Fade
@@ -98,6 +102,8 @@ VERTICALS = {
  "hernandez-law-office":     ("C6", "Accent","Secondary", "Habeas"),
  "affordable-immigration":   ("C13","Secondary","Accent", "Statute"),
  "arellano-law-salem":       ("C7", "Accent","Secondary", "Counsel"),
+ "elite-auto-service":       ("C15","Primary","Accent",    "Throttle"),
+ "taqueria-los-panditas":    ("C14","Primary","Accent",    "Cocina"),
 }
 
 def apply(path, mapping):

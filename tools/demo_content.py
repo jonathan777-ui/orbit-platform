@@ -48,6 +48,13 @@ EDGE = {
         "Servicios de inmigración accesibles y en español en Portland Rd — honorarios claros desde el inicio."),
     "arellano-law-salem": ("A bilingual immigration firm serving Salem by appointment — free consultation.",
         "Una firma de inmigración bilingüe que atiende Salem con cita — consulta gratis."),
+    # new: tattoo / auto repair / restaurant (no-website prospects)
+    "dark-star-tattoo": ("An East-side studio on State St — custom work and walk-ins.",
+        "Un estudio en el lado este (State St) — trabajo personalizado y sin cita."),
+    "elite-auto-service": ("A downtown shop on Commercial St — up-front estimates and bilingual techs.",
+        "Un taller en el centro (Commercial St) — estimados claros y técnicos bilingües."),
+    "taqueria-los-panditas": ("An East Salem taquería on State St — fresh tacos, burritos and aguas, dine in or take out.",
+        "Una taquería en el este de Salem (State St) — tacos, burritos y aguas frescas, aquí o para llevar."),
 }
 
 _WHO = "Sample · demo"
@@ -77,6 +84,22 @@ REVIEWS = {
          "es": "Bilingüe desde la primera llamada — mis papás por fin entendieron el proceso.", "who": _WHO},
         {"stars": 5, "en": "Honest about fees and timelines up front. Highly recommend.",
          "es": "Honestos con los costos y los tiempos desde el inicio. Muy recomendado.", "who": _WHO},
+    ],
+    "autorepair": [
+        {"stars": 5, "en": "Diagnosed it fast and gave me an honest estimate — no upsell.",
+         "es": "Diagnosticaron rápido y me dieron un estimado honesto — sin presionar.", "who": _WHO},
+        {"stars": 5, "en": "Explained the repair in plain Spanish for my dad. Great service.",
+         "es": "Le explicaron la reparación en español a mi papá. Excelente servicio.", "who": _WHO},
+        {"stars": 5, "en": "Fair price, and my car was ready when they said it would be.",
+         "es": "Precio justo, y mi carro estuvo listo cuando dijeron.", "who": _WHO},
+    ],
+    "restaurant": [
+        {"stars": 5, "en": "Tacos al pastor are the real deal — fresh and fast.",
+         "es": "Los tacos al pastor son auténticos — frescos y rápidos.", "who": _WHO},
+        {"stars": 5, "en": "Ordered in Spanish, got everything right, and the portions are huge.",
+         "es": "Ordené en español, todo salió bien, y las porciones son enormes.", "who": _WHO},
+        {"stars": 5, "en": "Best horchata in Salem and the burritos are massive.",
+         "es": "La mejor horchata de Salem y los burritos enormes.", "who": _WHO},
     ],
 }
 

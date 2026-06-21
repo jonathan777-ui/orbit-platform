@@ -109,6 +109,66 @@ PACKS={
  foot_en="Family &amp; green cards · Citizenship · Work permits · Removal defense · Asylum · DACA",
  foot_es="Familia y green cards · Ciudadanía · Permisos de trabajo · Defensa de deportación · Asilo · DACA",
  schema="Attorney"),
+"autorepair":dict(
+ h1_en="Honest auto repair. Clear estimates. Back on the road fast.",h1_es="Reparaci&oacute;n honesta. Estimados claros. De vuelta al camino r&aacute;pido.",
+ lede_en="{name} &mdash; trusted auto repair in Salem. Diagnostics, brakes, oil, engine and more, with up-front estimates. Bilingual service, in English or Spanish.",
+ lede_es="{name} &mdash; reparaci&oacute;n de autos de confianza en Salem. Diagn&oacute;stico, frenos, aceite, motor y m&aacute;s, con estimados claros. Servicio biling&uuml;e, en ingl&eacute;s o espa&ntilde;ol.",
+ cta_en="Get an estimate",cta_es="Pide un estimado",cta2_en="Our services",cta2_es="Servicios",
+ trust=[("Experienced techs","T&eacute;cnicos con experiencia"),("Up-front estimates","Estimados claros"),("All makes &amp; models","Todas las marcas"),("Bilingual","Biling&uuml;e")],
+ svc_en="What we fix",svc_es="Lo que reparamos",svcsub_en="Tell us the issue &mdash; we'll diagnose it and quote it before any work.",svcsub_es="Dinos el problema &mdash; lo diagnosticamos y cotizamos antes de trabajar.",
+ services=[("Diag","Diagnostics &amp; Check Engine","Diagn&oacute;stico y Check Engine","We pinpoint the problem and explain it in plain terms.","Encontramos el problema y te lo explicamos claro."),
+   ("Brakes","Brakes","Frenos","Pads, rotors and brake service done right.","Pastillas, discos y servicio de frenos bien hecho."),
+   ("Oil","Oil &amp; Maintenance","Aceite y Mantenimiento","Oil changes, fluids and scheduled maintenance.","Cambio de aceite, fluidos y mantenimiento programado."),
+   ("Engine","Engine &amp; Transmission","Motor y Transmisi&oacute;n","Repairs and service for engine and transmission.","Reparaci&oacute;n y servicio de motor y transmisi&oacute;n."),
+   ("AC","Heating &amp; A/C","Calefacci&oacute;n y A/C","Stay comfortable &mdash; A/C and heating repair.","A/C y calefacci&oacute;n para tu comodidad."),
+   ("Tires","Tires &amp; Alignment","Llantas y Alineaci&oacute;n","Tires, rotation and alignment.","Llantas, rotaci&oacute;n y alineaci&oacute;n.")],
+ team_en="Our technicians",team_es="Nuestros t&eacute;cnicos",teamsub_en="Experienced techs who explain the work.",teamsub_es="T&eacute;cnicos con experiencia que te explican el trabajo.",
+ nav_en="Team",nav_es="Equipo",gallery=False,
+ book_en="Get an estimate",book_es="Pide un estimado",booksub_en="Tell us what's going on and we'll set up a time and a quote.",booksub_es="Dinos qu&eacute; pasa y agendamos hora y cotizaci&oacute;n.",
+ bcta_en="Request estimate",bcta_es="Pedir estimado",brh_en="Good to know:",brh_es="Bueno saber:",
+ bring=[("Your car's year, make and model.","El a&ntilde;o, marca y modelo de tu auto."),("A description of the symptoms (sounds, lights, when it happens).","Una descripci&oacute;n de los s&iacute;ntomas (ruidos, luces, cu&aacute;ndo pasa)."),("Any recent work or trouble codes if you have them.","Cualquier trabajo reciente o c&oacute;digos si los tienes.")],
+ faqs=[("Do you give estimates before the work?","Yes &mdash; we diagnose first and give you an up-front estimate before any work starts.","&iquest;Dan estimados antes de trabajar?","S&iacute; &mdash; diagnosticamos primero y te damos un estimado claro antes de empezar."),
+   ("Do you work on all makes and models?","We service most makes and models &mdash; tell us your vehicle and we'll confirm.","&iquest;Atienden todas las marcas?","Atendemos la mayor&iacute;a de marcas y modelos &mdash; dinos tu veh&iacute;culo y confirmamos."),
+   ("Do you speak Spanish?","Yes &mdash; our team is bilingual and can help entirely in Spanish.","&iquest;Hablan espa&ntilde;ol?","S&iacute; &mdash; el equipo es biling&uuml;e y te atiende en espa&ntilde;ol."),
+   ("How long will my repair take?","It depends on the job &mdash; we give you a time estimate with your quote.","&iquest;Cu&aacute;nto tarda la reparaci&oacute;n?","Depende del trabajo &mdash; te damos un estimado de tiempo con tu cotizaci&oacute;n."),
+   ("Can I wait or get a ride?","Ask us when you book and we'll let you know your options.","&iquest;Puedo esperar o me llevan?","Preg&uacute;ntanos al agendar y te decimos las opciones.")],
+ chips_en=[["Get an estimate","I'd like an estimate for a repair."],["Check engine","My check engine light is on."],["Brakes","I need my brakes looked at."],["Hours","What are your hours?"]],
+ chips_es=[["Pedir estimado","Quiero un estimado para una reparación."],["Check engine","Tengo la luz de check engine encendida."],["Frenos","Necesito revisar los frenos."],["Horario","¿Cuál es su horario?"]],
+ greet_en="Hi! Welcome to {name}. What's going on with your vehicle — or would you like an estimate?",
+ greet_es="¡Hola! Bienvenido a {name}. ¿Qué pasa con tu vehículo — o quieres un estimado?",
+ foot_en="Diagnostics · Brakes · Oil &amp; maintenance · Engine &amp; transmission · A/C · Tires",
+ foot_es="Diagnóstico · Frenos · Aceite · Motor y transmisión · A/C · Llantas",
+ schema="AutoRepair"),
+"restaurant":dict(
+ h1_en="Authentic Mexican, made fresh. Dine in or take out.",h1_es="Comida mexicana aut&eacute;ntica, hecha al momento. Para comer aqu&iacute; o llevar.",
+ lede_en="{name} &mdash; authentic Mexican food in Salem. Tacos, burritos, tortas and more, made fresh daily. Order in English or Spanish.",
+ lede_es="{name} &mdash; comida mexicana aut&eacute;ntica en Salem. Tacos, burritos, tortas y m&aacute;s, hechos al momento. Ordena en ingl&eacute;s o espa&ntilde;ol.",
+ cta_en="See the menu",cta_es="Ver el men&uacute;",cta2_en="Find us",cta2_es="Ub&iacute;canos",
+ trust=[("Made fresh daily","Hecho al momento"),("Dine in or take out","Aqu&iacute; o para llevar"),("Family recipes","Recetas familiares"),("Bilingual","Biling&uuml;e")],
+ svc_en="On the menu",svc_es="En el men&uacute;",svcsub_en="A taste of what we serve &mdash; ask about today's specials.",svcsub_es="Una muestra de lo que servimos &mdash; pregunta por los especiales de hoy.",
+ services=[("Tacos","Tacos","Tacos","Asada, al pastor, carnitas, pollo and more.","Asada, al pastor, carnitas, pollo y m&aacute;s."),
+   ("Burritos","Burritos","Burritos","Big, fresh burritos with your choice of meat.","Burritos grandes y frescos con tu carne favorita."),
+   ("Tortas","Tortas","Tortas","Mexican sandwiches, stacked and toasted.","Tortas bien servidas y tostadas."),
+   ("Plates","Combo Plates","Platillos","Plates with rice, beans and tortillas.","Platillos con arroz, frijoles y tortillas."),
+   ("Drinks","Drinks &amp; Aguas","Bebidas y Aguas","Horchata, jamaica and Mexican sodas.","Horchata, jamaica y refrescos mexicanos."),
+   ("To-go","Take-out &amp; Catering","Para Llevar y Catering","Order ahead for pickup or party trays.","Ordena para llevar o charolas para fiestas.")],
+ team_en="Our kitchen",team_es="Nuestra cocina",teamsub_en="Family recipes, cooked fresh every day.",teamsub_es="Recetas familiares, cocinadas frescas cada d&iacute;a.",
+ nav_en="Kitchen",nav_es="Cocina",gallery=False,
+ book_en="Find us &amp; order",book_es="Ub&iacute;canos y ordena",booksub_en="Come by, or call ahead for pickup and catering.",booksub_es="Vis&iacute;tanos, o llama para llevar y catering.",
+ bcta_en="Call to order",bcta_es="Llama para ordenar",brh_en="Good to know:",brh_es="Bueno saber:",
+ bring=[("Dine in, take out, or call ahead for pickup.","Para comer aqu&iacute;, llevar, o llama para recoger."),("Ask about catering and party trays.","Pregunta por catering y charolas para fiestas."),("Cash and cards welcome.","Aceptamos efectivo y tarjeta.")],
+ faqs=[("Do you have vegetarian options?","Yes &mdash; we have veggie tacos, burritos and sides. Just ask.","&iquest;Tienen opciones vegetarianas?","S&iacute; &mdash; tenemos tacos, burritos y guarniciones vegetarianas. Pregunta."),
+   ("Do you do take-out and catering?","We do &mdash; order ahead for pickup, and ask about party trays for events.","&iquest;Hacen para llevar y catering?","S&iacute; &mdash; ordena para recoger, y pregunta por charolas para eventos."),
+   ("What are your hours?","See our hours below &mdash; and call ahead if you'd like your order ready.","&iquest;Cu&aacute;l es su horario?","Mira nuestro horario abajo &mdash; y llama si quieres tu orden lista."),
+   ("Do you speak Spanish?","&iexcl;Claro! We take your order in English or Spanish.","&iquest;Hablan espa&ntilde;ol?","&iexcl;Claro! Tomamos tu orden en ingl&eacute;s o espa&ntilde;ol."),
+   ("Do you take cards?","Yes &mdash; cash and cards are both welcome.","&iquest;Aceptan tarjeta?","S&iacute; &mdash; aceptamos efectivo y tarjeta.")],
+ chips_en=[["See menu","What's on the menu?"],["Order pickup","I'd like to order for pickup."],["Catering","Do you do catering or party trays?"],["Hours","What are your hours today?"]],
+ chips_es=[["Ver menú","¿Qué hay en el menú?"],["Para llevar","Quiero ordenar para recoger."],["Catering","¿Hacen catering o charolas para fiestas?"],["Horario","¿Cuál es su horario hoy?"]],
+ greet_en="¡Hola! Welcome to {name}. Hungry? I can tell you the menu, hours, or take-out — in English or Spanish.",
+ greet_es="¡Hola! Bienvenido a {name}. ¿Con hambre? Te digo el menú, el horario o para llevar — en inglés o español.",
+ foot_en="Tacos · Burritos · Tortas · Combo plates · Aguas frescas · Take-out &amp; catering",
+ foot_es="Tacos · Burritos · Tortas · Platillos · Aguas frescas · Para llevar y catering",
+ schema="Restaurant"),
 }
 
 DAYW={"Mo":"Monday","Tu":"Tuesday","We":"Wednesday","Th":"Thursday","Fr":"Friday","Sa":"Saturday","Su":"Sunday"}
@@ -143,10 +203,15 @@ def build(b):
     html=html.replace('<p class="pill" data-en>Custom tattoos · Cover-ups · Piercing · Permanent makeup · Removal</p>', f'<p class="pill" data-en>{p["foot_en"]}</p>')
     html=html.replace('<p class="pill" data-es>Tatuajes personalizados · Cover-ups · Piercing · Maquillaje permanente · Eliminación</p>', f'<p class="pill" data-es>{p["foot_es"]}</p>')
     html=html.replace("SAMPLE TATTOO IMAGE","SAMPLE — DEMO")
-    typ={"barbershop":"Barbershop","immigration":"Immigration Law Firm"}[b["vertical_pack"]]
+    typ={"barbershop":"Barbershop","immigration":"Immigration Law Firm","autorepair":"Auto Repair Shop","restaurant":"Mexican Restaurant"}[b["vertical_pack"]]
     title=f"{nm} — {typ} in Salem, OR | Bilingual EN/ES"
-    if b["vertical_pack"]=="barbershop":
+    vp=b["vertical_pack"]
+    if vp=="barbershop":
         desc=f"{nm} is a barbershop in Salem, Oregon for fades, classic cuts, beard trims and hot-towel shaves. Bilingual (English/Spanish). {b['street']}."+(f" Call {b['phone']}." if b['phone'] else "")
+    elif vp=="autorepair":
+        desc=f"{nm} is an auto repair shop in Salem, Oregon — diagnostics, brakes, oil, engine and transmission, with up-front estimates. Bilingual (English/Spanish). {b['street']}."+(f" Call {b['phone']}." if b['phone'] else "")
+    elif vp=="restaurant":
+        desc=f"{nm} is an authentic Mexican restaurant in Salem, Oregon — tacos, burritos, tortas and more, made fresh. Dine in, take out or catering. Bilingual (English/Spanish). {b['street']}."+(f" Call {b['phone']}." if b['phone'] else "")
     else:
         desc=f"{nm} — bilingual immigration attorney in Salem, Oregon. Green cards, citizenship, work permits, family petitions and deportation defense. Free, confidential consultation."+(f" {b['street']}." if b['street'] else "")+(f" Call {b['phone']}." if b['phone'] else "")
     if edge[0]: desc=desc+" "+edge[0]   # per-site differentiator -> unique meta description

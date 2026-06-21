@@ -380,5 +380,91 @@
   },
   "combo": "C7",
   "template": "Counsel"
+ },
+ {
+  "slug": "elite-auto-service",
+  "display": "Elite Auto Service",
+  "vertical_pack": "autorepair",
+  "street": "930 Commercial St NE",
+  "zip": "97301",
+  "phone": "(503) 602-7178",
+  "hoursEn": "Mon–Fri 8am–5:30pm · Sat–Sun closed",
+  "hoursEs": "Lun–Vie 8am–5:30pm · Sáb–Dom cerrado",
+  "ig": "",
+  "site": "",
+  "geo": [
+   44.949,
+   -123.04
+  ],
+  "tag": "Auto Repair · Bilingual",
+  "hours": [
+   [
+    [
+     "Mo",
+     "Tu",
+     "We",
+     "Th",
+     "Fr"
+    ],
+    "08:00",
+    "17:30"
+   ]
+  ],
+  "combo": "C15",
+  "template": "Throttle",
+  "pal": {
+   "bg": "#1a0b01",
+   "panel": "#2a1202",
+   "line": "#4a2003",
+   "fg": "#f1f3f8",
+   "muted": "#928889",
+   "accent": "#E2620A",
+   "accent2": "#767c83",
+   "ink": "#0f0701"
+  }
+ },
+ {
+  "slug": "taqueria-los-panditas",
+  "display": "Taquería Los Panditas",
+  "vertical_pack": "restaurant",
+  "street": "3892 State St",
+  "zip": "97301",
+  "phone": "(503) 365-8226",
+  "hoursEn": "Daily 9am–10pm",
+  "hoursEs": "Todos los días 9am–10pm",
+  "ig": "",
+  "site": "",
+  "geo": [
+   44.9385,
+   -122.993
+  ],
+  "tag": "Mexican Restaurant · Bilingual",
+  "hours": [
+   [
+    [
+     "Mo",
+     "Tu",
+     "We",
+     "Th",
+     "Fr",
+     "Sa",
+     "Su"
+    ],
+    "09:00",
+    "22:00"
+   ]
+  ],
+  "combo": "C14",
+  "template": "Cocina",
+  "pal": {
+   "bg": "#1a0b08",
+   "panel": "#2a120e",
+   "line": "#4a1f18",
+   "fg": "#f1f3f8",
+   "muted": "#928890",
+   "accent": "#F2674E",
+   "accent2": "#ffcf76",
+   "ink": "#0f0605"
+  }
  }
 ]

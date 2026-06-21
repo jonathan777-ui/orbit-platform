@@ -259,5 +259,47 @@
   },
   "combo": "C37",
   "template": "Inkwell"
+ },
+ {
+  "slug": "dark-star-tattoo",
+  "display": "Dark Star Tattoo",
+  "piercing": true,
+  "logo": "",
+  "street": "2360 State St",
+  "zip": "97301",
+  "phone": "(503) 763-9696",
+  "hoursEn": "Tue–Sat 12–8pm · Sun–Mon closed",
+  "hoursEs": "Mar–Sáb 12–8pm · Dom–Lun cerrado",
+  "ig": "",
+  "geo": [
+   44.9389,
+   -123.017
+  ],
+  "hours": [
+   [
+    [
+     "Tu",
+     "We",
+     "Th",
+     "Fr",
+     "Sa"
+    ],
+    "12:00",
+    "20:00"
+   ]
+  ],
+  "tag": "Tattoo · Bilingual",
+  "combo": "C25",
+  "template": "Inkwell",
+  "pal": {
+   "bg": "#1a160d",
+   "panel": "#2a2315",
+   "line": "#4a3e26",
+   "fg": "#f1f3f8",
+   "muted": "#929396",
+   "accent": "#C0A062",
+   "accent2": "#7f7f83",
+   "ink": "#0f0c08"
+  }
  }
 ]

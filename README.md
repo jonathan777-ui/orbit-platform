@@ -18,7 +18,7 @@ AI voice receptionist, a chatbot, and website copy from one source.
 - **Voice Runtime Layer** (`references/voice-runtime-layer.md`): turn-taking, barge-in, SSML, read-back, safety.
 - **Compliance hard-lines** (`references/compliance-patterns.md`) and the **KB template** (`references/kb-template.md`).
 - **Niche atlas** (`references/niche-atlas.md`): 40 verticals / 318 niches, with a worked example in `references/verticals/law-firms.md`.
-- **Template Library** (`references/template-library.md`): 25 website templates per vertical (600 total across 24 verticals) — each mapped to niche, build-tier, layout, and palette — plus the **Top 20 Color Combinations**, **Top 50 Typography Pairings**, and a **Template Anatomy** guide.
+- **Template Library** (`references/template-library.md`): the complete 40-vertical atlas — 25 website templates per vertical (**1,000 total**), each mapped to niche, build-tier, layout, and palette — plus the **Top 40 Color Combinations**, **Top 50 Typography Pairings**, a **World-Class Feature Stack**, and a **Template Anatomy** guide.
 - **Live compiler** (`tools/compile_agent.py`): renders a gold base + niche overlay + voice layer into a deployable agent
   (`system_prompt.txt`, `attio_field_map.json`, `n8n_routing.json`, `agent.manifest.json`).
 

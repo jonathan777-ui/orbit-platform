@@ -89,12 +89,12 @@ pricing framework. Premium add-ons are tier-gated there (premium-of-premium = Rh
 
 When the user wants to **pick or show a website design** (a template, theme, layout, or color
 scheme) for a vertical/niche, use `references/template-library.md` — the **Template Library**:
-**25 named templates per vertical** (600 total across 24 verticals) mapped to niche, build-tier
-sweet-spot, layout signature, and a recommended palette, plus the **Top 20 Color Combinations**
-and **Top 50 Typography Pairings** (hex roles, font pairs + accessibility notes) and a **Template
-Anatomy** guide. Pick by **Vertical → Niche → Tier → Template → Palette (+ Type)**; the template is
-the *build* axis (what it looks like), assembled from the catalog's blocks and gated by the same
-tier matrix.
+the **complete 40-vertical atlas** at **25 named templates per vertical** (**1,000 total**) mapped
+to niche, build-tier sweet-spot, layout signature, and a recommended palette, plus the **Top 40
+Color Combinations**, **Top 50 Typography Pairings** (hex roles, font pairs + accessibility notes),
+a **World-Class Feature Stack**, and a **Template Anatomy** guide. Pick by **Vertical → Niche →
+Tier → Template → Palette (+ Type)**; the template is the *build* axis (what it looks like),
+assembled from the catalog's blocks and gated by the same tier matrix.
 
 ## Output structure
 

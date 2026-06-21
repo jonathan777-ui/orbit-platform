@@ -1,14 +1,15 @@
 # Orbit AI — TEMPLATE LIBRARY
 
 *The exhaustive, KB-grounded catalog of website templates for the Airlock / Orbit
-platform — **25 templates per vertical** across all 24 verticals (**600 templates**),
-plus the **Top 20 Color Combinations** and **Top 50 Typography Pairings**. Each template
-is a named starting point that maps to a **niche** (from `niche-atlas.md`), a **build-tier
-sweet-spot** (`tier-ladder.md`: Gold → Platinum → Iridium → Rhodium), a **layout signature**
-and **key blocks** (from `website-catalog.md` §B), and a **recommended palette** (the C-number
-references the color table below). Verticals 1–20 are the atlas core; 21–24 are the bench
-verticals (Funeral & Memorial, Moving & Storage, Education & Childcare, Logistics & Trucking),
-extensible toward the full 40-vertical atlas.*
+platform — the **complete 40-vertical atlas** at **25 templates per vertical** (**1,000
+templates**), plus the **Top 40 Color Combinations**, **Top 50 Typography Pairings**, a
+**World-Class Feature Stack**, and a **Template Anatomy** guide. Each template is a named
+starting point that maps to a **niche** (from `niche-atlas.md`), a **build-tier sweet-spot**
+(`tier-ladder.md`: Gold → Platinum → Iridium → Rhodium), a **layout signature** and **key
+blocks** (from `website-catalog.md` §B), and a **recommended palette** (the C-number references
+the color table below). Verticals 1–20 are the atlas core; 21–24 the original bench verticals;
+25–40 complete the atlas (home health, pharmacy, travel, events, photography, marketing, IT/MSP,
+consulting, staffing, cleaning, security, pet, agriculture, faith/nonprofit, retail, industrial).*
 
 > **How to pick:** **Vertical → Niche → Tier → Template → Palette.**
 > 1. Find the vertical section. 2. Choose the row whose **niche fit** matches the client.
@@ -816,7 +817,535 @@ extensible toward the full 40-vertical atlas.*
 
 ---
 
-# Top 20 Color Combinations
+## 25. Home Health & Senior Care
+*Register usted; warm, compassionate, reassuring; bilingual-heavy. **No medical/clinical advice or diagnosis; HIPAA-minded; emergent symptoms → 911; capture-and-route to a nurse/coordinator.** Niches: in-home/companion care, skilled nursing, assisted living, memory care, hospice/palliative, adult day care, home health aides, respite care, senior placement/referral, mobility & medical equipment.*
+
+| # | Template | Niche fit | Tier | Hero/Layout & key blocks | Palette |
+|---|---|---|:---:|---|:---:|
+| 1 | **Hearthstone** | in-home/companion care | Gold | Split hero, feature grid, CTA band | C21 |
+| 2 | **Willow** | respite care | Gold | Full-bleed image hero, process timeline, map+hours | C34 |
+| 3 | **Evergreen** | adult day care | Gold | Split hero, feature grid, FAQ accordion | C3 |
+| 4 | **Comfort Keepers** | in-home/companion care | Platinum | Full-bleed hero, booking/scheduler, testimonial slider, CTA band | C21 |
+| 5 | **Solace** | hospice/palliative | Platinum | Split hero, process timeline, FAQ accordion, quote/intake form | C34 |
+| 6 | **Bluebird** | home health aides | Platinum | Carousel hero, team grid, credential strip, booking/scheduler | C21 |
+| 7 | **Haven** | assisted living | Platinum | Full-bleed hero, gallery masonry, map+hours, testimonial slider | C3 |
+| 8 | **Keepsake** | memory care | Platinum | Split hero, feature grid, FAQ accordion, quote/intake form | C21 |
+| 9 | **Manos Amorosas** | in-home/companion care | Platinum | Split hero, process timeline, testimonial slider, booking/scheduler | C13 |
+| 10 | **Daybreak** | adult day care | Platinum | Carousel hero, gallery masonry, map+hours, CTA band | C34 |
+| 11 | **Cornerstone** | senior placement/referral | Platinum | Split hero, comparison table, FAQ accordion, quote/intake form | C21 |
+| 12 | **Serenity** | assisted living | Platinum | Full-bleed hero, gallery masonry, pricing cards, testimonial slider | C3 |
+| 13 | **Sentinel Care** | skilled nursing | Iridium | Split hero, credential strip, quote/intake form, AI voice receptionist + nurse routing | C16 |
+| 14 | **Lighthouse** | skilled nursing | Iridium | Full-bleed hero, process timeline, portal teaser, CRM intake automation | C21 |
+| 15 | **Concierge** | senior placement/referral | Iridium | Split hero, comparison table, booking/scheduler, AI voice receptionist intake | C21 |
+| 16 | **Guardian** | home health aides | Iridium | Carousel hero, team grid, portal teaser, caregiver scheduling automation | C21 |
+| 17 | **Mobility Plus** | mobility & medical equipment | Iridium | Split hero, feature grid, e-commerce catalog, quote/intake form | C9 |
+| 18 | **Cuidado Total** | respite care | Iridium | Split hero, process timeline, AI voice receptionist (ES-first), portal teaser | C13 |
+| 19 | **Tranquil** | hospice/palliative | Iridium | Full-bleed hero, FAQ accordion, portal teaser, coordinator routing automation | C34 |
+| 20 | **Meridian** | memory care | Iridium | Split hero, stats band, booking/scheduler, family portal teaser | C21 |
+| 21 | **Wellspring** | adult day care | Iridium | Carousel hero, gallery masonry, CRM intake, AI voice receptionist | C3 |
+| 22 | **Companion Pro** | in-home/companion care | Iridium | Split hero, testimonial slider, booking/scheduler, automation portal | C21 |
+| 23 | **Caregiver Network** | senior placement/referral | Rhodium | Multi-location white-label, locator map, comparison table, unified intake portal | C21 |
+| 24 | **Heritage Network** | assisted living | Rhodium | White-label multi-site hero, gallery masonry, pricing cards, franchise portal | C3 |
+| 25 | **Compass Premier** | skilled nursing | Rhodium | Flagship full-bleed hero, bespoke design system, AI voice receptionist teaser, family + coordinator portal | C1 |
+
+---
+
+## 26. Pharmacy & Medical Supply
+*Register usted; trustworthy, clinical-clean; bilingual-heavy. **No medical advice; no guaranteeing interactions/availability; HIPAA-minded; no PHI over open voice (secure link); urgent reactions → pharmacist/911.** Niches: retail/community pharmacy, compounding pharmacy, specialty pharmacy, DME/medical supply, infusion/IV, long-term-care pharmacy, mail-order/refill, vaccinations/clinic, surgical/ostomy supply, mobility aids.*
+
+| # | Template | Niche fit | Tier | Hero/Layout & key blocks | Palette |
+|---|---|---|:---:|---|:---:|
+| 1 | **RxOne** | retail/community pharmacy | Gold | Split hero, feature grid, map+hours | C22 |
+| 2 | **Wellscript** | mail-order/refill | Gold | Full-bleed hero, process timeline, CTA band | C9 |
+| 3 | **Apothecary** | compounding pharmacy | Gold | Split hero, feature grid, FAQ accordion | C38 |
+| 4 | **Refill Express** | mail-order/refill | Platinum | Split hero, refill form, FAQ accordion, CTA band | C22 |
+| 5 | **CornerRx** | retail/community pharmacy | Platinum | Full-bleed hero, map+hours, refill scheduler, testimonial slider | C22 |
+| 6 | **ImmuniCare** | vaccinations/clinic | Platinum | Split hero, booking/scheduler, feature grid, FAQ accordion | C9 |
+| 7 | **PureBlend** | compounding pharmacy | Platinum | Split hero, process timeline, credential strip, quote/intake form | C38 |
+| 8 | **Farmacia Buena** | retail/community pharmacy | Platinum | Split hero, refill form (ES-first), map+hours, testimonial slider | C13 |
+| 9 | **SupplyLine** | DME/medical supply | Platinum | Carousel hero, gallery masonry, comparison table, quote/intake form | C22 |
+| 10 | **VitalCare** | infusion/IV | Platinum | Full-bleed hero, process timeline, credential strip, booking/scheduler | C9 |
+| 11 | **OstoCare** | surgical/ostomy supply | Platinum | Split hero, feature grid, FAQ accordion, quote/intake form | C38 |
+| 12 | **MobilAid** | mobility aids | Platinum | Carousel hero, gallery masonry, comparison table, CTA band | C22 |
+| 13 | **Specialty Plus** | specialty pharmacy | Iridium | Split hero, credential strip, secure-link intake, AI voice receptionist + pharmacist routing | C22 |
+| 14 | **ScriptHub** | mail-order/refill | Iridium | Full-bleed hero, e-commerce refill catalog, portal teaser, refill automation | C9 |
+| 15 | **InfusionRx** | infusion/IV | Iridium | Split hero, process timeline, secure intake portal, coordinator routing | C9 |
+| 16 | **LTC Connect** | long-term-care pharmacy | Iridium | Split hero, stats band, facility portal teaser, CRM automation | C22 |
+| 17 | **DME Direct** | DME/medical supply | Iridium | Carousel hero, e-commerce catalog, insurance intake form, portal teaser | C22 |
+| 18 | **Alivio Urgente** | retail/community pharmacy | Iridium | Split hero (ES-first), after-hours pharmacist routing, secure-link intake, AI voice receptionist | C16 |
+| 19 | **CompoundLab** | compounding pharmacy | Iridium | Split hero, process timeline, prescriber portal teaser, intake automation | C38 |
+| 20 | **VaxFlow** | vaccinations/clinic | Iridium | Full-bleed hero, booking/scheduler, reminder automation, AI voice receptionist | C9 |
+| 21 | **SurgiSupply** | surgical/ostomy supply | Iridium | Split hero, e-commerce catalog, reorder portal, quote/intake form | C22 |
+| 22 | **CareCart** | mobility aids | Iridium | Carousel hero, e-commerce catalog, insurance intake, portal teaser | C9 |
+| 23 | **Pharma Network** | retail/community pharmacy | Rhodium | Multi-location white-label, store locator, unified refill portal, central CRM | C22 |
+| 24 | **Specialty Network** | specialty pharmacy | Rhodium | White-label multi-site hero, credential strip, secure patient portal, franchise dashboard | C38 |
+| 25 | **Meridian Premier** | specialty pharmacy | Rhodium | Flagship full-bleed hero, bespoke design system, AI voice receptionist teaser, secure patient + prescriber portal | C1 |
+
+---
+
+## 27. Travel & Tourism
+*Register warm-aspirational, tú ok; bilingual/tourism dialect wide. **No price/availability guarantees; payment via secure path; passport/visa requirements are info-not-advice; capture and route to advisor.** Niches: travel agency, tour operator, DMC/destination, cruise specialist, corporate travel, adventure/eco tours, luxury/concierge travel, group/faith travel, honeymoon/romance, visa & travel services.*
+
+| # | Template | Niche fit | Tier | Hero/Layout & key blocks | Palette |
+|---|---|---|:---:|---|:---:|
+| 1 | **Wayfarer** | travel agency | Gold | Full-bleed image hero, feature grid, CTA band | C23 |
+| 2 | **Compass** | tour operator | Gold | Split hero, process timeline, map+hours | C18 |
+| 3 | **Voyage** | cruise specialist | Gold | Video background hero, gallery masonry, FAQ accordion | C40 |
+| 4 | **Wanderlust** | adventure/eco tours | Platinum | Video background hero, gallery masonry, booking/scheduler, testimonial slider | C23 |
+| 5 | **Horizon** | DMC/destination | Platinum | Carousel hero, gallery masonry, map+hours, quote/intake form | C18 |
+| 6 | **Setsail** | cruise specialist | Platinum | Full-bleed hero, comparison table, pricing cards, booking/scheduler | C40 |
+| 7 | **Trailhead** | adventure/eco tours | Platinum | Video background hero, process timeline, gallery masonry, CTA band | C30 |
+| 8 | **Buen Viaje** | travel agency | Platinum | Carousel hero (ES-first), gallery masonry, quote/intake form, testimonial slider | C13 |
+| 9 | **Pilgrim** | group/faith travel | Platinum | Split hero, itinerary timeline, FAQ accordion, quote/intake form | C23 |
+| 10 | **Honeymoon** | honeymoon/romance | Platinum | Full-bleed hero, gallery masonry, pricing cards, testimonial slider | C14 |
+| 11 | **Summit** | adventure/eco tours | Platinum | Video background hero, stats band, gallery masonry, booking/scheduler | C30 |
+| 12 | **Escape** | luxury/concierge travel | Platinum | Full-bleed hero, gallery masonry, testimonial slider, quote/intake form | C23 |
+| 13 | **Concierge** | luxury/concierge travel | Iridium | Full-bleed hero, bespoke itinerary builder, advisor routing, AI voice receptionist | C40 |
+| 14 | **Odyssey** | tour operator | Iridium | Carousel hero, e-commerce booking engine, portal teaser, CRM automation | C23 |
+| 15 | **Embark** | cruise specialist | Iridium | Video background hero, comparison table, secure booking portal, advisor routing | C18 |
+| 16 | **Corporate Flight** | corporate travel | Iridium | Split hero, stats band, traveler portal teaser, itinerary automation | C40 |
+| 17 | **Visa Gateway** | visa & travel services | Iridium | Split hero, document intake form, status portal teaser, AI voice receptionist | C18 |
+| 18 | **Aventura** | adventure/eco tours | Iridium | Video background hero (ES-first), booking engine, advisor routing, AI voice receptionist | C13 |
+| 19 | **Wanderpath** | DMC/destination | Iridium | Carousel hero, gallery masonry, partner portal teaser, CRM automation | C23 |
+| 20 | **Crossing** | group/faith travel | Iridium | Split hero, group booking engine, roster portal, intake automation | C40 |
+| 21 | **Lovebird** | honeymoon/romance | Iridium | Full-bleed hero, registry e-commerce, advisor routing, portal teaser | C14 |
+| 22 | **Pinnacle** | luxury/concierge travel | Iridium | Full-bleed hero, bespoke itinerary builder, secure portal, AI voice receptionist | C23 |
+| 23 | **Voyager Network** | travel agency | Rhodium | Multi-location white-label, branch locator, unified booking portal, central CRM | C23 |
+| 24 | **Atlas Network** | DMC/destination | Rhodium | White-label multi-site hero, gallery masonry, partner portal, franchise dashboard | C40 |
+| 25 | **Odyssey Premier** | luxury/concierge travel | Rhodium | Flagship video background hero, bespoke design system, AI voice receptionist teaser, traveler + advisor portal | C1 |
+
+---
+
+## 28. Events & Entertainment
+*Register lively-warm, tú ok; matches the vibe. **Deposit/cancellation clarity; capture date/headcount/budget; route to coordinator; no guarantees on availability.** Niches: event planning/coordination, DJ/live band/MC, photo booth, party & equipment rentals, AV/staging, balloon/decor/florals, casino/games, kids entertainment, wedding coordination, corporate event production.*
+
+| # | Template | Niche fit | Tier | Hero/Layout & key blocks | Palette |
+|---|---|---|:---:|---|:---:|
+| 1 | **Confetti** | event planning/coordination | Gold | Full-bleed image hero, feature grid, CTA band | C24 |
+| 2 | **Encore** | DJ/live band/MC | Gold | Video background hero, gallery masonry, map+hours | C20 |
+| 3 | **Soiree** | wedding coordination | Gold | Split hero, gallery masonry, FAQ accordion | C7 |
+| 4 | **Spotlight** | DJ/live band/MC | Platinum | Video background hero, gallery masonry, booking/scheduler, testimonial slider | C24 |
+| 5 | **Snapbooth** | photo booth | Platinum | Carousel hero, gallery masonry, pricing cards, quote/intake form | C20 |
+| 6 | **Everafter** | wedding coordination | Platinum | Full-bleed hero, gallery masonry, process timeline, quote/intake form | C7 |
+| 7 | **Bouquet** | balloon/decor/florals | Platinum | Carousel hero, gallery masonry, pricing cards, booking/scheduler | C24 |
+| 8 | **Fiesta** | event planning/coordination | Platinum | Carousel hero (ES-first), gallery masonry, quote/intake form, testimonial slider | C13 |
+| 9 | **RentReady** | party & equipment rentals | Platinum | Split hero, catalog grid, pricing cards, quote/intake form | C24 |
+| 10 | **Stagecraft** | AV/staging | Platinum | Video background hero, stats band, gallery masonry, quote/intake form | C20 |
+| 11 | **Jackpot** | casino/games | Platinum | Full-bleed hero, gallery masonry, pricing cards, booking/scheduler | C24 |
+| 12 | **Jubilee** | kids entertainment | Platinum | Carousel hero, gallery masonry, pricing cards, quote/intake form | C24 |
+| 13 | **Marquee** | corporate event production | Iridium | Video background hero, stats band, client portal teaser, AI voice receptionist intake | C20 |
+| 14 | **Showrunner** | DJ/live band/MC | Iridium | Video background hero, booking engine, deposit checkout, CRM automation | C24 |
+| 15 | **Pixelpop** | photo booth | Iridium | Carousel hero, e-commerce add-on store, booking portal, intake automation | C20 |
+| 16 | **Vows** | wedding coordination | Iridium | Full-bleed hero, planning portal teaser, deposit checkout, AI voice receptionist | C7 |
+| 17 | **Gala** | corporate event production | Iridium | Video background hero, process timeline, client portal, coordinator routing | C24 |
+| 18 | **Celebración** | event planning/coordination | Iridium | Carousel hero (ES-first), booking engine, deposit checkout, AI voice receptionist | C13 |
+| 19 | **Inventory Pro** | party & equipment rentals | Iridium | Split hero, e-commerce rental catalog, availability portal, CRM automation | C24 |
+| 20 | **Riggers** | AV/staging | Iridium | Video background hero, stats band, project portal teaser, quote automation | C20 |
+| 21 | **Carnival** | kids entertainment | Iridium | Carousel hero, booking engine, deposit checkout, AI voice receptionist | C24 |
+| 22 | **HighRoller** | casino/games | Iridium | Full-bleed hero, package builder, booking portal, intake automation | C24 |
+| 23 | **Spectrum Network** | event planning/coordination | Rhodium | Multi-location white-label, market locator, unified booking portal, central CRM | C24 |
+| 24 | **Limelight Network** | corporate event production | Rhodium | White-label multi-site hero, gallery masonry, client portal, franchise dashboard | C20 |
+| 25 | **Grandstand Premier** | corporate event production | Rhodium | Flagship video background hero, bespoke design system, AI voice receptionist teaser, client + coordinator portal | C1 |
+
+---
+
+## 29. Photography & Video Production
+*Warm-creative register, tú welcome; **state deposit/booking terms clearly, share usage/licensing basics, always capture shoot date/type/location, route to studio for quotes.** Niches: portrait/family, wedding photography, commercial/product, real-estate/architectural, event/corporate, drone/aerial, boudoir, newborn/maternity, video production, headshots/branding.*
+
+| # | Template | Niche fit | Tier | Hero/Layout & key blocks | Palette |
+|---|---|---|:---:|---|:---:|
+| 1 | **Aperture** | portrait/family | Gold | Full-bleed image hero, gallery masonry, CTA band | C25 |
+| 2 | **Frame One** | headshots/branding | Gold | Split hero, feature grid, booking/scheduler | C25 |
+| 3 | **Snapshot** | event/corporate | Gold | Full-bleed image hero, gallery masonry, map+hours | C25 |
+| 4 | **Everlight** | wedding photography | Platinum | Video background hero, gallery masonry, testimonial slider, booking/scheduler | C7 |
+| 5 | **Vows** | wedding photography | Platinum | Carousel hero, process timeline, pricing cards, FAQ accordion | C7 |
+| 6 | **Lumière** | boudoir | Platinum | Full-bleed image hero, gallery masonry, FAQ accordion, quote/intake form | C20 |
+| 7 | **Cradle** | newborn/maternity | Platinum | Split hero, gallery masonry, testimonial slider, booking/scheduler | C25 |
+| 8 | **Heirloom** | portrait/family | Platinum | Carousel hero, gallery masonry, pricing cards, CTA band | C25 |
+| 9 | **Showcase** | commercial/product | Platinum | Split hero, feature grid, logo/credential strip, quote/intake form | C20 |
+| 10 | **Skyline** | drone/aerial | Platinum | Video background hero, gallery masonry, stats band, CTA band | C25 |
+| 11 | **Keyframe** | video production | Platinum | Video background hero, process timeline, testimonial slider, quote/intake form | C25 |
+| 12 | **Threshold** | real-estate/architectural | Platinum | Full-bleed image hero, gallery masonry, comparison table, booking/scheduler | C20 |
+| 13 | **Spotlight** | event/corporate | Platinum | Carousel hero, gallery masonry, logo/credential strip, CTA band | C7 |
+| 14 | **Estudio Luz** | portrait/family | Iridium | Split hero (Spanish-first), gallery masonry, booking/scheduler, quote/intake form | C13 |
+| 15 | **Reel House** | video production | Iridium | Video background hero, process timeline, pricing cards, portal teaser | C25 |
+| 16 | **Proof Gallery** | wedding photography | Iridium | Carousel hero, gallery masonry, client portal teaser, booking/scheduler | C7 |
+| 17 | **Catalog Pro** | commercial/product | Iridium | Split hero, feature grid, e-commerce print store, quote/intake form | C20 |
+| 18 | **Booth Live** | event/corporate | Iridium | Video background hero, booking/scheduler, gallery masonry, CRM intake | C25 |
+| 19 | **AeroVista** | drone/aerial | Iridium | Animated SVG hero, gallery masonry, comparison table, quote/intake form | C25 |
+| 20 | **Boudoir Suite** | boudoir | Iridium | Full-bleed image hero, gallery masonry, private portal teaser, booking/scheduler | C20 |
+| 21 | **Property Lens** | real-estate/architectural | Iridium | Before/after slider hero, gallery masonry, pricing cards, e-commerce orders | C20 |
+| 22 | **Brand Faces** | headshots/branding | Iridium | Split hero, team grid, booking/scheduler, CRM intake | C25 |
+| 23 | **Última Hora** | event/corporate | Iridium | Full-bleed image hero (Spanish, after-hours rush booking), booking/scheduler, FAQ accordion, quote/intake form | C16 |
+| 24 | **Lumen Network** | wedding photography | Rhodium | Multi-studio white-label hero carousel, gallery masonry, map+hours, location switcher portal | C25 |
+| 25 | **Aperture Premier** | commercial/product | Rhodium | Video background flagship hero, gallery masonry, AI voice receptionist teaser, client portal teaser, pricing cards | C1 |
+
+---
+
+## 30. Marketing & Creative Agencies
+*Confident-modern register, tú/usted by client; **never guarantee results or rankings, always capture goals/budget band, route to a strategist for proposals.** Niches: digital marketing, branding/identity, web design/dev, SEO/SEM, social media, content/copywriting, PR/communications, video/motion, e-commerce marketing, full-service agency.*
+
+| # | Template | Niche fit | Tier | Hero/Layout & key blocks | Palette |
+|---|---|---|:---:|---|:---:|
+| 1 | **Launchpad** | digital marketing | Gold | Split hero, feature grid, CTA band | C26 |
+| 2 | **Pixel** | web design/dev | Gold | Animated SVG hero, feature grid, quote/intake form | C26 |
+| 3 | **Brandlet** | branding/identity | Gold | Full-bleed image hero, gallery masonry, CTA band | C26 |
+| 4 | **Momentum** | digital marketing | Platinum | Animated SVG hero, stats band, process timeline, quote/intake form | C26 |
+| 5 | **Identity** | branding/identity | Platinum | Split hero, gallery masonry, testimonial slider, CTA band | C20 |
+| 6 | **Foundry** | web design/dev | Platinum | Video background hero, feature grid, comparison table, quote/intake form | C26 |
+| 7 | **Rankwise** | SEO/SEM | Platinum | Split hero, stats band, FAQ accordion, quote/intake form | C2 |
+| 8 | **Feedline** | social media | Platinum | Carousel hero, gallery masonry, testimonial slider, CTA band | C26 |
+| 9 | **Wordcraft** | content/copywriting | Platinum | Split hero, feature grid, process timeline, quote/intake form | C26 |
+| 10 | **Headline** | PR/communications | Platinum | Full-bleed image hero, logo/credential strip, testimonial slider, CTA band | C2 |
+| 11 | **Motionwave** | video/motion | Platinum | Video background hero, gallery masonry, process timeline, quote/intake form | C20 |
+| 12 | **Conversion** | e-commerce marketing | Platinum | Split hero, stats band, comparison table, quote/intake form | C26 |
+| 13 | **Spectrum** | full-service agency | Platinum | Carousel hero, feature grid, testimonial slider, CTA band | C26 |
+| 14 | **Growthlab** | digital marketing | Iridium | Animated SVG hero, stats band, pricing cards, CRM intake, portal teaser | C20 |
+| 15 | **Marca Viva** | full-service agency | Iridium | Split hero (Spanish-first), feature grid, testimonial slider, booking/scheduler, CRM intake | C13 |
+| 16 | **Studio Stack** | web design/dev | Iridium | Video background hero, comparison table, pricing cards, client portal teaser | C26 |
+| 17 | **Reachly** | social media | Iridium | Carousel hero, stats band, process timeline, CRM intake, portal teaser | C26 |
+| 18 | **Optimize** | SEO/SEM | Iridium | Split hero, stats band, comparison table, dashboard portal teaser | C2 |
+| 19 | **Storyboard** | video/motion | Iridium | Video background hero, gallery masonry, process timeline, CRM intake | C20 |
+| 20 | **Newsroom** | PR/communications | Iridium | Full-bleed image hero, logo/credential strip, process timeline, media portal teaser | C2 |
+| 21 | **Cartwise** | e-commerce marketing | Iridium | Split hero, stats band, comparison table, e-commerce integrations, CRM intake | C26 |
+| 22 | **Inkwell** | content/copywriting | Iridium | Split hero, feature grid, pricing cards, content portal teaser | C26 |
+| 23 | **Logoworks** | branding/identity | Iridium | Gallery masonry hero, before/after slider, pricing cards, CRM intake | C20 |
+| 24 | **Catalyst Network** | full-service agency | Rhodium | Multi-office white-label hero, feature grid, case-study masonry, partner portal switcher | C26 |
+| 25 | **Catalyst Premier** | full-service agency | Rhodium | Animated SVG flagship hero, stats band, AI voice receptionist teaser, client portal teaser, pricing cards | C1 |
+
+---
+
+## 31. IT Services & Managed IT (MSP)
+*Professional-clear B2B register; **triage any security incident and escalate to the on-call engineer, never collect credentials over open voice, always capture company/issue/urgency.** Niches: managed IT/MSP, cybersecurity, cloud/migration, helpdesk/support, network/infrastructure, web/app dev, data backup/DR, VoIP/telecom, compliance/IT audit, hardware/procurement.*
+
+| # | Template | Niche fit | Tier | Hero/Layout & key blocks | Palette |
+|---|---|---|:---:|---|:---:|
+| 1 | **Uptime** | managed IT/MSP | Gold | Split hero, feature grid, CTA band | C27 |
+| 2 | **Helpdesk** | helpdesk/support | Gold | Split hero, feature grid, quote/intake form | C27 |
+| 3 | **Nodepoint** | network/infrastructure | Gold | Animated SVG hero, feature grid, map+hours | C2 |
+| 4 | **Sentinel** | cybersecurity | Platinum | Animated SVG hero, stats band, comparison table, quote/intake form | C27 |
+| 5 | **Failsafe** | data backup/DR | Platinum | Split hero, process timeline, stats band, quote/intake form | C27 |
+| 6 | **Cloudshift** | cloud/migration | Platinum | Animated SVG hero, process timeline, comparison table, quote/intake form | C6 |
+| 7 | **Networx** | network/infrastructure | Platinum | Split hero, feature grid, stats band, CTA band | C2 |
+| 8 | **Frontdesk** | helpdesk/support | Platinum | Split hero, feature grid, FAQ accordion, ticket intake form | C27 |
+| 9 | **Dialtone** | VoIP/telecom | Platinum | Split hero, comparison table, pricing cards, quote/intake form | C6 |
+| 10 | **Auditline** | compliance/IT audit | Platinum | Split hero, process timeline, credential strip, quote/intake form | C2 |
+| 11 | **Devforge** | web/app dev | Platinum | Animated SVG hero, feature grid, gallery masonry, quote/intake form | C27 |
+| 12 | **Procure** | hardware/procurement | Platinum | Split hero, comparison table, pricing cards, quote/intake form | C2 |
+| 13 | **Managed** | managed IT/MSP | Platinum | Split hero, stats band, pricing cards, CTA band | C27 |
+| 14 | **Fortify** | cybersecurity | Iridium | Animated SVG hero, stats band, comparison table, SOC portal teaser, ticket intake | C27 |
+| 15 | **Soporte TI** | helpdesk/support | Iridium | Split hero (Spanish-first), feature grid, ticket intake, client portal teaser, CRM | C13 |
+| 16 | **MigratePro** | cloud/migration | Iridium | Animated SVG hero, process timeline, pricing cards, migration portal teaser | C6 |
+| 17 | **TicketHub** | helpdesk/support | Iridium | Split hero, stats band, SLA comparison table, ticketing portal teaser, CRM intake | C27 |
+| 18 | **VaultDR** | data backup/DR | Iridium | Split hero, process timeline, stats band, recovery portal teaser, intake form | C27 |
+| 19 | **GridOps** | network/infrastructure | Iridium | Animated SVG hero, feature grid, monitoring dashboard portal teaser, intake | C2 |
+| 20 | **ComplyIQ** | compliance/IT audit | Iridium | Split hero, process timeline, credential strip, audit portal teaser, intake form | C2 |
+| 21 | **ConnectVoIP** | VoIP/telecom | Iridium | Split hero, comparison table, pricing cards, provisioning portal teaser, CRM | C6 |
+| 22 | **AppForge** | web/app dev | Iridium | Animated SVG hero, gallery masonry, process timeline, project portal teaser | C27 |
+| 23 | **RedAlert** | cybersecurity | Iridium | Animated SVG hero (24/7 incident response, after-hours escalation), stats band, on-call escalation intake, SOC portal teaser | C31 |
+| 24 | **Sentinel Network** | managed IT/MSP | Rhodium | Multi-site white-label hero, stats band, SLA comparison table, multi-tenant portal switcher | C27 |
+| 25 | **Sentinel Premier** | managed IT/MSP | Rhodium | Animated SVG flagship hero, stats band, AI voice receptionist teaser, client portal teaser, pricing cards | C1 |
+
+---
+
+## 32. Professional Services & Consulting
+*Polished-measured register, usted; **never give legal, financial, or tax advice, always capture scope/intent, route to the appropriate consultant.** Niches: business/management consulting, HR/PEO, executive/business coaching, operations/process, strategy, grant writing, notary/document services, translation services, virtual assistant/admin, franchise consulting.*
+
+| # | Template | Niche fit | Tier | Hero/Layout & key blocks | Palette |
+|---|---|---|:---:|---|:---:|
+| 1 | **Advisory** | business/management consulting | Gold | Split hero, feature grid, CTA band | C28 |
+| 2 | **Compass** | strategy | Gold | Full-bleed image hero, feature grid, quote/intake form | C28 |
+| 3 | **Ledgerless** | notary/document services | Gold | Split hero, feature grid, map+hours | C28 |
+| 4 | **Cornerstone** | business/management consulting | Platinum | Split hero, process timeline, testimonial slider, booking/scheduler | C28 |
+| 5 | **Peoplewise** | HR/PEO | Platinum | Split hero, feature grid, comparison table, quote/intake form | C28 |
+| 6 | **Elevate** | executive/business coaching | Platinum | Full-bleed image hero, process timeline, testimonial slider, booking/scheduler | C2 |
+| 7 | **Streamline** | operations/process | Platinum | Animated SVG hero, process timeline, stats band, quote/intake form | C28 |
+| 8 | **Northstar** | strategy | Platinum | Split hero, stats band, testimonial slider, booking/scheduler | C28 |
+| 9 | **Grantworks** | grant writing | Platinum | Split hero, process timeline, stats band, quote/intake form | C28 |
+| 10 | **Sealmark** | notary/document services | Platinum | Split hero, feature grid, FAQ accordion, booking/scheduler | C2 |
+| 11 | **Linguabridge** | translation services | Platinum | Split hero, feature grid, pricing cards, quote/intake form | C28 |
+| 12 | **Deskmate** | virtual assistant/admin | Platinum | Split hero, feature grid, pricing cards, booking/scheduler | C28 |
+| 13 | **Franchise** | franchise consulting | Platinum | Full-bleed image hero, process timeline, comparison table, quote/intake form | C1 |
+| 14 | **Boardroom** | business/management consulting | Iridium | Split hero, process timeline, case-study masonry, client portal teaser, CRM intake | C28 |
+| 15 | **Asesoría** | strategy | Iridium | Split hero (Spanish-first), feature grid, testimonial slider, booking/scheduler, CRM intake | C13 |
+| 16 | **TalentOps** | HR/PEO | Iridium | Split hero, comparison table, pricing cards, HR portal teaser, CRM intake | C28 |
+| 17 | **CoachHub** | executive/business coaching | Iridium | Full-bleed image hero, process timeline, booking/scheduler, member portal teaser | C2 |
+| 18 | **ProcessIQ** | operations/process | Iridium | Animated SVG hero, process timeline, stats band, dashboard portal teaser, intake | C28 |
+| 19 | **FundFlow** | grant writing | Iridium | Split hero, process timeline, stats band, application portal teaser, intake form | C28 |
+| 20 | **NotaryNow** | notary/document services | Iridium | Split hero, feature grid, booking/scheduler, document portal teaser, CRM intake | C2 |
+| 21 | **Polyglot** | translation services | Iridium | Split hero, feature grid, pricing cards, project portal teaser, quote intake | C28 |
+| 22 | **AssistDesk** | virtual assistant/admin | Iridium | Split hero, feature grid, pricing cards, client portal teaser, booking/scheduler | C28 |
+| 23 | **FranchiseIQ** | franchise consulting | Iridium | Full-bleed image hero, comparison table, pricing cards, franchisee portal teaser, CRM | C1 |
+| 24 | **Cornerstone Network** | business/management consulting | Rhodium | Multi-office white-label hero, case-study masonry, credential strip, partner portal switcher | C28 |
+| 25 | **Cornerstone Premier** | business/management consulting | Rhodium | Full-bleed image flagship hero, stats band, AI voice receptionist teaser, client portal teaser, pricing cards | C1 |
+
+---
+
+## 33. Staffing & Recruiting
+*Approachable-professional, bilingual-heavy; recruiter-grade trust signals. **EEOC/fair-hiring only — never screen or route by protected class; always capture role/skills/availability and split candidate vs. employer paths; never promise placement or wages on the call.** Niches: general staffing, light industrial/warehouse, healthcare staffing, IT/tech recruiting, executive search, administrative/clerical, hospitality staffing, skilled-trades staffing, temp-to-hire, payroll/EOR.*
+
+| # | Template | Niche fit | Tier | Hero/Layout & key blocks | Palette |
+|---|---|---|:---:|---|:---:|
+| 1 | **Launchpad** | general staffing | Gold | Split hero (candidate/employer toggle), feature grid, CTA band | C29 |
+| 2 | **Shiftline** | light industrial/warehouse | Gold | Full-bleed image hero, stats band, dual quote/intake form | C2 |
+| 3 | **Deskmate** | administrative/clerical | Gold | One-page split hero, process timeline, CTA band | C29 |
+| 4 | **Talenthub** | general staffing | Platinum | Split hero, dual-path booking/scheduler, testimonial slider, FAQ accordion | C29 |
+| 5 | **Warehouseworks** | light industrial/warehouse | Platinum | Full-bleed hero, stats band, candidate intake form, map+hours | C2 |
+| 6 | **Caregrid** | healthcare staffing | Platinum | Split hero, credential strip, shift scheduler, testimonial slider | C6 |
+| 7 | **Stackmatch** | IT/tech recruiting | Platinum | Animated SVG hero, skills feature grid, intake form, FAQ accordion | C29 |
+| 8 | **Frontdesk** | administrative/clerical | Platinum | Split hero, process timeline, booking/scheduler, CTA band | C29 |
+| 9 | **Servepool** | hospitality staffing | Platinum | Carousel hero, gallery masonry, shift intake form, reviews slider | C29 |
+| 10 | **Tradeline** | skilled-trades staffing | Platinum | Full-bleed hero, credential strip, quote/intake form, map+hours | C2 |
+| 11 | **Bridgehire** | temp-to-hire | Platinum | Split hero, comparison table (temp vs. perm), process timeline, CTA band | C29 |
+| 12 | **Talento** | general staffing | Platinum | Spanish-first split hero, dual-path intake form, FAQ accordion, CTA band | C13 |
+| 13 | **Vanguard Search** | executive search | Iridium | Video-background hero, credential strip, confidential intake portal teaser, testimonial slider | C6 |
+| 14 | **Cliniqstaff** | healthcare staffing | Iridium | Split hero, AI voice receptionist teaser, credential strip, shift scheduler + CRM | C6 |
+| 15 | **Codepipeline** | IT/tech recruiting | Iridium | Animated SVG hero, skills feature grid, candidate portal teaser, automation timeline | C29 |
+| 16 | **Paybridge** | payroll/EOR | Iridium | Split hero, pricing cards, compliance feature grid, onboarding portal teaser | C2 |
+| 17 | **Hospitalitypro** | hospitality staffing | Iridium | Carousel hero, gallery masonry, AI voice receptionist teaser, shift scheduler | C29 |
+| 18 | **Craftcrew** | skilled-trades staffing | Iridium | Full-bleed hero, credential strip, dispatch scheduler, employer portal teaser | C2 |
+| 19 | **Flexforce** | temp-to-hire | Iridium | Split hero, comparison table, CRM automation timeline, candidate portal teaser | C29 |
+| 20 | **Conexión** | general staffing | Iridium | Spanish-first split hero, AI voice receptionist teaser, dual-path intake, CRM | C14 |
+| 21 | **Rapidfill** | light industrial/warehouse | Iridium | After-hours full-bleed hero, urgent shift dispatch form, stats band, map+hours | C16 |
+| 22 | **Pinnacle Network** | executive search | Rhodium | Multi-location white-label hero, location switcher, credential strip, partner portal | C1 |
+| 23 | **Talent Network** | general staffing | Rhodium | White-label split hero, multi-branch map, franchise dashboard, automation timeline | C29 |
+| 24 | **Apex Premier** | executive search | Rhodium | Cinematic video hero, AI voice receptionist teaser, confidential client portal, bespoke design system | C1 |
+| 25 | **Summit Premier** | healthcare staffing | Rhodium | Flagship full-bleed hero, AI voice receptionist teaser, credential strip, candidate+employer portal | C1 |
+
+---
+
+## 34. Commercial Cleaning & Janitorial
+*Dependable-friendly, bilingual workforce-heavy; trust through licensing and proof. **Never give a binding quote over the phone — book a walk-through; always capture facility type/sqft/frequency; surface licensing & insurance.** Niches: office/commercial cleaning, janitorial contracts, post-construction cleanup, medical/clinic cleaning, floor care/strip-wax, window cleaning, carpet/upholstery, disinfection/sanitizing, industrial cleaning, day-porter services.*
+
+| # | Template | Niche fit | Tier | Hero/Layout & key blocks | Palette |
+|---|---|---|:---:|---|:---:|
+| 1 | **Freshstart** | office/commercial cleaning | Gold | Full-bleed image hero, feature grid, walk-through CTA band | C30 |
+| 2 | **Cleanslate** | janitorial contracts | Gold | Split hero, process timeline, quote/intake form | C30 |
+| 3 | **Brightwork** | day-porter services | Gold | One-page hero, feature grid, map+hours, CTA band | C18 |
+| 4 | **Sparklepro** | office/commercial cleaning | Platinum | Split hero, before/after slider, walk-through scheduler, reviews slider | C30 |
+| 5 | **Contractcare** | janitorial contracts | Platinum | Full-bleed hero, credential strip, intake form, FAQ accordion | C30 |
+| 6 | **Newbuild** | post-construction cleanup | Platinum | Before/after slider hero, gallery masonry, quote/intake form, CTA band | C18 |
+| 7 | **Mediclean** | medical/clinic cleaning | Platinum | Split hero, credential/compliance strip, walk-through scheduler, FAQ accordion | C8 |
+| 8 | **Mirrorshine** | window cleaning | Platinum | Before/after slider hero, gallery masonry, booking/scheduler, reviews slider | C18 |
+| 9 | **Glosswax** | floor care/strip-wax | Platinum | Before/after slider hero, process timeline, quote/intake form, map+hours | C30 |
+| 10 | **Deepfiber** | carpet/upholstery | Platinum | Before/after slider hero, gallery masonry, scheduler, testimonial slider | C30 |
+| 11 | **Pureguard** | disinfection/sanitizing | Platinum | Full-bleed hero, credential strip, feature grid, walk-through CTA band | C8 |
+| 12 | **Limpieza** | office/commercial cleaning | Platinum | Spanish-first split hero, before/after slider, walk-through scheduler, FAQ accordion | C13 |
+| 13 | **Officeflow** | office/commercial cleaning | Iridium | Split hero, AI voice receptionist teaser, recurring-service portal, automation timeline | C30 |
+| 14 | **Janipro** | janitorial contracts | Iridium | Full-bleed hero, AI voice receptionist teaser, client portal teaser, CRM scheduling | C30 |
+| 15 | **Sterilezone** | medical/clinic cleaning | Iridium | Split hero, compliance feature grid, walk-through scheduler, client portal teaser | C8 |
+| 16 | **Heavyduty** | industrial cleaning | Iridium | Full-bleed hero, stats band, credential strip, facility intake portal | C18 |
+| 17 | **Floormaster** | floor care/strip-wax | Iridium | Before/after slider hero, pricing cards, recurring scheduler, client portal teaser | C30 |
+| 18 | **Crystalview** | window cleaning | Iridium | Before/after slider hero, route scheduler, CRM automation, portal teaser | C18 |
+| 19 | **Sanibright** | disinfection/sanitizing | Iridium | Split hero, AI voice receptionist teaser, credential strip, service portal | C8 |
+| 20 | **Limpio** | day-porter services | Iridium | Spanish-first full-bleed hero, AI voice receptionist teaser, shift scheduler, portal | C14 |
+| 21 | **Rapidresponse** | disinfection/sanitizing | Iridium | After-hours alert hero, emergency dispatch form, stats band, map+hours | C16 |
+| 22 | **Spotless Network** | janitorial contracts | Rhodium | Multi-location white-label hero, branch switcher, franchise dashboard, portal | C1 |
+| 23 | **Citywide Network** | office/commercial cleaning | Rhodium | White-label split hero, multi-site map, account portal, automation timeline | C1 |
+| 24 | **Pristine Premier** | medical/clinic cleaning | Rhodium | Flagship video hero, AI voice receptionist teaser, compliance design system, client portal | C1 |
+| 25 | **Apex Premier** | janitorial contracts | Rhodium | Flagship full-bleed hero, AI voice receptionist teaser, bespoke system, multi-account portal | C1 |
+
+---
+
+## 35. Security & Safety Services
+*Authoritative-reassuring, bilingual common; calm under pressure, credentials forward. **Any in-progress crime or threat → direct to 911 first; never make false security guarantees; always capture site type/coverage need; route after-hours to dispatch.** Niches: security guards/patrol, alarm & monitoring, CCTV/surveillance install, locksmith, access control, fire & life-safety, event security, executive protection, physical-security consulting, fire-extinguisher/inspection.*
+
+| # | Template | Niche fit | Tier | Hero/Layout & key blocks | Palette |
+|---|---|---|:---:|---|:---:|
+| 1 | **Sentry** | security guards/patrol | Gold | Full-bleed image hero, feature grid, CTA band | C31 |
+| 2 | **Keyturn** | locksmith | Gold | Split hero, service grid, map+hours | C2 |
+| 3 | **Safepoint** | fire-extinguisher/inspection | Gold | One-page hero, process timeline, quote/intake form | C31 |
+| 4 | **Patrolpro** | security guards/patrol | Platinum | Full-bleed hero, credential strip, coverage intake form, reviews slider | C31 |
+| 5 | **Alarmwatch** | alarm & monitoring | Platinum | Split hero, feature grid, booking/scheduler, FAQ accordion | C2 |
+| 6 | **Lensguard** | CCTV/surveillance install | Platinum | Video-background hero, gallery masonry, quote/intake form, CTA band | C31 |
+| 7 | **Locksmith** | locksmith | Platinum | Split hero, service grid, dispatch scheduler, map+hours | C2 |
+| 8 | **Gatekeeper** | access control | Platinum | Animated SVG hero, feature grid, intake form, comparison table | C2 |
+| 9 | **Firewatch** | fire & life-safety | Platinum | Full-bleed hero, credential/compliance strip, inspection scheduler, FAQ accordion | C31 |
+| 10 | **Eventshield** | event security | Platinum | Carousel hero, gallery masonry, coverage intake form, reviews slider | C31 |
+| 11 | **Extinguish** | fire-extinguisher/inspection | Platinum | Split hero, process timeline, inspection scheduler, map+hours | C31 |
+| 12 | **Vigilante** | security guards/patrol | Platinum | Spanish-first full-bleed hero, credential strip, coverage intake, FAQ accordion | C13 |
+| 13 | **Guardpost** | security guards/patrol | Iridium | Full-bleed hero, AI voice receptionist teaser, dispatch portal, CRM scheduling | C31 |
+| 14 | **Monitorhub** | alarm & monitoring | Iridium | Split hero, live-monitoring feature grid, client portal teaser, automation timeline | C1 |
+| 15 | **Surveil** | CCTV/surveillance install | Iridium | Video hero, gallery masonry, system-design portal, quote/intake form | C1 |
+| 16 | **Accessnet** | access control | Iridium | Animated SVG hero, comparison table, integration portal teaser, CRM | C2 |
+| 17 | **Lifesafe** | fire & life-safety | Iridium | Split hero, compliance feature grid, inspection scheduler, client portal | C31 |
+| 18 | **Aegis** | executive protection | Iridium | Cinematic video hero, credential strip, confidential intake portal, testimonial slider | C1 |
+| 19 | **Riskmap** | physical-security consulting | Iridium | Split hero, process timeline, assessment intake form, client portal teaser | C2 |
+| 20 | **Centinela** | alarm & monitoring | Iridium | Spanish-first split hero, AI voice receptionist teaser, monitoring portal, CRM | C14 |
+| 21 | **Rapiddispatch** | security guards/patrol | Iridium | After-hours alert hero, 911-first banner, emergency dispatch form, map+hours | C16 |
+| 22 | **Fortress Network** | alarm & monitoring | Rhodium | Multi-location white-label hero, branch switcher, dispatch dashboard, portal | C1 |
+| 23 | **Shield Network** | security guards/patrol | Rhodium | White-label full-bleed hero, multi-site map, franchise portal, automation timeline | C1 |
+| 24 | **Sentinel Premier** | executive protection | Rhodium | Flagship cinematic hero, AI voice receptionist teaser, confidential client portal, bespoke design system | C1 |
+| 25 | **Guardian Premier** | alarm & monitoring | Rhodium | Flagship video hero, AI voice receptionist teaser, 24/7 dispatch portal, bespoke system | C1 |
+
+---
+
+## 36. Pet Services (Grooming, Boarding & Training)
+*Warm-playful, tú-friendly bilingual; pets are family. **Require current vaccine records before service; never give veterinary/medical advice — injury or illness routes to a vet; always capture pet species/breed/temperament.** Niches: grooming, boarding/daycare, dog training, dog walking/pet sitting, mobile grooming, pet transport, pet bakery/retail, cat boarding, puppy socialization, exotic/small-pet care.*
+
+| # | Template | Niche fit | Tier | Hero/Layout & key blocks | Palette |
+|---|---|---|:---:|---|:---:|
+| 1 | **Waggle** | grooming | Gold | Full-bleed image hero, service grid, CTA band | C32 |
+| 2 | **Pawprint** | dog walking/pet sitting | Gold | Split hero, feature grid, map+hours | C14 |
+| 3 | **Snugpaws** | cat boarding | Gold | One-page hero, gallery masonry, quote/intake form | C35 |
+| 4 | **Flufftub** | grooming | Platinum | Before/after slider hero, gallery masonry, booking/scheduler, reviews slider | C32 |
+| 5 | **Bunkhouse** | boarding/daycare | Platinum | Carousel hero, gallery masonry, booking/scheduler, FAQ accordion | C32 |
+| 6 | **Goodboy** | dog training | Platinum | Split hero, process timeline, class scheduler, testimonial slider | C32 |
+| 7 | **Trailbuddy** | dog walking/pet sitting | Platinum | Full-bleed hero, feature grid, recurring scheduler, map+hours | C14 |
+| 8 | **Vanglam** | mobile grooming | Platinum | Split hero, before/after slider, route booking, reviews slider | C32 |
+| 9 | **Whiskerinn** | cat boarding | Platinum | Carousel hero, gallery masonry, booking/scheduler, FAQ accordion | C35 |
+| 10 | **Puptreats** | pet bakery/retail | Platinum | Gallery masonry hero, product grid, reviews slider, CTA band | C14 |
+| 11 | **Tinypaws** | exotic/small-pet care | Platinum | Split hero, feature grid, intake form, FAQ accordion | C8 |
+| 12 | **Mascotas** | grooming | Platinum | Spanish-first full-bleed hero, gallery masonry, booking/scheduler, reviews slider | C13 |
+| 13 | **Glamour** | grooming | Iridium | Before/after slider hero, AI voice receptionist teaser, booking portal, CRM reminders | C32 |
+| 14 | **Petresort** | boarding/daycare | Iridium | Carousel hero, AI voice receptionist teaser, boarding portal (webcam), vaccine-record upload | C32 |
+| 15 | **Topdog** | dog training | Iridium | Split hero, class catalog, enrollment portal, automation timeline | C32 |
+| 16 | **Roamly** | dog walking/pet sitting | Iridium | Full-bleed hero, GPS-walk feature grid, client portal teaser, recurring CRM scheduler | C14 |
+| 17 | **Groomvan** | mobile grooming | Iridium | Split hero, AI voice receptionist teaser, route scheduler, client portal | C32 |
+| 18 | **Petshop** | pet bakery/retail | Iridium | Gallery hero, e-commerce product grid, cart/checkout, subscription portal | C14 |
+| 19 | **Catclub** | cat boarding | Iridium | Carousel hero, AI voice receptionist teaser, suite-booking portal, vaccine-record upload | C35 |
+| 20 | **Cachorro** | boarding/daycare | Iridium | Spanish-first carousel hero, AI voice receptionist teaser, boarding portal, vaccine upload | C14 |
+| 21 | **Petferry** | pet transport | Iridium | Full-bleed hero, route/booking scheduler, status portal teaser, intake form | C8 |
+| 22 | **Companion Network** | boarding/daycare | Rhodium | Multi-location white-label hero, branch switcher, franchise dashboard, portal | C1 |
+| 23 | **Pawsome Network** | grooming | Rhodium | White-label split hero, multi-site map, owner portal, automation timeline | C1 |
+| 24 | **Bella Premier** | boarding/daycare | Rhodium | Flagship video hero, AI voice receptionist teaser, webcam client portal, bespoke design system | C1 |
+| 25 | **Companion Premier** | grooming | Rhodium | Flagship full-bleed hero, AI voice receptionist teaser, booking+vaccine portal, bespoke system | C1 |
+
+---
+
+## 37. Agriculture & Farm Services
+*Plain-warm rural register, bilingual-workforce ready, tú/usted as fits; **no agronomic or chemical-application advice stated as fact — defer to licensed agronomist/label; always capture acreage/crop/service type; flag chemical & equipment safety.** Niches: farm supply/feed store, ag equipment sales & repair, crop services/spraying, livestock/cattle services, greenhouse/nursery, irrigation, agronomy/consulting, grain/storage, agritourism, fencing/land clearing.*
+
+| # | Template | Niche fit | Tier | Hero/Layout & key blocks | Palette |
+|---|---|---|:---:|---|:---:|
+| 1 | **Homestead** | farm supply/feed store | Gold | Full-bleed barn image, feature grid, map+hours | C33 |
+| 2 | **Furrow** | crop services/spraying | Gold | Split hero, service grid, CTA band | C33 |
+| 3 | **Paddock** | livestock/cattle services | Gold | Full-bleed pasture image, stats band, map+hours | C39 |
+| 4 | **Greenhaven** | greenhouse/nursery | Platinum | Carousel hero, gallery masonry, booking/scheduler | C3 |
+| 5 | **Tractorline** | ag equipment sales & repair | Platinum | Split hero, product catalog, quote/intake form | C33 |
+| 6 | **Feedlot** | farm supply/feed store | Platinum | Full-bleed image, product catalog, reviews slider | C33 |
+| 7 | **Rainline** | irrigation | Platinum | Animated SVG hero, process timeline, quote/intake form | C39 |
+| 8 | **Stockyard** | livestock/cattle services | Platinum | Split hero, service grid, booking/scheduler | C39 |
+| 9 | **Cosecha** | crop services/spraying | Platinum | Full-bleed field image (Spanish-first), service grid, intake form | C13 |
+| 10 | **Silofield** | grain/storage | Platinum | Split hero, stats band, map+hours | C33 |
+| 11 | **Orchardry** | greenhouse/nursery | Platinum | Carousel hero, gallery masonry, FAQ accordion | C3 |
+| 12 | **Bramblewood** | fencing/land clearing | Platinum | Before/after slider, gallery masonry, quote/intake form | C39 |
+| 13 | **Stormwatch** | crop services/spraying | Iridium | Full-bleed storm sky (after-hours/urgent), CTA band, AI voice intake, dispatch form | C16 |
+| 14 | **Acreage** | agronomy/consulting | Iridium | Split hero, process timeline, CRM portal teaser | C28 |
+| 15 | **Harvestpro** | ag equipment sales & repair | Iridium | Video background, product catalog, shop, parts portal | C33 |
+| 16 | **Driplink** | irrigation | Iridium | Animated SVG hero, scheduler, AI voice receptionist teaser, portal | C39 |
+| 17 | **Granary** | grain/storage | Iridium | Split hero, stats band, intake CRM, automation flow | C33 |
+| 18 | **Cattlemark** | livestock/cattle services | Iridium | Full-bleed pasture, scheduler, CRM portal, AI voice intake | C39 |
+| 19 | **Sembrado** | farm supply/feed store | Iridium | Split hero (Spanish-first), product catalog, AI voice receptionist, portal | C14 |
+| 20 | **Vineyard** | agritourism | Iridium | Video background, gallery masonry, ticketing/booking, e-commerce shop | C3 |
+| 21 | **Fieldgate** | fencing/land clearing | Iridium | Before/after slider, quote intake, CRM automation, portal teaser | C39 |
+| 22 | **Agronova** | agronomy/consulting | Rhodium | Animated SVG hero, custom data dashboards, portal, design system | C33 |
+| 23 | **Greenfield Network** | greenhouse/nursery | Rhodium | Multi-location map hero, white-label locator, unified catalog, portal | C3 |
+| 24 | **Harvest Premier** | ag equipment sales & repair | Rhodium | Flagship video hero, AI voice receptionist teaser, dealer portal, bespoke system | C1 |
+| 25 | **Meadowlark** | agritourism | Rhodium | Carousel hero, event booking, membership portal, custom design system | C33 |
+
+---
+
+## 38. Faith, Nonprofit & Community
+*Warm-welcoming, inclusive register, bilingual common; **protect donor data and privacy, no political or financial advice, triage sensitive needs to staff/clergy, always capture intent (give/volunteer/attend).** Niches: church/place of worship, charity/nonprofit, foundation, community center, food bank/pantry, youth organization, advocacy/cause, fundraising/donations, mission/outreach, membership association.*
+
+| # | Template | Niche fit | Tier | Hero/Layout & key blocks | Palette |
+|---|---|---|:---:|---|:---:|
+| 1 | **Gathering** | church/place of worship | Gold | Full-bleed congregation image, service times, map+hours | C34 |
+| 2 | **Kindred** | community center | Gold | Split hero, feature grid, CTA band | C34 |
+| 3 | **Givewell** | charity/nonprofit | Gold | Full-bleed image, stats band, donate CTA band | C3 |
+| 4 | **Sanctuary** | church/place of worship | Platinum | Video background, sermon archive, events scheduler | C34 |
+| 5 | **Pantryway** | food bank/pantry | Platinum | Split hero, hours+map, volunteer signup form | C3 |
+| 6 | **Beacon** | youth organization | Platinum | Carousel hero, program grid, registration form | C34 |
+| 7 | **Almsgate** | fundraising/donations | Platinum | Full-bleed image, progress stats band, donation cards | C34 |
+| 8 | **Fellowship** | membership association | Platinum | Split hero, member benefits grid, signup form | C28 |
+| 9 | **Esperanza** | mission/outreach | Platinum | Full-bleed image (Spanish-first), program grid, intake form | C13 |
+| 10 | **Outreacher** | mission/outreach | Platinum | Carousel hero, process timeline, volunteer form | C34 |
+| 11 | **Cornerstone** | foundation | Platinum | Split hero, grant info grid, FAQ accordion | C1 |
+| 12 | **Voicelift** | advocacy/cause | Platinum | Animated SVG hero, petition CTA, story testimonial slider | C34 |
+| 13 | **Lifeline** | food bank/pantry | Iridium | Full-bleed image (urgent/after-hours), need-triage AI voice intake, map+hours | C31 |
+| 14 | **Stewardship** | fundraising/donations | Iridium | Split hero, recurring-gift cards, donor CRM portal | C34 |
+| 15 | **Congregate** | church/place of worship | Iridium | Video background, scheduler, member portal, AI voice receptionist teaser | C34 |
+| 16 | **Benevolence** | charity/nonprofit | Iridium | Full-bleed image, impact dashboard, donor CRM, automation flow | C3 |
+| 17 | **Youthhub** | youth organization | Iridium | Carousel hero, registration scheduler, parent portal, AI voice intake | C34 |
+| 18 | **Endowed** | foundation | Iridium | Split hero, grant portal, applicant CRM, automation | C1 |
+| 19 | **Comunidad** | community center | Iridium | Split hero (Spanish-first), events scheduler, AI voice receptionist, member portal | C14 |
+| 20 | **Causeway** | advocacy/cause | Iridium | Animated SVG hero, action CRM, supporter portal, automation flow | C34 |
+| 21 | **Missionfield** | mission/outreach | Iridium | Video background, donation cards, partner portal, AI voice intake | C3 |
+| 22 | **Graceworks** | church/place of worship | Rhodium | Flagship video hero, custom giving system, member portal, design system | C34 |
+| 23 | **Charity Network** | charity/nonprofit | Rhodium | Multi-chapter map hero, white-label locator, unified donor CRM, portal | C3 |
+| 24 | **Faith Premier** | church/place of worship | Rhodium | Flagship hero, AI voice receptionist teaser, member portal, bespoke system | C1 |
+| 25 | **Covenant** | membership association | Rhodium | Animated SVG hero, member portal, dues automation, custom design system | C1 |
+
+---
+
+## 39. Retail, Boutiques & Florists
+*Warm-stylish register, tú welcome, on-brand and tactile; **always capture order, occasion and date, state delivery cutoffs, no guarantees on stock availability, secure payment only.** Niches: clothing boutique, jewelry store, gift shop, florist/flowers, specialty/gourmet food, home decor/furniture, consignment/thrift, bookstore, toy/hobby, bridal/formalwear.*
+
+| # | Template | Niche fit | Tier | Hero/Layout & key blocks | Palette |
+|---|---|---|:---:|---|:---:|
+| 1 | **Wardrobe** | clothing boutique | Gold | Full-bleed lookbook image, feature grid, map+hours | C35 |
+| 2 | **Petalbox** | florist/flowers | Gold | Split hero, bouquet grid, CTA band | C11 |
+| 3 | **Trinket** | gift shop | Gold | Full-bleed image, product grid, map+hours | C35 |
+| 4 | **Lustre** | jewelry store | Platinum | Video background, gallery masonry, appointment scheduler | C11 |
+| 5 | **Bloomery** | florist/flowers | Platinum | Carousel hero, bouquet catalog, order/intake form | C11 |
+| 6 | **Threadbare** | consignment/thrift | Platinum | Masonry hero, rotating gallery, booking/scheduler | C39 |
+| 7 | **Pantrygourmet** | specialty/gourmet food | Platinum | Full-bleed image, product catalog, reviews slider | C39 |
+| 8 | **Hearthnest** | home decor/furniture | Platinum | Split hero, room gallery masonry, quote/intake form | C39 |
+| 9 | **Floristería** | florist/flowers | Platinum | Carousel hero (Spanish-first), bouquet catalog, order form | C13 |
+| 10 | **Chapterhouse** | bookstore | Platinum | Split hero, curated shelves grid, events scheduler | C39 |
+| 11 | **Playloft** | toy/hobby | Platinum | Carousel hero, product grid, FAQ accordion | C35 |
+| 12 | **Veilwhite** | bridal/formalwear | Platinum | Full-bleed gown image, gallery masonry, appointment booking | C11 |
+| 13 | **Sameday** | florist/flowers | Iridium | Full-bleed image (urgent/same-day cutoff), AI voice order intake, delivery scheduler | C16 |
+| 14 | **Atelier** | clothing boutique | Iridium | Video background, e-commerce shop, customer CRM portal | C35 |
+| 15 | **Giftvault** | gift shop | Iridium | Carousel hero, e-commerce shop, loyalty portal, AI voice intake | C35 |
+| 16 | **Carat** | jewelry store | Iridium | Video background, product catalog, appointment scheduler, AI voice receptionist teaser | C11 |
+| 17 | **Gourmandise** | specialty/gourmet food | Iridium | Full-bleed image, e-commerce shop, subscription portal, automation | C39 |
+| 18 | **Furnish** | home decor/furniture | Iridium | Split hero, product catalog, quote CRM, customer portal | C39 |
+| 19 | **Tienda** | gift shop | Iridium | Carousel hero (Spanish-first), e-commerce shop, AI voice receptionist, portal | C14 |
+| 20 | **Novena** | bridal/formalwear | Iridium | Full-bleed gown image, appointment scheduler, client CRM portal, AI voice intake | C11 |
+| 21 | **Petalwire** | florist/flowers | Iridium | Carousel hero, e-commerce shop, recurring-order portal, AI voice intake | C11 |
+| 22 | **Couture** | clothing boutique | Rhodium | Flagship video hero, bespoke shop, stylist portal, design system | C35 |
+| 23 | **Boutique Network** | clothing boutique | Rhodium | Multi-location map hero, white-label storefront, unified catalog, portal | C35 |
+| 24 | **Bloom Premier** | florist/flowers | Rhodium | Flagship hero, AI voice receptionist teaser, client portal, bespoke system | C1 |
+| 25 | **Adorned** | jewelry store | Rhodium | Animated SVG hero, custom commerce, VIP client portal, design system | C1 |
+
+---
+
+## 40. Industrial, Trades & Custom Fabrication
+*Plain-professional B2B register, bilingual-workforce ready; **no binding bids quoted over the phone — specs/drawings required; always capture material, spec, quantity and timeline; flag safety and lead-time.** Niches: welding/metal fabrication, machine shop/CNC, sign making, printing/large-format, upholstery, cabinetry/millwork, glass/mirror, powder coating, screen printing/embroidery, custom manufacturing.*
+
+| # | Template | Niche fit | Tier | Hero/Layout & key blocks | Palette |
+|---|---|---|:---:|---|:---:|
+| 1 | **Ironworks** | welding/metal fabrication | Gold | Full-bleed shop-floor image, capability grid, map+hours | C36 |
+| 2 | **Millright** | cabinetry/millwork | Gold | Split hero, gallery grid, CTA band | C2 |
+| 3 | **Signpost** | sign making | Gold | Full-bleed image, portfolio grid, map+hours | C15 |
+| 4 | **Fabline** | welding/metal fabrication | Platinum | Split hero, capability grid, quote/intake form | C36 |
+| 5 | **Toolpath** | machine shop/CNC | Platinum | Video background, spec grid, quote/intake form | C2 |
+| 6 | **Wideformat** | printing/large-format | Platinum | Carousel hero, portfolio masonry, file-upload intake | C15 |
+| 7 | **Reupholster** | upholstery | Platinum | Before/after slider, gallery masonry, quote/intake form | C39 |
+| 8 | **Joinery** | cabinetry/millwork | Platinum | Split hero, project gallery, consultation scheduler | C2 |
+| 9 | **Clearpane** | glass/mirror | Platinum | Full-bleed image, product grid, quote/intake form | C2 |
+| 10 | **Coatworks** | powder coating | Platinum | Before/after slider, process timeline, quote/intake form | C15 |
+| 11 | **Stitchpress** | screen printing/embroidery | Platinum | Carousel hero, portfolio grid, order/intake form | C36 |
+| 12 | **Forjadura** | welding/metal fabrication | Platinum | Split hero (Spanish-first), capability grid, quote form | C13 |
+| 13 | **Rushline** | custom manufacturing | Iridium | Full-bleed image (urgent/rush lead-time), AI voice intake, RFQ dispatch form | C31 |
+| 14 | **Precision** | machine shop/CNC | Iridium | Video background, spec catalog, RFQ CRM portal, automation | C2 |
+| 15 | **Weldgrid** | welding/metal fabrication | Iridium | Split hero, capability grid, job portal, AI voice intake | C36 |
+| 16 | **Brandpress** | printing/large-format | Iridium | Carousel hero, file-upload shop, client proofing portal, automation | C15 |
+| 17 | **Cabinetura** | cabinetry/millwork | Iridium | Split hero (Spanish-first), gallery, AI voice receptionist, client portal | C14 |
+| 18 | **Threadline** | screen printing/embroidery | Iridium | Carousel hero, e-commerce shop, order CRM portal, AI voice intake | C36 |
+| 19 | **Coatflow** | powder coating | Iridium | Before/after slider, scheduler, job-tracking portal, automation | C15 |
+| 20 | **Glasscraft** | glass/mirror | Iridium | Full-bleed image, quote intake, project CRM portal, AI voice receptionist teaser | C2 |
+| 21 | **Makeworks** | custom manufacturing | Iridium | Video background, capability catalog, RFQ portal, AI voice intake | C36 |
+| 22 | **Foundry** | welding/metal fabrication | Rhodium | Flagship video hero, custom RFQ system, client portal, design system | C36 |
+| 23 | **Fabrication Network** | custom manufacturing | Rhodium | Multi-shop map hero, white-label RFQ locator, unified job portal | C2 |
+| 24 | **Forge Premier** | machine shop/CNC | Rhodium | Flagship hero, AI voice receptionist teaser, client portal, bespoke system | C1 |
+| 25 | **Artisan** | cabinetry/millwork | Rhodium | Animated SVG hero, bespoke commerce, design-studio portal, design system | C1 |
+
+---
+
+# Top 40 Color Combinations
 
 *Brand-safe, accessibility-aware palettes referenced as `C#` throughout the library. Each gives
 **roles** (Primary = headers/CTAs · Secondary = supporting/sections · Accent = highlights/links ·
@@ -846,9 +1375,32 @@ meets **WCAG AA (≥4.5:1)**; verify final CTA/contrast in the chosen template b
 | **C18** | Ocean Blue & Aqua | `#0E6CA6` | `#1E96C8` | `#46D0D6` | `#FAFEFF` | `#0E2230` | Refreshing, coastal, leisure | Hospitality · Pools · Vacation rentals · Aqua fitness |
 | **C19** | Crimson & Onyx | `#B11226` | `#D62839` | `#1A1A1D` | `#FAFAFA` | `#16161A` | Bold, high-energy, performance | Automotive sales · Sports bars · Gyms · Boxing |
 | **C20** | Electric Violet & Black | `#7B2FF2` | `#9B5BF5` | `#16F0C8` | `#0E0E12` | `#F2F0F8` | Modern, premium-tech, nightlife (dark UI) | Tech-forward · Nightlife · Tattoo · Cycling · EV |
+| **C21** | Caregiver Teal & Coral | `#176A6E` | `#2E9CA1` | `#F2785C` | `#FBFAF7` | `#16302F` | Warm, caring, reassuring | Home health · Senior care · Hospice |
+| **C22** | Pharma Green & White | `#1B7A4B` | `#2FA169` | `#5BC98E` | `#FFFFFF` | `#13261C` | Clean, trustworthy, health | Pharmacy · Medical supply · Clinics |
+| **C23** | Wanderlust Turquoise & Sand | `#0E8C8B` | `#18B0AE` | `#E8A24A` | `#FBF8F2` | `#133031` | Adventurous, sunny, escape | Travel · Tourism · Resorts |
+| **C24** | Festival Jewel | `#7A1F5A` | `#A8327E` | `#E0B24A` | `#FFFBF8` | `#2A0F20` | Celebratory, vibrant, premium-fun | Events · Entertainment · Nightlife |
+| **C25** | Filmnoir Mono | `#1A1A1D` | `#3A3A40` | `#C0A062` | `#FAFAFA` | `#16161A` | Artistic, timeless, cinematic | Photography · Video · Creative |
+| **C26** | Studio Gradient | `#3B2E8C` | `#6C3FB5` | `#F0457E` | `#FFFFFF` | `#1A1530` | Bold, creative, energetic | Marketing · Creative agencies · Design |
+| **C27** | Cyber Slate & Neon | `#0E1A2B` | `#1E3A5F` | `#2FE6D6` | `#0E1117` | `#E6EDF5` | Technical, secure, modern (dark UI) | IT/MSP · Cybersecurity · SaaS |
+| **C28** | Consultant Navy & Sage | `#1C2E4A` | `#2E4A6E` | `#8FA98C` | `#FAFBFC` | `#15202E` | Authoritative, measured, credible | Consulting · Professional services |
+| **C29** | Talent Blue & Coral | `#1F5FA8` | `#3E86C9` | `#F37B62` | `#FCFDFF` | `#14222E` | Approachable, dynamic, human | Staffing · Recruiting · HR |
+| **C30** | Fresh Aqua & Lime | `#0E9AA6` | `#36C0C2` | `#9BD534` | `#FAFFFE` | `#103030` | Clean, fresh, energetic | Commercial cleaning · Janitorial |
+| **C31** | Sentinel Black & Safety Red | `#16181D` | `#2C3039` | `#D5202B` | `#FAFAFA` | `#14161A` | Authoritative, protective, alert | Security · Safety · Emergency dispatch |
+| **C32** | Pup Playful | `#2C8FD6` | `#57B0E6` | `#FF8A3D` | `#FCFEFF` | `#133041` | Fun, friendly, energetic | Pet services · Grooming · Daycare |
+| **C33** | Harvest Green & Wheat | `#3A6B2E` | `#5C8A3C` | `#D8A14A` | `#FBF8F0` | `#20301A` | Earthy, dependable, grown | Agriculture · Farm services · Nursery |
+| **C34** | Hope Amber & Cream | `#B5702A` | `#D89A4C` | `#2E7D6B` | `#FCF9F2` | `#2C1C10` | Warm, hopeful, community | Faith · Nonprofit · Community |
+| **C35** | Boutique Blush & Sage | `#B97A86` | `#D7A2AB` | `#8AA088` | `#FFF9F7` | `#3A2228` | Pretty, curated, boutique | Retail · Boutiques · Florists |
+| **C36** | Industrial Steel & Hazard | `#2B2F36` | `#4A515C` | `#F2B100` | `#FAFAF8` | `#1A1D21` | Rugged, precise, industrial | Industrial · Fabrication · Trades |
+| **C37** | Aubergine & Rose | `#4A2540` | `#6E3A5E` | `#D98BA6` | `#FCF8FA` | `#261020` | Luxe, moody, refined | Luxury wellness · Beauty · Boutique |
+| **C38** | Glacier Blue & Frost | `#2A6F97` | `#4A92BE` | `#8FD0E6` | `#FBFEFF` | `#14222E` | Crisp, clean, calm | Medical · Clean · Tech alternates |
+| **C39** | Clay & Moss | `#9C5A3C` | `#B87A52` | `#6E7B3C` | `#FBF7F1` | `#2C1A12` | Artisan, earthy, handcrafted | Artisan retail · Craft · Farm-to-table |
+| **C40** | Mariner Navy & Brass | `#14304A` | `#285878` | `#C2965A` | `#FBFAF6` | `#101F2E` | Premium, nautical, established | Hospitality · Marina · Premium services |
 
-> **Dark-mode note.** C20 is a **dark-surface** palette (light text on near-black). C1 and C16
-> also ship a dark variant (swap Surface→Primary, Text→`#E6E9EF`) for hero sections and apps.
+> **Dark-mode note.** C20 and C27 are **dark-surface** palettes (light text on near-black); C25
+> and C31 are near-dark and read well in dark UI. C1 and C16 also ship a dark variant (swap
+> Surface→Primary, Text→`#E6E9EF`) for hero sections and apps. **Cluster map:** C21–C24 health/
+> travel/events, C25–C29 creative/tech/professional, C30–C36 services/trades/community, C37–C40
+> are luxe/alternate accents that pair with any cluster.
 > **Bilingual note.** C13 (Terracotta & Olive) and C14 (Sunset Coral) are the warm defaults for
 > Spanish-first / family-oriented builds; any palette works bilingually, but these test best with
 > Mexican / Central-American audiences.
@@ -946,6 +1498,39 @@ hours + Google Map · contact form · social/favicon/SSL · basic on-page SEO ·
 **Recommended block order (home page):** hero → trust strip (logos/credentials) → services/feature
 grid → social proof (reviews) → process/urgency band → secondary CTA → map + hours → footer. Reorder
 for the niche (e.g., emergency verticals push the 24/7 urgency band directly under the hero).
+
+---
+
+# World-Class Feature Stack
+
+*What separates a "fine" site from a best-in-category one. The **universal baseline** ships on
+every elite Orbit build; the **signature features** are the cluster-specific capabilities that make
+a vertical's site feel world-class. All are drawn from `website-catalog.md` §C and gated by the
+build-tier matrix — baseline lands at **Platinum**, the AI/automation/portal layers at **Iridium**,
+and bespoke/voice-clone/white-label at **Rhodium**.*
+
+**Universal baseline (every world-class build):** Core Web Vitals green (sub-1s LCP, static hosting)
+· WCAG 2.2 AA accessibility · native bilingual EN/ES with dialect-aware copy · **24/7 bilingual AI
+voice receptionist + grounded chat** (KB-grounded, no hallucination, human handoff) · click-to-call/
+text + WhatsApp · online booking/scheduling · reviews/reputation engine · CRM (Attio) sync + lead
+routing · analytics + call/lead tracking · local SEO + schema + **AEO/answer-engine optimization** ·
+secure forms (no PHI/PII leakage) · uptime monitoring.
+
+**Signature features by vertical cluster:**
+
+| Cluster | Verticals | World-class signature features |
+|---|---|---|
+| **Health & Care** | Medical/Dental · Med Spa · Vet · Behavioral · Home Health · Pharmacy | HIPAA-aware intake · insurance verification capture · patient/records portal + secure upload · recall/reminder automation · **emergent-symptom → 911 routing** · nurse/pharmacist escalation · telehealth booking |
+| **Legal & Financial** | Law · Accounting · Insurance · Wealth · Mortgage/Lending | conflict/intake screening · secure document upload (no SSN over voice) · e-sign · **deadline/SLA urgency routing** · fee/no-advice guardrails · client portal · matter/appointment status |
+| **Home & Field Services** | Home Services · Construction · Solar · Automotive · Moving · Cleaning · Security · Logistics | **emergency/after-hours dispatch + safety scripts** · instant quote-by-size estimator · technician scheduling + live ETA · before/after galleries · financing · service-area maps · photo-upload intake · recurring-service automation |
+| **Hospitality & Lifestyle** | Restaurants · Fine Dining · Hospitality · Beauty · Fitness · Events · Travel · Photography · Pet | real-time reservations/booking + waitlist · deposits/online payments · menus/galleries/video heroes · membership/loyalty · gift cards · **allergen/preference capture** · itinerary/package builders |
+| **Professional & B2B** | Real Estate · Property Mgmt · Marketing · IT/MSP · Consulting · Staffing · Industrial | RFQ/quote builders · case-study/portfolio proof · **dual-audience paths** (candidate/employer, owner/tenant) · client/tenant portals + dashboards · SLA + ticketing · multi-location/white-label · integrations/API |
+| **Community & Retail** | Faith/Nonprofit · Education · Retail/Florist · Agriculture · Funeral | donations/recurring giving · e-commerce catalog/shop · enrollment/registration · events calendar · volunteer/member portals · delivery cutoffs · **compassionate/sensitive intake** (funeral, food bank) |
+
+> **Build rule.** Pick the template (look) → apply the universal baseline → add the cluster's
+> signature features the niche needs → gate by tier. The AI voice receptionist is the keystone
+> world-class feature: it's the same KB that powers the site copy and chat, so the on-page promise
+> and the phone experience never diverge.
 
 ---
 

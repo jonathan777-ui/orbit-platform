@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Orbit · Performance Command (Internal)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Sora:wght@600;700;800&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#070b15; --panel:#0d1426; --panel2:#111b31; --line:#1d2940; --line2:#27374f;
+    --ink:#e6edf8; --ink2:#9fb0cf; --faint:#64769b;
+    --cyan:#22d3ee; --violet:#8b7bf6; --green:#34d399; --amber:#fbbf24; --red:#f87171; --pink:#f472b6;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:
+      radial-gradient(900px 500px at 85% -10%,rgba(139,123,246,.10),transparent),
+      radial-gradient(800px 500px at 0% 0%,rgba(34,211,238,.08),transparent),var(--bg);
+    color:var(--ink);font-family:'IBM Plex Sans',sans-serif;-webkit-font-smoothing:antialiased;min-height:100vh}
+  .wrap{max-width:1120px;margin:0 auto;padding:22px 20px 60px}
+
+  header{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:6px}
+  .brand{font-family:'Chakra Petch';font-weight:700;font-size:20px;letter-spacing:.04em;display:flex;align-items:center;gap:10px}
+  .brand .dot{color:var(--cyan)}
+  .lock{font-family:'IBM Plex Mono';font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);
+    border:1px solid #4a3a12;background:#1c1606;border-radius:7px;padding:5px 10px;display:flex;align-items:center;gap:6px}
+  .sub{color:var(--ink2);font-size:13px;margin:2px 0 18px}
+
+  .grid{display:grid;gap:14px}
+  .kpis{grid-template-columns:repeat(5,1fr)}
+  @media(max-width:880px){.kpis{grid-template-columns:repeat(2,1fr)}}
+  .card{background:linear-gradient(180deg,var(--panel),#0b1322);border:1px solid var(--line);border-radius:15px;padding:15px 16px}
+  .kpi .lbl{font-family:'IBM Plex Mono';font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink2)}
+  .kpi .val{font-family:'Sora';font-weight:800;font-size:27px;line-height:1.1;margin-top:7px;letter-spacing:-.01em}
+  .kpi .val.g{color:var(--green)} .kpi .val.c{color:var(--cyan)} .kpi .val.v{color:var(--violet)} .kpi .val.a{color:var(--amber)}
+  .kpi .sm{font-size:11px;color:var(--faint);margin-top:3px;font-family:'IBM Plex Mono'}
+
+  h2{font-family:'Chakra Petch';font-weight:600;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink2);margin:26px 0 12px;display:flex;align-items:center;gap:9px}
+  h2::before{content:"";width:5px;height:14px;background:var(--cyan);border-radius:2px;display:inline-block}
+
+  /* funnel */
+  .funnel{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+  @media(max-width:680px){.funnel{grid-template-columns:repeat(2,1fr)}}
+  .fstep{position:relative;background:var(--panel);border:1px solid var(--line);border-radius:13px;padding:14px}
+  .fstep .n{font-family:'Sora';font-weight:800;font-size:24px}
+  .fstep .t{font-size:12px;color:var(--ink2);margin-top:3px}
+  .fstep .cv{position:absolute;top:50%;right:-14px;transform:translateY(-50%);z-index:2;font-family:'IBM Plex Mono';font-size:10.5px;
+    background:#0a1426;border:1px solid var(--line2);border-radius:20px;padding:3px 7px;color:var(--cyan);white-space:nowrap}
+  @media(max-width:680px){.fstep .cv{display:none}}
+  .bar{height:6px;border-radius:4px;background:#0a1426;margin-top:10px;overflow:hidden}
+  .bar i{display:block;height:100%}
+
+  /* two-channel compare */
+  .compare{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:680px){.compare{grid-template-columns:1fr}}
+  .chan{border:1px solid var(--line);border-radius:15px;padding:16px;position:relative;overflow:hidden}
+  .chan.std{background:linear-gradient(180deg,rgba(34,211,238,.08),#0b1322)}
+  .chan.cus{background:linear-gradient(180deg,rgba(139,123,246,.10),#0b1322)}
+  .chan .ct{font-family:'Chakra Petch';font-weight:700;font-size:15px;display:flex;align-items:center;gap:8px}
+  .chan .tagpill{font-family:'IBM Plex Mono';font-size:9.5px;letter-spacing:.08em;padding:3px 7px;border-radius:6px;text-transform:uppercase}
+  .std .tagpill{background:#06303a;color:var(--cyan)} .cus .tagpill{background:#241b4a;color:var(--violet)}
+  .chan .lead{position:absolute;top:14px;right:14px;font-family:'IBM Plex Mono';font-size:10px;color:var(--green);display:none}
+  .chan .row{display:flex;justify-content:space-between;margin-top:12px;font-size:13.5px}
+  .chan .row span:first-child{color:var(--ink2)}
+  .chan .row b{font-family:'Sora';font-weight:700}
+  .chan .big{font-family:'Sora';font-weight:800;font-size:26px;margin-top:10px}
+
+  table{width:100%;border-collapse:collapse;font-size:13.5px}
+  th,td{text-align:left;padding:10px 10px;border-bottom:1px solid var(--line)}
+  th{font-family:'IBM Plex Mono';font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--faint);font-weight:500}
+  td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+  tr:hover td{background:rgba(255,255,255,.015)}
+  .who{display:flex;align-items:center;gap:9px}
+  .ava{width:28px;height:28px;border-radius:8px;display:grid;place-items:center;font-family:'Sora';font-weight:700;font-size:12px;color:#021;flex:none}
+  .pill{font-family:'IBM Plex Mono';font-size:10px;padding:2px 7px;border-radius:6px}
+  .pill.won{background:#06321f;color:var(--green)} .pill.lost{background:#3a1115;color:var(--red)} .pill.open{background:#3a2c08;color:var(--amber)}
+  .pill.std{background:#06303a;color:var(--cyan)} .pill.cus{background:#241b4a;color:var(--violet)}
+  .mini{padding:3px 8px;border:1px solid var(--line2);background:#0a1426;color:var(--ink2);border-radius:7px;cursor:pointer;font-size:11px;font-family:'IBM Plex Mono'}
+  .mini:hover{border-color:var(--cyan);color:#fff}
+  input,select{background:#0a1426;border:1px solid var(--line2);color:var(--ink);border-radius:9px;padding:9px 10px;font-family:'IBM Plex Sans';font-size:13px}
+  input:focus,select:focus{outline:none;border-color:var(--cyan)}
+  .qty{width:58px;text-align:right;padding:5px 7px;font-family:'IBM Plex Mono'}
+  .addrow{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:12px}
+  .btn{background:linear-gradient(120deg,#22d3ee,#6366f1);color:#021;border:0;border-radius:10px;padding:10px 16px;font-family:'Sora';font-weight:700;font-size:13px;cursor:pointer}
+  .btn:hover{filter:brightness(1.06)}
+  .btn.ghost{background:#0a1426;border:1px solid var(--line2);color:var(--ink2)}
+  .btn.ghost:hover{border-color:var(--cyan);color:#fff}
+  footer{margin-top:34px;font-family:'IBM Plex Mono';font-size:11px;color:var(--faint);line-height:1.6;border-top:1px solid var(--line);padding-top:14px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="brand"><span class="dot">◐</span> ORBIT · Performance Command</div>
+    <div class="lock">🔒 Internal — not client-visible</div>
+  </header>
+  <div class="sub">Live read on deals, revenue, and rep conversion — and which channel is actually winning: <b style="color:var(--cyan)">Standard (Website · Orbit4)</b> vs <b style="color:var(--violet)">Custom Solutions</b>.</div>
+
+  <div class="grid kpis" id="kpis"></div>
+
+  <h2>Pipeline funnel</h2>
+  <div class="funnel" id="funnel"></div>
+
+  <h2>Channel scoreboard — what's converting</h2>
+  <div class="compare" id="compare"></div>
+
+  <h2>Setters</h2>
+  <div class="card"><table id="setterTbl"><thead><tr>
+    <th>Setter</th><th class="num">Calls</th><th class="num">Qualified appts</th><th class="num">Call→Appt</th><th class="num">Deals sourced</th><th class="num">Won</th><th></th>
+  </tr></thead><tbody></tbody></table>
+  <div class="addrow">
+    <input id="newSetter" placeholder="Add setter name…" style="flex:1;min-width:160px">
+    <button class="btn ghost" id="addSetterBtn">+ Add setter</button>
+  </div></div>
+
+  <h2>Closers</h2>
+  <div class="card"><table id="closerTbl"><thead><tr>
+    <th>Closer</th><th class="num">Demos</th><th class="num">Won</th><th class="num">Lost</th><th class="num">Win %</th><th class="num">Revenue (MRR)</th>
+  </tr></thead><tbody></tbody></table></div>
+
+  <h2>Deals</h2>
+  <div class="card"><table id="dealTbl"><thead><tr>
+    <th>Company</th><th>Channel</th><th>Setter</th><th>Closer</th><th class="num">MRR</th><th>Status</th><th></th>
+  </tr></thead><tbody></tbody></table>
+  <div class="addrow">
+    <input id="dCompany" placeholder="Company" style="min-width:150px">
+    <select id="dType"><option value="standard">Standard (Website · Orbit4)</option><option value="custom">Custom Solutions</option></select>
+    <select id="dSetter"></select>
+    <select id="dCloser"></select>
+    <input id="dMrr" class="qty" type="number" placeholder="MRR" style="width:90px">
+    <select id="dStatus"><option value="open">Open</option><option value="won">Won</option><option value="lost">Lost</option></select>
+    <button class="btn" id="addDealBtn">+ Log deal</button>
+  </div></div>
+
+  <div class="addrow" style="margin-top:18px">
+    <button class="btn ghost" id="syncBtn" title="Wire-up pending">⤓ Sync from Attio Deals (pending)</button>
+    <button class="btn ghost" id="resetBtn">↺ Reset to seed</button>
+  </div>
+
+  <footer>
+    Internal tool. Hosting this on the public site at an unlinked path is <b>not</b> real security — anyone with the URL can open it. Before it holds real numbers, put it behind login (server-side auth) or on a separate access-controlled site.<br>
+    Data model maps 1:1 to your Attio <b>Deals</b> object (setter, closer, deal_value, status) plus one new <b>Demo Type</b> select — wire the sync and these numbers come straight from the CRM. Currently persists in this browser only.
+  </footer>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var $=function(s){return document.querySelector(s);};
+  var KEY="orbit_perf_v1";
+  var MEM=null;
+  function load(){ try{ var r=localStorage.getItem(KEY); if(r)return JSON.parse(r);}catch(e){} return MEM?JSON.parse(JSON.stringify(MEM)):null; }
+  function save(d){ MEM=JSON.parse(JSON.stringify(d)); try{localStorage.setItem(KEY,JSON.stringify(d));}catch(e){} }
+
+  function seed(){
+    return {
+      setters:[ {name:"Robert", calls:42, qualified:7}, {name:"Bill", calls:38, qualified:5} ],
+      closers:["Jonathan"],
+      deals:[
+        {id:id(), company:"Track Dog Racing", type:"standard", setter:"Robert", closer:"Jonathan", mrr:597, status:"won"},
+        {id:id(), company:"Ricky's Auto Garage", type:"standard", setter:"Bill", closer:"Jonathan", mrr:297, status:"won"},
+        {id:id(), company:"Cultiv8 Landscape", type:"custom", setter:"Robert", closer:"Jonathan", mrr:997, status:"won"},
+        {id:id(), company:"Carlsbad Village MVB", type:"standard", setter:"Bill", closer:"Jonathan", mrr:597, status:"open"},
+        {id:id(), company:"Certified Roofing", type:"custom", setter:"Robert", closer:"Jonathan", mrr:1500, status:"open"},
+        {id:id(), company:"Corner Cafe", type:"standard", setter:"Bill", closer:"Jonathan", mrr:297, status:"lost"}
+      ]
+    };
+  }
+  function id(){ return "d"+Math.random().toString(36).slice(2,8); }
+  var DB = load() || seed();
+  if(!load()) save(DB);
+
+  function money(n){ n=n||0; return "$"+Math.round(n).toLocaleString(); }
+  function pct(a,b){ if(!b) return "—"; return Math.round(a/b*100)+"%"; }
+  function avatarColor(name){ var c=["#22d3ee","#8b7bf6","#34d399","#fbbf24","#f472b6","#60a5fa"]; var s=0; for(var i=0;i<name.length;i++)s+=name.charCodeAt(i); return c[s%c.length]; }
+  function initials(n){ return (n||"?").split(/\s+/).map(function(x){return x[0];}).join("").slice(0,2).toUpperCase(); }
+
+  function metrics(){
+    var d=DB.deals;
+    var won=d.filter(function(x){return x.status==="won";});
+    var lost=d.filter(function(x){return x.status==="lost";});
+    var revenue=won.reduce(function(s,x){return s+(+x.mrr||0);},0);
+    var calls=DB.setters.reduce(function(s,x){return s+(+x.calls||0);},0);
+    var qual=DB.setters.reduce(function(s,x){return s+(+x.qualified||0);},0);
+    var demos=d.length;
+    return {
+      deals:d, won:won.length, lost:lost.length, open:d.length-won.length-lost.length,
+      revenue:revenue, calls:calls, qual:qual, demos:demos,
+      winRate: (won.length+lost.length)? won.length/(won.length+lost.length):0,
+      callToAppt: calls? qual/calls:0,
+      apptToDemo: qual? demos/qual:0,
+      demoToWon: demos? won.length/demos:0
+    };
+  }
+  function byType(t){
+    var d=DB.deals.filter(function(x){return x.type===t;});
+    var won=d.filter(function(x){return x.status==="won";});
+    var lost=d.filter(function(x){return x.status==="lost";});
+    var rev=won.reduce(function(s,x){return s+(+x.mrr||0);},0);
+    return {count:d.length, won:won.length, lost:lost.length, rev:rev, avg: won.length?rev/won.length:0,
+      winRate:(won.length+lost.length)?won.length/(won.length+lost.length):0};
+  }
+
+  function renderKPIs(){
+    var m=metrics();
+    var cards=[
+      {lbl:"Revenue won (MRR)", val:money(m.revenue), cls:"g", sm:"+ "+money(m.revenue*12)+" / yr"},
+      {lbl:"Deals won", val:m.won, cls:"c", sm:m.open+" open · "+m.lost+" lost"},
+      {lbl:"Win rate", val:pct(m.won,m.won+m.lost), cls:"v", sm:"won ÷ decided"},
+      {lbl:"Call → qualified appt", val:pct(m.qual,m.calls), cls:"a", sm:m.qual+" of "+m.calls+" calls"},
+      {lbl:"Demo → won", val:pct(m.won,m.demos), cls:"g", sm:m.won+" of "+m.demos+" demos"}
+    ];
+    $("#kpis").innerHTML=cards.map(function(c){
+      return '<div class="card kpi"><div class="lbl">'+c.lbl+'</div><div class="val '+c.cls+'">'+c.val+'</div><div class="sm">'+c.sm+'</div></div>';
+    }).join("");
+  }
+
+  function renderFunnel(){
+    var m=metrics();
+    var steps=[
+      {t:"Calls", n:m.calls, cv:null, col:"var(--ink2)"},
+      {t:"Qualified appts", n:m.qual, cv:pct(m.qual,m.calls), col:"var(--cyan)"},
+      {t:"Demos", n:m.demos, cv:pct(m.demos,m.qual), col:"var(--violet)"},
+      {t:"Won", n:m.won, cv:pct(m.won,m.demos), col:"var(--green)"}
+    ];
+    var max=Math.max(m.calls,1);
+    $("#funnel").innerHTML=steps.map(function(s,i){
+      var w=Math.round((s.n/max)*100);
+      return '<div class="fstep"><div class="n" style="color:'+s.col+'">'+s.n+'</div><div class="t">'+s.t+'</div>'
+        +'<div class="bar"><i style="width:'+w+'%;background:'+s.col+'"></i></div>'
+        +(s.cv?'<div class="cv">'+s.cv+'</div>':'')+'</div>';
+    }).join("");
+  }
+
+  function renderCompare(){
+    var s=byType("standard"), c=byType("custom");
+    function panel(cls,name,tag,o,other){
+      var leading = o.rev>other.rev;
+      return '<div class="chan '+cls+'">'
+        +'<div class="ct">'+(cls==="std"?"🌐":"🛠")+' '+name+' <span class="tagpill">'+tag+'</span></div>'
+        +'<div class="lead" style="display:'+(leading?"block":"none")+'">▲ leading revenue</div>'
+        +'<div class="big" style="color:'+(cls==="std"?"var(--cyan)":"var(--violet)")+'">'+money(o.rev)+'<span style="font-size:13px;color:var(--faint)"> MRR</span></div>'
+        +'<div class="row"><span>Deals (won / total)</span><b>'+o.won+' / '+o.count+'</b></div>'
+        +'<div class="row"><span>Win rate</span><b>'+pct(o.won,o.won+o.lost)+'</b></div>'
+        +'<div class="row"><span>Avg deal (MRR)</span><b>'+money(o.avg)+'</b></div>'
+        +'</div>';
+    }
+    $("#compare").innerHTML=panel("std","Standard","Website · Orbit4",s,c)+panel("cus","Custom Solutions","Bespoke",c,s);
+  }
+
+  function renderSetters(){
+    var tb=$("#setterTbl").querySelector("tbody");
+    tb.innerHTML=DB.setters.map(function(s,idx){
+      var sourced=DB.deals.filter(function(d){return d.setter===s.name;});
+      var won=sourced.filter(function(d){return d.status==="won";}).length;
+      return '<tr>'
+        +'<td><div class="who"><span class="ava" style="background:'+avatarColor(s.name)+'">'+initials(s.name)+'</span>'+esc(s.name)+'</div></td>'
+        +'<td class="num"><input class="qty" type="number" value="'+(s.calls||0)+'" data-k="calls" data-i="'+idx+'"></td>'
+        +'<td class="num"><input class="qty" type="number" value="'+(s.qualified||0)+'" data-k="qualified" data-i="'+idx+'"></td>'
+        +'<td class="num" style="color:var(--cyan)">'+pct(s.qualified,s.calls)+'</td>'
+        +'<td class="num">'+sourced.length+'</td>'
+        +'<td class="num" style="color:var(--green)">'+won+'</td>'
+        +'<td class="num"><button class="mini" data-del-setter="'+idx+'">✕</button></td></tr>';
+    }).join("");
+    tb.querySelectorAll("input").forEach(function(inp){
+      inp.addEventListener("change",function(){ DB.setters[+inp.dataset.i][inp.dataset.k]=Math.max(0,+inp.value||0); save(DB); renderAll(); });
+    });
+    tb.querySelectorAll("[data-del-setter]").forEach(function(b){
+      b.onclick=function(){ DB.setters.splice(+b.getAttribute("data-del-setter"),1); save(DB); renderAll(); };
+    });
+  }
+
+  function renderClosers(){
+    var tb=$("#closerTbl").querySelector("tbody");
+    var names={}; DB.closers.forEach(function(n){names[n]=true;}); DB.deals.forEach(function(d){if(d.closer)names[d.closer]=true;});
+    tb.innerHTML=Object.keys(names).map(function(n){
+      var ds=DB.deals.filter(function(d){return d.closer===n;});
+      var won=ds.filter(function(d){return d.status==="won";});
+      var lost=ds.filter(function(d){return d.status==="lost";}).length;
+      var rev=won.reduce(function(s,x){return s+(+x.mrr||0);},0);
+      return '<tr><td><div class="who"><span class="ava" style="background:'+avatarColor(n)+'">'+initials(n)+'</span>'+esc(n)+'</div></td>'
+        +'<td class="num">'+ds.length+'</td><td class="num" style="color:var(--green)">'+won.length+'</td>'
+        +'<td class="num" style="color:var(--red)">'+lost+'</td><td class="num">'+pct(won.length,won.length+lost)+'</td>'
+        +'<td class="num" style="color:var(--green)">'+money(rev)+'</td></tr>';
+    }).join("");
+  }
+
+  function renderDeals(){
+    var tb=$("#dealTbl").querySelector("tbody");
+    tb.innerHTML=DB.deals.map(function(d){
+      var tcls=d.type==="custom"?"cus":"std", tlbl=d.type==="custom"?"Custom":"Standard";
+      return '<tr>'
+        +'<td>'+esc(d.company)+'</td>'
+        +'<td><span class="pill '+tcls+'">'+tlbl+'</span></td>'
+        +'<td>'+esc(d.setter||"—")+'</td><td>'+esc(d.closer||"—")+'</td>'
+        +'<td class="num">'+money(d.mrr)+'</td>'
+        +'<td><select class="statusSel" data-id="'+d.id+'">'
+          +opt("open","Open",d.status)+opt("won","Won",d.status)+opt("lost","Lost",d.status)+'</select></td>'
+        +'<td class="num"><button class="mini" data-del-deal="'+d.id+'">✕</button></td></tr>';
+    }).join("");
+    tb.querySelectorAll(".statusSel").forEach(function(sel){
+      sel.onchange=function(){ var d=DB.deals.filter(function(x){return x.id===sel.dataset.id;})[0]; if(d){d.status=sel.value; save(DB); renderAll();} };
+    });
+    tb.querySelectorAll("[data-del-deal]").forEach(function(b){
+      b.onclick=function(){ DB.deals=DB.deals.filter(function(x){return x.id!==b.getAttribute("data-del-deal");}); save(DB); renderAll(); };
+    });
+  }
+  function opt(v,l,cur){ return '<option value="'+v+'"'+(v===cur?" selected":"")+'>'+l+'</option>'; }
+  function esc(s){ return (s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+
+  function fillRepSelects(){
+    var setters=DB.setters.map(function(s){return s.name;});
+    var closers={}; DB.closers.forEach(function(n){closers[n]=1;}); DB.deals.forEach(function(d){if(d.closer)closers[d.closer]=1;});
+    $("#dSetter").innerHTML='<option value="">— setter —</option>'+setters.map(function(n){return '<option>'+esc(n)+'</option>';}).join("");
+    $("#dCloser").innerHTML='<option value="">— closer —</option>'+Object.keys(closers).map(function(n){return '<option>'+esc(n)+'</option>';}).join("");
+  }
+
+  function renderAll(){ renderKPIs(); renderFunnel(); renderCompare(); renderSetters(); renderClosers(); renderDeals(); fillRepSelects(); }
+
+  // events
+  $("#addSetterBtn").onclick=function(){ var v=$("#newSetter").value.trim(); if(!v)return; DB.setters.push({name:v,calls:0,qualified:0}); $("#newSetter").value=""; save(DB); renderAll(); };
+  $("#addDealBtn").onclick=function(){
+    var c=$("#dCompany").value.trim(); if(!c)return;
+    DB.deals.unshift({id:id(),company:c,type:$("#dType").value,setter:$("#dSetter").value,closer:$("#dCloser").value,mrr:+$("#dMrr").value||0,status:$("#dStatus").value});
+    $("#dCompany").value=""; $("#dMrr").value=""; save(DB); renderAll();
+  };
+  $("#resetBtn").onclick=function(){ DB=seed(); save(DB); renderAll(); };
+  $("#syncBtn").onclick=function(){ alert("Attio sync isn't wired yet. Ask Claude to add a 'Demo Type' select to your Attio Deals object and build the n8n pull — then this button fills from live CRM data."); };
+
+  renderAll();
+  window.OrbitPerf={db:function(){return DB;},metrics:metrics};
+})();
+</script>
+</body>
+</html>

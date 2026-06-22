@@ -1,0 +1,238 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Lead Desk — Orbit AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0d13;--panel:#10141d;--panel2:#141926;--bd:#1f2738;--ink:#e8edf6;--ink2:#9aa6bd;--faint:#5c6680;--amber:#ffb020;--cyan:#3dd6d0;--green:#5fd38d;--red:#ff6b6b;--violet:#9b8cff;}
+*{box-sizing:border-box}html,body{margin:0}
+body{background:radial-gradient(1200px 600px at 80% -10%,#141b2b 0,var(--bg) 55%);color:var(--ink);font-family:'IBM Plex Sans',system-ui,sans-serif;line-height:1.5}
+.wrap{max-width:1080px;margin:0 auto;padding:26px 18px 64px}
+.topnav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px;font-family:'IBM Plex Mono';font-size:12px}
+.topnav a{color:var(--ink2);text-decoration:none;border:1px solid var(--bd);padding:6px 11px;border-radius:7px;background:var(--panel)}
+.brand{font-family:'Chakra Petch';font-weight:700;letter-spacing:.06em;color:var(--cyan);margin-right:6px}
+h1{font-family:'Chakra Petch';font-weight:700;font-size:25px;margin:0 0 4px}h1 .a{color:var(--cyan)}
+.sub{color:var(--ink2);font-size:13.5px;margin:0 0 14px;max-width:840px}
+.banner{background:rgba(255,176,32,.08);border:1px solid rgba(255,176,32,.3);border-radius:10px;padding:11px 14px;font-size:12.5px;color:var(--ink2);margin-bottom:16px}
+.banner b{color:var(--amber)}
+.bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:14px}
+select,input[type=text]{font-family:'IBM Plex Mono';font-size:12.5px;color:var(--ink);background:var(--panel);border:1px solid var(--bd);border-radius:8px;padding:8px 10px;outline:none}
+select:focus,input:focus{border-color:var(--cyan)}
+.reps{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.repchip{font-family:'IBM Plex Mono';font-size:11.5px;background:var(--panel);border:1px solid var(--bd);border-radius:20px;padding:6px 12px;color:var(--ink2)}
+.repchip b{color:var(--cyan)}
+.lead{background:linear-gradient(180deg,var(--panel2),var(--panel));border:1px solid var(--bd);border-radius:13px;padding:14px 15px;margin-bottom:11px}
+.lead.client{opacity:.7;border-style:dashed}
+.lead.flag{border-color:rgba(255,176,32,.4)}
+.row1{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center}
+.lead .nm{font-family:'Chakra Petch';font-weight:700;font-size:16px}
+.lead .meta{font-family:'IBM Plex Mono';font-size:11.5px;color:var(--ink2);margin-top:3px;display:flex;gap:12px;flex-wrap:wrap}
+.lead .meta a{color:var(--cyan);text-decoration:none}
+.lead .note{font-size:11.5px;color:var(--amber);margin-top:4px;font-family:'IBM Plex Mono'}
+.ctrl{display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
+.ind{font-family:'IBM Plex Mono';font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:var(--violet);background:rgba(155,140,255,.12);padding:3px 8px;border-radius:5px}
+.st{font-family:'IBM Plex Mono';font-size:10px;text-transform:uppercase;letter-spacing:.04em;padding:3px 8px;border-radius:5px}
+.st.New{background:rgba(61,214,208,.12);color:var(--cyan)}
+.st.Assigned{background:rgba(155,140,255,.14);color:var(--violet)}
+.st.Contacted{background:rgba(255,176,32,.14);color:var(--amber)}
+.st.Interested{background:rgba(95,211,141,.16);color:var(--green)}
+.st.Client{background:rgba(95,211,141,.2);color:var(--green)}
+.st.Pass{background:rgba(255,107,107,.14);color:var(--red)}
+.gen{border:none;border-radius:8px;padding:8px 13px;font-weight:600;font-size:12.5px;cursor:pointer;background:var(--green);color:var(--bg);font-family:'IBM Plex Sans'}
+.gen:disabled{background:var(--bd);color:var(--faint);cursor:not-allowed}
+.addrep{margin-left:auto;display:flex;gap:6px}
+/* profile / gap-fill */
+.profbar{margin-top:11px;border-top:1px solid var(--bd);padding-top:10px;display:flex;gap:10px;align-items:center;flex-wrap:wrap;font-family:'IBM Plex Mono';font-size:11.5px;color:var(--ink2)}
+.miss{color:var(--amber);font-weight:600}
+.complete{color:var(--green);font-weight:600}
+.fill{border:1px solid var(--violet);background:rgba(155,140,255,.12);color:#cdc4ff;border-radius:8px;padding:7px 11px;font-size:12px;cursor:pointer;font-family:'IBM Plex Sans';font-weight:600}
+.fill:disabled{opacity:.5;cursor:default}
+.modelsel{font-size:11.5px;padding:6px 8px}
+.toggle{cursor:pointer;color:var(--cyan);background:none;border:none;font-family:'IBM Plex Mono';font-size:11.5px;padding:0}
+.profpanel{margin-top:10px;display:none;grid-template-columns:repeat(2,1fr);gap:8px}
+.profpanel.open{display:grid}
+.fld{background:var(--panel);border:1px solid var(--bd);border-radius:8px;padding:8px 10px}
+.fld.empty{border-color:rgba(255,176,32,.4)}
+.fld .k{font-family:'IBM Plex Mono';font-size:9.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--faint)}
+.fld .v{font-size:13px;margin-top:2px;color:var(--ink)}
+.fld .v.empty{color:var(--amber)}
+.tag{font-family:'IBM Plex Mono';font-size:9px;padding:2px 6px;border-radius:4px;margin-left:6px;vertical-align:middle}
+.tag.ai{background:rgba(155,140,255,.16);color:#cdc4ff}
+.tag.inf{background:rgba(255,176,32,.16);color:var(--amber)}
+.aimsg{font-family:'IBM Plex Mono';font-size:11px;color:var(--ink2);margin-top:8px;grid-column:1/-1}
+footer{margin-top:24px;border-top:1px solid var(--bd);padding-top:13px;font-family:'IBM Plex Mono';font-size:11px;color:var(--faint)}
+</style></head><body><div class="wrap">
+<div class="topnav"><span class="brand">ORBIT&nbsp;AI</span>
+<a href="./support-portal.html">← Support Portal</a>
+<a href="./orbit-merge-engine.html">Merge Engine</a>
+<a href="./orbit-solutions-calculator.html?channel=support">Solutions Calculator</a></div>
+
+<h1>Lead <span class="a">Desk</span></h1>
+<p class="sub">Real SMB leads from the CRM, assigned to 1099 sales contractors. If a lead is missing details needed to build the site, hit <b>✨ Fill gaps</b> (pick a model) — it web-researches the business and drafts the missing fields, flagged <b>verify</b>. When the prospect's interested, <b>Generate</b> spins up their site, chatbot &amp; AI receptionist.</p>
+<div class="banner" id="banner"></div>
+
+<div class="bar">
+  <select id="fInd"><option value="">All industries</option></select>
+  <select id="fState"><option value="">All states</option></select>
+  <select id="fStatus"><option value="">All statuses</option></select>
+  <select id="fRep"><option value="">All reps</option></select>
+  <input type="text" id="fSearch" placeholder="Search…">
+  <div class="addrep"><input type="text" id="newRep" placeholder="Add 1099 rep…"><button class="gen" id="addRepBtn" style="background:var(--cyan)">+ Rep</button></div>
+</div>
+
+<div class="reps" id="repWork"></div>
+<div id="list"></div>
+
+<footer>Orbit AI Automation · Lead Desk · CRM source: Attio (demo-seed & internal records filtered out) · gap-fill researches the web and flags AI-drafted fields for human verification before they go customer-facing</footer>
+
+<script>
+(function(){
+  var $=function(i){return document.getElementById(i);};
+  var LEADS_URL="https://jonathan777-ui.app.n8n.cloud/webhook/alyxir-leads";
+  var ASSIGN_URL="https://jonathan777-ui.app.n8n.cloud/webhook/alyxir-assign";
+  var ENRICH_URL="https://jonathan777-ui.app.n8n.cloud/webhook/alyxir-enrich";
+  var MERGE="./orbit-merge-engine.html";
+  var STORE="oleads:";
+  // fields required to generate a site + chatbot + receptionist
+  var REQ=["industry","specialization","services","hours","city","state","phone","language"];
+  var LABEL={industry:"Industry",specialization:"Specialization",services:"Services",hours:"Hours",city:"City",state:"State",phone:"Phone",language:"Language"};
+  // fields an LLM must never invent as fact (left missing if not web-found)
+  var FACTUAL={phone:1,city:1,state:1};
+
+  // real SMB leads from Attio (demo seeds + own company excluded). prof = seeded profile from CRM.
+  var LEADS=[
+    {id:"certifiedteamfl",rid:"38843a67-a6d9-4dd2-9f2e-e1d1584fa4da",nm:"Certified Team FL",dom:"certifiedteamfl.com",note:"Amy · uses AccuLynx",prof:{industry:"Roofing",state:"FL"}},
+    {id:"cultiv8",rid:"800b1a5c-13c0-4490-9691-99c95057f30b",nm:"Cultiv8 Groups",dom:"cultiv8groups.com",note:"Chase",prof:{industry:"Landscaping"}},
+    {id:"element",rid:"9376613a-30fc-4cd1-acb6-9096fa85fded",nm:"Element Custom",dom:"elementcstm.com",note:"Meeting set 07/08 · confirm industry",prof:{}},
+    {id:"carlsbad",rid:"565e50c8-b6bc-44fe-baf0-29d61ca8fd4f",nm:"Carlsbad Village Mercedes, Volvo & BMW (GARLO)",dom:"carlsbadvillagemvb.com",prof:{industry:"Automotive",city:"Carlsbad",state:"CA"}},
+    {id:"rickys",rid:"21a8a4ff-f26b-4b1f-adfd-8ad8979db701",nm:"Ricky's Auto Garage",dom:"rickysautogarage.com",note:"Meeting set 07/30",prof:{industry:"Auto repair",specialization:"Japanese & Korean vehicles",city:"Fort Pierce",state:"FL"}},
+    {id:"harris",rid:"772b3053-ec91-4495-affe-d6bf35fa74d7",nm:"Law Office of Keith M Harris",dom:"kmharrislaw.com",prof:{industry:"Legal",specialization:"Criminal defense & family law",city:"Houston",state:"TX"}},
+    {id:"acqlabs",rid:"91ffb051-189b-4592-bff8-cf832d627f69",nm:"Acquisition Labs",dom:"acquisition-labs.com",flag:"Not ICP — agency; pitch white-label/reseller, not as a client",prof:{industry:"Marketing agency",city:"Boston",state:"MA"}},
+    {id:"trackdog",rid:"0044ca7c-c764-4351-8cd0-a2489cd29627",nm:"Track Dog Racing",dom:"trackdogracing.com",client:true,note:"Beta client — full suite already built",prof:{industry:"Auto performance",specialization:"Mazda Miata performance parts",services:"Parts, install, tuning",hours:"Mon–Thu 9am–5pm CST",city:"Dallas",state:"TX",phone:"+1 214-340-9797",language:"English + Spanish"}}
+  ];
+  var EXCLUDED=["Apple","Google","Microsoft","Disney","Airbnb","LVMH","PayPal","Intercom","United Airlines","Orbit AI Automation (own)"];
+  var REPS=["Unassigned","Jonathan"];
+  var MODELS=[["claude","Claude (Sonnet)"],["haiku","Haiku (fast/cheap)"],["gemini","Gemini"],["gpt","ChatGPT"]];
+  var state={}, ai={}, open={}, busy={}, suse=false, mem={};
+
+  function missingOf(l){ return REQ.filter(function(k){ return !(l.prof&&l.prof[k]&&String(l.prof[k]).trim()); }); }
+  function defStatus(l){ return l.client?"Client":"New"; }
+  async function load(){
+    if(typeof window.storage!=="undefined"&&window.storage){ suse=true;
+      for(var i=0;i<LEADS.length;i++){ var L=LEADS[i];
+        try{var r=await window.storage.get(STORE+L.id); var v=r?JSON.parse(r.value):null; state[L.id]=v&&v.rep?{rep:v.rep,status:v.status}:{rep:"Unassigned",status:defStatus(L)}; if(v&&v.prof)L.prof=Object.assign({},L.prof,v.prof); if(v&&v.ai)ai[L.id]=v.ai; }catch(e){ state[L.id]={rep:"Unassigned",status:defStatus(L)}; } }
+      try{ var rr=await window.storage.get(STORE+"__reps"); if(rr)REPS=JSON.parse(rr.value); }catch(e){}
+    } else { LEADS.forEach(function(l){ state[l.id]={rep:"Unassigned",status:defStatus(l)}; }); }
+  }
+  async function save(id){ var L=byId(id); var payload={rep:state[id].rep,status:state[id].status,prof:L.prof,ai:ai[id]||{}}; if(suse){ try{ await window.storage.set(STORE+id,JSON.stringify(payload)); }catch(e){} } else mem[id]=payload; }
+  async function saveReps(){ if(suse){ try{ await window.storage.set(STORE+"__reps",JSON.stringify(REPS)); }catch(e){} } }
+  function byId(id){ for(var i=0;i<LEADS.length;i++)if(LEADS[i].id===id)return LEADS[i]; }
+
+  function opts(sel,arr,cur){ arr.forEach(function(v){ var o=document.createElement("option"); o.value=v; o.textContent=v; if(v===cur)o.selected=true; sel.appendChild(o); }); }
+  function uniqInd(){ var s=[]; LEADS.forEach(function(l){ var v=l.prof&&l.prof.industry; if(v&&s.indexOf(v)<0)s.push(v); }); return s.sort(); }
+  function uniqState(){ var s=[]; LEADS.forEach(function(l){ var v=l.prof&&l.prof.state; if(v&&s.indexOf(v)<0)s.push(v); }); return s.sort(); }
+
+  function syncAssign(l){ if(typeof fetch==="undefined")return; fetch(ASSIGN_URL,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({rid:l.rid,lead:l.id,rep:state[l.id].rep,status:state[l.id].status})}).catch(function(){}); }
+
+  // offline draft: fills only safe inferred fields, NEVER invents phone/city/state
+  function offlineDraft(l,missing){ var f={}; missing.forEach(function(k){ if(FACTUAL[k])return;
+      if(k==="hours")f[k]={value:"Mon–Fri 9:00 AM – 5:00 PM",source:"inferred"};
+      else if(k==="language")f[k]={value:"English",source:"inferred"};
+      else if(k==="services")f[k]={value:"General "+((l.prof&&l.prof.industry)||"services").toLowerCase()+" services",source:"inferred"};
+      else if(k==="specialization")f[k]={value:((l.prof&&l.prof.industry)||"General")+" specialist",source:"inferred"};
+      else if(k==="industry")f[k]={value:"(confirm with prospect)",source:"inferred"};
+    }); return f; }
+
+  function applyFields(l,fields){ ai[l.id]=ai[l.id]||{}; Object.keys(fields||{}).forEach(function(k){ var fv=fields[k]; var val=(fv&&typeof fv==="object")?fv.value:fv; var src=(fv&&typeof fv==="object")?fv.source:"found"; if(val==null||val==="")return; if(Array.isArray(val))val=val.join(", "); l.prof[k]=val; ai[l.id][k]=src||"inferred"; }); }
+
+  async function fillGaps(l,model){ if(busy[l.id])return; var missing=missingOf(l); if(!missing.length)return;
+    busy[l.id]=true; open[l.id]=true; render();
+    var known={}; REQ.forEach(function(k){ if(l.prof[k])known[k]=l.prof[k]; });
+    var msg="", res=null;
+    try{
+      if(typeof fetch==="undefined")throw new Error("nofetch");
+      var r=await fetch(ENRICH_URL,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({name:l.nm,domain:l.dom,known:known,missing:missing,model:model})});
+      res=await r.json();
+    }catch(e){ res=null; }
+    if(res&&res.ok&&res.fields){ applyFields(l,res.fields); msg="✨ Researched via "+(res.model||model)+(res.note?" · "+res.note:"")+". AI-drafted fields are flagged — verify before going live."; }
+    else { applyFields(l,offlineDraft(l,missing)); msg="⚠ Enrichment service offline — drafted safe defaults locally (no web research). Phone / city / state were left blank rather than guessed. Verify everything before generating."; }
+    ai[l.id]=ai[l.id]||{}; ai[l.id].__msg=msg; busy[l.id]=false; await save(l.id); render();
+  }
+
+  function renderFilters(){
+    opts($("fInd"),uniqInd()); opts($("fState"),uniqState());
+    ["New","Assigned","Contacted","Interested","Client","Pass"].forEach(function(s){ var o=document.createElement("option");o.value=s;o.textContent=s;$("fStatus").appendChild(o); });
+    REPS.forEach(function(r){ var o=document.createElement("option");o.value=r;o.textContent=r;$("fRep").appendChild(o); });
+  }
+  function repWorkload(){ var w={}; REPS.forEach(function(r){w[r]=0;}); LEADS.forEach(function(l){ var r=state[l.id].rep; if(w[r]!=null)w[r]++; });
+    $("repWork").innerHTML=""; REPS.filter(function(r){return r!=="Unassigned";}).forEach(function(r){ var c=document.createElement("span"); c.className="repchip"; c.innerHTML=r+": <b>"+w[r]+"</b> lead"+(w[r]===1?"":"s"); $("repWork").appendChild(c); });
+    var un=document.createElement("span"); un.className="repchip"; un.innerHTML="Unassigned: <b>"+(w["Unassigned"]||0)+"</b>"; $("repWork").appendChild(un);
+  }
+  function matches(l){
+    if($("fInd").value && (l.prof.industry||"")!==$("fInd").value) return false;
+    if($("fState").value && (l.prof.state||"")!==$("fState").value) return false;
+    if($("fStatus").value && state[l.id].status!==$("fStatus").value) return false;
+    if($("fRep").value && state[l.id].rep!==$("fRep").value) return false;
+    var q=$("fSearch").value.toLowerCase(); if(q && (l.nm+" "+(l.prof.industry||"")+" "+l.dom+" "+(l.prof.city||"")).toLowerCase().indexOf(q)<0) return false;
+    return true;
+  }
+  function profPanel(l){
+    var aimap=ai[l.id]||{}; var cells="";
+    REQ.forEach(function(k){ var v=l.prof[k]; var empty=!(v&&String(v).trim()); var src=aimap[k];
+      var tag=src?('<span class="tag '+(src==="inferred"?"inf":"ai")+'">✨ '+src+' · verify</span>'):'';
+      cells+='<div class="fld'+(empty?" empty":"")+'"><div class="k">'+LABEL[k]+'</div><div class="v'+(empty?" empty":"")+'">'+(empty?"— missing":v)+tag+'</div></div>';
+    });
+    if(aimap.__msg)cells+='<div class="aimsg">'+aimap.__msg+'</div>';
+    return '<div class="profpanel'+(open[l.id]?" open":"")+'" data-prof="'+l.id+'">'+cells+'</div>';
+  }
+  function render(){
+    repWorkload();
+    var box=$("list"); box.innerHTML=""; var shown=0;
+    LEADS.forEach(function(l){ if(!matches(l))return; shown++;
+      var s=state[l.id], missing=missingOf(l);
+      var el=document.createElement("div"); el.className="lead"+(l.client?" client":"")+(l.flag?" flag":"");
+      var loc=(l.prof.city?l.prof.city+", ":"")+(l.prof.state||(l.prof.city?"":"—"));
+      var row1='<div class="row1"><div><div class="nm">'+l.nm+'</div>'
+        +'<div class="meta"><span class="ind">'+(l.prof.industry||"Verify")+'</span><span>📍 '+(loc||"—")+'</span><a href="https://'+l.dom+'" target="_blank">'+l.dom+'</a></div>'
+        +(l.flag?'<div class="note">⚠ '+l.flag+'</div>':(l.note?'<div class="note" style="color:var(--faint)">'+l.note+'</div>':''))+'</div>'
+        +'<div class="ctrl"><span class="st '+s.status+'">'+s.status+'</span>'
+        +'<select data-st="'+l.id+'"></select><select data-rep="'+l.id+'"></select>'
+        +'<button class="gen" data-gen="'+l.id+'" '+(l.client?'disabled':'')+'>'+(l.client?'Built ✓':'⚡ Generate')+'</button></div></div>';
+      var bar="";
+      if(!l.client){
+        var modelOpts=MODELS.map(function(m){return '<option value="'+m[0]+'">'+m[1]+'</option>';}).join("");
+        bar='<div class="profbar">'
+          +'<button class="toggle" data-toggle="'+l.id+'">'+(open[l.id]?"▾":"▸")+' profile</button>'
+          +'<span>'+(REQ.length-missing.length)+'/'+REQ.length+' fields</span>'
+          +(missing.length?'<span class="miss">'+missing.length+' missing</span>':'<span class="complete">✓ complete</span>')
+          +(missing.length?'<button class="fill" data-fill="'+l.id+'" '+(busy[l.id]?'disabled':'')+'>'+(busy[l.id]?'Researching…':'✨ Fill gaps ('+missing.length+')')+'</button><select class="modelsel" data-model="'+l.id+'">'+modelOpts+'</select>':'')
+          +'</div>';
+      }
+      el.innerHTML=row1+bar+(l.client?"":profPanel(l)); box.appendChild(el);
+      var stSel=el.querySelector('[data-st]'); opts(stSel,["New","Assigned","Contacted","Interested","Client","Pass"],s.status);
+      var repSel=el.querySelector('[data-rep]'); opts(repSel,REPS,s.rep);
+      stSel.addEventListener("change",function(){ s.status=this.value; save(l.id); syncAssign(l); render(); });
+      repSel.addEventListener("change",function(){ s.rep=this.value; if(this.value!=="Unassigned"&&s.status==="New")s.status="Assigned"; save(l.id); syncAssign(l); render(); });
+      var gb=el.querySelector('[data-gen]');
+      if(gb)gb.addEventListener("click",function(){ if(l.client)return;
+        var url=MERGE+"?lead="+encodeURIComponent(l.id)+"&rid="+encodeURIComponent(l.rid)+"&name="+encodeURIComponent(l.nm)+"&industry="+encodeURIComponent(l.prof.industry||"");
+        try{ window.open(url,"_blank"); }catch(e){}
+        if(s.status!=="Client"){ s.status="Interested"; save(l.id); render(); }
+      });
+      var tg=el.querySelector('[data-toggle]'); if(tg)tg.addEventListener("click",function(){ open[l.id]=!open[l.id]; render(); });
+      var fb=el.querySelector('[data-fill]'); if(fb)fb.addEventListener("click",function(){ var ms=el.querySelector('[data-model]'); fillGaps(l,ms?ms.value:"haiku"); });
+    });
+    $("banner").innerHTML="<b>Showing "+shown+" real SMB lead"+(shown===1?"":"s")+".</b> Filtered out "+EXCLUDED.length+" non-leads from the CRM (Attio demo seeds + your own company): "+EXCLUDED.join(", ")+". Track Dog Racing is marked as a built client; Acquisition Labs is flagged agency / not ICP.";
+  }
+  function addRep(){ var v=$("newRep").value.trim(); if(!v||REPS.indexOf(v)>=0)return; REPS.push(v); $("newRep").value="";
+    $("fRep").innerHTML='<option value="">All reps</option>'; REPS.forEach(function(r){var o=document.createElement("option");o.value=r;o.textContent=r;$("fRep").appendChild(o);});
+    saveReps(); render(); }
+  $("addRepBtn").addEventListener("click",addRep);
+  $("newRep").addEventListener("keydown",function(e){ if(e.key==="Enter")addRep(); });
+  ["fInd","fState","fStatus","fRep"].forEach(function(id){ $(id).addEventListener("change",render); });
+  $("fSearch").addEventListener("input",render);
+
+  (async function(){ await load(); renderFilters(); render(); })();
+})();
+</script>
+</div></body></html>

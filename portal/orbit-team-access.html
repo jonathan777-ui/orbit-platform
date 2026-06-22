@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Orbit · Team Access</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Sora:wght@600;700;800&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{ --bg:#070b15; --panel:#0d1426; --line:#1d2940; --line2:#28384f;
+    --ink:#e6edf8; --ink2:#9fb0cf; --faint:#64769b; --cyan:#22d3ee; --violet:#8b7bf6; --green:#34d399; --amber:#fbbf24; --red:#f87171; }
+  *{box-sizing:border-box}
+  body{margin:0;min-height:100vh;background:
+    radial-gradient(800px 500px at 50% -10%,rgba(34,211,238,.10),transparent),var(--bg);
+    color:var(--ink);font-family:'IBM Plex Sans',sans-serif;display:grid;place-items:center;padding:20px;-webkit-font-smoothing:antialiased}
+  .card{width:100%;max-width:400px;background:linear-gradient(180deg,var(--panel),#0a1120);border:1px solid var(--line);border-radius:20px;
+    box-shadow:0 40px 90px -30px rgba(0,0,0,.7);overflow:hidden}
+  .head{padding:22px 24px 16px;text-align:center;border-bottom:1px solid var(--line)}
+  .logo{font-family:'Chakra Petch';font-weight:700;font-size:20px;letter-spacing:.05em}
+  .logo .o{color:var(--cyan)}
+  .head .t{font-family:'Sora';font-weight:700;font-size:15px;margin-top:9px}
+  .head .s{font-size:12.5px;color:var(--ink2);margin-top:3px}
+  .body{padding:22px 24px}
+  label{display:block;font-family:'IBM Plex Mono';font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink2);margin:14px 0 6px}
+  input{width:100%;background:#0a1426;border:1px solid var(--line2);color:#fff;border-radius:11px;padding:13px 13px;font-family:'IBM Plex Sans';font-size:15px}
+  input:focus{outline:none;border-color:var(--cyan)}
+  input.code{font-family:'IBM Plex Mono';letter-spacing:.3em;text-align:center;font-size:22px}
+  .btn{width:100%;margin-top:18px;border:0;cursor:pointer;font-family:'Sora';font-weight:700;font-size:15px;color:#021;
+    padding:14px;border-radius:12px;background:linear-gradient(120deg,#22d3ee,#0ea5e9 60%,#6366f1);box-shadow:0 10px 24px -8px rgba(14,165,233,.55)}
+  .btn:hover{filter:brightness(1.06)} .btn[disabled]{opacity:.5;cursor:default;filter:none}
+  .btn.ghost{background:#0a1426;border:1px solid var(--line2);color:var(--ink2);box-shadow:none;margin-top:10px}
+  .err{color:var(--red);font-size:12.5px;margin-top:10px;min-height:16px;font-family:'IBM Plex Mono'}
+  .meta{font-size:12px;color:var(--faint);margin-top:8px;line-height:1.5}
+  .method{display:flex;align-items:center;gap:12px;background:#0a1426;border:1px solid var(--line2);border-radius:13px;padding:14px;margin-top:6px}
+  .method .ic{width:42px;height:42px;border-radius:11px;display:grid;place-items:center;font-size:20px;background:linear-gradient(135deg,#22d3ee,#6366f1);color:#021;flex:none}
+  .method .m1{font-family:'Sora';font-weight:700;font-size:14px}
+  .method .m2{font-size:12px;color:var(--ink2);margin-top:2px}
+  .demo{margin-top:14px;background:#1c1606;border:1px solid #4a3a12;border-radius:11px;padding:11px 12px;font-family:'IBM Plex Mono';font-size:12px;color:var(--amber);display:none}
+  .demo b{color:#fff;font-size:16px;letter-spacing:.2em}
+  .success{text-align:center;padding:8px 0}
+  .success .big{font-family:'Sora';font-weight:800;font-size:22px}
+  .success .nm{color:var(--cyan)}
+  .lockbar{display:flex;align-items:center;justify-content:center;gap:7px;padding:10px;background:#0a1426;border-top:1px solid var(--line);font-family:'IBM Plex Mono';font-size:10.5px;color:var(--faint);letter-spacing:.04em}
+  .hide{display:none}
+  .spin{display:inline-block;width:15px;height:15px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:sp .7s linear infinite;vertical-align:-2px;margin-right:7px}
+  @keyframes sp{to{transform:rotate(360deg)}}
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="head">
+    <div class="logo">◐ <span class="o">ORBIT</span> · Team Access</div>
+    <div class="t" id="headT">Sign in</div>
+    <div class="s" id="headS">Authorized reps only</div>
+  </div>
+  <div class="body">
+
+    <!-- STEP 1: credentials -->
+    <div id="step1">
+      <label>Username</label>
+      <input id="u" autocomplete="off" placeholder="your username">
+      <label>Access code</label>
+      <input id="c" autocomplete="off" placeholder="your access code">
+      <button class="btn" id="loginBtn">Continue →</button>
+      <div class="err" id="e1"></div>
+    </div>
+
+    <!-- STEP 2: cell capture -->
+    <div id="step2" class="hide">
+      <div class="meta">For your security we verify it's really you each time. Enter the cell phone on file — <b>used only for verification</b>, never for marketing.</div>
+      <label>Cell phone</label>
+      <input id="cell" type="tel" inputmode="tel" placeholder="(555) 123-4567">
+      <button class="btn" id="cellBtn">Send my code →</button>
+      <div class="err" id="e2"></div>
+    </div>
+
+    <!-- STEP 3: code entry -->
+    <div id="step3" class="hide">
+      <div class="method" id="methodBox">
+        <div class="ic" id="mIc">📞</div>
+        <div><div class="m1" id="mTitle">Calling your phone…</div><div class="m2" id="mSub"></div></div>
+      </div>
+      <div class="demo" id="demoBox">Demo mode — call/email backend not connected. Your code is <b id="demoCode">000000</b></div>
+      <label>6-digit verification code</label>
+      <input id="otp" class="code" inputmode="numeric" maxlength="6" placeholder="••••••">
+      <button class="btn" id="verifyBtn">Verify & enter →</button>
+      <button class="btn ghost" id="resendBtn">Resend / try another method</button>
+      <div class="err" id="e3"></div>
+    </div>
+
+    <!-- STEP 4: success -->
+    <div id="step4" class="hide success">
+      <div class="big">Welcome, <span class="nm" id="who">rep</span> 👋</div>
+      <div class="meta" style="text-align:center">You're verified. Head to your command dashboard.</div>
+      <button class="btn" id="goBtn">Open my dashboard →</button>
+      <button class="btn ghost" id="outBtn">Sign out</button>
+    </div>
+
+  </div>
+  <div class="lockbar">🔒 Verified access · sessions expire on close</div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var $=function(id){return document.getElementById(id);};
+  var VERIFY_URL="/.netlify/functions/verify-send"; // wired for production; demo fallback below
+  var DASHBOARD="./orbit-performance-dashboard.html";
+
+  // --- seeded reps (DEMO credentials — replace with server-side auth for production) ---
+  // NOTE: codes visible in source = demo only. Real system issues + verifies these server-side.
+  var REPS=[
+    {user:"robert",  code:"R7Q2-K9X4", name:"Robert", role:"setter", email:"robert@orbitaiautomation.com"},
+    {user:"bill",    code:"B4M9-T6P3", name:"Bill",   role:"setter", email:"bill@orbitaiautomation.com"},
+    {user:"jonathan",code:"OWNER-2026", name:"Jonathan", role:"admin", email:"jonathan@orbitaiautomation.com"}
+  ];
+
+  var session={rep:null, cell:"", method:"", otp:""};
+
+  function show(step){ ["step1","step2","step3","step4"].forEach(function(s,i){ $(s).classList.toggle("hide",("step"+(i+1))!==step); });
+    var heads={step1:["Sign in","Authorized reps only"],step2:["Verify it's you","Quick security check"],step3:["Enter your code","We just sent it"],step4:["You're in","Verified"]};
+    $("headT").textContent=heads[step][0]; $("headS").textContent=heads[step][1];
+  }
+  function mask(cell){ var d=(cell||"").replace(/\D/g,""); return d.length>=4? "••• ••• "+d.slice(-4) : "your phone"; }
+  function maskEmail(e){ var p=(e||"").split("@"); if(p.length<2)return "your email"; return p[0].slice(0,2)+"••••@"+p[1]; }
+  function gen(){ return String(Math.floor(100000+Math.random()*900000)); }
+
+  // STEP 1
+  $("loginBtn").onclick=function(){
+    var u=$("u").value.trim().toLowerCase(), c=$("c").value.trim();
+    var rep=REPS.filter(function(r){return r.user===u && r.code===c;})[0];
+    if(!rep){ $("e1").textContent="Username or access code not recognized."; return; }
+    $("e1").textContent=""; session.rep=rep; show("step2");
+  };
+  $("c").addEventListener("keydown",function(e){if(e.key==="Enter")$("loginBtn").click();});
+
+  // STEP 2 -> choose random method + send
+  $("cellBtn").onclick=function(){
+    var cell=$("cell").value.trim();
+    if(cell.replace(/\D/g,"").length<10){ $("e2").textContent="Enter a valid 10-digit cell number."; return; }
+    $("e2").textContent=""; session.cell=cell;
+    session.method = Math.random()<0.5 ? "call" : "email";   // random authentication channel
+    session.otp = gen();
+    if(session.method==="call"){ $("mIc").textContent="📞"; $("mTitle").textContent="Calling "+mask(cell)+"…"; $("mSub").textContent="Pick up and listen for your 6-digit code."; }
+    else { $("mIc").textContent="✉️"; $("mTitle").textContent="Code emailed"; $("mSub").textContent="Sent to "+maskEmail(session.rep.email)+"."; }
+    show("step3");
+    sendCode();
+  };
+
+  function sendCode(){
+    $("demoBox").style.display="none"; $("e3").textContent="";
+    // try the production backend; fall back to demo if not deployed/connected
+    var sent=false;
+    try{
+      if(typeof fetch!=="undefined" && !window.__noVerifyBackend){
+        var done=false, to=setTimeout(function(){ if(!done){done=true; demoFallback();} },6000);
+        fetch(VERIFY_URL,{method:"POST",headers:{"Content-Type":"application/json"},
+          body:JSON.stringify({user:session.rep.user,method:session.method,cell:session.cell,email:session.rep.email})})
+          .then(function(r){return r.json();})
+          .then(function(d){ if(done)return; done=true; clearTimeout(to);
+            if(d && d.ok){ /* server holds the code; nothing shown */ }
+            else { window.__noVerifyBackend=true; demoFallback(); } })
+          .catch(function(){ if(done)return; done=true; clearTimeout(to); window.__noVerifyBackend=true; demoFallback(); });
+        sent=true;
+      }
+    }catch(e){}
+    if(!sent) demoFallback();
+  }
+  function demoFallback(){ $("demoBox").style.display="block"; $("demoCode").textContent=session.otp; }
+
+  // STEP 3 verify
+  $("verifyBtn").onclick=function(){
+    var v=$("otp").value.trim();
+    // Demo build verifies against the locally generated code; production verifies server-side.
+    if(v && v===session.otp){ onSuccess(); return; }
+    $("e3").textContent="That code didn't match. Check and try again.";
+  };
+  $("otp").addEventListener("keydown",function(e){if(e.key==="Enter")$("verifyBtn").click();});
+  $("resendBtn").onclick=function(){ session.method = session.method==="call"?"email":"call"; session.otp=gen();
+    if(session.method==="call"){ $("mIc").textContent="📞"; $("mTitle").textContent="Calling "+mask(session.cell)+"…"; $("mSub").textContent="Pick up and listen for your 6-digit code."; }
+    else { $("mIc").textContent="✉️"; $("mTitle").textContent="Code emailed"; $("mSub").textContent="Sent to "+maskEmail(session.rep.email)+"."; }
+    $("otp").value=""; sendCode();
+  };
+
+  function onSuccess(){ $("who").textContent=session.rep.name; show("step4");
+    try{ sessionStorage.setItem("orbit_rep",JSON.stringify({name:session.rep.name,role:session.rep.role,at:Date.now()})); }catch(e){} }
+  $("goBtn").onclick=function(){ location.href=DASHBOARD; };
+  $("outBtn").onclick=function(){ session={rep:null,cell:"",method:"",otp:""}; $("u").value="";$("c").value="";$("cell").value="";$("otp").value=""; show("step1"); };
+
+  show("step1");
+  window.OrbitAccess={reps:function(){return REPS.map(function(r){return {user:r.user,name:r.name,role:r.role};});}, _session:function(){return session;}};
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,155 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Orbit AI — Demo Cost Calculator</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0d13;--panel:#10141d;--panel2:#141926;--bd:#1f2738;--ink:#e8edf6;--ink2:#9aa6bd;--faint:#5c6680;
+--amber:#ffb020;--cyan:#3dd6d0;--green:#5fd38d;--violet:#9b8cff;}
+*{box-sizing:border-box}html,body{margin:0}
+body{background:radial-gradient(1200px 600px at 80% -10%,#141b2b 0,var(--bg) 55%);color:var(--ink);
+font-family:'IBM Plex Sans',system-ui,sans-serif;line-height:1.5;min-height:100vh}
+.wrap{max-width:880px;margin:0 auto;padding:30px 20px 70px}
+.topnav{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:22px;font-family:'IBM Plex Mono',monospace;font-size:12px}
+.topnav a{color:var(--ink2);text-decoration:none;border:1px solid var(--bd);padding:6px 11px;border-radius:7px;background:var(--panel)}
+.topnav a:hover{color:var(--ink);border-color:var(--faint)}
+.brand{font-family:'Chakra Petch';font-weight:700;letter-spacing:.06em;color:var(--cyan);margin-right:6px}
+h1{font-family:'Chakra Petch';font-weight:700;font-size:27px;margin:0 0 6px}h1 .a{color:var(--cyan)}
+.sub{color:var(--ink2);max-width:760px;margin:0 0 22px;font-size:14px}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:16px}@media(max-width:720px){.cols{grid-template-columns:1fr}}
+.card{background:linear-gradient(180deg,var(--panel2),var(--panel));border:1px solid var(--bd);border-radius:14px;padding:18px 19px}
+.card h2{font-family:'Chakra Petch';font-weight:600;font-size:13px;letter-spacing:.07em;text-transform:uppercase;color:var(--cyan);margin:0 0 16px}
+.fld{margin-bottom:18px}
+.fld label{display:flex;justify-content:space-between;font-size:13px;color:var(--ink2);margin-bottom:7px}
+.fld label b{font-family:'IBM Plex Mono';color:var(--ink);font-weight:600}
+input[type=range]{width:100%;-webkit-appearance:none;height:6px;border-radius:5px;background:var(--bd);outline:none}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(--cyan);cursor:pointer;box-shadow:0 0 0 4px rgba(61,214,208,.15)}
+input[type=range]::-moz-range-thumb{width:18px;height:18px;border:none;border-radius:50%;background:var(--cyan);cursor:pointer}
+.seg{display:flex;gap:6px;flex-wrap:wrap}
+.seg button{flex:1;min-width:64px;font-family:'IBM Plex Mono';font-size:11.5px;color:var(--ink2);background:var(--bg);border:1px solid var(--bd);border-radius:8px;padding:9px 8px;cursor:pointer}
+.seg button.on{color:var(--bg);background:var(--cyan);border-color:var(--cyan);font-weight:600}
+.seg.amber button.on{background:var(--amber);border-color:var(--amber)}
+.big{font-family:'Chakra Petch';font-weight:700;font-size:40px;line-height:1;margin:2px 0 2px}
+.big.cy{color:var(--cyan)}.big.am{color:var(--amber)}
+.lbl{font-family:'IBM Plex Mono';font-size:11px;color:var(--faint);text-transform:uppercase;letter-spacing:.05em}
+.split{display:flex;gap:18px;margin:16px 0 6px;flex-wrap:wrap}
+.split>div{flex:1;min-width:120px}
+.bk{height:12px;border-radius:6px;overflow:hidden;display:flex;background:var(--bg);border:1px solid var(--bd);margin:16px 0 8px}
+.bk i{height:100%}.bk .llm{background:var(--violet)}.bk .stt{background:var(--green)}.bk .tts{background:var(--amber)}
+.leg{display:flex;gap:14px;font-family:'IBM Plex Mono';font-size:11px;color:var(--ink2);flex-wrap:wrap}
+.leg span{display:flex;align-items:center;gap:6px}.dot{width:9px;height:9px;border-radius:2px;display:inline-block}
+.row{display:flex;justify-content:space-between;font-family:'IBM Plex Mono';font-size:12.5px;padding:6px 0;border-bottom:1px solid var(--bd)}
+.row:last-child{border-bottom:none}.row b{color:var(--ink)}
+.note{font-size:12px;color:var(--ink2);margin-top:14px;padding-top:12px;border-top:1px solid var(--bd)}
+.note b{color:var(--amber)}
+footer{margin-top:30px;border-top:1px solid var(--bd);padding-top:13px;font-family:'IBM Plex Mono';font-size:11px;color:var(--faint)}
+</style></head><body><div class="wrap">
+<div class="topnav"><span class="brand">ORBIT&nbsp;AI</span>
+<a href="./support-portal.html">← Support Portal</a>
+<a href="./alyxir-preview-trackdog.html">▶ Live preview</a>
+<a href="./orbit-credential-queue.html">Credential Queue</a></div>
+
+<h1>Demo Cost <span class="a">Calculator</span></h1>
+<p class="sub">Model the per-demo and monthly cost of running the AI receptionist preview. The LLM + speech-to-text are pennies — the voice tier drives almost all of it. Rates are current list prices and scale linearly; tweak and watch the total.</p>
+
+<div class="cols">
+  <div class="card">
+    <h2>Inputs</h2>
+    <div class="fld"><label>Demo length <b><span id="lenV">5</span> min</b></label>
+      <input type="range" id="len" min="1" max="15" step="1" value="5"></div>
+    <div class="fld"><label>Demos per month <b><span id="cntV">100</span></b></label>
+      <input type="range" id="cnt" min="10" max="1000" step="10" value="100"></div>
+    <div class="fld"><label>LLM (Claude)</label>
+      <div class="seg" id="llmSeg"><button data-v="haiku" class="on">Haiku 4.5</button><button data-v="sonnet">Sonnet 4.6</button></div></div>
+    <div class="fld"><label>Speech-to-text</label>
+      <div class="seg" id="sttSeg"><button data-v="browser" class="on">Browser (free)</button><button data-v="deepgram">Deepgram</button></div></div>
+    <div class="fld"><label>Voice (text-to-speech)</label>
+      <div class="seg amber" id="ttsSeg"><button data-v="browser" class="on">Browser (free)</button><button data-v="qwen">Qwen3</button><button data-v="eleven">ElevenLabs</button></div></div>
+  </div>
+
+  <div class="card">
+    <h2>Cost</h2>
+    <div class="split">
+      <div><div class="lbl">Per demo</div><div class="big cy" id="perDemo">$0.00</div></div>
+      <div><div class="lbl">Per 100 demos</div><div class="big" id="per100" style="font-size:30px">$0</div></div>
+    </div>
+    <div class="bk" id="bk"><i class="llm" id="bLlm"></i><i class="stt" id="bStt"></i><i class="tts" id="bTts"></i></div>
+    <div class="leg">
+      <span><i class="dot" style="background:var(--violet)"></i>LLM <span id="cLlm">$0</span></span>
+      <span><i class="dot" style="background:var(--green)"></i>STT <span id="cStt">$0</span></span>
+      <span><i class="dot" style="background:var(--amber)"></i>TTS <span id="cTts">$0</span></span>
+    </div>
+    <div style="margin-top:18px">
+      <div class="row"><span>Monthly usage (<span id="cntV2">100</span> demos)</span><b id="moUsage">$0</b></div>
+      <div class="row"><span id="subLbl">ElevenLabs base plan</span><b id="moSub">$0</b></div>
+      <div class="row" style="font-size:14px"><span><b>Estimated monthly total</b></span><b class="" id="moTotal" style="color:var(--green)">$0</b></div>
+    </div>
+    <div class="note" id="note"></div>
+  </div>
+</div>
+
+<footer>Orbit AI Automation · Demo Cost Calculator · list prices as of 2026-06-07, scale linearly · estimates only</footer>
+
+<script>
+(function(){
+  var $=function(i){return document.getElementById(i);};
+  // current list rates
+  var R={
+    haiku:{in:1,out:5}, sonnet:{in:3,out:15}, // $/MTok
+    deepgram:0.0077,                            // $/min streaming
+    qwen:0.005,                                 // $/reply (hosted run)
+    elevenChar:0.0001,                          // $/char (~0.5 credit/char)
+    elevenPlan:22                               // $/mo Creator (commercial + credit bucket)
+  };
+  var st={len:5,cnt:100,llm:"haiku",stt:"browser",tts:"browser"};
+  function money(n){ if(n>=10) return "$"+n.toFixed(0); if(n>=1) return "$"+n.toFixed(2); return "$"+n.toFixed(3); }
+  function calc(){
+    var L=st.len;
+    var callerMin=L*0.2, agentMin=L*0.55;
+    var agentWords=agentMin*150, agentChars=agentWords*6.2;
+    var replies=Math.max(1,Math.round(L*2/2));
+    var outTok=agentWords*1.35, inTok=1500+replies*2*500;
+    var m=R[st.llm];
+    var llm=(inTok/1e6)*m.in+(outTok/1e6)*m.out;
+    var stt=st.stt==="deepgram"? callerMin*R.deepgram : 0;
+    var tts=0;
+    if(st.tts==="qwen") tts=replies*R.qwen;
+    else if(st.tts==="eleven") tts=agentChars*R.elevenChar;
+    var per=llm+stt+tts;
+    return {llm:llm,stt:stt,tts:tts,per:per};
+  }
+  function render(){
+    $("lenV").textContent=st.len; $("cntV").textContent=st.cnt; $("cntV2").textContent=st.cnt;
+    var c=calc();
+    $("perDemo").textContent=money(c.per);
+    $("per100").textContent=money(c.per*100);
+    $("cLlm").textContent=money(c.llm); $("cStt").textContent=money(c.stt); $("cTts").textContent=money(c.tts);
+    var tot=c.per||0.0001;
+    $("bLlm").style.width=(c.llm/tot*100)+"%"; $("bStt").style.width=(c.stt/tot*100)+"%"; $("bTts").style.width=(c.tts/tot*100)+"%";
+    var usage=c.per*st.cnt;
+    var sub=st.tts==="eleven"?R.elevenPlan:0;
+    $("moUsage").textContent=money(usage);
+    $("subLbl").textContent= st.tts==="eleven"?"ElevenLabs base plan (commercial + credits)":"No subscription required";
+    $("moSub").textContent= sub?("$"+sub):"$0";
+    $("moTotal").textContent=money(usage+sub);
+    // note
+    var driver = c.tts>=c.llm+c.stt && c.tts>0 ? "the voice (TTS) is the cost driver" :
+                 (c.per<0.005? "this stack is effectively free — browser voice + free STT" : "LLM is the main line here");
+    var tips=[];
+    if(st.tts==="browser") tips.push("Browser voice is free but robotic — fine for volume, not for closing.");
+    if(st.tts==="eleven") tips.push("ElevenLabs needs a ~$22/mo plan; its credits cover roughly the first "+Math.round(22/ (c.tts||1))+" demos before per-use overage.");
+    if(st.stt==="deepgram") tips.push("Deepgram's $200 free credit covers ~26,000 min — STT is effectively free for a long time.");
+    if(st.stt==="browser") tips.push("Browser STT is free and instant on Chrome; flaky on Safari/Firefox (typing always works).");
+    $("note").innerHTML="<b>Read:</b> "+driver+". "+tips.join(" ");
+  }
+  // wire sliders
+  $("len").addEventListener("input",function(){st.len=+this.value;render();});
+  $("cnt").addEventListener("input",function(){st.cnt=+this.value;render();});
+  function seg(id,key){ var box=$(id); box.addEventListener("click",function(e){ var b=e.target.closest("button"); if(!b)return;
+    Array.prototype.forEach.call(box.querySelectorAll("button"),function(x){x.classList.remove("on");}); b.classList.add("on");
+    st[key]=b.getAttribute("data-v"); render(); }); }
+  seg("llmSeg","llm"); seg("sttSeg","stt"); seg("ttsSeg","tts");
+  render();
+})();
+</script>
+</div></body></html>

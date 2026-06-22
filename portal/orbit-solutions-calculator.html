@@ -1,0 +1,187 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Solutions Calculator — Orbit AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f6f7f9;--card:#fff;--bd:#e4e8ee;--ink:#1a2330;--ink2:#5a6677;--faint:#97a1b0;--accent:#0a66ff;--accent2:#5b8cff;--chipbg:#eef2f7;--good:#1f9d57;}
+[data-theme=dark]{--bg:#0a0d13;--card:#10141d;--bd:#1f2738;--ink:#e8edf6;--ink2:#9aa6bd;--faint:#5c6680;--accent:#3dd6d0;--accent2:#5fd38d;--chipbg:#141926;--good:#5fd38d;}
+*{box-sizing:border-box}html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font-family:'IBM Plex Sans',system-ui,sans-serif;line-height:1.5}
+.wrap{max-width:960px;margin:0 auto;padding:24px 18px 64px}
+h1{font-family:'Chakra Petch';font-weight:700;font-size:24px;margin:0 0 4px}h1 .a{color:var(--accent)}
+.sub{color:var(--ink2);font-size:13.5px;margin:0 0 18px;max-width:780px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:18px;margin-bottom:16px}
+.card h2{font-family:'Chakra Petch';font-weight:600;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);margin:0 0 14px}
+.pkgs{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.pkg{border:1px solid var(--bd);border-radius:12px;padding:13px;cursor:pointer;background:var(--bg)}
+.pkg.on{border-color:var(--accent);box-shadow:0 0 0 2px color-mix(in srgb,var(--accent) 30%,transparent)}
+.pkg .nm{font-family:'Chakra Petch';font-weight:700;font-size:15px}
+.pkg .pr{font-family:'Chakra Petch';font-weight:700;font-size:20px;color:var(--accent);margin:3px 0}
+.pkg .pr small{font-size:11px;color:var(--faint);font-weight:400}
+.pkg .inc{font-size:11px;color:var(--ink2);font-family:'IBM Plex Mono';margin-top:6px;line-height:1.7}
+.fld{margin-bottom:15px}
+.fld label{display:flex;justify-content:space-between;font-size:13px;color:var(--ink2);margin-bottom:6px}
+.fld label b{font-family:'IBM Plex Mono';color:var(--ink);font-weight:600}
+input[type=range]{width:100%;-webkit-appearance:none;height:6px;border-radius:5px;background:var(--bd);outline:none}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(--accent);cursor:pointer}
+input[type=range]::-moz-range-thumb{width:18px;height:18px;border:none;border-radius:50%;background:var(--accent);cursor:pointer}
+.out{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media(max-width:680px){.out{grid-template-columns:1fr}.pkgs{grid-template-columns:1fr 1fr}}
+.metric .lbl{font-family:'IBM Plex Mono';font-size:11px;color:var(--faint);text-transform:uppercase;letter-spacing:.04em}
+.metric .v{font-family:'Chakra Petch';font-weight:700;font-size:30px;line-height:1.1}
+.metric .v.a{color:var(--accent)}.metric .v.g{color:var(--good)}
+.row{display:flex;justify-content:space-between;font-family:'IBM Plex Mono';font-size:12.5px;padding:6px 0;border-bottom:1px solid var(--bd)}
+.row:last-child{border-bottom:none}.row b{color:var(--ink)}
+.econ{border:1px dashed var(--accent);border-radius:12px;padding:14px;margin-top:4px;background:color-mix(in srgb,var(--accent) 6%,transparent)}
+.econ .tag{font-family:'IBM Plex Mono';font-size:10px;color:var(--accent);text-transform:uppercase;letter-spacing:.05em;margin-bottom:9px}
+.note{font-size:12px;color:var(--ink2);margin-top:12px;padding-top:12px;border-top:1px solid var(--bd)}
+.note b{color:var(--good)}
+details summary{cursor:pointer;font-family:'IBM Plex Mono';font-size:12px;color:var(--ink2)}
+.rate{display:flex;align-items:center;gap:5px;font-family:'IBM Plex Mono';font-size:11px;color:var(--faint);margin:6px 0}
+.rate input{width:72px;text-align:right;border:1px solid var(--bd);border-radius:7px;padding:6px 8px;background:var(--bg);color:var(--ink);font-family:'IBM Plex Mono';font-size:11px}
+footer{margin-top:22px;border-top:1px solid var(--bd);padding-top:13px;font-family:'IBM Plex Mono';font-size:11px;color:var(--faint)}
+</style></head><body><div class="wrap">
+
+<h1>Solutions <span class="a">Calculator</span></h1>
+<p class="sub" id="sub">Pick a package, set the account's usage, and see the price. Partner & support views also reveal fulfillment cost, margin, and wholesale / white-label rates.</p>
+
+<div class="card">
+  <h2>1 · Package</h2>
+  <div class="pkgs" id="pkgs"></div>
+</div>
+
+<div class="card">
+  <h2>2 · Monthly usage for this account</h2>
+  <div class="fld"><label>AI voice receptionist <b><span id="vV">500</span> min/mo</b></label><input type="range" id="v" min="0" max="4000" step="50" value="500"></div>
+  <div class="fld"><label>AI SMS responses <b><span id="sV">300</span>/mo</b></label><input type="range" id="s" min="0" max="3000" step="50" value="300"></div>
+  <div class="fld"><label>Chatbot / web-widget conversations <b><span id="cV">1500</span>/mo</b></label><input type="range" id="c" min="0" max="10000" step="100" value="1500"></div>
+  <div class="fld"><label>Phone numbers / locations <b><span id="nV">1</span></b></label><input type="range" id="n" min="0" max="10" step="1" value="1"></div>
+</div>
+
+<div class="card">
+  <h2>3 · Price</h2>
+  <div class="out">
+    <div class="metric"><div class="lbl">Customer pays / mo</div><div class="v a" id="price">$0</div></div>
+    <div class="metric"><div class="lbl">Included + overage</div><div class="v" id="overage" style="font-size:20px">$0</div></div>
+    <div class="metric"><div class="lbl">Pays for itself at</div><div class="v g" id="roi" style="font-size:20px">–</div></div>
+  </div>
+  <div style="margin-top:14px">
+    <div class="row"><span>Base package</span><b id="rBase">$0</b></div>
+    <div class="row"><span id="rOverLbl">Usage overage (above included)</span><b id="rOver">$0</b></div>
+    <div class="row" style="font-size:13.5px"><span><b>Customer monthly total</b></span><b id="rTotal" style="color:var(--accent)">$0</b></div>
+  </div>
+
+  <div class="econ" id="econ" style="display:none">
+    <div class="tag">Partner / internal economics — not customer-facing</div>
+    <div class="row"><span>Fulfillment cost (COGS) this account</span><b id="eCost">$0</b></div>
+    <div class="row"><span>Orbit gross margin</span><b id="eMargin" style="color:var(--good)">$0</b></div>
+    <div class="row"><span>Wholesale price (aggregator buy)</span><b id="eWhole">$0</b></div>
+    <div class="row"><span>Reseller margin (retail − wholesale)</span><b id="eResell">$0</b></div>
+    <div class="row"><span>White-label cost (license + per-acct + usage)</span><b id="eWL">$0</b></div>
+    <div style="margin-top:12px;padding-top:10px;border-top:1px solid var(--bd)">
+      <div class="fld" style="margin:0"><label>Aggregator / high-volume: accounts <b><span id="aV">25</span></b></label><input type="range" id="a" min="1" max="500" step="1" value="25"></div>
+      <div class="row"><span>Wholesale tier</span><b id="eTier">–</b></div>
+      <div class="row"><span>Aggregator pays Orbit / mo</span><b id="eAggTotal">$0</b></div>
+      <div class="row"><span>Orbit margin on the book</span><b id="eAggMargin" style="color:var(--good)">$0</b></div>
+    </div>
+  </div>
+
+  <div class="note" id="note"></div>
+
+  <details style="margin-top:14px"><summary>Adjust fulfillment rates & pricing levers (editable)</summary>
+    <div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:18px">
+      <div><div class="rate">voice $/min cost <input type="number" id="kVc" step="0.01" value="0.10"></div>
+           <div class="rate">SMS $/msg cost <input type="number" id="kSc" step="0.005" value="0.02"></div>
+           <div class="rate">chat $/conv cost <input type="number" id="kCc" step="0.005" value="0.01"></div>
+           <div class="rate">number $/mo <input type="number" id="kNc" step="0.5" value="1"></div></div>
+      <div><div class="rate">voice overage $/min <input type="number" id="kVo" step="0.01" value="0.18"></div>
+           <div class="rate">SMS overage $/msg <input type="number" id="kSo" step="0.01" value="0.05"></div>
+           <div class="rate">white-label license $/mo <input type="number" id="kWl" step="10" value="499"></div>
+           <div class="rate">white-label $/account <input type="number" id="kWa" step="1" value="39"></div></div>
+    </div>
+  </details>
+</div>
+
+<footer>Orbit AI Automation · Solutions Calculator · fulfillment costs grounded in current LLM/STT/TTS/telephony rates · all levers editable · estimates</footer>
+
+<script>
+(function(){
+  var $=function(i){return document.getElementById(i);};
+  var P=new URLSearchParams(location.search);
+  var channel=(P.get("channel")||"portal").toLowerCase();
+  var internal = (channel==="partner"||channel==="support"||channel==="dark"||P.get("view")==="internal");
+  if(internal) document.body.setAttribute("data-theme","dark");
+
+  // packages: retail $/mo, fixed COGS base, included allowances
+  var PK=[
+    {id:"presence",nm:"Presence",retail:297,base:18,inc:{v:0,s:0,c:1500,n:0},feat:"Site · chatbot · web-widget receptionist · bilingual KB"},
+    {id:"engage",nm:"Engage",retail:597,base:22,inc:{v:500,s:300,c:3000,n:1},feat:"+ AI voice receptionist · AI SMS · call summaries · 1 number"},
+    {id:"scale",nm:"Scale",retail:997,base:30,inc:{v:1500,s:1000,c:9999,n:3},feat:"+ more minutes · multi-location · priority · DFY allowance"},
+    {id:"concierge",nm:"Concierge",retail:2497,base:60,inc:{v:4000,s:3000,c:9999,n:6},feat:"Complete DFY · we run everything for you"}
+  ];
+  var WHOLESALE=[[100,0.35],[50,0.42],[10,0.50],[1,0.60]]; // [minAccounts, fraction of retail]
+  var sel="engage", usage={v:500,s:300,c:1500,n:1}, accts=25;
+  function K(id){ var x=parseFloat($(id).value); return isNaN(x)?0:x; }
+  function money(x){ if(Math.abs(x)>=100) return "$"+x.toFixed(0); if(Math.abs(x)>=1) return "$"+x.toFixed(2); return "$"+x.toFixed(3); }
+  function band(n){ for(var i=0;i<WHOLESALE.length;i++){ if(n>=WHOLESALE[i][0]) return WHOLESALE[i]; } return WHOLESALE[WHOLESALE.length-1]; }
+
+  function renderPkgs(){ $("pkgs").innerHTML=""; PK.forEach(function(p){ var el=document.createElement("div"); el.className="pkg"+(p.id===sel?" on":"");
+    el.innerHTML='<div class="nm">'+p.nm+'</div><div class="pr">$'+p.retail+'<small>/mo</small></div><div class="inc">'+p.feat+'</div>';
+    el.addEventListener("click",function(){ sel=p.id; var pk=PK.filter(function(x){return x.id===sel;})[0];
+      // seed usage sliders to package includes for a sensible default
+      usage={v:pk.inc.v||0,s:pk.inc.s||0,c:Math.min(pk.inc.c,4000),n:pk.inc.n||0};
+      $("v").value=usage.v;$("s").value=usage.s;$("c").value=usage.c;$("n").value=usage.n;
+      renderPkgs(); render(); });
+    $("pkgs").appendChild(el); }); }
+
+  function calc(){
+    var pk=PK.filter(function(x){return x.id===sel;})[0];
+    var vc=K("kVc"),sc=K("kSc"),cc=K("kCc"),nc=K("kNc"),vo=K("kVo"),so=K("kSo"),wl=K("kWl"),wa=K("kWa");
+    var cost = pk.base + usage.v*vc + usage.s*sc + usage.c*cc + usage.n*nc;
+    var overV = Math.max(0,usage.v-pk.inc.v)*vo, overS=Math.max(0,usage.s-pk.inc.s)*so;
+    var overage = overV+overS;
+    var price = pk.retail + overage;
+    var margin = price - cost, mPct = price>0?(margin/price*100):0;
+    var b=band(1), wholesale = pk.retail*b[1] + overage; // single-account wholesale
+    var resell = price - wholesale;
+    var wlCost = wl + wa + cost*1.2; // white-label: license + per-account + usage cost+20% (per account)
+    // aggregator book
+    var ab=band(accts), aggPer = pk.retail*ab[1] + overage, aggTotal = aggPer*accts, aggMargin = (aggPer-cost)*accts;
+    return {pk:pk,cost:cost,overage:overage,price:price,margin:margin,mPct:mPct,wholesale:wholesale,resell:resell,wlCost:wlCost,
+            band:ab,aggPer:aggPer,aggTotal:aggTotal,aggMargin:aggMargin};
+  }
+  function render(){
+    $("vV").textContent=usage.v;$("sV").textContent=usage.s;$("cV").textContent=usage.c;$("nV").textContent=usage.n;
+    var r=calc();
+    $("price").textContent=money(r.price)+"/mo";
+    $("overage").textContent=r.overage>0?("+"+money(r.overage)+" overage"):"all included";
+    $("rBase").textContent="$"+r.pk.retail; $("rOver").textContent=money(r.overage); $("rTotal").textContent=money(r.price);
+    // ROI: assume one booked job/customer ≈ $300 value
+    var jobVal=300; var jobs=Math.max(1,Math.ceil(r.price/jobVal));
+    $("roi").textContent=jobs+" job"+(jobs>1?"s":"")+"/mo";
+    if(internal){
+      $("econ").style.display="";
+      $("eCost").textContent=money(r.cost);
+      $("eMargin").textContent=money(r.margin)+" ("+r.mPct.toFixed(0)+"%)";
+      $("eWhole").textContent=money(r.wholesale);
+      $("eResell").textContent=money(r.resell);
+      $("eWL").textContent=money(r.wlCost)+"/acct";
+      $("aV").textContent=accts;
+      $("eTier").textContent=(r.band[1]*100).toFixed(0)+"% of retail (≥"+r.band[0]+" accts)";
+      $("eAggTotal").textContent=money(r.aggTotal);
+      $("eAggMargin").textContent=money(r.aggMargin);
+    }
+    var msg = internal
+      ? "<b>Margin engine:</b> fulfillment is "+money(r.cost)+" against "+money(r.price)+" retail — "+r.mPct.toFixed(0)+"% gross. Because marginal cost is near-zero, you can undercut an agency retainer and still out-earn it. Aggregators buy at "+(r.band[1]*100).toFixed(0)+"% of retail; resellers keep "+money(r.resell)+"/account; white-label runs on cost-plus + license."
+      : "<b>Why it pays:</b> recover the whole plan with about "+jobs+" booked job"+(jobs>1?"s":"")+" a month — the receptionist answers every call and the chatbot every lead, 24/7, in English and Spanish.";
+    $("note").innerHTML=msg;
+  }
+  ["v","s","c","n"].forEach(function(id){ $(id).addEventListener("input",function(){ usage[id]=+this.value; render(); }); });
+  $("a") && $("a").addEventListener("input",function(){ accts=+this.value; render(); });
+  ["kVc","kSc","kCc","kNc","kVo","kSo","kWl","kWa"].forEach(function(id){ $(id).addEventListener("input",render); });
+  if(internal){ $("sub").textContent="Internal rate card: pick a package and usage to see the customer price plus fulfillment cost, margin, and wholesale / reseller / white-label economics. Not customer-facing."; }
+  renderPkgs(); render();
+})();
+</script>
+</div></body></html>

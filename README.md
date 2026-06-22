@@ -35,8 +35,9 @@ of the same skill name.
 The skill docs are published as a browsable static site via GitHub Pages:
 **https://jonathan777-ui.github.io/orbit-platform/**
 
-It's built from `skills/airlock-vertical-kb/` by `site/build.py` and deployed
-automatically by `.github/workflows/pages.yml` on every push to `main`.
+It's built from `skills/airlock-vertical-kb/` by `site/build.py` and published
+from the `gh-pages` branch by `.github/workflows/pages.yml`. Trigger it from the
+repo's **Actions** tab ("Run workflow") to refresh the live site.
 Build it locally with:
 
 ```bash

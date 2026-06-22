@@ -241,6 +241,11 @@
         <input id="s_table" value="leads">
       </div>
       <div class="full">
+        <label>n8n webhook URL (optional)</label>
+        <input id="s_n8n" placeholder="http://localhost:5678/webhook/lead-events">
+        <div class="hint">When set, the desk POSTs an event here on new leads and stage changes — wire it to your local n8n automations. Leave blank to disable.</div>
+      </div>
+      <div class="full">
         <details>
           <summary style="cursor:pointer;color:var(--accent);font-size:13px">Show the SQL to create the table & policies</summary>
 <pre id="sqlSnippet"></pre>
@@ -335,6 +340,18 @@ async function upsertLead(lead){
     saveLocal(); return lead;
   }
 }
+/* Fire-and-forget event to a local n8n webhook (CRM → n8n). Never blocks the UI;
+   n8n may be offline. The n8n Webhook node must allow CORS (allowedOrigins:"*"). */
+async function notifyN8n(event, lead){
+  if(!cfg.n8n) return;
+  try{
+    await fetch(cfg.n8n, {
+      method:"POST", headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({event, lead, sent_at:new Date().toISOString()})
+    });
+  }catch(e){ /* offline / blocked — ignore so the desk keeps working */ }
+}
+
 async function removeLead(id){
   if(sb){
     const {error} = await sb.from(cfg.table||"leads").delete().eq("id",id);
@@ -437,8 +454,9 @@ function renderKanban(){
       e.preventDefault(); col.classList.remove("drop");
       if(!dragId) return;
       const l=leads.find(x=>x.id===dragId);
-      if(l && l.stage!==st){ l.stage=st; l.updated_at=new Date().toISOString();
-        await upsertLead(l); toast(`Moved to ${st}`); render(); }
+      if(l && l.stage!==st){ const from=l.stage; l.stage=st; l.updated_at=new Date().toISOString();
+        await upsertLead(l); notifyN8n("lead.stage_changed", {...l, previous_stage:from});
+        toast(`Moved to ${st}`); render(); }
     };
     wrap.appendChild(col);
   }
@@ -487,11 +505,13 @@ async function saveLead(){
     next_action:$("#f_next_action").value.trim(), notes:$("#f_notes").value.trim(),
     updated_at:now
   };
+  const wasEditing = !!editingId;
   const saved = await upsertLead(lead);
   if(saved){
     const i=leads.findIndex(l=>l.id===saved.id);
     if(i>=0) leads[i]=saved; else leads.push(saved);
-    toast(editingId?"Lead updated":"Lead added");
+    notifyN8n(wasEditing?"lead.updated":"lead.created", saved);
+    toast(wasEditing?"Lead updated":"Lead added");
     closeLead(); render();
   }
 }
@@ -531,6 +551,7 @@ create policy "leaddesk anon all" on public.${table}
 function openSettings(){
   $("#s_url").value=cfg.url||""; $("#s_key").value=cfg.key||"";
   $("#s_table").value=cfg.table||"leads";
+  $("#s_n8n").value=cfg.n8n||"";
   $("#sqlSnippet").textContent=sqlSnippet(cfg.table||"leads");
   $("#settingsOverlay").classList.add("show");
 }
@@ -538,6 +559,7 @@ async function saveSettings(){
   cfg.url=$("#s_url").value.trim().replace(/\/+$/,"");
   cfg.key=$("#s_key").value.trim();
   cfg.table=$("#s_table").value.trim()||"leads";
+  cfg.n8n=$("#s_n8n").value.trim().replace(/\/+$/,"");
   saveCfg();
   $("#settingsOverlay").classList.remove("show");
   try{

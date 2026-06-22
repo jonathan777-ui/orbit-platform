@@ -1,1 +1,5 @@
 .env
+
+# n8n runtime data (workflows, credentials, history) — keep local, never commit
+n8n/data/*
+!n8n/data/.gitkeep

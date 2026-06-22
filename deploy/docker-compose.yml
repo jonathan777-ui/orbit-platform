@@ -35,8 +35,13 @@ services:
       - N8N_COMMUNITY_PACKAGES_ALLOW_TOOL_USAGE=true
       # --- Optional encryption key (set in .env to keep credentials portable) ---
       - N8N_ENCRYPTION_KEY=${N8N_ENCRYPTION_KEY:-}
+    # n8n runs as uid 1000 inside the image; match it so the bind-mounted
+    # data folder stays writable on Linux hosts (no effect on Docker Desktop).
+    user: "1000:1000"
     volumes:
-      - n8n_data:/home/node/.n8n
+      # All n8n data lives in a visible folder on your hard drive (./n8n/data),
+      # so you can see, back up, or move it directly — 100% local & private.
+      - ./n8n/data:/home/node/.n8n
       # Drop workflow JSON exports here to share them in the repo:
       - ./n8n/workflows:/home/node/workflows
     healthcheck:
@@ -54,6 +59,3 @@ services:
     volumes:
       # Serve the single-file CRM as the site root.
       - ../lead-desk.html:/usr/share/nginx/html/index.html:ro
-
-volumes:
-  n8n_data:

@@ -1,0 +1,68 @@
+{
+  "name": "Lead Desk — Outbound events (CRM → automations)",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "lead-events",
+        "responseMode": "onReceived",
+        "options": { "allowedOrigins": "*" }
+      },
+      "id": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa",
+      "name": "Webhook (lead-events)",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [220, 300],
+      "webhookId": "lead-events"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": { "caseSensitive": true, "typeValidation": "loose" },
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "cond-won",
+              "leftValue": "={{ $json.body.lead.stage }}",
+              "rightValue": "Won",
+              "operator": { "type": "string", "operation": "equals" }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb",
+      "name": "Is it Won?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [480, 300]
+    },
+    {
+      "parameters": {},
+      "id": "cccccccc-cccc-4ccc-8ccc-cccccccccccc",
+      "name": "Won → celebrate / notify",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [740, 200]
+    },
+    {
+      "parameters": {},
+      "id": "dddddddd-dddd-4ddd-8ddd-dddddddddddd",
+      "name": "Other stage → log / route",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [740, 400]
+    }
+  ],
+  "connections": {
+    "Webhook (lead-events)": { "main": [[{ "node": "Is it Won?", "type": "main", "index": 0 }]] },
+    "Is it Won?": {
+      "main": [
+        [{ "node": "Won → celebrate / notify", "type": "main", "index": 0 }],
+        [{ "node": "Other stage → log / route", "type": "main", "index": 0 }]
+      ]
+    }
+  },
+  "settings": { "executionOrder": "v1" },
+  "active": false
+}

@@ -38,16 +38,46 @@ n8n does **not** expose a generic `/mcp-server/http` endpoint. MCP endpoints are
    `http://localhost:5678/mcp/<your-path>` (this is the URL you point an MCP client at).
 3. Activate the workflow, then hit that exact URL — not `/mcp-server/http`.
 
-## Wiring the Lead Desk CRM to n8n (optional)
-The CRM is backed by Supabase, but you can also drive it from n8n:
-- **Leads in:** an n8n Webhook/Schedule workflow can `insert` rows into your
-  Supabase `leads` table (same table the CRM reads).
-- **Leads out:** add a Supabase trigger / polling workflow in n8n to fire on new
-  or stage-changed leads (notify Slack, send email, etc.).
+## Where your data lives (100% local)
+n8n stores everything in **`deploy/n8n/data/`** on your hard drive (bind-mounted
+to `/home/node/.n8n` in the container) — workflows, credentials, execution
+history. You can back it up, move it, or delete it directly. It's git-ignored so
+secrets never get committed. Nothing is sent to any cloud.
 
-Ask Claude Code (locally) to scaffold these workflows once n8n is up — it can
-read the live node schemas via the n8n MCP server.
+## Wiring the Lead Desk CRM ↔ n8n
+Two ready-to-import workflows live in `n8n/workflows/`:
 
-## Sharing workflows in git
-Exported workflow JSON placed in `deploy/n8n/workflows/` is mounted into the
-container at `/home/node/workflows` so you can version them with the repo.
+### 1. Outbound: CRM events → automations (`lead-events.json`)
+The CRM POSTs an event to n8n whenever a lead is **created**, **updated**, or its
+**stage changes**. To enable:
+1. Import `lead-events.json` (n8n → Workflows → Import from File) and **activate** it.
+2. Copy its **Production webhook URL** — it'll be
+   `http://localhost:5678/webhook/lead-events`.
+3. In the Lead Desk CRM, open **⚙ Connect** and paste that into **n8n webhook URL**.
+
+Now editing a lead or dragging it across the pipeline fires the workflow. The
+payload is `{ event, lead, sent_at }` where `event` is one of
+`lead.created` / `lead.updated` / `lead.stage_changed`. The starter routes
+`stage = "Won"` down its own branch — replace the No-Op nodes with Slack, Gmail,
+etc. (`lead.stage_changed` events also include `lead.previous_stage`).
+
+### 2. Inbound: external sources → Supabase (`lead-intake.json`)
+Lets a web form, voice agent, or anything else create a lead that lands in the
+**same Supabase table the CRM reads**. To enable:
+1. Import `lead-intake.json` and edit the **Insert into Supabase** node: replace
+   `https://YOUR-PROJECT.supabase.co` and `YOUR_SUPABASE_ANON_KEY` with your
+   project URL and anon key (matching what you put in the CRM's Connect panel).
+2. **Activate** it, then POST a lead:
+   ```bash
+   curl -X POST http://localhost:5678/webhook/lead-intake \
+     -H "Content-Type: application/json" \
+     -d '{"name":"Jane Doe","company":"Acme","email":"jane@acme.com","stage":"New","value":5000,"source":"Website"}'
+   ```
+   It appears in the CRM after a refresh (↻).
+
+> The webhook nodes set CORS `allowedOrigins: "*"` so the browser-based CRM can
+> POST to them locally. Tighten that for any non-local exposure.
+
+These are starter workflows — import and verify them in your local n8n. With the
+n8n MCP server running, a local Claude Code session can refine/validate them and
+add real notification nodes.

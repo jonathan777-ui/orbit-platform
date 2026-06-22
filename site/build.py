@@ -152,8 +152,8 @@ def build() -> None:
         page = PAGE.format(title=html.escape(title), navhtml=nav_for(out_name), body=body)
         (OUT / out_name).write_text(page, encoding="utf-8")
 
-    # Also publish the standalone single-file apps at the site root.
-    extras = ["lead-desk.html", "voice-demo.html"]
+    # Also publish the standalone apps + demo registry at the site root.
+    extras = ["lead-desk.html", "voice-demo.html", "demos.html", "demos.json"]
     copied = []
     for name in extras:
         p = ROOT / name

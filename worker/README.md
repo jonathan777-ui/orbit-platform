@@ -11,7 +11,22 @@ English / Español / Bilingual).
 | `/api/chat` | POST | Calls **Grok** with a tier/language/mode-aware system prompt. Body: `{messages, tier, mode, language, vertical, niche, business}` → `{reply}`. |
 | `/api/deepgram/token` | POST | Mints a **30s Deepgram temp token** for browser STT/TTS. Returns `{access_token, ...voice config}`. |
 | `/api/voices` | GET | Returns the STT/TTS model + voice slugs. |
-| everything else | — | Served from `site/_site` (the demo page, CRM, docs). |
+| `/api/lead` | POST | Writes a captured demo lead into Supabase (the same table the Lead Desk CRM reads). Optionally forwards to n8n. |
+| everything else | — | Served from `site/_site` (demos, CRM, docs). |
+
+## Demo registry, landing page & sharing
+- **`demos.json`** — the registry. Each entry deep-links as `/voice-demo.html?demo=<id>` and is rendered as a card on **`/demos.html`** (the share hub, which also links the Lead Desk). `promptExtra` is the Claude-authored premium niche brief; the Worker combines it with the tier template. **Add your 19 live demos here.**
+- **Share** — the 📨 Share button (on `/demos.html` cards and inside a demo) opens a pre-written, interest-piquing prospect email (EN or ES) with the demo link, via `mailto:` → Gmail compose.
+
+## Lead capture secrets (optional but recommended)
+To persist demo leads into the Lead Desk, set:
+```bash
+npx wrangler secret put SUPABASE_URL      # https://YOUR-PROJECT.supabase.co
+npx wrangler secret put SUPABASE_KEY      # anon (or a restricted) key with insert on leads
+# optional: forward each lead to a reachable n8n webhook
+npx wrangler secret put N8N_LEAD_WEBHOOK  # e.g. https://<tunnel>/webhook/lead-intake
+```
+Without `SUPABASE_*`, `/api/lead` still returns OK but doesn't persist (the UI says so).
 
 ---
 

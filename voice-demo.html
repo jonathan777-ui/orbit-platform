@@ -80,6 +80,8 @@
   <div class="brand"><span class="dot"></span> Airlock Demo</div>
   <span class="pill" id="statusPill"><span class="pip"></span><span id="statusText">Ready</span></span>
   <div class="grow"></div>
+  <button class="btn" id="leadBtn" title="Capture this lead">📩 Get a callback</button>
+  <button class="btn" id="shareBtn" title="Email this demo to a prospect">📨 Share</button>
   <span class="pill" id="tierPill">Platinum</span>
 </header>
 
@@ -151,6 +153,23 @@
   </div>
 </div>
 
+<!-- Lead capture modal -->
+<div id="leadOverlay" style="display:none;position:fixed;inset:0;background:rgba(3,6,14,.6);backdrop-filter:blur(3px);align-items:center;justify-content:center;z-index:60;padding:20px">
+  <div style="background:var(--panel);border:1px solid var(--line);border-radius:16px;width:100%;max-width:420px;box-shadow:var(--shadow)">
+    <h3 style="margin:0;padding:16px 20px;border-bottom:1px solid var(--line);font-size:16px">Request a callback</h3>
+    <div style="padding:18px 20px;display:grid;gap:12px">
+      <div><label>Your name</label><input id="l_name" placeholder="Jane Doe"></div>
+      <div><label>Phone</label><input id="l_phone" placeholder="(555) 010-0100"></div>
+      <div><label>Email (optional)</label><input id="l_email" type="email" placeholder="jane@email.com"></div>
+      <div><label>What can we help with?</label><input id="l_reason" placeholder="Booking / question…"></div>
+    </div>
+    <div style="padding:14px 20px;border-top:1px solid var(--line);display:flex;gap:10px;justify-content:flex-end">
+      <button class="btn" id="leadCancel">Cancel</button>
+      <button class="btn primary" id="leadSubmit">Send to the desk</button>
+    </div>
+  </div>
+</div>
+
 <div id="toast"></div>
 
 <script>
@@ -162,11 +181,12 @@ const cfg = () => ({
   tier: $("#c_tier").value,
   language: $("#c_language").value,
   mode: state.mode,
+  promptExtra: state.promptExtra || "",
   apiBase: $("#c_api").value.trim().replace(/\/+$/,"")
 });
 const api = path => (cfg().apiBase || "") + path;
 
-const state = { mode:"chat", messages:[], listening:false, speaking:false, ws:null, audioCtx:null, stream:null, node:null, token:null, currentAudio:null };
+const state = { mode:"chat", messages:[], listening:false, speaking:false, ws:null, audioCtx:null, stream:null, node:null, token:null, currentAudio:null, promptExtra:"", demoId:"" };
 
 function toast(m){ const t=$("#toast"); t.textContent=m; t.classList.add("show"); clearTimeout(t._t); t._t=setTimeout(()=>t.classList.remove("show"),3200); }
 function setStatus(s,label){ const p=$("#statusPill"); p.className="pill "+(s||""); $("#statusText").textContent=label||"Ready"; }
@@ -364,7 +384,71 @@ document.querySelectorAll("#modeSeg button").forEach(b=> b.onclick=()=>setMode(b
 $("#micBtn").onclick = ()=>{ if(state.listening){ stopListening(); } else { startListening(); } };
 window.addEventListener("beforeunload", ()=>{ if(state.listening) stopListening(); });
 
+/* ---------- Share: generate an interest-piquing prospect email ---------- */
+function shareEmail(){
+  const c = cfg();
+  const link = location.origin + location.pathname + (state.demoId ? ("?demo="+encodeURIComponent(state.demoId)) : "");
+  const name = c.business || "your business";
+  const es = c.language === "es";
+  const subject = es
+    ? `Una recepcionista de IA 24/7 para ${name} — escúchela ahora`
+    : `I built ${name} a 24/7 AI receptionist — hear it in 2 minutes`;
+  const body = es
+    ? `Hola,\n\n¿Y si cada llamada a ${name} se contestara al instante — de día o de noche, en inglés o español — agendando citas y capturando cada cliente?\n\nLe preparé una demo en vivo. Haga clic y hable con ella (o escriba):\n${link}\n\nNunca pierde una llamada, nunca se enferma, y le entrega los datos del cliente en cuanto termina la llamada.\n\n¿Vale 2 minutos de su tiempo?\n\n— `
+    : `Hi,\n\nWhat if every call to ${name} was answered instantly — day or night, in English or Spanish — booking appointments and capturing every lead?\n\nI built you a live demo. Click and talk to it (or type):\n${link}\n\nIt never misses a call, never takes a sick day, and hands you the lead the moment the call ends.\n\nWorth a 2-minute listen?\n\n— `;
+  location.href = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+}
+
+/* ---------- Lead capture ---------- */
+function openLeadModal(){ $("#leadOverlay").style.display="flex"; $("#l_name").focus(); }
+function closeLeadModal(){ $("#leadOverlay").style.display="none"; }
+async function submitLead(){
+  const c = cfg();
+  const payload = {
+    name: $("#l_name").value.trim(), phone: $("#l_phone").value.trim(),
+    email: $("#l_email").value.trim(), reason: $("#l_reason").value.trim(),
+    business: c.business, vertical: c.vertical, niche: c.niche, demo: state.demoId
+  };
+  if(!payload.name && !payload.phone && !payload.email){ toast("Add a name, phone, or email"); return; }
+  try{
+    const r = await fetch(api("/api/lead"), { method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify(payload) });
+    const data = await r.json();
+    if(!r.ok || data.error) throw new Error(data.error || ("HTTP "+r.status));
+    closeLeadModal();
+    ["l_name","l_phone","l_email","l_reason"].forEach(id=>$("#"+id).value="");
+    toast(data.stored ? "Sent to the Lead Desk ✓" : "Captured ✓ (connect Supabase to persist)");
+  }catch(e){ toast("Lead failed: "+e.message); }
+}
+$("#shareBtn").onclick = shareEmail;
+$("#leadBtn").onclick = openLeadModal;
+$("#leadCancel").onclick = closeLeadModal;
+$("#leadSubmit").onclick = submitLead;
+$("#leadOverlay").addEventListener("click", e=>{ if(e.target===$("#leadOverlay")) closeLeadModal(); });
+
+/* ---------- Deep-link: /voice-demo.html?demo=<id>&mode=voice ---------- */
+async function loadDemoFromQuery(){
+  const q = new URLSearchParams(location.search);
+  const m = q.get("mode"); if(m==="voice"||m==="chat") setMode(m);
+  const id = q.get("demo"); if(!id) return;
+  try{
+    const res = await fetch("./demos.json", {cache:"no-store"});
+    const data = await res.json();
+    const d = (data.demos||[]).find(x=>x.id===id);
+    if(!d){ toast("Demo '"+id+"' not found"); return; }
+    $("#c_business").value = d.business||"";
+    $("#c_vertical").value = d.vertical||"";
+    $("#c_niche").value = d.niche||"";
+    $("#c_tier").value = d.tier||"platinum"; refreshTierPill();
+    $("#c_language").value = d.language||"en";
+    state.promptExtra = d.promptExtra||"";
+    state.demoId = d.id;
+    document.title = (d.business||"Demo") + " — Airlock";
+    if(d.greeting){ addMsg("bot", d.greeting); state.messages.push({role:"assistant", content:d.greeting}); }
+  }catch(e){ toast("Could not load demo: "+e.message); }
+}
+
 refreshTierPill();
+loadDemoFromQuery();
 </script>
 </body>
 </html>

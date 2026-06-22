@@ -57,6 +57,10 @@ export default {
       return chat(request, env);
     }
 
+    if (url.pathname === "/api/lead" && request.method === "POST") {
+      return createLead(request, env);
+    }
+
     // Everything else -> static assets (the demo page, CRM, docs site).
     return env.ASSETS.fetch(request);
   }
@@ -84,9 +88,9 @@ async function chat(request, env) {
   try { body = await request.json(); } catch { return json({ error: "bad JSON" }, 400); }
 
   const { messages = [], tier = "platinum", mode = "chat",
-          language = "en", vertical = "", niche = "", business = "" } = body;
+          language = "en", vertical = "", niche = "", business = "", promptExtra = "" } = body;
 
-  const system = buildSystemPrompt({ tier, mode, language, vertical, niche, business });
+  const system = buildSystemPrompt({ tier, mode, language, vertical, niche, business, promptExtra });
 
   const r = await fetch(GROK_URL, {
     method: "POST",
@@ -107,8 +111,63 @@ async function chat(request, env) {
   return json({ reply });
 }
 
+/* ---------- Lead capture: demo conversation -> Supabase (Lead Desk) ---------- */
+async function createLead(request, env) {
+  let body;
+  try { body = await request.json(); } catch { return json({ error: "bad JSON" }, 400); }
+  const { name = "", phone = "", email = "", reason = "",
+          business = "", vertical = "", niche = "", demo = "" } = body;
+  if (!name && !phone && !email) return json({ error: "need a name, phone, or email" }, 400);
+
+  const now = new Date().toISOString();
+  const lead = {
+    name: name || "Demo lead",
+    company: business || vertical || "",
+    email, phone,
+    stage: "New",
+    value: 0,
+    source: "Demo" + (business ? ": " + business : (vertical ? ": " + vertical : "")),
+    owner: "",
+    next_action: "Follow up on demo",
+    notes: [reason && ("Reason: " + reason), niche && ("Niche: " + niche), demo && ("Demo: " + demo)]
+      .filter(Boolean).join(" · "),
+    created_at: now, updated_at: now
+  };
+
+  let stored = null;
+  if (env.SUPABASE_URL && env.SUPABASE_KEY) {
+    const r = await fetch(`${env.SUPABASE_URL}/rest/v1/leads`, {
+      method: "POST",
+      headers: {
+        apikey: env.SUPABASE_KEY,
+        Authorization: `Bearer ${env.SUPABASE_KEY}`,
+        "Content-Type": "application/json",
+        Prefer: "return=representation"
+      },
+      body: JSON.stringify(lead)
+    });
+    const data = await r.json().catch(() => ({}));
+    if (!r.ok) return json({ error: "supabase insert failed", detail: data }, r.status);
+    stored = Array.isArray(data) ? data[0] : data;
+  }
+
+  // Optional: also notify a reachable n8n webhook (best-effort, non-blocking).
+  if (env.N8N_LEAD_WEBHOOK) {
+    request.ctx?.waitUntil?.(
+      fetch(env.N8N_LEAD_WEBHOOK, {
+        method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ event: "demo.lead", lead: stored || lead, sent_at: now })
+      }).catch(() => {})
+    );
+  }
+
+  if (!stored && !env.SUPABASE_URL)
+    return json({ ok: true, stored: false, note: "SUPABASE_URL/KEY not set — lead not persisted", lead });
+  return json({ ok: true, stored: true, lead: stored || lead });
+}
+
 /* ---------- Tier-aware system prompt (Gold → Platinum → Iridium) ---------- */
-function buildSystemPrompt({ tier, mode, language, vertical, niche, business }) {
+function buildSystemPrompt({ tier, mode, language, vertical, niche, business, promptExtra }) {
   const biz = business || "the business";
   const v = vertical || "general services";
   const n = niche ? ` (${niche})` : "";
@@ -165,5 +224,9 @@ function buildSystemPrompt({ tier, mode, language, vertical, niche, business }) 
     ? `## CHANNEL\nThis is a live VOICE call. Speak in short spoken sentences. No markdown, no bullet symbols, no emoji — your words are read aloud.`
     : `## CHANNEL\nThis is a TEXT chat. Be concise and friendly. Light formatting is OK; keep it short.`;
 
-  return [...blocks, ``, lang, ``, modeLine].join("\n");
+  // Claude-authored premium niche brief (hybrid: tier template + this brief).
+  const brief = (promptExtra && promptExtra.trim())
+    ? `\n## THIS BUSINESS — PREMIUM NICHE BRIEF\n${promptExtra.trim()}` : "";
+
+  return [...blocks, brief, ``, lang, ``, modeLine].join("\n");
 }

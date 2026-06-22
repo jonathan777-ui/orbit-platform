@@ -38,11 +38,18 @@
       "position": [480, 300]
     },
     {
-      "parameters": {},
+      "parameters": {
+        "method": "POST",
+        "url": "https://hooks.slack.com/services/REPLACE/WITH/YOUR/WEBHOOK",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ text: '🎉 Lead WON: ' + ($json.body.lead.name || 'Unknown') + ($json.body.lead.company ? ' (' + $json.body.lead.company + ')' : '') + ($json.body.lead.value ? ' — $' + Number($json.body.lead.value).toLocaleString() : '') + ($json.body.lead.owner ? ' · owner: ' + $json.body.lead.owner : '') }) }}",
+        "options": {}
+      },
       "id": "cccccccc-cccc-4ccc-8ccc-cccccccccccc",
-      "name": "Won → celebrate / notify",
-      "type": "n8n-nodes-base.noOp",
-      "typeVersion": 1,
+      "name": "Slack: Won alert",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
       "position": [740, 200]
     },
     {
@@ -58,7 +65,7 @@
     "Webhook (lead-events)": { "main": [[{ "node": "Is it Won?", "type": "main", "index": 0 }]] },
     "Is it Won?": {
       "main": [
-        [{ "node": "Won → celebrate / notify", "type": "main", "index": 0 }],
+        [{ "node": "Slack: Won alert", "type": "main", "index": 0 }],
         [{ "node": "Other stage → log / route", "type": "main", "index": 0 }]
       ]
     }

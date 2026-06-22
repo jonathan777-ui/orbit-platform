@@ -57,9 +57,11 @@ The CRM POSTs an event to n8n whenever a lead is **created**, **updated**, or it
 
 Now editing a lead or dragging it across the pipeline fires the workflow. The
 payload is `{ event, lead, sent_at }` where `event` is one of
-`lead.created` / `lead.updated` / `lead.stage_changed`. The starter routes
-`stage = "Won"` down its own branch — replace the No-Op nodes with Slack, Gmail,
-etc. (`lead.stage_changed` events also include `lead.previous_stage`).
+`lead.created` / `lead.updated` / `lead.stage_changed`. The `stage = "Won"`
+branch already posts a **Slack alert** — in the **Slack: Won alert** node, paste
+your Slack **Incoming Webhook URL** (Slack → Apps → Incoming Webhooks → Add to a
+channel) in place of the placeholder. The other branch is a No-Op to extend
+(`lead.stage_changed` events also include `lead.previous_stage`).
 
 ### 2. Inbound: external sources → Supabase (`lead-intake.json`)
 Lets a web form, voice agent, or anything else create a lead that lands in the

@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Orbit — Proving Ground Engine</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#070a0f;--panel:#0d1219;--panel-2:#111824;--line:#1d2a3a;--line-soft:#16202e;--ink:#e8eef6;--ink-dim:#8da0b8;--ink-faint:#5b6c81;--amber:#ffb43d;--green:#34d99a;--red:#ff5c6c;--cyan:#4fd6ff;--violet:#b59cff;--display:"Chakra Petch",system-ui,sans-serif;--sans:"IBM Plex Sans",system-ui,sans-serif;--mono:"IBM Plex Mono",ui-monospace,monospace;}
+  *{box-sizing:border-box}html,body{margin:0;padding:0}
+  body{background:linear-gradient(180deg,#070a0f,#0a0e14);color:var(--ink);font-family:var(--sans);min-height:100vh;background-image:linear-gradient(var(--line-soft) 1px,transparent 1px),linear-gradient(90deg,var(--line-soft) 1px,transparent 1px),radial-gradient(circle at 90% -10%,rgba(255,180,61,.06),transparent 45%);background-size:46px 46px,46px 46px,100% 100%;}
+  .wrap{max-width:1320px;margin:0 auto;padding:20px 18px 70px}
+  .topbar{display:flex;align-items:center;gap:14px;padding:13px 18px;border:1px solid var(--line);background:linear-gradient(180deg,var(--panel-2),var(--panel));border-radius:14px;margin-bottom:14px}
+  .brand{font-family:var(--display);font-weight:700;letter-spacing:.1em;font-size:16px}.brand .o{color:var(--amber)}.brand .sub{color:var(--ink-faint);font-weight:500;font-size:10px;letter-spacing:.22em;margin-left:8px}
+  .spacer{flex:1}
+  .cap{font-family:var(--mono);font-size:11px;color:var(--ink-dim);border:1px solid var(--line);border-radius:999px;padding:6px 12px}
+  .cap b{color:var(--amber)}
+  .addbtn{font-family:var(--display);font-weight:700;letter-spacing:.06em;font-size:12px;border:none;border-radius:10px;padding:10px 16px;cursor:pointer;color:#1a1205;background:linear-gradient(180deg,#ffc964,var(--amber))}
+
+  /* pipeline header */
+  .pipe{display:flex;gap:8px;margin-bottom:16px;overflow-x:auto;padding-bottom:4px}
+  .stage{flex:1;min-width:150px;border:1px solid var(--line);background:var(--panel);border-radius:12px;padding:13px 14px;cursor:pointer;transition:.15s;position:relative}
+  .stage:hover{border-color:var(--ink-faint)}
+  .stage.active{border-color:var(--amber);background:linear-gradient(180deg,#16202e,var(--panel));box-shadow:0 6px 20px -12px var(--amber)}
+  .stage .nm{font-family:var(--display);font-size:12px;font-weight:600;letter-spacing:.04em;color:var(--ink-dim);text-transform:uppercase}
+  .stage.active .nm{color:var(--amber)}
+  .stage .ct{font-family:var(--display);font-weight:700;font-size:26px;margin-top:5px}
+  .stage .arrow{position:absolute;right:-12px;top:50%;transform:translateY(-50%);color:var(--line);font-size:16px;z-index:2}
+  .stage.live .nm{color:var(--green)}.stage.live.active .nm{color:var(--green)}.stage.live.active{border-color:var(--green);box-shadow:0 6px 20px -12px var(--green)}
+
+  .sechead{display:flex;align-items:center;gap:10px;margin:18px 0 12px}
+  .sechead h2{font-family:var(--display);font-size:12px;font-weight:600;letter-spacing:.18em;color:var(--ink-dim);margin:0;text-transform:uppercase}
+  .sechead .rule{flex:1;height:1px;background:var(--line)}.sechead .tag{font-family:var(--mono);font-size:10px;color:var(--ink-faint)}
+
+  .grid{display:grid;grid-template-columns:repeat(5,1fr);gap:11px}
+  @media(max-width:1100px){.grid{grid-template-columns:repeat(3,1fr)}}
+  @media(max-width:720px){.grid{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:480px){.grid{grid-template-columns:1fr}}
+  .acct{border:1px solid var(--line);background:linear-gradient(180deg,var(--panel-2),var(--panel));border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:8px;animation:rise .4s ease both}
+  .acct h4{font-family:var(--display);font-size:14px;font-weight:700;margin:0;line-height:1.2}
+  .vchip{font-family:var(--mono);font-size:9px;letter-spacing:.04em;color:var(--cyan);border:1px solid #1d3a47;border-radius:5px;padding:2px 6px;display:inline-block;align-self:flex-start}
+  .ids{font-family:var(--mono);font-size:9.5px;color:var(--ink-faint);line-height:1.6;border-top:1px solid var(--line-soft);border-bottom:1px solid var(--line-soft);padding:6px 0}
+  .ids b{color:var(--ink-dim)}
+  .dots{display:flex;gap:5px;align-items:center}
+  .dot{width:8px;height:8px;border-radius:50%;background:var(--line);position:relative}
+  .dot.pass{background:var(--green);box-shadow:0 0 6px var(--green)}.dot.fail{background:var(--red)}.dot.cur{background:var(--amber);animation:pulse 1.3s infinite}
+  .dlab{font-family:var(--mono);font-size:9px;color:var(--ink-faint);margin-left:4px}
+  .act{display:flex;flex-direction:column;gap:6px;margin-top:2px}
+  .b{font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.03em;border:1px solid var(--line);border-radius:8px;padding:9px 10px;cursor:pointer;text-align:center;background:var(--panel);color:var(--ink-dim);text-decoration:none;display:block}
+  .b:hover{border-color:var(--amber);color:var(--amber)}
+  .b.go{background:linear-gradient(180deg,#ffc964,var(--amber));color:#1a1205;border:none}
+  .b.go.green{background:linear-gradient(180deg,#6fe6b3,var(--green));color:#06140d}
+  .b.open{border-color:#234; color:var(--cyan)}.b.open:hover{border-color:var(--cyan)}
+  .b.sm{font-size:10px;padding:6px 8px}
+  .b.ret{color:var(--ink-faint);border-style:dashed}
+  .chkwrap{border:1px solid var(--line-soft);border-radius:8px;padding:8px;background:#0a0f16}
+  .chkwrap summary{cursor:pointer;font-family:var(--mono);font-size:10px;color:var(--ink-dim);list-style:none}.chkwrap summary::-webkit-details-marker{display:none}.chkwrap summary:before{content:"▸ ";color:var(--amber)}.chkwrap[open] summary:before{content:"▾ "}
+  .chk{display:flex;align-items:center;gap:7px;font-family:var(--mono);font-size:10.5px;color:var(--ink-dim);padding:4px 0;cursor:pointer}
+  .chk input{accent-color:var(--amber)}
+  .cnt{font-family:var(--mono);font-size:9px;color:var(--ink-faint)}
+  .empty{font-family:var(--mono);font-size:12px;color:var(--ink-faint);padding:30px;text-align:center;border:1px dashed var(--line);border-radius:12px}
+  input.sch,input.txt{width:100%;background:#060a10;border:1px solid var(--line);color:var(--ink);border-radius:7px;font-family:var(--mono);font-size:11px;padding:7px 9px}
+  input.sch:focus,input.txt:focus{outline:none;border-color:var(--amber)}
+
+  /* live cards */
+  .acct.livec{border-color:#1d3a2c}
+  .cad{font-family:var(--mono);font-size:10px;color:var(--ink-dim);display:flex;justify-content:space-between;align-items:center}
+  .cad .tier{color:var(--green);font-weight:600}
+  .testdots{display:flex;gap:4px}
+  .td{width:14px;height:14px;border-radius:4px;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:9px}
+  .td.p{background:#0f2a22;border-color:#1d3a2c;color:var(--green)}.td.f{background:#2c1117;border-color:#4a2025;color:var(--red)}
+  .surf{display:flex;gap:5px;flex-wrap:wrap}
+  .sf{font-family:var(--mono);font-size:8.5px;color:var(--ink-faint);border:1px solid var(--line);border-radius:4px;padding:2px 5px}.sf.on{color:var(--green);border-color:#1d3a2c}
+
+  /* modal */
+  .modal{position:fixed;inset:0;background:rgba(3,6,10,.7);display:none;align-items:center;justify-content:center;z-index:50;padding:20px}
+  .modal.on{display:flex}
+  .mbox{width:100%;max-width:440px;border:1px solid var(--line);background:var(--panel-2);border-radius:14px;padding:20px}
+  .mbox h3{font-family:var(--display);margin:0 0 14px;font-size:16px}
+  .mbox label{display:block;font-family:var(--mono);font-size:10px;color:var(--ink-faint);text-transform:uppercase;letter-spacing:.08em;margin:10px 0 4px}
+  .mrow{display:flex;gap:10px;margin-top:16px;justify-content:flex-end}
+  .note{font-family:var(--mono);font-size:10.5px;color:var(--ink-faint);line-height:1.6;margin-top:16px}
+  @keyframes rise{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(255,180,61,.5)}70%{box-shadow:0 0 0 5px rgba(255,180,61,0)}100%{box-shadow:0 0 0 0 rgba(255,180,61,0)}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar">
+    <div class="brand"><span class="o">◆</span> ORBIT <span class="sub">PROVING GROUND ENGINE</span></div>
+    <div class="spacer"></div>
+    <span class="cap" id="capPill"></span>
+    <button class="addbtn" id="addBtn">+ Ingest from enrollment</button>
+  </div>
+
+  <div class="pipe" id="pipe"></div>
+
+  <div class="sechead"><h2 id="stageTitle">Staging Area</h2><div class="rule"></div><span class="tag" id="stageTag"></span></div>
+  <div id="stageArea"></div>
+
+  <div class="sechead"><h2 style="color:var(--green)">Live Staging</h2><div class="rule"></div><span class="tag">website · chatbot · agent — daily test cadence</span></div>
+  <div id="liveArea"></div>
+
+  <div class="note" id="footNote"></div>
+</div>
+
+<!-- ingest modal -->
+<div class="modal" id="modal">
+  <div class="mbox">
+    <h3>Ingest account</h3>
+    <p class="note" style="margin:0 0 6px">From the generation/enrollment site. IDs auto-generate if blank.</p>
+    <label>Business name</label><input class="txt" id="mBiz" placeholder="Summit Roofing">
+    <label>Vertical · niche</label><input class="txt" id="mVert" placeholder="Home Services · Roofing">
+    <label>Agent ID</label><input class="txt" id="mAgent" placeholder="auto">
+    <label>Chat ID</label><input class="txt" id="mChat" placeholder="auto">
+    <label>Site ID</label><input class="txt" id="mSite" placeholder="auto">
+    <div class="mrow"><button class="b ret" id="mCancel">cancel</button><button class="b go" id="mSave">Add to queue →</button></div>
+  </div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var $=function(id){return document.getElementById(id);};
+  var esc=function(s){return String(s==null?"":s).replace(/[&<>]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;"}[c];});};
+
+  var STAGES=[
+    {id:"not_started",nm:"Not Started"},
+    {id:"phase1",nm:"Phase 1"},
+    {id:"phase2",nm:"Phase 2"},
+    {id:"phase3",nm:"Phase 3"},
+    {id:"prelaunch",nm:"Pre-Launch"},
+    {id:"live",nm:"Live"}
+  ];
+  var TOOLS={phase1:"alyxir-proving-ground-phase1-all-verticals.html",phase2:"alyxir-proving-ground-phase2-voice.html",phase3:"alyxir-proving-ground-phase3-e2e.html"};
+  var PHASE2_SETUP=["Telnyx Voice AI Assistant created","LLM = Claude Sonnet selected","STT = Deepgram Nova-3 (multilingual)","TTS voice set (ElevenLabs / Telnyx)","Assistant attached to number","Barge-in / turn-taking tuned","Greeting + persona loaded"];
+  var PRELAUNCH_CHECK=["Telnyx number + 10DLC/A2P live","STIR/SHAKEN registered","Anthropic key in builder","ElevenLabs key in builder","Calendar / booking connected","CRM / Attio connected","n8n flows live","Warm-transfer numbers set","Consent capture wired"];
+
+  var KEY="alyxir_orbit_engine";
+  var state={accounts:[],active:"phase1"};
+  try{var s=JSON.parse(localStorage.getItem(KEY)||"null");if(s)state=Object.assign(state,s);}catch(e){}
+  function save(){try{localStorage.setItem(KEY,JSON.stringify(state));}catch(e){}}
+
+  function rid(p){return p+"-"+Math.random().toString(36).slice(2,6).toUpperCase()+Math.floor(Math.random()*90+10);}
+  function newAcct(biz,vert,a,c,si){return {id:"a"+Date.now()+Math.floor(Math.random()*999),biz:biz,vert:vert,agentId:a||rid("AGT"),chatId:c||rid("CHT"),siteId:si||rid("SIT"),stage:"not_started",phases:{phase1:"",phase2:"",phase3:""},setup2:{},pre:{},sched:"",live:{tier:"day1",tests:[]}};}
+
+  // seed once
+  if(!state.seeded){
+    var seeds=[
+      ["Summit Roofing","Home Services · Roofing","not_started"],
+      ["Bayfront Dental","Medical · Dental","phase1"],
+      ["Cardenas Tax","Accounting · Tax resolution","phase1"],
+      ["Lone Star HVAC","Home Services · HVAC","phase2"],
+      ["Costa Law","Law · Immigration","phase3"],
+      ["Vela Med Spa","Med Spa · Injectables","prelaunch"],
+      ["TrackDog Racing","Automotive · Repair","live"],
+      ["Gulf Coast Realty","Real Estate · Residential","live"]
+    ];
+    state.accounts=seeds.map(function(s){var a=newAcct(s[0],s[1]);a.stage=s[2];
+      if(s[2]==="phase2"){a.phases.phase1="pass";}
+      if(s[2]==="phase3"){a.phases.phase1="pass";a.phases.phase2="pass";}
+      if(s[2]==="prelaunch"||s[2]==="live"){a.phases.phase1="pass";a.phases.phase2="pass";a.phases.phase3="pass";}
+      if(s[2]==="live"){a.live.tier=s[0]==="TrackDog Racing"?"ramp":"day1";a.live.tests=s[0]==="TrackDog Racing"?[{ts:Date.now()-86400000,pass:true},{ts:Date.now()-86400000,pass:true}]:[];}
+      return a;});
+    state.seeded=true;save();
+  }
+
+  function byStage(st){return state.accounts.filter(function(a){return a.stage===st;});}
+  function preCount(){return state.accounts.filter(function(a){return a.stage!=="live";}).length;}
+
+  function move(a,to){a.stage=to;save();render();}
+  function markPass(a,ph,next){a.phases[ph]="pass";a.stage=next;save();render();}
+  function openTool(a,ph){var u=TOOLS[ph]+"?agent="+encodeURIComponent(a.agentId)+"&chat="+encodeURIComponent(a.chatId)+"&site="+encodeURIComponent(a.siteId);window.open(u,"_blank");}
+
+  /* ---- pipeline header ---- */
+  function renderPipe(){
+    $("pipe").innerHTML=STAGES.map(function(s,i){
+      var n=byStage(s.id).length;
+      return '<div class="stage'+(state.active===s.id?" active":"")+(s.id==="live"?" live":"")+'" data-st="'+s.id+'"><div class="nm">'+s.nm+'</div><div class="ct">'+n+'</div>'+(i<STAGES.length-1?'<span class="arrow">›</span>':'')+'</div>';
+    }).join("");
+    document.querySelectorAll("[data-st]").forEach(function(el){el.addEventListener("click",function(){state.active=this.dataset.st;save();render();if(this.dataset.st==="live"){$("liveArea").scrollIntoView({behavior:"smooth"});}});});
+    $("capPill").innerHTML="Pre-launch slots: <b>"+preCount()+"</b> / 50";
+  }
+
+  /* ---- account card (pipeline stages) ---- */
+  function dotsHtml(a){
+    var cur=a.stage;
+    function d(ph,lab){var cls="dot";if(a.phases[ph]==="pass")cls+=" pass";else if(a.phases[ph]==="fail")cls+=" fail";else if(cur===ph)cls+=" cur";return '<span class="'+cls+'" title="'+lab+'"></span>';}
+    return '<div class="dots">'+d("phase1","P1")+d("phase2","P2")+d("phase3","P3")+'<span class="dlab">P1·P2·P3</span></div>';
+  }
+  function checklist(a,key,items,title){
+    var saved=a[key]||{};var done=items.filter(function(it){return saved[it];}).length;
+    return '<details class="chkwrap"><summary>'+title+' <span class="cnt">'+done+'/'+items.length+'</span></summary>'+items.map(function(it){return '<label class="chk"><input type="checkbox" data-chk="'+key+'" data-acct="'+a.id+'" data-item="'+esc(it)+'"'+(saved[it]?" checked":"")+'> '+esc(it)+'</label>';}).join("")+'</details>';
+  }
+  function cardActions(a){
+    if(a.stage==="not_started")return '<div class="act"><button class="b go" data-mv="phase1" data-acct="'+a.id+'">▶ Move to Phase 1</button></div>';
+    if(a.stage==="phase1")return '<div class="act"><button class="b open" data-open="phase1" data-acct="'+a.id+'">Open Phase 1 ↗</button><button class="b go" data-pass="phase1" data-next="phase2" data-acct="'+a.id+'">✓ Phase 1 passed</button></div>';
+    if(a.stage==="phase2")return '<div class="act">'+checklist(a,"setup2",PHASE2_SETUP,"Voice setup")+'<button class="b open" data-open="phase2" data-acct="'+a.id+'">Open Phase 2 ↗</button><button class="b go" data-pass="phase2" data-next="phase3" data-acct="'+a.id+'">✓ Phase 2 passed</button></div>';
+    if(a.stage==="phase3")return '<div class="act"><button class="b open" data-open="phase3" data-acct="'+a.id+'">Open Phase 3 ↗</button><button class="b go" data-pass="phase3" data-next="prelaunch" data-acct="'+a.id+'">✓ Phase 3 passed</button></div>';
+    if(a.stage==="prelaunch"){var done=PRELAUNCH_CHECK.filter(function(it){return (a.pre||{})[it];}).length;var ready=done===PRELAUNCH_CHECK.length;
+      return '<div class="act"><label class="cnt">Pre-launch call</label><input class="sch" type="date" data-sched data-acct="'+a.id+'" value="'+(a.sched||"")+'">'+checklist(a,"pre",PRELAUNCH_CHECK,"Connect APIs / tools")+'<button class="b go green" data-mv="live" data-acct="'+a.id+'"'+(ready?"":" disabled style=opacity:.5")+'>'+(ready?"✓ Pre-launch complete → Live":"finish checklist to go live")+'</button></div>';}
+    return "";
+  }
+  function card(a){
+    var ret = a.stage!=="not_started"&&a.stage!=="live" ? '<button class="b ret sm" data-ret="'+a.id+'">↩ return a stage</button>':"";
+    return '<div class="acct"><span class="vchip">'+esc(a.vert)+'</span><h4>'+esc(a.biz)+'</h4>'+
+      '<div class="ids"><b>AGT</b> '+esc(a.agentId)+' · <b>CHT</b> '+esc(a.chatId)+'<br><b>SIT</b> '+esc(a.siteId)+'</div>'+
+      dotsHtml(a)+cardActions(a)+ret+'</div>';
+  }
+
+  /* ---- live card ---- */
+  function liveTarget(t){return t==="day1"?4:t==="ramp"?2:1;}
+  function todayTests(a){var d=new Date();d.setHours(0,0,0,0);var t0=d.getTime();return (a.live.tests||[]).filter(function(x){return x.ts>=t0;});}
+  function liveCard(a){
+    var t=a.live.tier,target=liveTarget(t),today=todayTests(a),done=today.length;
+    var label=t==="day1"?"Day 1 (3–4/day)":t==="ramp"?"Ramp (2/day)":"Periodic (1/wk)";
+    var dots=today.map(function(x){return '<span class="td '+(x.pass?"p":"f")+'">'+(x.pass?"✓":"✕")+'</span>';}).join("")||'<span class="cnt">none today</span>';
+    var canAdv = t==="day1" ? done>=4 : t==="ramp" ? done>=2 : false;
+    var advTo = t==="day1"?"ramp":t==="ramp"?"periodic":null;
+    return '<div class="acct livec"><span class="vchip" style="color:var(--green);border-color:#1d3a2c">'+esc(a.vert)+'</span><h4>'+esc(a.biz)+'</h4>'+
+      '<div class="surf"><span class="sf on">site</span><span class="sf on">chatbot</span><span class="sf on">agent</span></div>'+
+      '<div class="ids"><b>AGT</b> '+esc(a.agentId)+'</div>'+
+      '<div class="cad"><span class="tier">'+label+'</span><span>'+done+'/'+target+' today</span></div>'+
+      '<div class="testdots">'+dots+'</div>'+
+      '<div class="act"><div style="display:flex;gap:6px"><button class="b sm" style="flex:1;color:var(--green)" data-test="pass" data-acct="'+a.id+'">log ✓</button><button class="b sm" style="flex:1;color:var(--red)" data-test="fail" data-acct="'+a.id+'">log ✕</button></div>'+
+      (advTo?('<button class="b sm'+(canAdv?" go green":"")+'" data-adv="'+advTo+'" data-acct="'+a.id+'"'+(canAdv?"":" disabled style=opacity:.45")+'>'+(canAdv?("→ advance to "+advTo):("hit "+target+" to advance"))+'</button>'):'<span class="cnt">steady-state monitoring</span>')+'</div></div>';
+  }
+
+  /* ---- render ---- */
+  function render(){
+    renderPipe();
+    var st=state.active;
+    var stObj=STAGES.filter(function(s){return s.id===st;})[0];
+    $("stageTitle").textContent=(st==="live"?"Live":stObj.nm)+" — staging area";
+    var list=byStage(st);
+    if(st==="live"){
+      $("stageArea").innerHTML='<div class="empty">Live accounts are shown in the Live Staging section below.</div>';
+    }else{
+      $("stageTag").textContent=list.length+" account"+(list.length===1?"":"s")+" · 5 across × up to 10 rows (50 slots)";
+      $("stageArea").innerHTML=list.length?'<div class="grid">'+list.map(card).join("")+'</div>':'<div class="empty">No accounts in '+stObj.nm+'. They arrive here as they pass the prior gate.</div>';
+    }
+    var live=byStage("live");
+    $("liveArea").innerHTML=live.length?'<div class="grid">'+live.map(liveCard).join("")+'</div>':'<div class="empty">No live accounts yet.</div>';
+    wire();
+  }
+  function findA(id){return state.accounts.filter(function(a){return a.id===id;})[0];}
+  function wire(){
+    document.querySelectorAll("[data-mv]").forEach(function(b){b.addEventListener("click",function(){if(this.disabled)return;move(findA(this.dataset.acct),this.dataset.mv);});});
+    document.querySelectorAll("[data-pass]").forEach(function(b){b.addEventListener("click",function(){markPass(findA(this.dataset.acct),this.dataset.pass,this.dataset.next);});});
+    document.querySelectorAll("[data-open]").forEach(function(b){b.addEventListener("click",function(){openTool(findA(this.dataset.acct),this.dataset.open);});});
+    document.querySelectorAll("[data-ret]").forEach(function(b){b.addEventListener("click",function(){var a=findA(this.dataset.ret);var order=["not_started","phase1","phase2","phase3","prelaunch","live"];var i=order.indexOf(a.stage);if(i>0){a.stage=order[i-1];save();render();}});});
+    document.querySelectorAll("[data-chk]").forEach(function(c){c.addEventListener("change",function(){var a=findA(this.dataset.acct);a[this.dataset.chk]=a[this.dataset.chk]||{};a[this.dataset.chk][this.dataset.item]=this.checked;save();render();});});
+    document.querySelectorAll("[data-sched]").forEach(function(i){i.addEventListener("change",function(){findA(this.dataset.acct).sched=this.value;save();});});
+    document.querySelectorAll("[data-test]").forEach(function(b){b.addEventListener("click",function(){var a=findA(this.dataset.acct);a.live.tests=a.live.tests||[];a.live.tests.push({ts:Date.now(),pass:this.dataset.test==="pass"});save();render();});});
+    document.querySelectorAll("[data-adv]").forEach(function(b){b.addEventListener("click",function(){if(this.disabled)return;findA(this.dataset.acct).live.tier=this.dataset.adv;save();render();});});
+  }
+
+  /* ingest modal */
+  $("addBtn").addEventListener("click",function(){$("modal").classList.add("on");});
+  $("mCancel").addEventListener("click",function(){$("modal").classList.remove("on");});
+  $("mSave").addEventListener("click",function(){
+    var biz=$("mBiz").value.trim()||"New Account";var vert=$("mVert").value.trim()||"—";
+    state.accounts.push(newAcct(biz,vert,$("mAgent").value.trim(),$("mChat").value.trim(),$("mSite").value.trim()));
+    ["mBiz","mVert","mAgent","mChat","mSite"].forEach(function(i){$(i).value="";});
+    $("modal").classList.remove("on");state.active="not_started";save();render();
+  });
+
+  $("footNote").innerHTML="Click a stage at the top to load its queue into the staging area. Each card carries one account through Phase 1 → 2 → 3 → Pre-Launch → Live; \"Open Phase X\" launches that gate tool (passing the Agent/Chat/Site IDs), and \"passed\" advances the account once it certifies. Pre-Launch needs the API/tool checklist finished before going live. Live accounts run 3–4 tests day one, then 2/day, then periodic — log each test and advance the tier when the target's met. State saves locally; in production this is backed by Attio.";
+
+  render();
+})();
+</script>
+</body>
+</html>

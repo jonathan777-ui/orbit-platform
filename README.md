@@ -48,3 +48,27 @@ Build it locally with:
 pip install markdown
 python site/build.py   # outputs to site/_site/
 ```
+
+## Portal (Alyxir Studio)
+
+The full **Alyxir Studio** portal — the most advanced Orbit build — now lives under
+[`portal/`](portal/). It's the consolidated receptionist app, partner/support
+portals, the 25-vertical KB library, runbooks, and demo tooling, brought into this
+repo as the umbrella project.
+
+- **Receptionist app & demo tooling**: `portal/index.html`, `portal/orbit-*.html`,
+  `portal/support-portal/app-code/` (`airlock-app.jsx`, `airlock-standalone.html`).
+- **Serverless functions**: `portal/netlify/functions/` (`claude.js`, `enrich.js`).
+- **KB library (25 verticals)**: `portal/support-portal/kb-library/`.
+- **Setup runbooks**: `portal/support-portal/runbooks/` — start with
+  [`ace-setup.md`](portal/support-portal/runbooks/ace-setup.md), which documents the
+  11 live connection points, including **#5 Calendar / booking** (Google Calendar /
+  Attio → real event creation + email/SMS confirmation) and **#11 the n8n
+  provisioning webhook**.
+
+> **Note:** this is a *code consolidation only*. The portal carries its own
+> `portal/netlify.toml`, but Netlify-from-Git reads the **repo-root** `netlify.toml`
+> (which builds the docs site). Wiring the portal up as a second deploy target — and
+> implementing the live Google Calendar / auto-email automation (currently scripted,
+> driven by external n8n flows not yet in version control) — is tracked as
+> follow-up work, not part of this change.

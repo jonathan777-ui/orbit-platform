@@ -1,0 +1,190 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Growth Blueprint — Orbit AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--accent:#0a66ff;--ink:#0e1726;--ink2:#51607a;--faint:#8a96aa;--line:#e4e8ef;--paper:#fff;--soft:#f4f8ff;--good:#127a45;--warn:#c2410c;}
+*{box-sizing:border-box}html,body{margin:0;height:100%}
+body{background:#0b1220;color:var(--ink);font-family:'IBM Plex Sans',system-ui,sans-serif;overflow:hidden}
+#stage{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;padding:3vh 3vw}
+.slide{position:absolute;inset:0;display:none;flex-direction:column;justify-content:center;padding:7vh 9vw;background:
+  radial-gradient(1100px 520px at 88% -8%,var(--soft) 0,var(--paper) 60%);overflow:auto}
+.slide.on{display:flex;animation:rise .5s ease both}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.kick{font-family:'IBM Plex Mono';font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:14px}
+h1{font-family:'Chakra Petch';font-weight:700;font-size:clamp(30px,6vw,62px);line-height:1.04;margin:0 0 14px;letter-spacing:-.01em}
+h2{font-family:'Chakra Petch';font-weight:700;font-size:clamp(24px,4.4vw,44px);line-height:1.08;margin:0 0 18px}
+.lead{font-size:clamp(16px,2.1vw,23px);color:var(--ink2);max-width:34ch;line-height:1.5}
+.big{font-family:'Chakra Petch';font-weight:700;color:var(--accent);font-size:clamp(40px,9vw,104px);line-height:1}
+.muted{color:var(--faint);font-family:'IBM Plex Mono';font-size:13px}
+.accent{color:var(--accent)}
+.grid2{display:grid;grid-template-columns:1.1fr 1fr;gap:5vw;align-items:center}
+.cards{display:grid;gap:14px}
+.cards.c3{grid-template-columns:repeat(3,1fr)}
+.card{border:1px solid var(--line);border-radius:14px;padding:18px 20px;background:var(--paper);box-shadow:0 1px 14px rgba(16,24,40,.05)}
+.card.hi{border-color:var(--accent);box-shadow:0 6px 26px rgba(10,102,255,.16)}
+.card .t{font-family:'Chakra Petch';font-weight:700;font-size:19px}
+.card .p{color:var(--accent);font-family:'Chakra Petch';font-weight:700;font-size:30px;margin:4px 0}
+.card ul{margin:8px 0 0;padding:0;list-style:none}
+.card li{font-size:13.5px;color:var(--ink2);padding:3px 0 3px 18px;position:relative}
+.card li:before{content:"›";position:absolute;left:0;color:var(--accent);font-weight:700}
+.pillars{display:grid;gap:12px;max-width:720px}
+.pill{display:grid;grid-template-columns:160px 1fr 54px;gap:14px;align-items:center}
+.pill .nm{font-family:'IBM Plex Mono';font-size:13px;color:var(--ink2)}
+.track{height:12px;border-radius:8px;background:var(--line);overflow:hidden}
+.fill{height:100%;border-radius:8px;background:linear-gradient(90deg,#ff8a3d,var(--accent))}
+.pill .sc{font-family:'Chakra Petch';font-weight:700;text-align:right}
+.feat{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;max-width:840px}
+.feat .f{display:flex;gap:12px;align-items:flex-start}
+.feat .ic{font-size:22px}
+.feat .ft{font-family:'Chakra Petch';font-weight:700;font-size:17px}
+.feat .fd{font-size:13.5px;color:var(--ink2)}
+.inrow{display:flex;gap:14px;flex-wrap:wrap;margin:10px 0 16px}
+.inrow label{font-family:'IBM Plex Mono';font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--faint);display:block;margin-bottom:4px}
+.inrow input{font-family:'IBM Plex Mono';font-size:16px;width:130px;padding:9px 11px;border:1px solid var(--line);border-radius:9px;color:var(--ink)}
+.inrow input:focus{outline:none;border-color:var(--accent)}
+.cta{display:inline-block;margin-top:6px;background:var(--accent);color:#fff;text-decoration:none;font-weight:600;font-family:'IBM Plex Sans';padding:14px 26px;border-radius:11px;font-size:17px}
+.foot{position:fixed;left:0;right:0;bottom:0;display:flex;justify-content:space-between;align-items:center;padding:10px 18px;font-family:'IBM Plex Mono';font-size:11px;color:rgba(255,255,255,.65);background:#0b1220}
+.dots{display:flex;gap:6px}
+.dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.28);cursor:pointer}
+.dot.on{background:var(--accent)}
+.brandtag{color:#fff;font-family:'Chakra Petch';font-weight:700;letter-spacing:.04em}
+.nav{position:fixed;top:0;bottom:30px;width:18vw;z-index:5;cursor:pointer}
+.nav.l{left:0}.nav.r{right:0}
+#notes{position:fixed;left:0;right:0;bottom:30px;background:#0e1726;color:#dbe4f3;font-family:'IBM Plex Mono';font-size:13px;line-height:1.5;padding:14px 22px;display:none;border-top:2px solid var(--accent);max-height:32vh;overflow:auto}
+#notes.on{display:block}
+#notes b{color:var(--accent)}
+@media(max-width:760px){.grid2{grid-template-columns:1fr;gap:24px}.cards.c3{grid-template-columns:1fr}.feat{grid-template-columns:1fr}.pill{grid-template-columns:110px 1fr 44px}}
+</style></head><body>
+<div class="nav l" id="navL"></div><div class="nav r" id="navR"></div>
+<div id="stage"></div>
+<div id="notes"></div>
+<div class="foot"><span class="brandtag" id="fbrand">ORBIT AI</span><div class="dots" id="dots"></div><span id="fpage">1</span></div>
+<script>
+(function(){
+  var qs=new URLSearchParams(location.search);
+  function g(k,d){var v=qs.get(k);return (v===null||v==="")?d:v;}
+  var D={
+    biz:g("biz","Your Business"), industry:g("industry","Home Services"), city:g("city",""), state:g("state",""),
+    rep:g("rep",""), brand:g("brand","Orbit AI"), accent:g("brandcolor","#0a66ff"),
+    calls:+g("calls",380), ticket:+g("ticket",520), missed:+g("missed",27), close:+g("close",40),
+    p1:+g("p1",197), p2:+g("p2",347), p3:+g("p3",497),
+    s:[+g("s1",45),+g("s2",55),+g("s3",60),+g("s4",30),+g("s5",50)],
+    preview:g("preview","")
+  };
+  document.documentElement.style.setProperty("--accent",D.accent);
+  document.getElementById("fbrand").textContent=D.brand.toUpperCase();
+  var loc=(D.city?D.city:"")+(D.city&&D.state?", ":"")+(D.state||"");
+  var powered = D.brand.toLowerCase().indexOf("orbit")<0 ? '<div class="muted" style="margin-top:18px">Powered by Orbit AI</div>' : '';
+  var PIL=["Discovery","Reputation","Storefront","Conversation","Operations"];
+  function money(n){return "$"+Math.round(n).toLocaleString();}
+
+  // SLIDES (content, notes = presenter playbook)
+  var slides=[
+    {html:'<div class="kick">'+D.brand+' · Growth Blueprint</div>'
+      +'<h1>'+D.biz+'<br><span class="accent">'+D.industry+' Growth Blueprint</span></h1>'
+      +'<p class="lead">A 10-minute look at what every missed call is costing you — and the AI that answers all of them.</p>'
+      +(D.rep?'<div class="muted" style="margin-top:22px">Presented by '+D.rep+'</div>':'')+powered,
+      note:'<b>Open warm.</b> "Thanks for the time — I put together a quick blueprint specific to '+D.biz+'. Ten minutes, then I\'ll show you the AI live. Sound good?" Set the agenda, get a yes, advance.'},
+    {html:'<div class="kick">The problem</div>'
+      +'<h2>Every missed call is a missed job.</h2>'
+      +'<p class="lead">In '+D.industry.toLowerCase()+', the first business to pick up usually wins the job. Voicemail loses it — the caller just dials the next name on the list.</p>',
+      note:'<b>Make it personal.</b> Ask: "When you\'re on a job site or after hours — who answers the phone?" Let them admit the gap. Don\'t rush. The pain has to be theirs, not yours.'},
+    {html:'<div class="kick">The cost</div>'
+      +'<h2>Let\'s put a number on it.</h2>'
+      +'<div class="inrow">'
+      +'<div><label>Calls / month</label><input type="number" id="i_calls" value="'+D.calls+'"></div>'
+      +'<div><label>% missed</label><input type="number" id="i_missed" value="'+D.missed+'"></div>'
+      +'<div><label>Close rate %</label><input type="number" id="i_close" value="'+D.close+'"></div>'
+      +'<div><label>Avg ticket $</label><input type="number" id="i_ticket" value="'+D.ticket+'"></div>'
+      +'</div>'
+      +'<div class="big" id="lostYr">$0</div><div class="muted" id="lostBreak">left on the table every year</div>',
+      note:'<b>The anchor moment.</b> Adjust the inputs to THEIR real numbers as they say them — the figure updating live is what lands. The % missed default is an industry estimate; let them give you the real one. Then go quiet and let the annual number sit.'},
+    {html:'<div class="kick">The audit</div>'
+      +'<h2>Where '+D.biz+' stands today.</h2>'
+      +'<div class="pillars" id="pillars"></div>'
+      +'<div class="muted" style="margin-top:14px">Five pillars of how customers find, judge, and reach you.</div>',
+      note:'<b>Credibility builder.</b> Walk each pillar in one sentence. Conversation (answering calls) is usually the lowest — point at it: "This is the one we fix first, today." The audit proves you did homework.'},
+    {html:'<div class="kick">The fix</div>'
+      +'<div class="grid2"><div><h2>One AI that answers <span class="accent">every</span> call.</h2>'
+      +'<p class="lead">24/7, in English and Spanish. It books the job, captures the lead, and routes the emergency — so you never lose another caller to voicemail.</p></div>'
+      +'<div class="card hi"><div class="t">'+D.biz+' · AI Receptionist</div><ul>'
+      +'<li>Answers in your voice, on the first ring</li><li>Books straight into your calendar</li><li>New lead vs. existing customer, handled differently</li><li>Bilingual — never lose a Spanish-speaking caller</li></ul></div></div>',
+      note:'<b>Pivot from pain to relief.</b> Keep it about outcomes, not tech. "It\'s not voicemail and it\'s not a call center — it\'s your phone, answered, every time." Tee up the live demo next.'},
+    {html:'<div class="kick">What it does</div>'
+      +'<h2>Built for how you actually run.</h2>'
+      +'<div class="feat">'
+      +'<div class="f"><div class="ic">📞</div><div><div class="ft">Answers & qualifies</div><div class="fd">FAQs, captures name, number, and reason for the call.</div></div></div>'
+      +'<div class="f"><div class="ic">📅</div><div><div class="ft">Books the job</div><div class="fd">Into Google, Outlook, Jobber or ServiceTitan.</div></div></div>'
+      +'<div class="f"><div class="ic">🔀</div><div><div class="ft">Routes smartly</div><div class="fd">New lead vs. existing customer; transfers a live emergency.</div></div></div>'
+      +'<div class="f"><div class="ic">🌐</div><div><div class="ft">Bilingual + 24/7</div><div class="fd">Nights, weekends, overflow — never a missed caller.</div></div></div>'
+      +'</div>',
+      note:'<b>Map to their stack.</b> Ask which scheduling tool they use and name it back. If they use ServiceTitan/Jobber, point at the booking line — that\'s the "this fits me" moment.'},
+    {html:'<div class="kick">See it now</div>'
+      +'<h2>Let\'s call your new receptionist.</h2>'
+      +'<p class="lead">Right now, live. Talk to the AI the way a customer would — then tell me what you think.</p>'
+      +(D.preview?'<a class="cta" id="demoBtn" href="'+D.preview+'" target="_blank">▶ Launch the live demo</a>':'<div class="muted" style="margin-top:8px">Demo link loads here when generated for this prospect.</div>'),
+      note:'<b>The close starts here.</b> Always demo live if you have the link. Hand them a script: "Ask it your most common customer question." When they smile, that\'s your buying signal — go to the offer.'},
+    {html:'<div class="kick">Get started</div>'
+      +'<h2>Pick the plan that fits.</h2>'
+      +'<div class="cards c3">'
+      +'<div class="card"><div class="t">Basic</div><div class="p">'+money(D.p1)+'<span class="muted" style="font-size:13px">/mo</span></div><ul><li>1 agent · 300 min</li><li>FAQs + lead capture</li><li>Calendar booking</li><li>CRM integration</li></ul></div>'
+      +'<div class="card hi"><div class="t">Smart <span class="muted">· popular</span></div><div class="p">'+money(D.p2)+'<span class="muted" style="font-size:13px">/mo</span></div><ul><li>2 agents · 500 min</li><li>Everything in Basic</li><li>Jobber / ServiceTitan</li><li>New vs. existing routing</li></ul></div>'
+      +'<div class="card"><div class="t">Advanced</div><div class="p">'+money(D.p3)+'<span class="muted" style="font-size:13px">/mo</span></div><ul><li>5 agents · 1,000 min</li><li>Sales · dispatch · support</li><li>Job-management integration</li><li>Custom call flows</li></ul></div>'
+      +'</div><div class="muted" style="margin-top:12px">Overage $0.35/min · billed monthly · cancel anytime.</div>',
+      note:'<b>Anchor on Smart.</b> Present all three, recommend Smart, stay silent after the price. If they hesitate, drop to Basic as the easy yes — never discount Smart, step down the ladder instead.'},
+    {html:'<div class="kick">The math</div>'
+      +'<div class="grid2"><div><h2>It pays for itself with <span class="accent">one</span> saved job.</h2>'
+      +'<p class="lead">Your average ticket is '+money(D.ticket)+'. Smart is '+money(D.p2)+'/mo. Save one job a month you\'d have missed and you\'re ahead — everything after that is profit.</p></div>'
+      +'<div class="card hi"><div class="t">Monthly math</div>'
+      +'<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--line)"><span class="muted">One saved job</span><b>'+money(D.ticket)+'</b></div>'
+      +'<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--line)"><span class="muted">Smart plan</span><b>–'+money(D.p2)+'</b></div>'
+      +'<div style="display:flex;justify-content:space-between;padding:8px 0"><span class="muted">Net, month one</span><b class="accent" id="net1">'+money(D.ticket-D.p2)+'</b></div></div></div>',
+      note:'<b>Reframe price as cheap.</b> "The question isn\'t whether you can afford it — it\'s whether you can afford to keep missing calls." Then ask for the business.'},
+    {html:'<div class="kick">Next step</div>'
+      +'<h1>Let\'s turn your phone into your <span class="accent">best salesperson</span>.</h1>'
+      +'<p class="lead">We can have '+D.biz+' answering every call this week.</p>'
+      +(D.rep?'<div class="muted" style="margin-top:22px">'+D.rep+' · '+D.brand+'</div>':'<div class="muted" style="margin-top:22px">'+D.brand+'</div>')+powered,
+      note:'<b>Ask directly and stop talking.</b> "Want me to get you set up on Smart today?" Silence closes. On yes → confirm, send the agreement, hand off to the Deals Desk for the confirmation call.'}
+  ];
+
+  var stage=document.getElementById("stage"), dotsBox=document.getElementById("dots"), notesBox=document.getElementById("notes");
+  slides.forEach(function(s,i){ var d=document.createElement("div"); d.className="slide"; d.innerHTML=s.html; stage.appendChild(d);
+    var dot=document.createElement("div"); dot.className="dot"; dot.addEventListener("click",function(){go(i);}); dotsBox.appendChild(dot); });
+  var slideEls=stage.querySelectorAll(".slide"), dotEls=dotsBox.querySelectorAll(".dot");
+  var cur=0, notesOn=false;
+  function recalc(){
+    var calls=+(document.getElementById("i_calls")||{}).value||D.calls;
+    var missed=+(document.getElementById("i_missed")||{}).value||D.missed;
+    var close=+(document.getElementById("i_close")||{}).value||D.close;
+    var ticket=+(document.getElementById("i_ticket")||{}).value||D.ticket;
+    var lostJobs=calls*(missed/100)*(close/100);
+    var yr=lostJobs*ticket*12;
+    var ly=document.getElementById("lostYr"); if(ly)ly.textContent=money(yr);
+    var lb=document.getElementById("lostBreak"); if(lb)lb.textContent="≈ "+lostJobs.toFixed(1)+" lost jobs/mo × "+money(ticket)+" — left on the table every year";
+  }
+  function renderPillars(){ var box=document.getElementById("pillars"); if(!box)return; box.innerHTML="";
+    PIL.forEach(function(n,i){ var sc=D.s[i]; var r=document.createElement("div"); r.className="pill";
+      r.innerHTML='<span class="nm">'+n+'</span><div class="track"><div class="fill" style="width:'+sc+'%"></div></div><span class="sc">'+sc+'</span>'; box.appendChild(r); }); }
+  function go(i){ if(i<0)i=0; if(i>=slideEls.length)i=slideEls.length-1; cur=i;
+    slideEls.forEach(function(e,j){ e.classList.toggle("on",j===i); });
+    dotEls.forEach(function(e,j){ e.classList.toggle("on",j===i); });
+    document.getElementById("fpage").textContent=(i+1)+" / "+slideEls.length;
+    notesBox.innerHTML='<b>Slide '+(i+1)+' notes —</b> '+(slides[i].note||"");
+    if(i===2)recalc(); if(i===3)renderPillars();
+  }
+  document.getElementById("navR").addEventListener("click",function(){go(cur+1);});
+  document.getElementById("navL").addEventListener("click",function(){go(cur-1);});
+  document.addEventListener("keydown",function(e){
+    if(!e||!e.key)return;
+    if(e.key==="ArrowRight"||e.key===" "||e.key==="PageDown"){go(cur+1);e.preventDefault();}
+    else if(e.key==="ArrowLeft"||e.key==="PageUp"){go(cur-1);}
+    else if(e.key.toLowerCase()==="n"){notesOn=!notesOn;notesBox.classList.toggle("on",notesOn);}
+  });
+  stage.addEventListener("input",function(e){ if(e.target&&e.target.tagName==="INPUT")recalc(); });
+  go(0);
+  window.__deck={go:go,total:slideEls.length,recalc:recalc};
+})();
+</script>
+</body></html>

@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Orbit · Partner Registry (Internal)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Sora:wght@600;700;800&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#070b15; --panel:#0d1426; --panel2:#111b31; --line:#1d2940; --line2:#28384f;
+    --ink:#e6edf8; --ink2:#9fb0cf; --faint:#64769b;
+    --cyan:#22d3ee; --violet:#8b7bf6; --green:#34d399; --amber:#fbbf24; --red:#f87171; --pink:#f472b6; --blue:#60a5fa;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;min-height:100vh;background:
+    radial-gradient(900px 500px at 85% -10%,rgba(139,123,246,.10),transparent),
+    radial-gradient(700px 450px at 0% 0%,rgba(34,211,238,.07),transparent),var(--bg);
+    color:var(--ink);font-family:'IBM Plex Sans',sans-serif;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1100px;margin:0 auto;padding:22px 20px 60px}
+  header{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+  .brand{font-family:'Chakra Petch';font-weight:700;font-size:20px;letter-spacing:.04em;display:flex;align-items:center;gap:10px}
+  .brand .dot{color:var(--cyan)}
+  .lock{font-family:'IBM Plex Mono';font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);border:1px solid #4a3a12;background:#1c1606;border-radius:7px;padding:5px 10px}
+  .sub{color:var(--ink2);font-size:13px;margin:4px 0 18px}
+
+  .counts{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:18px}
+  @media(max-width:760px){.counts{grid-template-columns:repeat(2,1fr)}}
+  .cc{background:linear-gradient(180deg,var(--panel),#0b1322);border:1px solid var(--line);border-radius:13px;padding:13px 14px}
+  .cc .v{font-family:'Sora';font-weight:800;font-size:23px}
+  .cc .l{font-family:'IBM Plex Mono';font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink2);margin-top:4px}
+
+  .toolbar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px}
+  .toolbar input,.toolbar select{background:#0a1426;border:1px solid var(--line2);color:var(--ink);border-radius:9px;padding:9px 11px;font-family:'IBM Plex Sans';font-size:13px}
+  .toolbar input{flex:1;min-width:160px}
+  .btn{background:linear-gradient(120deg,#22d3ee,#6366f1);color:#021;border:0;border-radius:10px;padding:10px 16px;font-family:'Sora';font-weight:700;font-size:13px;cursor:pointer}
+  .btn:hover{filter:brightness(1.06)}
+  .btn.ghost{background:#0a1426;border:1px solid var(--line2);color:var(--ink2)}
+  .btn.ghost:hover{border-color:var(--cyan);color:#fff}
+
+  .card{background:linear-gradient(180deg,var(--panel),#0b1322);border:1px solid var(--line);border-radius:15px;padding:4px 4px}
+  table{width:100%;border-collapse:collapse;font-size:13.5px}
+  th,td{text-align:left;padding:11px 12px;border-bottom:1px solid var(--line)}
+  th{font-family:'IBM Plex Mono';font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--faint);font-weight:500}
+  tr:hover td{background:rgba(255,255,255,.015)}
+  .rid{font-family:'IBM Plex Mono';font-weight:600;letter-spacing:.04em}
+  .who{display:flex;align-items:center;gap:9px}
+  .ava{width:28px;height:28px;border-radius:8px;display:grid;place-items:center;font-family:'Sora';font-weight:700;font-size:12px;color:#021;flex:none}
+  .pill{font-family:'IBM Plex Mono';font-size:10px;padding:3px 8px;border-radius:6px;white-space:nowrap}
+  .ds{background:#06303a;color:var(--cyan)} .st{background:#06321f;color:var(--green)} .cl{background:#241b4a;color:var(--violet)}
+  .rs{background:#3a2c08;color:var(--amber)} .wl{background:#3a1320;color:var(--pink)} .va{background:#0c2440;color:var(--blue)} .cs{background:#102e2a;color:#5eead4}
+  .mut{color:var(--faint)}
+  .mini{padding:3px 8px;border:1px solid var(--line2);background:#0a1426;color:var(--ink2);border-radius:7px;cursor:pointer;font-size:11px;font-family:'IBM Plex Mono'}
+  .mini:hover{border-color:var(--red);color:var(--red)}
+
+  /* modal */
+  .ov{position:fixed;inset:0;background:rgba(6,11,22,.66);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;padding:18px;z-index:50}
+  .ov.open{display:flex}
+  .modal{width:100%;max-width:460px;background:linear-gradient(180deg,var(--panel2),#0a1120);border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:0 40px 90px -25px rgba(0,0,0,.7)}
+  .modal .mh{padding:16px 20px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}
+  .modal .mh h3{font-family:'Sora';font-weight:800;font-size:16px;margin:0}
+  .modal .mb{padding:16px 20px;max-height:70vh;overflow-y:auto}
+  .x{background:none;border:0;color:var(--faint);font-size:22px;cursor:pointer}.x:hover{color:#fff}
+  label{display:block;font-family:'IBM Plex Mono';font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink2);margin:13px 0 6px}
+  .modal input,.modal select{width:100%;background:#0a1426;border:1px solid var(--line2);color:#fff;border-radius:10px;padding:11px 12px;font-family:'IBM Plex Sans';font-size:14px}
+  .modal input:focus,.modal select:focus{outline:none;border-color:var(--cyan)}
+  .ridPrev{margin-top:14px;background:#0a1426;border:1px dashed var(--line2);border-radius:10px;padding:12px;text-align:center;font-family:'IBM Plex Mono';font-size:13px;color:var(--ink2)}
+  .ridPrev b{font-size:20px;color:var(--cyan);letter-spacing:.06em}
+  .hide{display:none}
+  .toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#06321f;border:1px solid #14532d;color:#bbf7d0;padding:12px 18px;border-radius:12px;font-family:'IBM Plex Mono';font-size:12.5px;z-index:60;display:none;max-width:90vw}
+  .toast.show{display:block}
+  .toast b{color:#fff}
+  footer{margin-top:26px;font-family:'IBM Plex Mono';font-size:11px;color:var(--faint);line-height:1.6;border-top:1px solid var(--line);padding-top:14px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="brand"><span class="dot">◐</span> ORBIT · Partner Registry</div>
+    <div class="lock">🔒 Internal</div>
+  </header>
+  <div class="sub">Every partner gets a Rep ID whose prefix tells you the type at a glance — <b style="color:var(--cyan)">DS</b> direct W-2 · <b style="color:var(--green)">ST</b> setter · <b style="color:var(--violet)">CL</b> closer · <b style="color:var(--amber)">RS</b> reseller · <b style="color:var(--pink)">WL</b> white label · <b style="color:var(--blue)">VA</b> · <b style="color:#5eead4">CS</b>.</div>
+
+  <div class="counts" id="counts"></div>
+
+  <div class="toolbar">
+    <button class="btn" id="newBtn">+ New Partner</button>
+    <select id="fDept"><option value="">All departments</option><option>Sales</option><option>Partnerships</option><option>Operations</option><option>Customer Success</option></select>
+    <select id="fType"><option value="">All types</option></select>
+    <input id="search" placeholder="Search name, Rep ID, channel…">
+    <button class="btn ghost" id="resetBtn">↺ Reset seed</button>
+  </div>
+
+  <div class="card"><table id="tbl"><thead><tr>
+    <th>Rep ID</th><th>Name</th><th>Type</th><th>Department</th><th>Channel</th><th>Contact</th><th>Status</th><th></th>
+  </tr></thead><tbody></tbody></table></div>
+
+  <footer>
+    Internal registry. Persists in this browser only until wired to Attio. Access codes are issued on creation but shown <b>once</b> — store them in your password manager, never in the CRM.<br>
+    Maps to a planned Attio <b>Partners</b> object (Rep ID, Type, Role, Department, Channel, Status) — say the word and I'll add the schema + sync so this fills from live CRM data.
+  </footer>
+</div>
+
+<!-- New Partner modal -->
+<div class="ov" id="ov">
+  <div class="modal">
+    <div class="mh"><h3>New Partner</h3><button class="x" id="closeBtn">&times;</button></div>
+    <div class="mb">
+      <label>Full name</label><input id="pName" placeholder="First Last">
+      <label>Partner type</label><select id="pType"></select>
+      <label>Department</label><select id="pDept"><option>Sales</option><option>Partnerships</option><option>Operations</option><option>Customer Success</option></select>
+      <div id="channelWrap" class="hide"><label id="channelLbl">Partnership channel</label><input id="pChannel" placeholder="e.g. brand / reseller team"></div>
+      <label>Email</label><input id="pEmail" type="email" placeholder="name@orbitaiautomation.com">
+      <label>Cell phone</label><input id="pCell" type="tel" placeholder="(555) 123-4567">
+      <div class="ridPrev">Next Rep ID → <b id="ridPrev">ST-1003</b></div>
+      <button class="btn" id="saveBtn" style="width:100%;margin-top:14px">Create partner & issue access →</button>
+    </div>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+(function(){
+  "use strict";
+  var $=function(id){return document.getElementById(id);};
+  var KEY="orbit_partners_v1", MEM=null;
+  function load(){ try{var r=localStorage.getItem(KEY); if(r)return JSON.parse(r);}catch(e){} return MEM?JSON.parse(JSON.stringify(MEM)):null; }
+  function save(d){ MEM=JSON.parse(JSON.stringify(d)); try{localStorage.setItem(KEY,JSON.stringify(d));}catch(e){} }
+
+  var TYPES=[
+    {k:"ds",px:"DS",label:"Direct Sales (W-2)",dept:"Sales",channel:false},
+    {k:"st",px:"ST",label:"1099 Setter",dept:"Sales",channel:false},
+    {k:"cl",px:"CL",label:"1099 Closer",dept:"Sales",channel:false},
+    {k:"rs",px:"RS",label:"1099 Reseller",dept:"Partnerships",channel:true},
+    {k:"wl",px:"WL",label:"White Label",dept:"Partnerships",channel:true},
+    {k:"va",px:"VA",label:"Virtual Assistant",dept:"Operations",channel:false},
+    {k:"cs",px:"CS",label:"Customer Success",dept:"Customer Success",channel:false}
+  ];
+  function T(k){ return TYPES.filter(function(t){return t.k===k;})[0]||TYPES[0]; }
+
+  function seed(){
+    return { nextOrder:1003, partners:[
+      {repId:"ST-1001",order:1001,name:"Robert",type:"st",dept:"Sales",channel:"",email:"robert@orbitaiautomation.com",cell:"",status:"Active",joined:today()},
+      {repId:"ST-1002",order:1002,name:"Bill",type:"st",dept:"Sales",channel:"",email:"bill@orbitaiautomation.com",cell:"",status:"Active",joined:today()}
+    ]};
+  }
+  function today(){ return new Date().toISOString().slice(0,10); }
+  var DB=load()||seed(); if(!load())save(DB);
+
+  function initials(n){ return (n||"?").split(/\s+/).map(function(x){return x[0];}).join("").slice(0,2).toUpperCase(); }
+  function avatarColor(n){ var c=["#22d3ee","#8b7bf6","#34d399","#fbbf24","#f472b6","#60a5fa","#5eead4"]; var s=0; for(var i=0;i<n.length;i++)s+=n.charCodeAt(i); return c[s%c.length]; }
+  function esc(s){ return (s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+  function code(){ var a="ABCDEFGHJKMNPQRSTUVWXYZ23456789",s=""; for(var i=0;i<4;i++)s+=a[Math.floor(Math.random()*a.length)]; var s2=""; for(var j=0;j<4;j++)s2+=a[Math.floor(Math.random()*a.length)]; return s+"-"+s2; }
+
+  function renderCounts(){
+    var by={}; DB.partners.forEach(function(p){by[p.type]=(by[p.type]||0)+1;});
+    var cards=[
+      {v:DB.partners.length,l:"Total partners"},
+      {v:(by.ds||0)+(by.st||0)+(by.cl||0),l:"Sales (DS·ST·CL)"},
+      {v:(by.rs||0),l:"Resellers"},
+      {v:(by.wl||0),l:"White label"},
+      {v:(by.va||0)+(by.cs||0),l:"VA + Success"}
+    ];
+    $("counts").innerHTML=cards.map(function(c){return '<div class="cc"><div class="v">'+c.v+'</div><div class="l">'+c.l+'</div></div>';}).join("");
+  }
+
+  function rows(){
+    var q=($("search").value||"").toLowerCase(), fd=$("fDept").value, ft=$("fType").value;
+    return DB.partners.filter(function(p){
+      if(fd&&p.dept!==fd)return false;
+      if(ft&&p.type!==ft)return false;
+      if(q){ var hay=(p.name+" "+p.repId+" "+p.channel+" "+p.email).toLowerCase(); if(hay.indexOf(q)<0)return false; }
+      return true;
+    });
+  }
+  function renderTable(){
+    var tb=$("tbl").querySelector("tbody");
+    var list=rows();
+    if(!list.length){ tb.innerHTML='<tr><td colspan="8" class="mut" style="padding:22px;text-align:center">No partners match.</td></tr>'; return; }
+    tb.innerHTML=list.map(function(p){
+      var t=T(p.type);
+      return '<tr>'
+        +'<td class="rid">'+esc(p.repId)+'</td>'
+        +'<td><div class="who"><span class="ava" style="background:'+avatarColor(p.name)+'">'+initials(p.name)+'</span>'+esc(p.name)+'</div></td>'
+        +'<td><span class="pill '+p.type+'">'+esc(t.label)+'</span></td>'
+        +'<td>'+esc(p.dept)+'</td>'
+        +'<td>'+(p.channel?esc(p.channel):'<span class="mut">—</span>')+'</td>'
+        +'<td class="mut" style="font-size:12px">'+esc(p.email||"—")+'</td>'
+        +'<td>'+esc(p.status||"Active")+'</td>'
+        +'<td><button class="mini" data-del="'+esc(p.repId)+'">✕</button></td></tr>';
+    }).join("");
+    tb.querySelectorAll("[data-del]").forEach(function(b){
+      b.onclick=function(){ DB.partners=DB.partners.filter(function(x){return x.repId!==b.getAttribute("data-del");}); save(DB); renderAll(); };
+    });
+  }
+
+  function fillTypeSelects(){
+    $("pType").innerHTML=TYPES.map(function(t){return '<option value="'+t.k+'">'+t.label+'</option>';}).join("");
+    $("fType").innerHTML='<option value="">All types</option>'+TYPES.map(function(t){return '<option value="'+t.k+'">'+t.label+'</option>';}).join("");
+  }
+  function previewId(){ var t=T($("pType").value); return t.px+"-"+DB.nextOrder; }
+  function refreshModal(){
+    var t=T($("pType").value);
+    $("pDept").value=t.dept;
+    $("channelWrap").classList.toggle("hide",!t.channel);
+    $("channelLbl").textContent = t.k==="wl"?"White-label brand / channel":"Reseller team / channel";
+    $("ridPrev").textContent=previewId();
+  }
+
+  function open(){ $("ov").classList.add("open"); $("pName").value="";$("pEmail").value="";$("pCell").value="";$("pChannel").value=""; $("pType").value="st"; refreshModal(); $("pName").focus(); }
+  function close(){ $("ov").classList.remove("open"); }
+  function toast(html){ var t=$("toast"); t.innerHTML=html; t.classList.add("show"); clearTimeout(t._t); t._t=setTimeout(function(){t.classList.remove("show");},9000); }
+
+  $("newBtn").onclick=open; $("closeBtn").onclick=close;
+  $("pType").onchange=refreshModal;
+  $("saveBtn").onclick=function(){
+    var name=$("pName").value.trim(); if(!name){ $("pName").focus(); return; }
+    var t=T($("pType").value);
+    var repId=t.px+"-"+DB.nextOrder;
+    var uname=name.split(/\s+/)[0].toLowerCase().replace(/[^a-z0-9]/g,"");
+    var ac=code();
+    DB.partners.unshift({repId:repId,order:DB.nextOrder,name:name,type:t.k,dept:$("pDept").value,
+      channel:t.channel?$("pChannel").value.trim():"",email:$("pEmail").value.trim(),cell:$("pCell").value.trim(),status:"Pending",joined:today(),username:uname});
+    DB.nextOrder++;
+    save(DB); renderAll(); close();
+    toast('Created <b>'+esc(repId)+'</b> · '+esc(name)+'<br>Username <b>'+esc(uname)+'</b> · Access code <b>'+ac+'</b> — copy now, shown once.');
+  };
+  $("resetBtn").onclick=function(){ DB=seed(); save(DB); renderAll(); };
+  ["search","fDept","fType"].forEach(function(id){ $(id).addEventListener("input",renderTable); $(id).addEventListener("change",renderTable); });
+
+  function renderAll(){ renderCounts(); renderTable(); }
+  fillTypeSelects(); renderAll();
+  window.OrbitPartners={db:function(){return DB;},types:TYPES,nextId:previewId};
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,198 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Orbit — Revenue Infrastructure</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Anton&family=Archivo:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Playfair+Display:wght@600;700;800&family=Cormorant+Garamond:wght@500;600;700&family=Libre+Baskerville:wght@700&family=Jost:wght@400;500;600&family=DM+Sans:wght@400;500;600;700&family=Sora:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0d13;--panel:#10141d;--panel2:#141926;--bd:#1f2738;--ink:#e8edf6;--ink2:#9aa6bd;--faint:#5c6680;--amber:#ffb020;--cyan:#3dd6d0;--green:#5fd38d;--red:#ff6b6b;--violet:#9b8cff;--blue:#0a66ff;}
+*{box-sizing:border-box}html,body{margin:0}
+body{background:radial-gradient(1200px 620px at 82% -12%,#16203a 0,var(--bg) 55%);color:var(--ink);font-family:'IBM Plex Sans',system-ui,sans-serif;line-height:1.5}
+a{color:inherit}
+.bar{display:flex;align-items:center;gap:14px;padding:14px 20px;border-bottom:1px solid var(--bd);position:sticky;top:0;background:rgba(10,13,19,.92);backdrop-filter:blur(8px);z-index:30}
+.logo{font-family:'Chakra Petch';font-weight:700;font-size:20px;letter-spacing:.04em;cursor:pointer}
+.logo .o{color:var(--cyan)}
+.doors{display:flex;gap:6px;margin-left:auto;flex-wrap:wrap;font-family:'IBM Plex Mono';font-size:12px}
+.doors a{text-decoration:none;color:var(--ink2);border:1px solid var(--bd);padding:7px 12px;border-radius:8px;background:var(--panel)}
+.doors a.on{border-color:var(--cyan);color:var(--cyan);background:rgba(61,214,208,.1)}
+.wrap{max-width:1080px;margin:0 auto;padding:26px 18px 70px}
+h1{font-family:'Chakra Petch';font-weight:700;font-size:clamp(26px,4.4vw,40px);margin:0 0 6px}
+h1 .a{color:var(--cyan)}
+.sub{color:var(--ink2);font-size:14.5px;max-width:760px;margin:0 0 22px}
+.cardgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+@media(max-width:720px){.cardgrid{grid-template-columns:1fr}}
+.door{display:block;text-decoration:none;border:1px solid var(--bd);border-radius:16px;padding:24px;background:linear-gradient(180deg,var(--panel2),var(--panel));transition:.15s;cursor:pointer}
+.door:hover{border-color:var(--cyan);transform:translateY(-2px)}
+.door .ic{font-size:30px}
+.door .t{font-family:'Chakra Petch';font-weight:700;font-size:21px;margin:10px 0 4px}
+.door .d{color:var(--ink2);font-size:13.5px}
+.door .go{font-family:'IBM Plex Mono';font-size:12px;color:var(--cyan);margin-top:12px}
+.panel{background:linear-gradient(180deg,var(--panel2),var(--panel));border:1px solid var(--bd);border-radius:14px;padding:18px;margin-bottom:16px}
+.panel h2{font-family:'Chakra Petch';font-weight:600;font-size:13px;letter-spacing:.05em;text-transform:uppercase;color:var(--cyan);margin:0 0 12px}
+label{font-family:'IBM Plex Mono';font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:var(--faint);display:block;margin:10px 0 5px}
+input,select{font-family:'IBM Plex Sans';font-size:14px;color:var(--ink);background:var(--panel);border:1px solid var(--bd);border-radius:9px;padding:10px 12px;width:100%;outline:none}
+input:focus,select:focus{border-color:var(--cyan)}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:560px){.row{grid-template-columns:1fr}}
+.btn{border:none;border-radius:10px;padding:12px 20px;font-weight:600;font-size:15px;cursor:pointer;background:var(--cyan);color:var(--bg);font-family:'IBM Plex Sans'}
+.btn:disabled{opacity:.5;cursor:default}
+.btn.alt{background:var(--violet);color:#fff}
+.btn.ghost{background:transparent;border:1px solid var(--bd);color:var(--ink2)}
+.tabs{display:flex;gap:6px;margin:4px 0 14px;flex-wrap:wrap}
+.tabs button{font-family:'IBM Plex Mono';font-size:12.5px;color:var(--ink2);background:var(--panel);border:1px solid var(--bd);border-radius:9px;padding:9px 14px;cursor:pointer}
+.tabs button.on{border-color:var(--cyan);color:var(--cyan);background:rgba(61,214,208,.1)}
+/* device frame for generated client-facing surfaces (light "paper") */
+.device{background:#fff;color:#0e1726;border-radius:16px;overflow:hidden;border:1px solid #d7deea;box-shadow:0 12px 40px rgba(0,0,0,.4)}
+.dchrome{display:flex;align-items:center;gap:6px;padding:9px 12px;background:#eef2f8;border-bottom:1px solid #d7deea}
+.dot{width:10px;height:10px;border-radius:50%;background:#cfd7e3}
+.durl{margin-left:8px;font-family:'IBM Plex Mono';font-size:11px;color:#7c899e;background:#fff;border:1px solid #e1e7f0;border-radius:6px;padding:3px 9px}
+.langtog{margin-left:auto;font-family:'IBM Plex Mono';font-size:11px;display:flex;gap:4px}
+.langtog button{border:1px solid #d7deea;background:#fff;border-radius:6px;padding:3px 8px;cursor:pointer;color:#51607a;font-family:inherit}
+.langtog button.on{background:var(--blue);color:#fff;border-color:var(--blue)}
+/* generated site — premium */
+.site{padding:0;font-family:var(--bodyf,'Archivo'),system-ui,sans-serif;color:#0f172a;background:#fff}
+.site .topbar{display:flex;align-items:center;justify-content:space-between;padding:14px 40px;background:#0b1220;color:#fff;gap:12px}
+.site .topbar .bn{font-family:var(--disp,'Anton'),'Anton',sans-serif;text-transform:uppercase;letter-spacing:.5px;font-size:19px}
+.site .topbar .bp{font-weight:800;font-size:14px;color:#fff;text-decoration:none;display:flex;align-items:center;gap:7px}
+.site .topbar .bp:before{content:"📞"}
+.site .hero{position:relative;padding:56px 40px 46px;background:radial-gradient(120% 140% at 82% -10%,rgba(255,255,255,.07),transparent),var(--herograd,linear-gradient(160deg,#111827,#0b1220));color:#fff;overflow:hidden}
+.site .hero:before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(135deg,rgba(255,255,255,.035) 0 2px,transparent 2px 24px);pointer-events:none}
+.site .hero:after{content:"";position:absolute;right:-70px;top:-70px;width:260px;height:260px;background:var(--acc);filter:blur(95px);opacity:.4;border-radius:50%}
+.site .eyebrow{position:relative;font-weight:700;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--acc);display:flex;align-items:center;gap:9px}
+.site .eyebrow:before{content:"";width:26px;height:2px;background:var(--acc)}
+.site .hero h3{position:relative;font-family:var(--disp,'Anton'),'Anton',sans-serif;font-weight:400;letter-spacing:.5px;text-transform:uppercase;font-size:clamp(34px,6.4vw,58px);line-height:.95;margin:16px 0 14px}
+.site .hero .sub{position:relative;font-size:16px;max-width:52ch;color:#cbd5e1;margin:0 0 24px;line-height:1.55}
+.site .cta-row{position:relative;display:flex;gap:12px;flex-wrap:wrap}
+.site .hbtn{display:inline-flex;align-items:center;gap:8px;background:var(--acc);color:#fff;font-weight:800;text-decoration:none;padding:14px 26px;border-radius:5px;font-size:15px;box-shadow:0 10px 26px -8px var(--acc);transition:transform .15s}
+.site .hbtn:hover{transform:translateY(-2px)}
+.site .hbtn.ghost{background:transparent;border:1.5px solid rgba(255,255,255,.32);box-shadow:none}
+.site .badges{position:relative;display:flex;gap:18px;flex-wrap:wrap;margin-top:28px;padding-top:22px;border-top:1px solid rgba(255,255,255,.12)}
+.site .badges span{font-size:12.5px;color:#e2e8f0;display:flex;align-items:center;gap:7px;font-weight:600}
+.site .badges span:before{content:"✓";color:var(--acc);font-weight:800}
+.site .statbar{display:grid;grid-template-columns:repeat(4,1fr);background:#0f172a;color:#fff}
+.site .statbar .st{padding:22px 14px;text-align:center;border-right:1px solid rgba(255,255,255,.08)}
+.site .statbar .st:last-child{border:none}
+.site .statbar .num{font-family:var(--disp,'Anton'),'Anton',sans-serif;font-size:30px;color:var(--acc);line-height:1}
+.site .statbar .lab{font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:#94a3b8;margin-top:6px}
+@media(max-width:560px){.site .statbar{grid-template-columns:repeat(2,1fr)}.site .statbar .st:nth-child(2){border-right:none}}
+.site .sec{padding:42px 40px;border-top:1px solid #eef2f8}
+.site .sec .kick{font-weight:700;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--acc)}
+.site .sec h4{font-family:var(--disp,'Anton'),'Anton',sans-serif;font-weight:400;text-transform:uppercase;letter-spacing:.5px;font-size:26px;margin:8px 0 22px;color:#0f172a}
+.site .svc{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+@media(max-width:560px){.site .svc{grid-template-columns:1fr}}
+.site .svc .s{border:1px solid #e6ebf3;border-radius:12px;padding:20px;background:#fff;position:relative;overflow:hidden;transition:box-shadow .15s,transform .15s}
+.site .svc .s:hover{box-shadow:0 16px 32px -18px rgba(15,23,42,.45);transform:translateY(-3px)}
+.site .svc .s:before{content:"";position:absolute;left:0;top:0;width:4px;height:100%;background:var(--acc)}
+.site .svc .ic{width:42px;height:42px;border-radius:10px;background:color-mix(in srgb,var(--acc) 15%,#fff);display:flex;align-items:center;justify-content:center;font-size:21px;margin-bottom:12px}
+.site .svc .n{font-weight:800;font-size:16px}
+.site .svc .x{font-size:13.5px;color:#51607a;margin-top:5px;line-height:1.5}
+.site .why{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+@media(max-width:560px){.site .why{grid-template-columns:1fr}}
+.site .why .wn{font-weight:800;display:flex;align-items:center;gap:9px;font-size:15px}
+.site .why .wn .e{font-size:20px}
+.site .why .wx{font-size:13px;color:#51607a;margin-top:7px;line-height:1.55}
+.site .band{padding:28px 40px;background:var(--acc);color:#fff;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.site .band .bt{font-family:var(--disp,'Anton'),'Anton',sans-serif;text-transform:uppercase;font-size:23px;letter-spacing:.5px}
+.site .band .bx{font-size:13px;opacity:.93;max-width:46ch}
+.site .band a{background:#0b1220;color:#fff;font-weight:800;text-decoration:none;padding:13px 24px;border-radius:5px;white-space:nowrap}
+.site .reviews{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media(max-width:560px){.site .reviews{grid-template-columns:1fr}}
+.site .rev{border:1px solid #e6ebf3;border-radius:12px;padding:18px;background:#fafcff}
+.site .rev .stars{color:#f59e0b;font-size:14px;letter-spacing:2px}
+.site .rev .q{font-size:13.5px;color:#0f172a;margin:9px 0;line-height:1.55}
+.site .rev .who{font-size:12px;color:#64748b;font-weight:800}
+.site .info{display:flex;gap:34px;flex-wrap:wrap;font-size:14px;color:#36435c}
+.site .info b{display:block;font-weight:800;color:#0f172a;margin-bottom:4px;font-size:11.5px;letter-spacing:.05em;text-transform:uppercase}
+.site .closing{padding:48px 40px;background:var(--herograd,linear-gradient(160deg,#111827,#0b1220));color:#fff;text-align:center}
+.site .closing h4{font-family:var(--disp,'Anton'),'Anton',sans-serif;text-transform:uppercase;font-size:30px;margin:0 0 10px;color:#fff}
+.site .closing p{color:#cbd5e1;margin:0 auto 22px;max-width:46ch}
+.site .samp{font-size:10px;color:#94a3b8;text-align:center;padding:7px;background:#f1f5f9;letter-spacing:.03em}
+.site .sitefoot{padding:18px 40px;background:#0b1220;color:#64748b;font-size:11px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;border-top:1px solid rgba(255,255,255,.06)}
+/* chat surfaces */
+.chat{display:flex;flex-direction:column;height:440px}
+.chat .log{flex:1;overflow:auto;padding:16px;display:flex;flex-direction:column;gap:10px;background:#f7f9fc}
+.msg{max-width:80%;padding:9px 13px;border-radius:14px;font-size:14px;line-height:1.45}
+.msg.bot{background:#fff;border:1px solid #e6ebf3;align-self:flex-start;border-bottom-left-radius:4px}
+.msg.me{background:var(--blue);color:#fff;align-self:flex-end;border-bottom-right-radius:4px}
+.msg.sys{align-self:center;background:#eef2f8;color:#51607a;font-family:'IBM Plex Mono';font-size:11px;border-radius:8px}
+.chat .in{display:flex;gap:8px;padding:12px;border-top:1px solid #e6ebf3;background:#fff}
+.chat .in input{flex:1;color:#0e1726;background:#fff;border:1px solid #d7deea}
+.chat .in button{background:var(--blue);color:#fff;border:none;border-radius:9px;padding:0 16px;font-weight:600;cursor:pointer}
+.persona{display:flex;gap:14px;align-items:center;padding:16px;border-bottom:1px solid #e6ebf3;background:#fff}
+.persona .av{width:46px;height:46px;border-radius:50%;background:var(--acc,#0a66ff);color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Chakra Petch';font-weight:700;font-size:20px}
+.persona .nm{font-family:'Chakra Petch';font-weight:700}
+.persona .rl{font-size:12px;color:#7c899e}
+.persona .spk{margin-left:auto;border:1px solid #d7deea;background:#fff;border-radius:8px;padding:7px 11px;cursor:pointer;font-size:12px;color:#36435c}
+.note{font-family:'IBM Plex Mono';font-size:11px;color:var(--faint);margin-top:10px;line-height:1.6}
+.kbtag{font-family:'IBM Plex Mono';font-size:10px;color:var(--green);margin-top:2px}
+/* lead desk widget */
+.lead{border:1px solid var(--bd);border-radius:11px;padding:12px 14px;margin-bottom:9px;background:var(--panel)}
+.lead .nm{font-family:'Chakra Petch';font-weight:700;font-size:15px}
+.lead .meta{font-family:'IBM Plex Mono';font-size:11px;color:var(--ink2);margin-top:2px;display:flex;gap:10px;flex-wrap:wrap}
+.ind{font-family:'IBM Plex Mono';font-size:9.5px;text-transform:uppercase;color:var(--violet);background:rgba(155,140,255,.12);padding:2px 7px;border-radius:5px}
+.lctrl{display:flex;gap:7px;flex-wrap:wrap;align-items:center;margin-top:10px}
+.lctrl select{width:auto;font-family:'IBM Plex Mono';font-size:12px;padding:6px 8px}
+.lgen{background:var(--green);color:var(--bg);border:none;border-radius:8px;padding:7px 12px;font-weight:600;font-size:12px;cursor:pointer;font-family:'IBM Plex Sans'}
+.lgen:disabled{background:var(--bd);color:var(--faint)}
+.fill{border:1px solid var(--violet);background:rgba(155,140,255,.12);color:#cdc4ff;border-radius:8px;padding:6px 10px;font-size:11.5px;cursor:pointer;font-family:'IBM Plex Sans'}
+.banner{background:rgba(255,176,32,.08);border:1px solid rgba(255,176,32,.3);border-radius:10px;padding:10px 13px;font-size:12px;color:var(--ink2);margin-bottom:14px}
+.banner b{color:var(--amber)}
+.linkcards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+@media(max-width:720px){.linkcards{grid-template-columns:1fr}}
+.lc{border:1px solid var(--bd);border-radius:12px;padding:14px;background:var(--panel);text-decoration:none;display:block}
+.lc:hover{border-color:var(--cyan)}
+.lc .t{font-family:'Chakra Petch';font-weight:700}
+.lc .d{font-size:12.5px;color:var(--ink2);margin-top:3px}
+.spin{display:inline-block;width:14px;height:14px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:sp .7s linear infinite;vertical-align:-2px}
+@keyframes sp{to{transform:rotate(360deg)}}
+footer{margin-top:26px;border-top:1px solid var(--bd);padding-top:13px;font-family:'IBM Plex Mono';font-size:11px;color:var(--faint);line-height:1.6}
+.steps{display:grid;gap:8px}
+.step{display:flex;align-items:center;gap:10px;font-size:13.5px;color:var(--ink2)}
+.step .n{width:22px;height:22px;border-radius:50%;background:rgba(61,214,208,.15);color:var(--cyan);display:flex;align-items:center;justify-content:center;font-family:'Chakra Petch';font-weight:700;font-size:12px;flex-shrink:0}
+.kbitem{border:1px solid var(--bd);border-radius:9px;padding:10px 12px;margin-bottom:8px;background:var(--panel)}
+.kbitem .kt{font-family:'Chakra Petch';font-weight:700;font-size:14px}
+.kbitem .kb{font-size:13px;color:var(--ink2);margin-top:3px}
+.src{font-family:'IBM Plex Mono';font-size:10px;color:var(--faint);letter-spacing:.03em}
+.guruchat{display:flex;flex-direction:column;height:300px;border:1px solid var(--bd);border-radius:11px;overflow:hidden;background:var(--bg)}
+.guruchat .log{flex:1;overflow:auto;padding:12px;display:flex;flex-direction:column;gap:9px}
+.gmsg{max-width:88%;padding:9px 12px;border-radius:12px;font-size:13.5px;line-height:1.45}
+.gmsg.me{align-self:flex-end;background:var(--cyan);color:var(--bg);border-bottom-right-radius:4px}
+.gmsg.answer{align-self:flex-start;background:var(--panel2);border:1px solid var(--bd);border-bottom-left-radius:4px}
+.gmsg.hold{align-self:flex-start;background:rgba(255,107,107,.12);border:1px solid rgba(255,107,107,.4);color:#ffc9c9}
+.gmsg.review{align-self:flex-start;background:rgba(155,140,255,.12);border:1px solid rgba(155,140,255,.4);color:#d7cfff}
+.gmsg.none{align-self:flex-start;background:rgba(255,176,32,.1);border:1px solid rgba(255,176,32,.3);color:#ffd98a}
+.guruchat .in{display:flex;gap:8px;padding:10px;border-top:1px solid var(--bd)}
+.guruchat .in input{flex:1}
+.guruchat .in button{background:var(--violet);color:#fff;border:none;border-radius:9px;padding:0 16px;font-weight:600;cursor:pointer}
+.helditem{font-size:12.5px;color:#ffc9c9;background:rgba(255,107,107,.08);border:1px solid rgba(255,107,107,.25);border-radius:8px;padding:8px 10px;margin-top:6px;display:flex;justify-content:space-between;gap:8px;align-items:center}
+.clrbtn{background:none;border:1px solid var(--bd);color:var(--ink2);border-radius:6px;padding:3px 8px;font-size:11px;cursor:pointer}
+.hours-ed{display:grid;gap:7px;margin-top:6px}
+.hrow{display:flex;align-items:center;gap:12px;flex-wrap:wrap;font-size:13px}
+.hrow .hday{width:92px;font-weight:600;color:var(--ink)}
+.hrow .hcl{display:flex;align-items:center;gap:5px;color:var(--ink2);font-size:12px;cursor:pointer}
+.hrow .hcl input{width:auto}
+.hrow .htimes{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.hrow .h-break{display:inline-flex;align-items:center;gap:6px}
+.hrow input[type=time]{padding:5px 7px;font-size:13px;border:1px solid var(--bd);border-radius:7px;background:var(--panel);color:var(--ink)}
+.hrow .hdash{color:var(--faint)}
+.hrow .h-addbreak{background:none;border:1px dashed var(--bd);color:var(--ink2);border-radius:7px;padding:5px 9px;font-size:11px;cursor:pointer}
+.hrow .h-addbreak:disabled{opacity:.35;cursor:default}
+.site .hours-tbl{border-collapse:collapse;font-size:13px;margin-top:4px}
+.site .hours-tbl td{padding:3px 16px 3px 0;color:#36435c}
+.site .hours-tbl td.hd{font-weight:800;color:#0f172a;text-transform:none;letter-spacing:0;font-size:13px}
+/* per-vertical hero treatments */
+.site[data-hero="elegant"] .hero h3,.site[data-hero="luxe"] .hero h3,.site[data-hero="editorial"] .hero h3{text-transform:none;letter-spacing:0;font-weight:700;line-height:1.04;font-size:clamp(38px,6.6vw,64px)}
+.site[data-hero="fresh"] .hero h3{text-transform:none;letter-spacing:-.01em;font-weight:600}
+.site[data-hero="elegant"] .sec h4,.site[data-hero="luxe"] .sec h4,.site[data-hero="editorial"] .sec h4,.site[data-hero="fresh"] .sec h4,.site[data-hero="elegant"] .closing h4,.site[data-hero="luxe"] .closing h4,.site[data-hero="editorial"] .closing h4,.site[data-hero="fresh"] .closing h4,.site[data-hero="luxe"] .band .bt,.site[data-hero="elegant"] .band .bt{text-transform:none;letter-spacing:0;font-weight:700}
+.site[data-hero="luxe"] .hero,.site[data-hero="elegant"] .hero{text-align:center;padding-top:64px}
+.site[data-hero="luxe"] .hero .sub,.site[data-hero="elegant"] .hero .sub{margin-left:auto;margin-right:auto}
+.site[data-hero="luxe"] .cta-row,.site[data-hero="elegant"] .cta-row,.site[data-hero="luxe"] .badges,.site[data-hero="elegant"] .badges,.site[data-hero="luxe"] .eyebrow,.site[data-hero="elegant"] .eyebrow{justify-content:center}
+.site[data-hero="luxe"] .hero:before,.site[data-hero="elegant"] .hero:before{background:radial-gradient(circle at 50% -10%,rgba(255,255,255,.07),transparent 62%)}
+.site[data-hero="luxe"] .eyebrow:before,.site[data-hero="elegant"] .eyebrow:before{display:none}
+.site[data-hero="luxe"] .hbtn,.site[data-hero="elegant"] .hbtn{border-radius:2px;letter-spacing:.04em;font-weight:700}
+.site[data-hero="editorial"] .hero h3{border-left:5px solid var(--acc);padding-left:20px}
+.site[data-hero="fresh"] .hero:before{background:radial-gradient(60% 80% at 90% 110%,color-mix(in srgb,var(--acc) 22%,transparent),transparent 70%)}
+.site[data-hero="fresh"] .hbtn{border-radius:30px}
+.site[data-hero="fresh"] .svc .s,.site[data-hero="fresh"] .rev{border-radius:18px}
+.site[data-hero="fresh"] .svc .ic{border-radius:50%}
+.site[data-hero="clean"] .hero{padding:60px 40px 50px}
+</style></head><body style="margin:0;background:#eef1f6;font-family:DM Sans,sans-serif"><div style="max-width:1000px;margin:0 auto;box-shadow:0 0 60px rgba(0,0,0,.14)"><div class="site" data-hero="editorial" style="--acc:#c2410c;--acc2:#d4a373;--disp:'Playfair Display';--bodyf:'DM Sans';--herograd:linear-gradient(160deg,#1a1310,#0e0a08)"><div class="topbar"><div class="bn">Casa Verde Cocina</div><a class="bp" href="#">(512) 555-0177</a></div><div class="hero"><div class="eyebrow">Restaurant · Austin, FL</div><h3>Great food, warm service, every visit.</h3><p class="sub">Great food and a warm welcome, every visit — reserve a table in seconds, order takeout, or let us cater your celebration.</p><div class="cta-row"><a class="hbtn" href="#">Free quote →</a><a class="hbtn ghost" href="#">📞 Call</a></div><div class="badges"><span>Reservations &amp; takeout</span><span>Open</span><span>Catering &amp; private events</span><span>Se habla español</span></div></div><div class="statbar"><div class="st"><div class="num">BOOK</div><div class="lab">In Seconds</div></div><div class="st"><div class="num">TAKEOUT</div><div class="lab">Ready</div></div><div class="st"><div class="num">5★</div><div class="lab">Reviews</div></div><div class="st"><div class="num">LOCAL</div><div class="lab">Favorite</div></div></div><div class="sec"><div class="kick">What we do</div><h4>Our services</h4><div class="svc"><div class="s"><div class="ic">🍽️</div><div class="n">Reservations</div><div class="x">Book your table in seconds — we'll have it ready when you arrive.</div></div><div class="s"><div class="ic">🥡</div><div class="n">Takeout &amp; Delivery</div><div class="x">Your favorites, ready to go, exactly when you want them.</div></div><div class="s"><div class="ic">📅</div><div class="n">Catering</div><div class="x">From office lunches to big events, handled start to finish.</div></div><div class="s"><div class="ic">🎉</div><div class="n">Private Events</div><div class="x">A room and a menu made for your celebration.</div></div></div></div><div class="sec"><div class="kick">Why us</div><h4>The difference</h4><div class="why"><div class="w"><div class="wn"><span class="e">👨‍🍳</span>Made fresh</div><div class="wx">Quality ingredients prepared to order, the way it should be.</div></div><div class="w"><div class="wn"><span class="e">📅</span>Easy booking</div><div class="wx">Reserve a table in seconds, any time of day or night.</div></div><div class="w"><div class="wn"><span class="e">🎉</span>Events and catering</div><div class="wx">From private parties to large orders, we will handle it.</div></div></div></div><div class="samp">Sample reviews — replaced with your real Google reviews at go-live.</div><div class="sec"><div class="kick">Reviews</div><h4>What people say</h4><div class="reviews"><div class="rev"><div class="stars">★★★★★</div><div class="q">"Best meal we have had in months and the service was so warm. We will be back."</div><div class="who">— Maria G., Austin</div></div><div class="rev"><div class="stars">★★★★★</div><div class="q">"Catered our office party and everyone raved about the food. Flawless."</div><div class="who">— James T., Austin</div></div><div class="rev"><div class="stars">★★★★★</div><div class="q">"Easy to book, delicious, and always consistent. Our family favorite."</div><div class="who">— Robert P., Austin</div></div></div></div><div class="sec"><div class="kick">Get in touch</div><h4>Visit us</h4><div class="info"><div style="min-width:200px"><b>Hours</b><table class="hours-tbl"><tbody><tr><td class="hd">Monday</td><td>9:00 AM–5:00 PM</td></tr><tr><td class="hd">Tuesday</td><td>9:00 AM–5:00 PM</td></tr><tr><td class="hd">Wednesday</td><td>9:00 AM–5:00 PM</td></tr><tr><td class="hd">Thursday</td><td>9:00 AM–5:00 PM</td></tr><tr><td class="hd">Friday</td><td>9:00 AM–5:00 PM</td></tr><tr><td class="hd">Saturday</td><td>Closed</td></tr><tr><td class="hd">Sunday</td><td>Closed</td></tr></tbody></table></div><div><b>Service area</b>Austin, FL</div><div><b>Phone</b>(512) 555-0177</div><div><b>Languages</b>English + Español</div></div></div><div class="closing"><h4>Reserve your table</h4><p>Book in seconds — we will save you a seat.</p><a class="hbtn" href="#">Reserve now →</a></div><div class="sitefoot"><span>© Casa Verde Cocina · Austin, FL</span><span>🟢 AI receptionist active 24/7</span></div></div></div></body></html>

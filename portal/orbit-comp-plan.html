@@ -1,0 +1,226 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Comp Plan & Earnings — Orbit AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0d13;--panel:#10141d;--panel2:#141926;--bd:#1f2738;--ink:#e8edf6;--ink2:#9aa6bd;--faint:#5c6680;--amber:#ffb020;--cyan:#3dd6d0;--green:#5fd38d;--red:#ff6b6b;--violet:#9b8cff;}
+*{box-sizing:border-box}html,body{margin:0}
+body{background:radial-gradient(1200px 600px at 80% -10%,#141b2b 0,var(--bg) 55%);color:var(--ink);font-family:'IBM Plex Sans',system-ui,sans-serif;line-height:1.5}
+.wrap{max-width:980px;margin:0 auto;padding:26px 18px 64px}
+.topnav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px;font-family:'IBM Plex Mono';font-size:12px}
+.topnav a{color:var(--ink2);text-decoration:none;border:1px solid var(--bd);padding:6px 11px;border-radius:7px;background:var(--panel)}
+.brand{font-family:'Chakra Petch';font-weight:700;letter-spacing:.06em;color:var(--cyan);margin-right:6px}
+h1{font-family:'Chakra Petch';font-weight:700;font-size:25px;margin:0 0 4px}h1 .a{color:var(--cyan)}
+.sub{color:var(--ink2);font-size:13.5px;margin:0 0 14px;max-width:800px}
+.posit{background:rgba(95,211,141,.08);border:1px solid rgba(95,211,141,.3);border-radius:10px;padding:10px 14px;font-size:12.5px;color:var(--ink2);margin-bottom:16px}
+.posit b{color:var(--green)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:760px){.grid{grid-template-columns:1fr}}
+.card{background:linear-gradient(180deg,var(--panel2),var(--panel));border:1px solid var(--bd);border-radius:13px;padding:16px}
+.card h2{font-family:'Chakra Petch';font-weight:600;font-size:13px;letter-spacing:.05em;text-transform:uppercase;color:var(--cyan);margin:0 0 12px}
+.seg{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.seg button{font-family:'IBM Plex Mono';font-size:12px;color:var(--ink2);background:var(--panel);border:1px solid var(--bd);border-radius:8px;padding:7px 11px;cursor:pointer}
+.seg button.on{border-color:var(--cyan);color:var(--cyan);background:rgba(61,214,208,.1)}
+label{font-family:'IBM Plex Mono';font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:var(--faint);display:block;margin:10px 0 5px}
+input[type=range]{width:100%}
+input[type=number]{font-family:'IBM Plex Mono';background:var(--panel);color:var(--ink);border:1px solid var(--bd);border-radius:7px;padding:8px 10px}
+.pricebar{display:flex;justify-content:space-between;font-family:'IBM Plex Mono';font-size:11px;color:var(--ink2);margin-top:4px}
+.pricebar b{color:var(--ink)}
+.bignum{font-family:'Chakra Petch';font-weight:700;font-size:32px;color:var(--green);line-height:1.05}
+.bignum small{font-size:12px;color:var(--faint);font-weight:400;font-family:'IBM Plex Mono'}
+.rows{margin-top:10px}
+.r{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid var(--bd);font-size:13.5px}
+.r:last-child{border-bottom:none}
+.r .l{color:var(--ink2)}.r .v{font-family:'IBM Plex Mono';color:var(--ink);font-weight:500}
+.r .v.g{color:var(--green)}.r .v.a{color:var(--amber)}.r .v.b{color:var(--violet)}
+.r.boost{background:rgba(155,140,255,.06);margin:0 -16px;padding:7px 16px}
+.r.res{background:rgba(95,211,141,.06);margin:0 -16px;padding:7px 16px}
+.protect{background:rgba(61,214,208,.06);border:1px solid rgba(61,214,208,.25);border-radius:9px;padding:10px 12px;margin-top:12px;font-size:12px;color:var(--cyan)}
+.note{font-family:'IBM Plex Mono';font-size:11px;color:var(--faint);margin-top:10px;line-height:1.6}
+.pill{display:inline-block;font-family:'IBM Plex Mono';font-size:10px;padding:2px 7px;border-radius:5px;margin-left:6px}
+.pill.self{background:rgba(95,211,141,.16);color:var(--green)}.pill.co{background:rgba(155,140,255,.16);color:var(--violet)}.pill.cust{background:rgba(255,176,32,.16);color:var(--amber)}.pill.leg{background:rgba(255,107,107,.16);color:var(--red)}
+details{margin-top:14px;border:1px solid var(--bd);border-radius:10px;background:var(--panel)}
+summary{cursor:pointer;padding:11px 14px;font-family:'IBM Plex Mono';font-size:12px;color:var(--cyan)}
+.lev{display:grid;grid-template-columns:repeat(2,1fr);gap:8px 14px;padding:0 14px 14px}
+.lev div{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.lev label{margin:0;flex:1}.lev input{width:74px;font-size:12px;text-align:right;padding:5px 7px}
+.vest{grid-column:1/-1;display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+@media(max-width:680px){.vest{grid-template-columns:1fr}}
+.vest .b{background:var(--panel);border:1px solid var(--bd);border-radius:9px;padding:11px 13px}
+.vest .b .t{font-family:'Chakra Petch';font-weight:700;font-size:14px;margin-bottom:4px}
+.vest .b.ok .t{color:var(--green)}.vest .b.warn .t{color:var(--amber)}.vest .b.bad .t{color:var(--red)}
+.vest .b p{font-size:12.5px;color:var(--ink2);margin:0}
+footer{margin-top:24px;border-top:1px solid var(--bd);padding-top:13px;font-family:'IBM Plex Mono';font-size:11px;color:var(--faint);line-height:1.6}
+</style></head><body><div class="wrap">
+<div class="topnav"><span class="brand">ORBIT&nbsp;AI</span>
+<a href="./orbit.html">◐ Orbit Hub</a><a href="./support-portal.html">Support</a><a href="./partner-portal.html">Partner</a></div>
+
+<h1>Comp Plan — <span class="a">Floor · Boost · Lifetime Residual</span></h1>
+<p class="sub">Two layers per deal. <b>Base upfront is paid on the Floor</b> — so a setter gets paid even if the closer discounts all the way down. <b>Boost = Deal − Floor</b> rewards selling high and skews to the closer. And both roles earn a <b>permanent % of MRR for as long as the customer's agent stays active</b> — the recurring asset you're building.</p>
+<div class="posit">The future-minded offer: <b>build a book of lifetime residual income.</b> Leave in good standing and you keep <b>50% of it for life</b> — as long as you never pull a customer off the platform. The customer belongs to Orbit; bad actors forfeit everything.</div>
+
+<div class="seg" id="view"><button data-view="internal" class="on">Internal view</button><button data-view="recruit">Recruiter view (earnings only)</button></div>
+
+<div class="grid">
+  <div class="card">
+    <h2>Deal setup</h2>
+    <label>Deal type</label>
+    <div class="seg" id="dtype"><button data-dtype="standard" class="on">Standard (rate card)</button><button data-dtype="custom">Custom (Y1 ÷ 12)</button></div>
+    <div id="stdControls">
+      <label>Package</label>
+      <div class="seg" id="pkg"><button data-pkg="Presence">Presence</button><button data-pkg="Engage" class="on">Engage</button><button data-pkg="Scale">Scale</button><button data-pkg="Concierge">Concierge</button></div>
+      <label>Lead source</label>
+      <div class="seg" id="lead"><button data-lead="self" class="on">Self-generated</button><button data-lead="company">Company lead</button></div>
+      <label>Your role</label>
+      <div class="seg" id="roleStd"><button data-role="solo" class="on">Solo (set + close)</button><button data-role="closer">Closer</button><button data-role="setter">Setter</button></div>
+      <label>Sale price <span id="priceLbl"></span></label>
+      <input type="range" id="price" min="0" max="100" value="50" style="width:100%">
+      <div class="pricebar"><span>floor <b id="floorV"></b></span><span>retail <b id="retailV"></b></span><span>premium <b id="premV"></b></span></div>
+      <div class="note" id="spreadNote"></div>
+    </div>
+    <div id="custControls" style="display:none">
+      <label>Projected first-year revenue ($)</label><input type="number" id="projY1" value="30000" style="width:100%">
+      <div class="note" id="basisNote"></div>
+      <label>Your role</label>
+      <div class="seg" id="roleCust"><button data-role="closer" class="on">Closer</button><button data-role="teamlead">Team Lead</button><button data-role="setter">Setter</button></div>
+      <div class="note">Custom = bespoke/DFY deals, lower rates, a <b>Team Lead</b> assists. Direct 1099 team only.</div>
+    </div>
+    <label>Your status</label>
+    <div class="seg" id="status"><button data-status="active" class="on">Active</button><button data-status="inactive">Inactive / departed (legacy)</button></div>
+  </div>
+
+  <div class="card">
+    <h2>Your earnings <span id="ePill"></span></h2>
+    <div class="bignum" id="book">$0 <small>book value — the asset you're building</small></div>
+    <div class="rows">
+      <div class="r" id="baseRow"><span class="l">Base upfront <span style="color:var(--faint)">(on floor — guaranteed)</span></span><span class="v g" id="base"></span></div>
+      <div class="r boost" id="boostRow"><span class="l">Boost <span style="color:var(--faint)">= Deal − Floor</span></span><span class="v b" id="boost"></span></div>
+      <div class="r" id="upRow"><span class="l">Upfront</span><span class="v g" id="up"></span></div>
+      <div class="r res"><span class="l">Lifetime residual <span id="resTag" style="color:var(--faint)"></span></span><span class="v g" id="resmo"></span></div>
+      <div class="r"><span class="l">Year-1 total</span><span class="v" id="yr1"></span></div>
+    </div>
+    <div class="protect" id="setterProtect" style="display:none">🛡 Setter is paid on the floor — you earn even if the closer discounts to the floor. Your livelihood never depends on the spread.</div>
+    <div class="note" id="roleNote"></div>
+  </div>
+
+  <div class="card" id="coCard">
+    <h2>Company economics</h2>
+    <div class="rows">
+      <div class="r"><span class="l">Year-1 revenue</span><span class="v" id="rev"></span></div>
+      <div class="r"><span class="l">Year-1 COGS</span><span class="v a" id="cogs"></span></div>
+      <div class="r"><span class="l">Year-1 comp paid (all roles)</span><span class="v a" id="comp"></span></div>
+      <div class="r" id="cacRow"><span class="l">Ad spend / CAC</span><span class="v a" id="cacV"></span></div>
+      <div class="r"><span class="l">Year-1 net</span><span class="v g" id="net"></span></div>
+      <div class="r"><span class="l">Ongoing margin / mo <span style="color:var(--faint)">(after residual)</span></span><span class="v g" id="ongoing"></span></div>
+    </div>
+    <label style="margin-top:12px" id="cacLbl">Company-lead CAC ($)</label><input type="number" id="cac" value="150" style="width:100%">
+  </div>
+
+  <div class="card" style="grid-column:1/-1;border:1px solid rgba(61,214,208,.3);background:rgba(61,214,208,.05)">
+    <h2>🔒 Vesting & bad-actor protection</h2>
+    <div class="vest">
+      <div class="b ok"><div class="t">Active → 100%</div><p>Full residual every month the agent stays active. <b>Active</b> = closed or set ≥1 new account in the last 90 days, or holds ≥10 active accounts.</p></div>
+      <div class="b warn"><div class="t">Inactive / departed → 50%</div><p>Stop selling or leave in good standing and your residual steps to a <b>50% legacy</b> stream — for life of each account. Most companies zero you out; we don't.</p></div>
+      <div class="b bad"><div class="t">Poach → 0%</div><p>The 50% legacy is contingent on a <b>non-solicit covenant.</b> Pull any customer off the platform and <b>all residuals forfeit</b> immediately. Orbit owns the relationship and will recover the client.</p></div>
+    </div>
+    <div class="note">Upfront is escrowed 30 days and released after the Deals Desk confirmation call (client knowingly signed, no out-of-scope promises). Refund/churn clawback: &lt;30d 100% · 30–90d 50% · &gt;90d 0%.</div>
+  </div>
+</div>
+
+<details>
+  <summary>⚙ Tune the plan levers</summary>
+  <div class="lev">
+    <div><label>Base upfront — closer (% of floor)</label><input type="number" id="L_baseC" value="50"></div>
+    <div><label>Base upfront — setter (% of floor)</label><input type="number" id="L_baseS" value="25"></div>
+    <div><label>Boost — closer (% of spread)</label><input type="number" id="L_boostC" value="80"></div>
+    <div><label>Boost — setter (% of spread)</label><input type="number" id="L_boostS" value="20"></div>
+    <div><label>Lifetime residual — closer (% MRR)</label><input type="number" id="L_resC" value="10"></div>
+    <div><label>Lifetime residual — setter (% MRR)</label><input type="number" id="L_resS" value="5"></div>
+    <div><label>Company-lead residual factor</label><input type="number" id="L_coFactor" value="0.7" step="0.05"></div>
+    <div><label>Legacy residual (inactive/departed)</label><input type="number" id="L_legacy" value="50"></div>
+    <div><label>Book-value horizon (months)</label><input type="number" id="L_life" value="24"></div>
+    <div style="grid-column:1/-1;border-top:1px solid var(--bd);padding-top:8px;color:var(--amber);font-family:'IBM Plex Mono';font-size:11px">CUSTOM DEAL levers</div>
+    <div><label>Custom closer %</label><input type="number" id="L_cCloser" value="45"></div>
+    <div><label>Custom team-lead %</label><input type="number" id="L_cTL" value="25"></div>
+    <div><label>Custom setter %</label><input type="number" id="L_cSetter" value="20"></div>
+    <div><label>Custom upfront (× basis)</label><input type="number" id="L_cUp" value="0.5" step="0.1"></div>
+    <div><label>Custom lifetime residual %</label><input type="number" id="L_cRes" value="6"></div>
+    <div><label>Custom COGS % of rev</label><input type="number" id="L_cCogs" value="25"></div>
+  </div>
+</details>
+
+<footer>Floor·Boost·Lifetime Residual · Base upfront paid on the floor (setter protected) · Boost = Deal − Floor (closer-skewed) · permanent % of MRR while active, 50% legacy if inactive/departed in good standing, 0% if poaching · Orbit owns the customer · advisor-seller program (consultants · coaches · insurance agents), not agencies. Planning tool — tune to live numbers.</footer>
+
+<script>
+(function(){
+  var $=function(i){return document.getElementById(i);};
+  var PKG={Presence:{mrr:297,cogs:18,floor:49},Engage:{mrr:597,cogs:94,floor:149},Scale:{mrr:997,cogs:170,floor:269},Concierge:{mrr:2497,cogs:300,floor:899}};
+  var S={view:"internal",dtype:"standard",pkg:"Engage",lead:"self",roleStd:"solo",roleCust:"closer",status:"active",price:50};
+  function money(n){return "$"+Math.round(n).toLocaleString();}
+  function priceFor(pk){var lo=pk.floor,hi=pk.mrr*1.5;return lo+(hi-lo)*(S.price/100);}
+  function L(){return{baseC:+$("L_baseC").value/100,baseS:+$("L_baseS").value/100,boostC:+$("L_boostC").value/100,boostS:+$("L_boostS").value/100,
+    resC:+$("L_resC").value/100,resS:+$("L_resS").value/100,coFactor:+$("L_coFactor").value,legacy:+$("L_legacy").value/100,life:+$("L_life").value,
+    cCloser:+$("L_cCloser").value/100,cTL:+$("L_cTL").value/100,cSetter:+$("L_cSetter").value/100,cUp:+$("L_cUp").value,cRes:+$("L_cRes").value/100,cCogs:+$("L_cCogs").value/100};}
+
+  function calcStd(){
+    var pk=PKG[S.pkg],lv=L(),deal=priceFor(pk),floor=pk.floor,boost=Math.max(0,deal-floor);
+    var bShare=S.roleStd==="solo"?(lv.baseC+lv.baseS):S.roleStd==="closer"?lv.baseC:lv.baseS;
+    var boShare=S.roleStd==="solo"?(lv.boostC+lv.boostS):S.roleStd==="closer"?lv.boostC:lv.boostS;
+    var rShare=S.roleStd==="solo"?(lv.resC+lv.resS):S.roleStd==="closer"?lv.resC:lv.resS;
+    var leadF=S.lead==="self"?1:lv.coFactor, st=S.status==="active"?1:lv.legacy;
+    var baseRep=bShare*floor, boostRep=boShare*boost, up=baseRep+boostRep;
+    var resMo=rShare*deal*leadF*st, yr1=up+resMo*12, book=up+resMo*lv.life;
+    var rev=deal*12,cogs=pk.cogs*12;
+    var upPaid=(lv.baseC+lv.baseS)*floor+(lv.boostC+lv.boostS)*boost;
+    var resPaidMo=(lv.resC+lv.resS)*deal*leadF*st;
+    var cac=S.lead==="company"?(+$("cac").value||0):0;
+    var net=rev-cogs-upPaid-resPaidMo*12-cac, ongoing=deal-pk.cogs-resPaidMo;
+    return {mode:"std",deal:deal,floor:floor,boost:boost,baseRep:baseRep,boostRep:boostRep,up:up,resMo:resMo,yr1:yr1,book:book,rev:rev,cogs:cogs,comp:upPaid+resPaidMo*12,cac:cac,net:net,ongoing:ongoing};
+  }
+  function calcCust(){
+    var lv=L(),projY1=+$("projY1").value||0,basis=projY1/12,st=S.status==="active"?1:lv.legacy;
+    var share=S.roleCust==="closer"?lv.cCloser:S.roleCust==="teamlead"?lv.cTL:lv.cSetter, pool=lv.cCloser+lv.cTL+lv.cSetter;
+    var up=share*lv.cUp*basis, resMo=share*lv.cRes*basis*st, yr1=up+resMo*12, book=up+resMo*lv.life;
+    var rev=projY1,cogs=projY1*lv.cCogs, upPaid=pool*lv.cUp*basis, resPaidMo=pool*lv.cRes*basis*st;
+    var net=rev-cogs-upPaid-resPaidMo*12, ongoing=basis-(basis*lv.cCogs)-resPaidMo;
+    return {mode:"cust",basis:basis,up:up,resMo:resMo,yr1:yr1,book:book,rev:rev,cogs:cogs,comp:upPaid+resPaidMo*12,cac:0,net:net,ongoing:ongoing};
+  }
+  function render(){
+    var custom=S.dtype==="custom";
+    $("stdControls").style.display=custom?"none":"block"; $("custControls").style.display=custom?"block":"none";
+    $("baseRow").style.display=custom?"none":"flex"; $("boostRow").style.display=custom?"none":"flex"; $("upRow").style.display=custom?"flex":"none";
+    $("cacLbl").style.display=(!custom&&S.lead==="company")?"block":"none"; $("cac").style.display=(!custom&&S.lead==="company")?"block":"none";
+    $("setterProtect").style.display=(!custom&&S.roleStd==="setter")?"block":"none";
+    var c=custom?calcCust():calcStd(), lv=L();
+    if(!custom){
+      var pk=PKG[S.pkg];
+      $("floorV").textContent=money(pk.floor);$("retailV").textContent=money(pk.mrr);$("premV").textContent=money(pk.mrr*1.5);
+      $("priceLbl").innerHTML="· <b style='color:var(--cyan)'>"+money(c.deal)+"/mo</b>";
+      var spread=c.deal-pk.mrr;
+      $("spreadNote").innerHTML=spread>=0?("Selling "+money(spread)+"/mo above retail — flows into your Boost."):(money(-spread)+"/mo discount — shrinks Boost only. Base + residual stay. Floor protects the company at "+money(pk.floor)+".");
+      $("ePill").innerHTML=(S.lead==="self"?'<span class="pill self">self-gen</span>':'<span class="pill co">company lead</span>')+(S.status==="inactive"?'<span class="pill leg">legacy '+Math.round(lv.legacy*100)+'%</span>':'');
+      $("base").textContent=money(c.baseRep); $("boost").textContent=money(c.boostRep)+" ("+money(c.boost)+" spread)";
+      $("roleNote").innerHTML=S.roleStd==="solo"?"Solo: you hold both roles — base on floor + full boost + 15% lifetime residual."
+        :S.roleStd==="closer"?"Closer: 50% of floor + 80% of boost + 10% lifetime residual.":"Setter: 25% of floor + 20% of boost + 5% lifetime residual.";
+    } else {
+      $("basisNote").innerHTML="Commission basis = <b style='color:var(--amber)'>"+money(c.basis)+"/mo</b> (Projected Y1 ÷ 12).";
+      $("ePill").innerHTML='<span class="pill cust">custom</span>'+(S.status==="inactive"?'<span class="pill leg">legacy '+Math.round(lv.legacy*100)+'%</span>':'');
+      $("up").textContent=money(c.up);
+      $("roleNote").innerHTML=S.roleCust==="closer"?"Closer: 45% of custom pool + lifetime residual.":S.roleCust==="teamlead"?"Team Lead: 25% for assisting the custom close + lifetime residual.":"Setter: 20% of custom pool + lifetime residual.";
+    }
+    $("resmo").textContent=money(c.resMo)+"/mo"; $("resTag").textContent=S.status==="active"?"(of MRR · for life while active)":"(legacy "+Math.round(lv.legacy*100)+"% · in good standing)";
+    $("yr1").textContent=money(c.yr1); $("book").innerHTML=money(c.book)+' <small>book value — upfront + '+lv.life+'-mo residual</small>';
+    $("rev").textContent=money(c.rev);$("cogs").textContent="–"+money(c.cogs);$("comp").textContent="–"+money(c.comp);
+    $("cacRow").style.display=(!custom&&S.lead==="company")?"flex":"none";$("cacV").textContent="–"+money(c.cac);
+    $("net").textContent=money(c.net);$("ongoing").textContent=money(c.ongoing)+"/mo";
+    $("coCard").style.display=S.view==="recruit"?"none":"block";
+  }
+  function seg(id,key,attr){var box=$(id);if(!box)return;box.querySelectorAll("button").forEach(function(b){b.addEventListener("click",function(){box.querySelectorAll("button").forEach(function(x){x.classList.remove("on");});b.classList.add("on");S[key]=b.getAttribute("data-"+attr);render();});});}
+  seg("view","view","view");seg("dtype","dtype","dtype");seg("pkg","pkg","pkg");seg("lead","lead","lead");seg("roleStd","roleStd","role");seg("roleCust","roleCust","role");seg("status","status","status");
+  $("price").addEventListener("input",function(){S.price=+this.value;render();});
+  ["projY1","cac","L_baseC","L_baseS","L_boostC","L_boostS","L_resC","L_resS","L_coFactor","L_legacy","L_life","L_cCloser","L_cTL","L_cSetter","L_cUp","L_cRes","L_cCogs"].forEach(function(id){var e=$(id);if(e)e.addEventListener("input",render);});
+  render(); window.__comp={render:render,S:S};
+})();
+</script>
+</div></body></html>

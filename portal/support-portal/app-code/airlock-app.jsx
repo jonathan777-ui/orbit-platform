@@ -1,0 +1,1827 @@
+import { useState, useRef, useEffect } from "react";
+
+/* =========================================================================
+   ORBIT AI — "AIRLOCK"
+   Autonomous Digital Leak-Sealer · Enrollment + Strategist Guru Audit
+   For OrbitAIAutomation.com
+   ========================================================================= */
+
+const STYLES = `
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Familjen+Grotesk:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap');
+
+.air-root{
+  --space-900:#04060f; --space-800:#080b1a; --space-700:#0e1330;
+  --panel:rgba(255,255,255,0.028); --panel2:rgba(255,255,255,0.05);
+  --border:rgba(150,170,235,0.14); --border2:rgba(150,170,235,0.26);
+  --text:#eaeeff; --muted:#8b96c6; --faint:#5b648c;
+  --cyan:#3ce9ff; --violet:#9d6bff; --grad:linear-gradient(118deg,#3ce9ff 0%,#7aa8ff 48%,#9d6bff 100%);
+  font-family:'Familjen Grotesk',sans-serif; color:var(--text);
+  background:var(--space-900); position:relative; overflow-x:hidden; line-height:1.5;
+}
+.air-root *{box-sizing:border-box;}
+.air-canvas{position:fixed; inset:0; z-index:0; pointer-events:none;}
+.air-grain{position:fixed; inset:0; z-index:1; pointer-events:none; opacity:.04;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
+.air-glow{position:fixed; border-radius:50%; filter:blur(120px); z-index:0; pointer-events:none; opacity:.5;}
+.air-wrap{position:relative; z-index:2; max-width:1180px; margin:0 auto; padding:0 24px;}
+.mono{font-family:'Space Mono',monospace;}
+.disp{font-family:'Syne',sans-serif; letter-spacing:-.02em; line-height:1.02;}
+.gradtext{background:var(--grad); -webkit-background-clip:text; background-clip:text; color:transparent;}
+.eyebrow{font-family:'Space Mono',monospace; font-size:11px; letter-spacing:.32em; text-transform:uppercase; color:var(--cyan);}
+
+/* NAV */
+.air-nav{position:sticky; top:0; z-index:40; backdrop-filter:blur(14px);
+  background:rgba(4,6,15,.66); border-bottom:1px solid var(--border);}
+.air-nav-in{display:flex; align-items:center; justify-content:space-between; height:66px;}
+.logo{display:flex; align-items:center; gap:12px; font-family:'Syne',sans-serif; font-weight:800; letter-spacing:-.01em; font-size:18px;}
+.logo-mark{width:30px; height:30px; border-radius:9px; background:var(--grad); position:relative; box-shadow:0 0 22px rgba(60,233,255,.35);}
+.logo-mark::after{content:''; position:absolute; inset:6px; border-radius:50%; border:2px solid rgba(4,6,15,.85);}
+.logo-mark::before{content:''; position:absolute; inset:11px; border-radius:50%; background:#04060f;}
+.nav-links{display:flex; align-items:center; gap:26px;}
+.nav-link{color:var(--muted); font-size:14px; cursor:pointer; transition:color .2s; background:none; border:none;}
+.nav-link:hover{color:var(--text);}
+.lang{display:flex; border:1px solid var(--border); border-radius:8px; overflow:hidden;}
+.lang button{background:none; border:none; color:var(--muted); font-family:'Space Mono',monospace; font-size:12px; padding:6px 11px; cursor:pointer;}
+.lang button.on{background:var(--panel2); color:var(--text);}
+
+.btn{font-family:'Familjen Grotesk',sans-serif; font-weight:600; font-size:15px; border-radius:11px; cursor:pointer; border:none; transition:transform .15s, box-shadow .2s, opacity .2s; padding:13px 22px;}
+.btn-grad{background:var(--grad); color:#04060f; box-shadow:0 8px 30px rgba(80,180,255,.28);}
+.btn-grad:hover{transform:translateY(-2px); box-shadow:0 12px 38px rgba(120,150,255,.42);}
+.btn-ghost{background:var(--panel); color:var(--text); border:1px solid var(--border2);}
+.btn-ghost:hover{background:var(--panel2);}
+.btn:disabled{opacity:.45; cursor:not-allowed; transform:none;}
+
+/* HERO */
+.hero{padding:90px 0 64px; position:relative;}
+.hero-grid{display:grid; grid-template-columns:1.15fr .85fr; gap:48px; align-items:center;}
+.hero h1{font-size:64px; font-weight:800; margin:18px 0 0;}
+.hero p.sub{color:var(--muted); font-size:19px; max-width:540px; margin:22px 0 30px;}
+.hero-cta{display:flex; gap:14px; flex-wrap:wrap; align-items:center;}
+.pill{display:inline-flex; align-items:center; gap:9px; border:1px solid var(--border); background:var(--panel); border-radius:100px; padding:7px 15px; font-size:13px; color:var(--muted);}
+.dot{width:7px; height:7px; border-radius:50%; background:var(--cyan); box-shadow:0 0 10px var(--cyan); animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+.hero-trust{display:flex; gap:26px; margin-top:34px; flex-wrap:wrap;}
+.hero-trust div{display:flex; flex-direction:column;}
+.hero-trust .n{font-family:'Syne',sans-serif; font-weight:800; font-size:24px;}
+.hero-trust .l{font-size:12px; color:var(--faint); font-family:'Space Mono',monospace; text-transform:uppercase; letter-spacing:.1em;}
+
+/* SEAL VISUAL */
+.seal{position:relative; width:100%; aspect-ratio:1; max-width:380px; margin:0 auto;}
+.seal svg{width:100%; height:100%;}
+.ring-spin{transform-origin:center; animation:spin 26s linear infinite;}
+.ring-spin2{transform-origin:center; animation:spin 40s linear infinite reverse;}
+@keyframes spin{to{transform:rotate(360deg)}}
+.seal-label{position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); text-align:center;}
+.seal-label .pct{font-family:'Syne',sans-serif; font-weight:800; font-size:46px;}
+.seal-label .txt{font-family:'Space Mono',monospace; font-size:11px; letter-spacing:.22em; text-transform:uppercase; color:var(--cyan);}
+
+/* SECTIONS */
+.sec{padding:78px 0; position:relative;}
+.sec-head{max-width:680px; margin-bottom:44px;}
+.sec-head h2{font-size:42px; font-weight:800; margin:14px 0 12px;}
+.sec-head p{color:var(--muted); font-size:17px;}
+
+.leaks{display:grid; grid-template-columns:repeat(4,1fr); gap:16px;}
+.leak{border:1px solid var(--border); border-radius:16px; padding:24px; background:var(--panel); position:relative; overflow:hidden; transition:border-color .25s, transform .25s;}
+.leak:hover{border-color:var(--border2); transform:translateY(-4px);}
+.leak .num{font-family:'Space Mono',monospace; color:var(--faint); font-size:13px;}
+.leak h3{font-size:19px; font-weight:700; margin:14px 0 8px; font-family:'Syne',sans-serif;}
+.leak p{color:var(--muted); font-size:14px;}
+.leak .drip{position:absolute; right:18px; top:18px; width:9px; height:9px; border-radius:50% 50% 50% 0; background:#ff5d73; transform:rotate(45deg); box-shadow:0 0 14px rgba(255,93,115,.6);}
+
+.pillars{display:grid; grid-template-columns:repeat(3,1fr); gap:18px;}
+.pillar{border:1px solid var(--border); border-radius:18px; padding:30px; background:linear-gradient(180deg,var(--panel2),var(--panel)); position:relative;}
+.pillar-ic{width:48px; height:48px; border-radius:12px; background:var(--grad); display:flex; align-items:center; justify-content:center; margin-bottom:20px; font-size:22px;}
+.pillar h3{font-family:'Syne',sans-serif; font-size:22px; font-weight:700; margin-bottom:10px;}
+.pillar p{color:var(--muted); font-size:15px; margin-bottom:16px;}
+.pillar ul{list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:9px;}
+.pillar li{font-size:14px; color:var(--text); display:flex; gap:10px; align-items:flex-start;}
+.pillar li::before{content:'›'; color:var(--cyan); font-weight:700;}
+
+/* PIPELINE */
+.flow{display:flex; flex-direction:column; gap:0; border-left:1px solid var(--border); margin-left:14px; padding-left:0;}
+.flow-step{display:flex; gap:22px; padding:0 0 30px 30px; position:relative;}
+.flow-step::before{content:''; position:absolute; left:-7px; top:4px; width:13px; height:13px; border-radius:50%; background:var(--space-900); border:2px solid var(--cyan); box-shadow:0 0 12px var(--cyan);}
+.flow-step .step-n{font-family:'Space Mono',monospace; color:var(--cyan); font-size:13px; min-width:34px;}
+.flow-step h4{font-family:'Syne',sans-serif; font-size:18px; font-weight:700; margin-bottom:5px;}
+.flow-step p{color:var(--muted); font-size:14px;}
+
+/* AUDIT WIZARD */
+.audit-card{border:1px solid var(--border2); border-radius:22px; background:linear-gradient(180deg,rgba(14,19,48,.85),rgba(8,11,26,.92)); padding:0; overflow:hidden; box-shadow:0 40px 120px rgba(0,0,0,.5);}
+.audit-top{padding:22px 30px; border-bottom:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; background:var(--panel);}
+.audit-top .guru{display:flex; align-items:center; gap:12px;}
+.guru-orb{width:34px; height:34px; border-radius:50%; background:var(--grad); box-shadow:0 0 20px rgba(120,150,255,.5); position:relative;}
+.guru-orb::after{content:''; position:absolute; inset:5px; border-radius:50%; background:#070a18;}
+.guru-orb.think{animation:pulse 1.1s infinite;}
+.audit-body{padding:34px 30px;}
+.step-bar{display:flex; gap:6px; margin-bottom:26px;}
+.step-seg{height:4px; flex:1; border-radius:4px; background:var(--border);}
+.step-seg.on{background:var(--grad);}
+.q-label{font-family:'Syne',sans-serif; font-size:24px; font-weight:700; margin-bottom:8px;}
+.q-help{color:var(--muted); font-size:14px; margin-bottom:22px;}
+.field{margin-bottom:18px;}
+.field label{display:block; font-family:'Space Mono',monospace; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); margin-bottom:8px;}
+.input, .select{width:100%; background:var(--space-900); border:1px solid var(--border2); border-radius:11px; padding:14px 15px; color:var(--text); font-family:'Familjen Grotesk',sans-serif; font-size:15px; outline:none; transition:border-color .2s;}
+.input:focus,.select:focus{border-color:var(--cyan);}
+.input::placeholder{color:var(--faint);}
+.choice-row{display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:8px;}
+.choice{border:1px solid var(--border2); background:var(--space-900); border-radius:13px; padding:18px; cursor:pointer; transition:.2s; text-align:left;}
+.choice:hover{border-color:var(--cyan);}
+.choice.sel{border-color:var(--cyan); background:var(--panel2); box-shadow:0 0 0 1px var(--cyan) inset;}
+.choice .ch-t{font-family:'Syne',sans-serif; font-weight:700; font-size:16px; margin-bottom:4px;}
+.choice .ch-s{font-size:13px; color:var(--muted);}
+.wiz-nav{display:flex; justify-content:space-between; margin-top:26px; gap:12px;}
+
+/* RUNNING */
+.run-lines{display:flex; flex-direction:column; gap:14px; padding:14px 0;}
+.run-line{display:flex; align-items:center; gap:14px; font-size:15px; color:var(--faint); transition:color .3s;}
+.run-line.active{color:var(--text);}
+.run-line.done{color:var(--cyan);}
+.run-spin{width:16px; height:16px; border-radius:50%; border:2px solid var(--border); border-top-color:var(--cyan); animation:spin .7s linear infinite;}
+.run-check{width:16px; height:16px; color:var(--cyan);}
+
+/* RESULT */
+.res-grid{display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:8px;}
+.res-card{border:1px solid var(--border); border-radius:15px; padding:22px; background:var(--panel);}
+.res-card.full{grid-column:1/-1;}
+.res-card .rc-h{font-family:'Space Mono',monospace; font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:var(--cyan); margin-bottom:14px; display:flex; align-items:center; gap:8px;}
+.kv{display:flex; justify-content:space-between; gap:14px; padding:8px 0; border-bottom:1px solid var(--border); font-size:14px;}
+.kv:last-child{border-bottom:none;}
+.kv .k{color:var(--muted);}
+.kv .v{text-align:right; font-weight:500;}
+.score{display:flex; align-items:center; gap:14px; margin-bottom:6px;}
+.score-bar{flex:1; height:8px; border-radius:8px; background:var(--space-900); overflow:hidden;}
+.score-fill{height:100%; border-radius:8px; background:var(--grad);}
+.score-n{font-family:'Syne',sans-serif; font-weight:800; font-size:18px; min-width:46px; text-align:right;}
+.badge{display:inline-block; font-family:'Space Mono',monospace; font-size:11px; padding:3px 10px; border-radius:7px; letter-spacing:.08em;}
+.badge.rebuild{background:rgba(255,93,115,.16); color:#ff9aaa; border:1px solid rgba(255,93,115,.3);}
+.badge.keep{background:rgba(60,233,255,.13); color:var(--cyan); border:1px solid rgba(60,233,255,.3);}
+.badge.none{background:rgba(157,107,255,.16); color:#c3a6ff; border:1px solid rgba(157,107,255,.3);}
+.guru-verdict{border:1px solid var(--border2); border-radius:16px; padding:24px; background:linear-gradient(135deg,rgba(60,233,255,.07),rgba(157,107,255,.07)); margin-top:4px;}
+.guru-verdict .lead{font-family:'Syne',sans-serif; font-size:26px; font-weight:800; margin:6px 0 12px;}
+.guru-verdict p{color:var(--muted); font-size:15px;}
+.seq{display:flex; gap:10px; flex-wrap:wrap; margin-top:18px;}
+.seq-item{display:flex; align-items:center; gap:10px; font-size:13px; color:var(--muted);}
+.seq-chip{font-family:'Space Mono',monospace; background:var(--panel2); border:1px solid var(--border); border-radius:8px; padding:6px 12px; color:var(--text); font-size:13px;}
+.seq-arrow{color:var(--faint);}
+.find-li{display:flex; gap:10px; font-size:14px; color:var(--text); padding:6px 0;}
+.find-li .fd{color:var(--cyan); font-weight:700;}
+
+/* ENROLL */
+.enroll-card{border:1px solid var(--border2); border-radius:22px; padding:36px; background:linear-gradient(180deg,var(--panel2),var(--panel));}
+.enroll-grid{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
+.confirm{text-align:center; padding:30px;}
+.confirm .ico{width:64px; height:64px; border-radius:50%; background:var(--grad); margin:0 auto 18px; display:flex; align-items:center; justify-content:center; font-size:30px; color:#04060f;}
+
+/* FOOTER */
+.air-foot{border-top:1px solid var(--border); padding:40px 0; margin-top:40px;}
+.foot-in{display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;}
+.foot-in .muted{color:var(--faint); font-size:13px;}
+
+.fade-up{animation:fadeUp .7s cubic-bezier(.2,.7,.2,1) both;}
+@keyframes fadeUp{from{opacity:0; transform:translateY(22px)}to{opacity:1; transform:none}}
+
+@media(max-width:920px){
+  .hero-grid{grid-template-columns:1fr;} .hero h1{font-size:46px;}
+  .leaks{grid-template-columns:1fr 1fr;} .pillars{grid-template-columns:1fr;}
+  .res-grid{grid-template-columns:1fr;} .enroll-grid{grid-template-columns:1fr;}
+  .nav-links .nav-link{display:none;} .sec-head h2{font-size:32px;} .choice-row{grid-template-columns:1fr;}
+}
+
+/* === REVEAL BUTTONS === */
+.reveal-row{display:flex; gap:12px; flex-wrap:wrap; margin-top:20px;}
+.reveal-btn{flex:1; min-width:220px; display:flex; align-items:center; gap:14px; text-align:left; padding:18px 20px; border-radius:15px; border:1px solid var(--border2); background:linear-gradient(120deg,rgba(60,233,255,.1),rgba(157,107,255,.1)); cursor:pointer; transition:.2s; color:var(--text);}
+.reveal-btn:hover{transform:translateY(-3px); border-color:var(--cyan); box-shadow:0 14px 40px rgba(80,160,255,.25);}
+.reveal-btn .rb-ic{width:44px; height:44px; border-radius:12px; background:var(--grad); display:flex; align-items:center; justify-content:center; font-size:22px; flex-shrink:0;}
+.reveal-btn .rb-t{font-family:'Syne',sans-serif; font-weight:700; font-size:16px;}
+.reveal-btn .rb-s{font-size:12px; color:var(--muted);}
+
+/* === MODAL === */
+.air-modal{position:fixed; inset:0; z-index:100; background:rgba(2,4,12,.8); backdrop-filter:blur(8px); display:flex; align-items:center; justify-content:center; padding:18px; animation:fadeUp .28s both;}
+.air-modal-card{width:100%; max-width:960px; max-height:92vh; display:flex; flex-direction:column; border-radius:18px; overflow:hidden; border:1px solid var(--border2); background:var(--space-800); box-shadow:0 50px 140px rgba(0,0,0,.65);}
+.modal-head{display:flex; align-items:center; justify-content:space-between; padding:14px 18px; border-bottom:1px solid var(--border); background:var(--panel);}
+.modal-head .mt{font-family:'Syne',sans-serif; font-weight:700; display:flex; align-items:center; gap:10px;}
+.modal-x{background:var(--panel2); border:1px solid var(--border); color:var(--text); width:34px; height:34px; border-radius:9px; cursor:pointer; font-size:15px;}
+.modal-x:hover{border-color:var(--border2);}
+.modal-body{overflow:auto; -webkit-overflow-scrolling:touch;}
+.modal-foot{padding:14px 18px; border-top:1px solid var(--border); display:flex; gap:12px; justify-content:space-between; align-items:center; flex-wrap:wrap; background:var(--panel);}
+.modal-foot .mf-note{font-size:12px; color:var(--muted);}
+
+/* === BROWSER CHROME + PREVIEW SITE === */
+.browser-bar{display:flex; align-items:center; gap:12px; padding:10px 16px; background:#0c1124; border-bottom:1px solid var(--border);}
+.tl{display:flex; gap:7px;} .tl span{width:11px; height:11px; border-radius:50%;}
+.urlbar{flex:1; background:#060a17; border:1px solid var(--border); border-radius:8px; padding:7px 13px; font-family:'Space Mono',monospace; font-size:12px; color:var(--muted); display:flex; align-items:center; gap:8px;}
+
+.psite{--ps:#2f9e57; --psd:#1e7a42; background:#fff; color:#141821; font-family:'Familjen Grotesk',sans-serif; position:relative;}
+.psite-nav{position:sticky; top:0; z-index:5; display:flex; align-items:center; justify-content:space-between; padding:16px 30px; background:rgba(255,255,255,.92); backdrop-filter:blur(8px); border-bottom:1px solid #eef1f6;}
+.psite-logo{font-family:'Syne',sans-serif; font-weight:800; font-size:20px; color:#141821; display:flex; align-items:center; gap:9px;}
+.psite-logo .pl-dot{width:24px; height:24px; border-radius:7px; background:var(--ps);}
+.psite-nav .pn-links{display:flex; gap:22px; align-items:center;}
+.psite-nav .pn-links a{color:#444b5c; font-size:14px; text-decoration:none;}
+.psite-call{background:var(--ps); color:#fff; border:none; border-radius:9px; padding:9px 16px; font-weight:600; font-size:14px; cursor:pointer; font-family:inherit;}
+.psite-hero{padding:64px 30px 56px; background:linear-gradient(135deg,#f6fbf8,#eef6f1); position:relative; overflow:hidden;}
+.psite-hero::after{content:''; position:absolute; right:-80px; top:-80px; width:320px; height:320px; border-radius:50%; background:var(--ps); opacity:.1;}
+.psite-hero .ph-tag{display:inline-block; font-size:12px; font-weight:600; color:var(--psd); background:#fff; border:1px solid #dce8e1; border-radius:100px; padding:5px 13px; margin-bottom:18px;}
+.psite-hero h1{font-family:'Syne',sans-serif; font-weight:800; font-size:42px; line-height:1.06; max-width:620px; margin:0 0 16px; color:#10141d;}
+.psite-hero p{font-size:17px; color:#48505f; max-width:520px; margin:0 0 26px;}
+.psite-hero .ph-cta{display:flex; gap:12px; flex-wrap:wrap;}
+.psite-btn{border:none; border-radius:10px; padding:13px 22px; font-weight:600; font-size:15px; cursor:pointer; font-family:inherit;}
+.psite-btn.solid{background:var(--ps); color:#fff;} .psite-btn.out{background:#fff; color:#141821; border:1px solid #d6dde7;}
+.psite-sec{padding:48px 30px;}
+.psite-sec h2{font-family:'Syne',sans-serif; font-weight:800; font-size:28px; text-align:center; color:#10141d; margin:0 0 8px;}
+.psite-sec .pss-sub{text-align:center; color:#6b7382; margin:0 auto 32px; max-width:480px; font-size:15px;}
+.psite-services{display:grid; grid-template-columns:repeat(2,1fr); gap:16px; max-width:780px; margin:0 auto;}
+.psvc{border:1px solid #eaeef4; border-radius:14px; padding:22px; background:#fff; transition:.2s;}
+.psvc:hover{box-shadow:0 12px 30px rgba(20,30,50,.08); transform:translateY(-3px);}
+.psvc .psvc-ic{width:40px; height:40px; border-radius:10px; background:#eef6f1; color:var(--psd); display:flex; align-items:center; justify-content:center; font-size:18px; margin-bottom:12px;}
+.psvc h3{font-family:'Syne',sans-serif; font-weight:700; font-size:17px; margin:0 0 6px; color:#141821;}
+.psvc p{font-size:14px; color:#5b6373; margin:0;}
+.psite-about{background:#f7f9fc; text-align:center;}
+.psite-about p{max-width:620px; margin:0 auto; font-size:16px; color:#48505f; line-height:1.6;}
+.psite-cta-band{background:var(--ps); color:#fff; text-align:center; padding:46px 30px;}
+.psite-cta-band h2{font-family:'Syne',sans-serif; font-weight:800; font-size:28px; margin:0 0 10px; color:#fff;}
+.psite-cta-band p{opacity:.92; margin:0 0 22px;}
+.psite-cta-band .psite-btn{background:#fff; color:var(--psd);}
+.psite-foot{padding:24px 30px; text-align:center; color:#8b93a3; font-size:13px; border-top:1px solid #eef1f6; background:#fff;}
+.psite-foot .pf-orbit{color:var(--ps); font-weight:600;}
+.psite-nav .pn-links a.on{color:var(--ps); font-weight:600;}
+.psite-page{animation:fadeUp .35s both;}
+.psite-stats{display:flex; gap:34px; justify-content:center; margin-top:26px; flex-wrap:wrap;}
+.pstat{text-align:center;} .pstat-n{font-family:'Syne',sans-serif; font-weight:800; font-size:30px; color:var(--ps);} .pstat-l{font-size:13px; color:#6b7382;}
+.psite-tiers{display:grid; grid-template-columns:repeat(3,1fr); gap:16px; max-width:820px; margin:0 auto;}
+.ptier{border:1px solid #e7ebf2; border-radius:16px; padding:26px 22px; background:#fff; display:flex; flex-direction:column;}
+.ptier.hi{border-color:var(--ps); box-shadow:0 16px 40px rgba(20,30,50,.1); transform:translateY(-6px);}
+.ptier-name{font-family:'Syne',sans-serif; font-weight:700; font-size:15px; color:#6b7382; text-transform:uppercase; letter-spacing:.06em;}
+.ptier-price{font-family:'Syne',sans-serif; font-weight:800; font-size:34px; color:#10141d; margin:8px 0 14px;}
+.ptier-price span{font-size:14px; font-weight:500; color:#8b93a3;}
+.ptier ul{list-style:none; padding:0; margin:0 0 18px; display:flex; flex-direction:column; gap:9px; flex:1;}
+.ptier li{font-size:14px; color:#48505f; display:flex; gap:9px;} .ptier li::before{content:'✓'; color:var(--ps); font-weight:700;}
+.psite-reviews{display:grid; grid-template-columns:repeat(3,1fr); gap:16px; max-width:880px; margin:0 auto; text-align:left;}
+.prev{background:#fff; border:1px solid #eaeef4; border-radius:14px; padding:22px;}
+.prev p{font-size:15px; color:#2c3340; margin:0 0 12px; line-height:1.5;}
+.prev-by{font-size:13px; color:var(--ps); font-weight:600;}
+.psite-contact{text-align:center;}
+.pcontact{max-width:420px; margin:8px auto 0; display:flex; flex-direction:column; gap:12px; align-items:center;}
+.pcrow{font-size:16px; color:#2c3340;}
+@media(max-width:920px){ .psite-tiers,.psite-reviews{grid-template-columns:1fr;} .psite-stats{gap:20px;} }
+.psite-bubble{position:sticky; bottom:18px; margin:0 18px 18px auto; width:fit-content; display:flex; align-items:center; gap:10px; background:#141821; color:#fff; border:none; border-radius:100px; padding:12px 18px; font-size:14px; font-weight:600; cursor:pointer; box-shadow:0 12px 34px rgba(20,30,50,.28); z-index:6;}
+.psite-bubble .pb-dot{width:9px; height:9px; border-radius:50%; background:#3cff9d; box-shadow:0 0 10px #3cff9d;}
+.site-loading{display:flex; flex-direction:column; align-items:center; justify-content:center; gap:16px; padding:70px 20px; color:var(--muted);}
+
+/* === AGENT CHAT === */
+.chat-wrap{display:flex; flex-direction:column; height:560px; max-height:78vh;}
+.chat-head{display:flex; align-items:center; gap:12px; padding:14px 18px; border-bottom:1px solid var(--border); background:var(--panel);}
+.chat-head .ch-av{width:40px; height:40px; border-radius:50%; background:var(--grad); position:relative;}
+.chat-head .ch-av::after{content:''; position:absolute; inset:5px; border-radius:50%; background:#070a18;}
+.chat-head .ch-name{font-family:'Syne',sans-serif; font-weight:700; font-size:15px;}
+.chat-head .ch-on{font-size:11px; color:#3cff9d; font-family:'Space Mono',monospace; display:flex; align-items:center; gap:6px;}
+.chat-head .ch-on::before{content:''; width:7px; height:7px; border-radius:50%; background:#3cff9d; box-shadow:0 0 8px #3cff9d;}
+.chat-msgs{flex:1; overflow:auto; padding:18px; display:flex; flex-direction:column; gap:10px; background:var(--space-900);}
+.msg{max-width:80%; padding:11px 14px; border-radius:15px; font-size:14px; line-height:1.45; animation:fadeUp .3s both;}
+.msg.bot{background:var(--panel2); border:1px solid var(--border); align-self:flex-start; border-bottom-left-radius:5px;}
+.msg.user{background:var(--grad); color:#04060f; align-self:flex-end; border-bottom-right-radius:5px; font-weight:500;}
+.typing{display:flex; gap:5px; padding:13px 15px; background:var(--panel2); border:1px solid var(--border); border-radius:15px; border-bottom-left-radius:5px; align-self:flex-start;}
+.typing span{width:7px; height:7px; border-radius:50%; background:var(--muted); animation:blink 1.3s infinite;}
+.typing span:nth-child(2){animation-delay:.2s;} .typing span:nth-child(3){animation-delay:.4s;}
+@keyframes blink{0%,60%,100%{opacity:.3} 30%{opacity:1}}
+.chat-chips{display:flex; gap:8px; flex-wrap:wrap; padding:12px 18px 4px; background:var(--space-900);}
+.chat-chip{font-size:12px; background:var(--panel); border:1px solid var(--border); border-radius:100px; padding:7px 13px; cursor:pointer; color:var(--muted); transition:.2s;}
+.chat-chip:hover{border-color:var(--cyan); color:var(--text);}
+.chat-input{display:flex; gap:10px; padding:14px 18px; border-top:1px solid var(--border); background:var(--panel);}
+.chat-input input{flex:1; background:var(--space-900); border:1px solid var(--border2); border-radius:11px; padding:12px 15px; color:var(--text); font-family:inherit; font-size:14px; outline:none;}
+.chat-input input:focus{border-color:var(--cyan);}
+.chat-send{background:var(--grad); color:#04060f; border:none; border-radius:11px; padding:0 20px; font-weight:600; cursor:pointer; font-family:inherit;}
+.chat-send:disabled{opacity:.5; cursor:not-allowed;}
+
+/* === VOICE MODE === */
+.vmode{display:flex; border:1px solid var(--border); border-radius:9px; overflow:hidden;}
+.vmode button{background:none; border:none; color:var(--muted); font-family:'Familjen Grotesk',sans-serif; font-size:12px; padding:6px 11px; cursor:pointer;}
+.vmode button.on{background:var(--panel2); color:var(--text);}
+.voice-view{flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:18px; padding:30px 24px; background:var(--space-900); text-align:center;}
+.voice-orb{width:128px; height:128px; border-radius:50%; border:none; cursor:pointer; background:var(--grad); position:relative; display:flex; align-items:center; justify-content:center; box-shadow:0 0 50px rgba(120,150,255,.4); transition:transform .2s;}
+.voice-orb:hover{transform:scale(1.04);}
+.voice-orb .vo-icon{font-size:46px; filter:drop-shadow(0 2px 6px rgba(0,0,0,.3));}
+.voice-orb.listening{animation:vpulse 1.1s infinite;}
+.voice-orb.listening::after,.voice-orb.speaking::after{content:''; position:absolute; inset:-12px; border-radius:50%; border:2px solid var(--cyan); animation:vring 1.3s infinite;}
+.voice-orb.speaking{background:linear-gradient(120deg,#3cff9d,#3ce9ff);}
+@keyframes vpulse{0%,100%{box-shadow:0 0 50px rgba(60,233,255,.45)}50%{box-shadow:0 0 80px rgba(60,233,255,.8)}}
+@keyframes vring{0%{transform:scale(.9); opacity:.8}100%{transform:scale(1.35); opacity:0}}
+.voice-status{font-family:'Space Mono',monospace; font-size:13px; letter-spacing:.14em; text-transform:uppercase; color:var(--cyan);}
+.voice-cap{max-width:380px; font-size:15px; line-height:1.5;}
+.voice-cap.you{color:var(--muted); font-style:italic;}
+.voice-cap.bot{color:var(--text); background:var(--panel2); border:1px solid var(--border); border-radius:14px; padding:12px 16px;}
+.voice-replay{background:var(--panel); border:1px solid var(--border); color:var(--muted); border-radius:100px; padding:7px 15px; font-size:12px; cursor:pointer;}
+.voice-unsup{color:var(--muted); font-size:14px; max-width:340px;}
+
+@media(max-width:920px){
+  .psite-services{grid-template-columns:1fr;} .psite-hero h1{font-size:32px;} .psite-nav .pn-links a{display:none;}
+  .reveal-btn{min-width:100%;}
+}
+`;
+
+/* ----------------------------- i18n ----------------------------- */
+const T = {
+  en: {
+    nav: ["The Leaks", "The System", "How It Works", "Run Audit"],
+    cta_audit: "Run Free Audit",
+    hero_eyebrow: "Autonomous Digital Leak-Sealer",
+    hero_h1a: "Your front door is ",
+    hero_h1b: "leaking revenue.",
+    hero_h1c: " Airlock seals it.",
+    hero_sub: "Every missed call, dead website, and ignored lead is money walking out the door. Airlock seals the front door with a bilingual AI receptionist, a built-for-you website + chatbot, and SEO — running on autopilot.",
+    hero_pill: "EN / ES bilingual · scheduling · CRM-synced",
+    start_audit: "Start the Audit",
+    see_system: "See how it works",
+    trust: [["24/7", "Calls answered"], ["EN·ES", "Bilingual by default"], ["0", "Leads dropped"]],
+    seal_seal: "Sealed",
+    leaks_eyebrow: "Where revenue is leaking",
+    leaks_h2: "The front door is wide open.",
+    leaks_p: "Four leaks drain the average local business every single day. Each one is a customer choosing the next name on Google.",
+    leaks: [
+      ["01", "Missed calls", "When no one picks up, that lead calls the next contractor on Google."],
+      ["02", "Invisible online", "A weak SEO footprint means you don't show up when people search locally."],
+      ["03", "Leads falling through", "No system to capture or follow up means interested people go quiet."],
+      ["04", "Ad spend wasted", "Paying for clicks without the infrastructure to convert them properly."],
+    ],
+    sys_eyebrow: "The Airlock system",
+    sys_h2: "Three seals. One sealed front door.",
+    sys_p: "Airlock layers three pieces of infrastructure so no lead can slip out — generated, deployed, and managed for you.",
+    pillars: [
+      ["🎧", "Bilingual AI Receptionist", "Answers every call 24/7 in English or Spanish, qualifies the caller, and books the estimate straight to your calendar.", ["Natural EN/ES voice, scales to more languages", "Real-time scheduling into your calendar", "Two-way CRM sync — every call logged", "Warm transfer + overflow to your team"]],
+      ["🌐", "Website + Chatbot", "A fast, professional site built and hosted for you, with a chatbot capturing leads around the clock.", ["Built & hosted on Orbit Cloud", "Lead-capture chatbot, day and night", "Conversion-first, mobile-fast design", "Only rebuilt if it beats what you have"]],
+      ["📈", "SEO Foundation", "Show up when people near you search. Organic traffic, no ad spend required to be found.", ["Local search visibility", "Industry + vertical keyword targeting", "Built on your new business profile", "Sets the stage for paid ads later"]],
+    ],
+    flow_eyebrow: "How it works",
+    flow_h2: "From URL to sealed front door — autonomously.",
+    flow_p: "The moment a business enters the cycle, Airlock builds them a living profile and decides what to deploy first.",
+    flow: [
+      ["01", "Capture the front door", "Enter a website URL, a Google Business Profile, or just the industry. Whatever you have, Airlock starts there."],
+      ["02", "Build the business profile", "We pull public data into a living business profile — industry, vertical, niche, location, and contactability."],
+      ["03", "Load the knowledge base", "Industry → vertical → niche knowledge is injected, plus state-specific regulations and local trends."],
+      ["04", "Audit the digital storefront", "We score the site and SEO. If it's inferior to what we'd build, we rebuild. If it's strong, we check for a chatbot instead."],
+      ["05", "Strategist Guru decides the lead", "An AI strategist weighs the findings and chooses what to deploy first — receptionist, website, or chatbot."],
+      ["06", "Spin up & seal", "The chosen pieces are generated and deployed on Orbit Cloud, synced to your CRM. The front door is sealed."],
+    ],
+    audit_eyebrow: "Strategist Guru",
+    audit_h2: "Run a live leak audit.",
+    audit_p: "Enter a business below. The Strategist Guru researches it, builds a profile, audits the storefront, and recommends what to seal first.",
+    guru_name: "Strategist Guru",
+    guru_status_idle: "Ready to audit",
+    guru_status_run: "Analyzing…",
+    guru_status_done: "Audit complete",
+    q_intro: "Who are we sealing?",
+    q_intro_help: "Start with the business name and where they operate.",
+    f_bizname: "Business name",
+    f_state: "State of operation",
+    q_haveweb: "Do they have a website?",
+    ch_yes_web: ["Yes — I have a URL", "We'll audit the existing site"],
+    ch_no_web: ["No website", "We'll check for a Google profile"],
+    q_url: "What's the website URL?",
+    q_url_help: "We'll scan it and score the digital storefront.",
+    f_url: "Website URL",
+    q_gbp: "Do they have a Google Business Profile?",
+    ch_yes_gbp: ["Yes — Google listing", "We'll build from the public listing"],
+    ch_no_gbp: ["No Google profile", "We'll build from industry details"],
+    f_gbp: "Business name on Google (or maps link)",
+    q_industry: "Tell us about the business.",
+    q_industry_help: "With no website or listing, we build the profile from the ground up.",
+    f_industry: "Industry",
+    f_age: "Age of business",
+    f_city: "City (optional)",
+    age_opts: ["Brand new (< 1 yr)", "Established (1–5 yrs)", "Veteran (5+ yrs)"],
+    back: "Back",
+    run: "Run the Audit",
+    running: "Sealing simulation running",
+    res_profile: "Business Profile",
+    res_storefront: "Digital Storefront Audit",
+    res_market: "Market Context",
+    res_verdict: "Strategist Guru — Lead With",
+    res_findings: "Audit Findings",
+    res_package: "Recommended Airlock Package",
+    lead_with: "Lead with",
+    build_order: "Build order",
+    enroll_this: "Enroll this business →",
+    run_another: "Run another audit",
+    enroll_eyebrow: "Enrollment",
+    enroll_h2: "Seal the door. Enroll the client.",
+    enroll_p: "Capture the contact and hand off straight into your pipeline. This summary is ready to drop into your CRM.",
+    f_contact: "Contact name",
+    f_email: "Email",
+    f_phone: "Phone",
+    f_company: "Company",
+    f_notes: "Notes for the build team",
+    submit_enroll: "Create enrollment summary",
+    copy: "Copy summary to clipboard",
+    copied: "Copied ✓",
+    enrolled_t: "Enrollment ready",
+    enrolled_p: "Summary generated below — copy it into Attio / your CRM, or hand it to the build team to spin up the stack.",
+    foot_tag: "Autonomous infrastructure that seals the front door.",
+    err: "Couldn't reach the live audit engine — showing a rules-based recommendation from your inputs instead.",
+    field_req: "Enter a business name and state to continue.",
+    miss_high: "High", miss_med: "Medium", miss_low: "Low",
+    reveal_site: "Reveal your new website", reveal_site_sub: "See the site we'd build you",
+    test_agent: "Test your AI receptionist", test_agent_sub: "Have a real conversation",
+    site_title: "Your new website — live preview", agent_title: "Your AI receptionist — live test",
+    agent_online: "Bilingual EN/ES · Online", agent_ph: "Type a message…", building: "Building your website…",
+    ps_nav: ["Services", "About", "Contact"], ps_call: "Call Now", ps_book: "Book Free Estimate",
+    ps_servicesH: "What We Do", ps_servicesSub: "Everything we do, done right.",
+    ps_aboutH: "About Us", ps_ctaH: "Ready to get started?", ps_ctaP: "Get your free estimate today — we respond fast.",
+    ps_chat: "Chat with us", ps_built: "Preview generated by Orbit AI · Airlock",
+    chips: ["Book an estimate", "What are your hours?", "Do you speak Spanish?"],
+    site_note: "Generated by Airlock from the business profile. Live sites are built & hosted on Orbit Cloud.",
+    agent_note: "This receptionist answers calls, books jobs, and syncs to your CRM — 24/7, in English & Spanish.",
+    love_it: "Love it? Enroll this business →",
+    mode_chat: "Chat", mode_voice: "Voice",
+    voice_tap: "Tap to speak", voice_listening: "Listening…", voice_speaking: "Speaking…", voice_thinking: "Thinking…",
+    voice_you: "You", voice_replay: "Replay",
+    voice_unsupported: "Voice needs Chrome, Edge, or Safari with mic access. Switch to Chat, or open this on a supported browser.",
+  },
+  es: {
+    nav: ["Las Fugas", "El Sistema", "Cómo Funciona", "Hacer Auditoría"],
+    cta_audit: "Auditoría Gratis",
+    hero_eyebrow: "Sellador Digital Autónomo de Fugas",
+    hero_h1a: "Tu puerta principal está ",
+    hero_h1b: "dejando escapar ingresos.",
+    hero_h1c: " Airlock la sella.",
+    hero_sub: "Cada llamada perdida, sitio web muerto y prospecto ignorado es dinero que se va. Airlock sella la puerta con un recepcionista de IA bilingüe, un sitio web + chatbot hecho para ti, y SEO — en piloto automático.",
+    hero_pill: "Bilingüe EN / ES · agenda · sincronizado con CRM",
+    start_audit: "Iniciar Auditoría",
+    see_system: "Ver cómo funciona",
+    trust: [["24/7", "Llamadas atendidas"], ["EN·ES", "Bilingüe por defecto"], ["0", "Prospectos perdidos"]],
+    seal_seal: "Sellado",
+    leaks_eyebrow: "Por dónde se fugan los ingresos",
+    leaks_h2: "La puerta está abierta de par en par.",
+    leaks_p: "Cuatro fugas drenan al negocio local promedio cada día. Cada una es un cliente eligiendo el siguiente nombre en Google.",
+    leaks: [
+      ["01", "Llamadas perdidas", "Cuando nadie contesta, ese cliente llama al siguiente contratista en Google."],
+      ["02", "Invisible en línea", "Un SEO débil significa que no apareces cuando la gente busca cerca."],
+      ["03", "Prospectos perdidos", "Sin sistema para capturar o dar seguimiento, los interesados desaparecen."],
+      ["04", "Publicidad malgastada", "Pagar por clics sin la infraestructura para convertirlos correctamente."],
+    ],
+    sys_eyebrow: "El sistema Airlock",
+    sys_h2: "Tres sellos. Una puerta sellada.",
+    sys_p: "Airlock combina tres piezas de infraestructura para que ningún prospecto se escape — generadas, desplegadas y gestionadas por ti.",
+    pillars: [
+      ["🎧", "Recepcionista de IA Bilingüe", "Contesta cada llamada 24/7 en inglés o español, califica al cliente y agenda la cita directo en tu calendario.", ["Voz natural EN/ES, escalable a más idiomas", "Agenda en tiempo real en tu calendario", "Sincronización con CRM — todo registrado", "Transferencia y desborde a tu equipo"]],
+      ["🌐", "Sitio Web + Chatbot", "Un sitio rápido y profesional construido y alojado para ti, con un chatbot que captura prospectos las 24 horas.", ["Construido y alojado en Orbit Cloud", "Chatbot de captura, día y noche", "Diseño veloz, orientado a conversión", "Solo lo reconstruimos si supera al actual"]],
+      ["📈", "Base de SEO", "Aparece cuando la gente cerca busca. Tráfico orgánico, sin gastar en anuncios para que te encuentren.", ["Visibilidad en búsqueda local", "Palabras clave por industria y vertical", "Basado en tu nuevo perfil de negocio", "Prepara el terreno para anuncios pagados"]],
+    ],
+    flow_eyebrow: "Cómo funciona",
+    flow_h2: "De una URL a una puerta sellada — autónomamente.",
+    flow_p: "En cuanto un negocio entra al ciclo, Airlock le construye un perfil vivo y decide qué desplegar primero.",
+    flow: [
+      ["01", "Capturar la puerta", "Ingresa una URL, un Perfil de Google, o solo la industria. Con lo que tengas, Airlock empieza ahí."],
+      ["02", "Construir el perfil", "Reunimos datos públicos en un perfil vivo — industria, vertical, nicho, ubicación y contactabilidad."],
+      ["03", "Cargar la base de conocimiento", "Inyectamos conocimiento industria → vertical → nicho, más regulaciones del estado y tendencias locales."],
+      ["04", "Auditar la tienda digital", "Calificamos el sitio y el SEO. Si es inferior a lo que haríamos, reconstruimos. Si es fuerte, revisamos si hay chatbot."],
+      ["05", "El Estratega decide el liderazgo", "Un estratega de IA pondera los hallazgos y elige qué desplegar primero — recepcionista, sitio o chatbot."],
+      ["06", "Desplegar y sellar", "Las piezas elegidas se generan y despliegan en Orbit Cloud, sincronizadas con tu CRM. La puerta queda sellada."],
+    ],
+    audit_eyebrow: "Estratega Guru",
+    audit_h2: "Haz una auditoría de fugas en vivo.",
+    audit_p: "Ingresa un negocio abajo. El Estratega Guru lo investiga, construye un perfil, audita la tienda digital y recomienda qué sellar primero.",
+    guru_name: "Estratega Guru",
+    guru_status_idle: "Listo para auditar",
+    guru_status_run: "Analizando…",
+    guru_status_done: "Auditoría completa",
+    q_intro: "¿A quién sellamos?",
+    q_intro_help: "Empieza con el nombre del negocio y dónde opera.",
+    f_bizname: "Nombre del negocio",
+    f_state: "Estado de operación",
+    q_haveweb: "¿Tienen sitio web?",
+    ch_yes_web: ["Sí — tengo una URL", "Auditaremos el sitio existente"],
+    ch_no_web: ["Sin sitio web", "Revisaremos el perfil de Google"],
+    q_url: "¿Cuál es la URL del sitio?",
+    q_url_help: "Lo escanearemos y calificaremos la tienda digital.",
+    f_url: "URL del sitio web",
+    q_gbp: "¿Tienen Perfil de Negocio de Google?",
+    ch_yes_gbp: ["Sí — ficha de Google", "Construiremos desde la ficha pública"],
+    ch_no_gbp: ["Sin perfil de Google", "Construiremos desde los datos de industria"],
+    f_gbp: "Nombre en Google (o enlace de maps)",
+    q_industry: "Cuéntanos del negocio.",
+    q_industry_help: "Sin sitio ni ficha, construimos el perfil desde cero.",
+    f_industry: "Industria",
+    f_age: "Antigüedad del negocio",
+    f_city: "Ciudad (opcional)",
+    age_opts: ["Nuevo (< 1 año)", "Establecido (1–5 años)", "Veterano (5+ años)"],
+    back: "Atrás",
+    run: "Ejecutar Auditoría",
+    running: "Simulación de sellado en curso",
+    res_profile: "Perfil del Negocio",
+    res_storefront: "Auditoría de Tienda Digital",
+    res_market: "Contexto de Mercado",
+    res_verdict: "Estratega Guru — Liderar Con",
+    res_findings: "Hallazgos de Auditoría",
+    res_package: "Paquete Airlock Recomendado",
+    lead_with: "Liderar con",
+    build_order: "Orden de construcción",
+    enroll_this: "Inscribir este negocio →",
+    run_another: "Hacer otra auditoría",
+    enroll_eyebrow: "Inscripción",
+    enroll_h2: "Sella la puerta. Inscribe al cliente.",
+    enroll_p: "Captura el contacto y entrégalo directo a tu pipeline. Este resumen está listo para tu CRM.",
+    f_contact: "Nombre de contacto",
+    f_email: "Correo",
+    f_phone: "Teléfono",
+    f_company: "Empresa",
+    f_notes: "Notas para el equipo de construcción",
+    submit_enroll: "Crear resumen de inscripción",
+    copy: "Copiar resumen al portapapeles",
+    copied: "Copiado ✓",
+    enrolled_t: "Inscripción lista",
+    enrolled_p: "Resumen generado abajo — cópialo a Attio / tu CRM, o entrégalo al equipo para montar el stack.",
+    foot_tag: "Infraestructura autónoma que sella la puerta principal.",
+    err: "No se pudo contactar el motor de auditoría en vivo — mostrando una recomendación basada en reglas a partir de tus datos.",
+    field_req: "Ingresa un nombre de negocio y estado para continuar.",
+    miss_high: "Alta", miss_med: "Media", miss_low: "Baja",
+    reveal_site: "Revela tu nuevo sitio web", reveal_site_sub: "Mira el sitio que te haríamos",
+    test_agent: "Prueba tu recepcionista de IA", test_agent_sub: "Ten una conversación real",
+    site_title: "Tu nuevo sitio web — vista previa", agent_title: "Tu recepcionista de IA — prueba en vivo",
+    agent_online: "Bilingüe EN/ES · En línea", agent_ph: "Escribe un mensaje…", building: "Construyendo tu sitio web…",
+    ps_nav: ["Servicios", "Nosotros", "Contacto"], ps_call: "Llamar Ahora", ps_book: "Estimado Gratis",
+    ps_servicesH: "Lo Que Hacemos", ps_servicesSub: "Todo lo que hacemos, bien hecho.",
+    ps_aboutH: "Sobre Nosotros", ps_ctaH: "¿Listo para empezar?", ps_ctaP: "Obtén tu estimado gratis hoy — respondemos rápido.",
+    ps_chat: "Chatea con nosotros", ps_built: "Vista previa generada por Orbit AI · Airlock",
+    chips: ["Agendar una cita", "¿Cuál es su horario?", "¿Hablan inglés?"],
+    site_note: "Generado por Airlock a partir del perfil del negocio. Los sitios en vivo se construyen y alojan en Orbit Cloud.",
+    agent_note: "Este recepcionista contesta llamadas, agenda trabajos y se sincroniza con tu CRM — 24/7, en inglés y español.",
+    love_it: "¿Te encanta? Inscribe este negocio →",
+    mode_chat: "Chat", mode_voice: "Voz",
+    voice_tap: "Toca para hablar", voice_listening: "Escuchando…", voice_speaking: "Hablando…", voice_thinking: "Pensando…",
+    voice_you: "Tú", voice_replay: "Repetir",
+    voice_unsupported: "La voz requiere Chrome, Edge o Safari con acceso al micrófono. Cambia a Chat o ábrelo en un navegador compatible.",
+  },
+};
+
+const STATES = ["AL","AK","AZ","AR","CA","CO","CT","DE","FL","GA","HI","ID","IL","IN","IA","KS","KY","LA","ME","MD","MA","MI","MN","MS","MO","MT","NE","NV","NH","NJ","NM","NY","NC","ND","OH","OK","OR","PA","RI","SC","SD","TN","TX","UT","VT","VA","WA","WV","WI","WY"];
+const INDUSTRIES = ["Landscaping","Restaurants","Home Services","Plumbing","HVAC","Roofing","Automotive","Law","Medical / Dental","Beauty / Salon","Fitness","Real Estate","Property Management","Retail","Cleaning Services","Construction","Veterinary","Insurance","Financial Services","Hospitality"];
+
+/* =========================================================================
+   DEPLOYMENT CONFIG
+   - "demo":       runs the live audit inside Claude.ai via the in-artifact
+                   Claude endpoint. Perfect for testing + sales demos.
+   - "simulate":   fully offline rules engine, no network. Used for the
+                   standalone HTML build so every screen is clickable on any
+                   static host without a backend.
+   - "production": POSTs the lead to your self-hosted n8n webhook, which runs
+                   the real scrape → Claude → Attio write, then returns the
+                   SAME JSON schema below. Flip mode to "production" and set
+                   the URL when you deploy to OrbitAIAutomation.com.
+   ========================================================================= */
+const CONFIG = {
+  mode: "demo",
+  n8nWebhookUrl: "https://YOUR-N8N-HOST/webhook/airlock-audit",
+  // PRODUCTION MODEL ROUTING (handled server-side in n8n, documented here):
+  //   audit/classification + Strategist Guru  -> Claude (or Claude Haiku) for reliable reasoning + JSON
+  //   bulk site copy + routine agent turns     -> DeepSeek V4 Flash ($0.14/$0.28 per M) to cut token burn
+  //   website build/publish                    -> Flint (reads the brand's site, publishes on-brand pages)
+  //   no-site businesses                        -> generate spec via Claude/DeepSeek, render in this UI
+  // Keep PII off DeepSeek where possible (China-based vendor) — route sensitive turns to Claude.
+};
+
+/* -------------------------------------------------------------------------
+   STRATEGIST GURU — decision matrix.
+   Edit these weights to change how the system sequences what to deploy.
+   The highest-scoring component becomes "lead with"; the rest fall in behind.
+   Philosophy: missed calls are leak #01 (most expensive, fastest to seal) and
+   the AI receptionist can deploy standalone — so it leads by default. Website
+   + chatbot only lead when there's no usable digital storefront. SEO never
+   leads (slow to pay off) but always rides along.
+   ------------------------------------------------------------------------- */
+const STRATEGY_WEIGHTS = {
+  receptionistBase: 70,
+  riskHigh: 25, riskMed: 10,
+  noStorefrontSite: 85,   // build website + chatbot when there's no usable site
+  keepSiteChatbotMissing: 55,
+  seoBase: 30,
+};
+
+function decideStrategy(s, lang) {
+  const W = STRATEGY_WEIGHTS;
+  const noStore = !s.hasWebsite || s.websiteVerdict === "rebuild" || s.websiteVerdict === "none";
+  const recScore = W.receptionistBase + (s.missedCallRisk === "high" ? W.riskHigh : s.missedCallRisk === "medium" ? W.riskMed : 0);
+
+  let ranked;
+  if (noStore) {
+    ranked = [["Website + Chatbot", W.noStorefrontSite], ["AI Receptionist", recScore], ["SEO", W.seoBase]];
+  } else {
+    ranked = [["AI Receptionist", recScore], ["SEO", W.seoBase]];
+    if (!s.hasChatbot) ranked.push(["Chatbot", W.keepSiteChatbotMissing]);
+  }
+  ranked.sort((a, b) => b[1] - a[1]);
+  const sequence = ranked.map((r) => r[0]);
+  const leadWith = sequence[0];
+
+  const R = {
+    en: {
+      rec: "Missed calls are the most expensive leak and the fastest to seal — the bilingual AI receptionist deploys standalone in days while everything else is built in parallel.",
+      site: "There's no digital storefront strong enough to convert traffic, so the website + chatbot ship first; the receptionist layers in right behind them.",
+      chat: "The current site is strong enough to keep, so we seal the call leak first with the receptionist and add a chatbot to catch web visitors.",
+    },
+    es: {
+      rec: "Las llamadas perdidas son la fuga más cara y la más rápida de sellar — el recepcionista bilingüe de IA se despliega solo en días mientras todo lo demás se construye en paralelo.",
+      site: "No hay una tienda digital lo bastante fuerte para convertir tráfico, así que el sitio + chatbot van primero; el recepcionista se suma justo detrás.",
+      chat: "El sitio actual es lo bastante bueno para mantenerlo, así que sellamos primero la fuga de llamadas con el recepcionista y agregamos un chatbot para los visitantes web.",
+    },
+  }[lang];
+
+  let reasoning;
+  if (leadWith === "AI Receptionist") reasoning = s.hasWebsite && !s.hasChatbot && !noStore ? R.chat : R.rec;
+  else reasoning = R.site;
+
+  return { leadWith, reasoning, sequence };
+}
+
+/* -------------------------------------------------------------------------
+   INDUSTRY PRESETS — power the offline (simulate) website preview + agent.
+   In "demo" mode these are replaced by live Claude-generated copy.
+   ------------------------------------------------------------------------- */
+const INDUSTRY_PRESETS = {
+  landscaping: { accent: "#2f9e57", icon: "🌿", tagline: { en: "Yards transformed into landscapes you'll love.", es: "Jardines transformados en paisajes que amarás." },
+    services: [["Lawn Care & Maintenance", "Weekly mowing, edging, and fertilization that keeps your property sharp."], ["Hardscaping & Patios", "Custom patios, walkways, and retaining walls built to last."], ["Irrigation & Sprinklers", "Smart watering systems that save water and stay green."], ["Seasonal Cleanup", "Spring and fall cleanups, leaf removal, and fresh mulch."]],
+    hours: "Mon–Sat, 7am–6pm" },
+  restaurants: { accent: "#d4663a", icon: "🍽️", tagline: { en: "Fresh, local, and made to order — every plate.", es: "Fresco, local y hecho al momento — cada plato." },
+    services: [["Dine-In", "A warm room and a menu worth the trip."], ["Catering", "From office lunches to weddings, we bring the feast."], ["Online Ordering", "Pickup and delivery in a few taps."], ["Private Events", "Book the space for your next celebration."]],
+    hours: "Tue–Sun, 11am–10pm" },
+  "home services": { accent: "#2d6cdf", icon: "🔧", tagline: { en: "Reliable home repairs, done right the first time.", es: "Reparaciones del hogar confiables, bien hechas a la primera." },
+    services: [["Repairs & Handyman", "From leaky faucets to drywall, one call handles it."], ["Installations", "Fixtures, appliances, and upgrades installed clean."], ["Maintenance Plans", "Stay ahead of problems with scheduled checkups."], ["Emergency Service", "Same-day help when things can't wait."]],
+    hours: "Mon–Sat, 8am–6pm · 24/7 emergencies" },
+  plumbing: { accent: "#2d6cdf", icon: "🚿", tagline: { en: "Fast, clean plumbing you can count on.", es: "Plomería rápida y limpia en la que puedes confiar." },
+    services: [["Emergency Repairs", "Burst pipes and clogs handled around the clock."], ["Drain Cleaning", "Clear lines and lasting fixes, not band-aids."], ["Water Heaters", "Repair, replace, and tankless upgrades."], ["Repiping", "Whole-home repipes done to code."]],
+    hours: "24/7 emergency service" },
+  hvac: { accent: "#e0892b", icon: "❄️", tagline: { en: "Comfortable air, all year round.", es: "Aire cómodo, todo el año." },
+    services: [["AC Repair & Install", "Beat the heat with fast, affordable service."], ["Heating", "Furnace repair, install, and tune-ups."], ["Maintenance Plans", "Twice-a-year checkups that prevent breakdowns."], ["Indoor Air Quality", "Filtration and humidity control for healthier air."]],
+    hours: "Mon–Sat, 7am–7pm · 24/7 emergencies" },
+  roofing: { accent: "#b3492f", icon: "🏠", tagline: { en: "Roofs that protect what matters most.", es: "Techos que protegen lo que más importa." },
+    services: [["Roof Replacement", "Durable new roofs with warranties that hold up."], ["Storm Damage Repair", "Fast response and insurance-claim help."], ["Inspections", "Free, no-pressure roof health checks."], ["Gutters", "Seamless gutters and guards installed."]],
+    hours: "Mon–Sat, 7am–6pm" },
+  automotive: { accent: "#374151", icon: "🚗", tagline: { en: "Honest auto care that keeps you moving.", es: "Servicio automotriz honesto que te mantiene en marcha." },
+    services: [["Repairs & Diagnostics", "We find the real problem and fix it right."], ["Oil & Maintenance", "Quick service that protects your engine."], ["Brakes & Tires", "Stop safely with quality parts and labor."], ["Inspections", "State inspections done while you wait."]],
+    hours: "Mon–Fri, 8am–6pm · Sat 8am–2pm" },
+  law: { accent: "#1f3a5f", icon: "⚖️", tagline: { en: "Experienced counsel that fights for you.", es: "Asesoría experimentada que lucha por ti." },
+    services: [["Free Consultation", "Tell us your situation — no cost, no pressure."], ["Case Evaluation", "A clear, honest read on your options."], ["Representation", "Aggressive, attentive advocacy in and out of court."], ["Bilingual Support", "Full service in English and Spanish."]],
+    hours: "Mon–Fri, 9am–5pm" },
+  agency: { accent: "#6d49ff", icon: "📈", tagline: { en: "Marketing that actually moves the needle.", es: "Marketing que de verdad mueve la aguja." },
+    services: [["Paid Acquisition", "Google and Meta ads engineered to convert, not just spend."], ["SEO & Content", "Rank for what your buyers search and own the organic flow."], ["Brand & Creative", "Messaging and design that makes you the obvious choice."], ["Analytics & CRO", "We measure everything and lift conversion rate by design."], ["Lead Generation", "A predictable pipeline built from cold to closed."], ["Marketing Automation", "Funnels and follow-up that run while you sleep."]],
+    hours: "Mon–Fri, 9am–6pm" },
+  tech: { accent: "#3ce9ff", icon: "🤖", tagline: { en: "AI that answers, qualifies, and books — 24/7.", es: "IA que contesta, califica y agenda — 24/7." },
+    services: [["24/7 AI Reception", "Never miss a call again — every lead answered instantly."], ["Smart Scheduling", "Books straight into your calendar with zero back-and-forth."], ["CRM Sync", "Every conversation logged and routed automatically."], ["Bilingual by Default", "Fluent English and Spanish, expandable to more."], ["Warm Transfers", "Hot leads handed to your team in real time."], ["Call Analytics", "Every call, disposition, and booking in one dashboard."]],
+    hours: "Always on · 24/7" },
+  professional: { accent: "#1f6feb", icon: "💼", tagline: { en: "Trusted advice. Clear results.", es: "Asesoría confiable. Resultados claros." },
+    services: [["Free Consultation", "Tell us your situation — no cost, no obligation."], ["Personalized Plan", "A clear path built around your goals."], ["Ongoing Support", "We stay with you at every step."], ["Bilingual Service", "Full service in English and Spanish."]],
+    hours: "Mon–Fri, 9am–5pm" },
+  default: { accent: "#2d6cdf", icon: "✦", tagline: { en: "Work you can trust, from people who care.", es: "Trabajo confiable, de gente que se preocupa." },
+    services: [["What We Offer", "Solutions tailored to exactly what you need."], ["Clear Communication", "You'll always know the next step and the price."], ["Fast Response", "We answer, we show up, we deliver."], ["Trusted by Clients", "A track record of people who'd recommend us."]],
+    hours: "Mon–Fri, 9am–6pm" },
+};
+function hashNum(s) { let h = 0; for (let i = 0; i < (s || "").length; i++) h = (h * 31 + s.charCodeAt(i)) >>> 0; return h; }
+
+/* Detect business type from name + URL so different businesses look different. */
+function inferIndustry(name, url, fallbackIndustry) {
+  const s = ((name || "") + " " + (url || "")).toLowerCase();
+  const t = (re) => re.test(s);
+  if (t(/marketing|agency|advertis|growth|acquisition|\bbrand|creative|\bmedia\b|\blabs?\b|seo\b/)) return "Marketing Agency";
+  if (t(/\bai\b|a\.i|artificial intelligence|receptionist|automation|saas|software|\bvoice\b|platform|\btech\b|\bcloud\b|\bbot\b|orbit/)) return "AI / Software";
+  if (t(/\blaw\b|legal|attorney|lawyer/)) return "Law";
+  if (t(/plumb/)) return "Plumbing";
+  if (t(/hvac|heating|cooling|air condition/)) return "HVAC";
+  if (t(/roof/)) return "Roofing";
+  if (t(/landscap|lawn|garden|lawncare/)) return "Landscaping";
+  if (t(/restaurant|cafe|grill|kitchen|bistro|diner|pizza|taco|eatery|bbq/)) return "Restaurants";
+  if (t(/dental|dentist|\bmedical\b|clinic|\bhealth\b|ortho/)) return "Medical / Dental";
+  if (t(/salon|beauty|\bspa\b|barber|\bhair\b|\bnail/)) return "Beauty / Salon";
+  if (t(/real estate|realty|realtor/)) return "Real Estate";
+  if (t(/fitness|\bgym\b|crossfit|yoga|pilates/)) return "Fitness";
+  if (t(/\bauto\b|mechanic|\btire|collision|automotive/)) return "Automotive";
+  if (t(/cleaning|janitor|maid/)) return "Cleaning Services";
+  if (t(/construct|contractor|remodel|\bbuild\b/)) return "Construction";
+  return fallbackIndustry || "Local Services";
+}
+
+/* Map an industry label to a site category for page structure. */
+function presetCategory(industry) {
+  const k = (industry || "").toLowerCase();
+  if (/marketing|agency|advertis|growth|acquisition|\bbrand|creative|\bmedia\b/.test(k)) return "agency";
+  if (/software|saas|automation|\btech\b|platform|receptionist|\bai\b|artificial/.test(k)) return "tech";
+  if (/law|legal|attorney|medical|dental|dentist|clinic|account|insurance|consult|financ|advisor|therapy|chiro/.test(k)) return "professional";
+  return "service";
+}
+
+function getPreset(industry) {
+  const k = (industry || "").toLowerCase();
+  const h = (re) => re.test(k);
+  if (h(/marketing|agency|advertis|growth|acquisition|\bbrand|creative|\bmedia\b/)) return INDUSTRY_PRESETS.agency;
+  if (h(/software|saas|automation|\btech\b|platform|receptionist|\bai\b|artificial/)) return INDUSTRY_PRESETS.tech;
+  if (h(/law|legal|attorney/)) return INDUSTRY_PRESETS.law;
+  if (h(/medical|dental|dentist|clinic|account|insurance|consult|financ|advisor|therapy|chiro/)) return INDUSTRY_PRESETS.professional;
+  if (h(/plumb/)) return INDUSTRY_PRESETS.plumbing;
+  if (h(/hvac|heating|cooling|air condition/)) return INDUSTRY_PRESETS.hvac;
+  if (h(/roof/)) return INDUSTRY_PRESETS.roofing;
+  if (h(/landscap|lawn|garden/)) return INDUSTRY_PRESETS.landscaping;
+  if (h(/restaurant|cafe|food|grill|kitchen|bistro|diner|pizza/)) return INDUSTRY_PRESETS.restaurants;
+  if (h(/auto|mechanic|\btire|collision/)) return INDUSTRY_PRESETS.automotive;
+  if (h(/home service|handyman|repair/)) return INDUSTRY_PRESETS["home services"];
+  return INDUSTRY_PRESETS.default;
+}
+
+/* Category-appropriate booking language + quick chips for the receptionist. */
+function bookConfig(cat, L) {
+  if (cat === "agency") return { thing: L ? "una llamada de estrategia gratis" : "a free strategy call", ask: L ? "tu nombre, empresa y un buen horario" : "your name, company, and a good time" };
+  if (cat === "tech") return { thing: L ? "una demo" : "a demo", ask: L ? "tu nombre, correo y un buen horario" : "your name, email, and a good time" };
+  if (cat === "professional") return { thing: L ? "una consulta gratis" : "a free consultation", ask: L ? "tu nombre, teléfono y el motivo de tu consulta" : "your name, phone, and what you need help with" };
+  return { thing: L ? "un estimado gratis" : "a free estimate", ask: L ? "tu nombre, teléfono y un buen horario" : "your name, phone, and a good time" };
+}
+function getChips(cat, lang) {
+  const L = lang === "es";
+  if (cat === "agency") return L ? ["Agendar llamada de estrategia", "¿Cómo consiguen resultados?", "¿Hablan inglés?"] : ["Book a strategy call", "How do you get results?", "Do you speak Spanish?"];
+  if (cat === "tech") return L ? ["Reservar una demo", "¿Cómo funciona?", "¿Hablan inglés?"] : ["Book a demo", "How does it work?", "Do you speak Spanish?"];
+  if (cat === "professional") return L ? ["Agendar consulta", "¿La consulta es gratis?", "¿Hablan inglés?"] : ["Book a consultation", "Is the consult free?", "Do you speak Spanish?"];
+  return L ? ["Agendar una cita", "¿Cuál es su horario?", "¿Hablan inglés?"] : ["Book an estimate", "What are your hours?", "Do you speak Spanish?"];
+}
+
+const slugify = (s) => (s || "yourbusiness").toLowerCase().replace(/[^a-z0-9]+/g, "").slice(0, 28) || "yourbusiness";
+
+/* Offline multi-page website builder (simulate mode) — up to 5 interactive pages */
+function buildSiteFallback(profile, lang) {
+  const p = getPreset(profile.industry);
+  const cat = presetCategory(profile.industry);
+  const L = lang === "es";
+  const loc = profile.location || (L ? "tu zona" : "your area");
+  const icons = ["✦", "◆", "●", "▲", "■", "✚"];
+  const svc = p.services.map((s, i) => ({ title: s[0], desc: s[1], icon: icons[i % icons.length] }));
+  const lab = {
+    home: L ? "Inicio" : "Home",
+    services: cat === "tech" ? (L ? "Funciones" : "Features") : (L ? "Servicios" : "Services"),
+    third: cat === "service" ? (L ? "Reseñas" : "Reviews") : cat === "agency" ? (L ? "Resultados" : "Results") : (L ? "Precios" : "Pricing"),
+    about: L ? "Nosotros" : "About",
+    contact: L ? "Contacto" : "Contact",
+  };
+  const hero = { type: "hero", tagline: p.tagline[lang],
+    subhead: L ? `Sirviendo a ${loc}. Respuesta rápida, resultados que se notan.` : `Serving ${loc}. Fast response, fair pricing, and results you can see.`,
+    ctas: [{ label: cat === "tech" ? (L ? "Empezar" : "Get Started") : (L ? "Estimado Gratis" : "Get a Quote"), primary: true }, { label: L ? "Llamar" : "Call Now" }] };
+  const cta = { type: "cta", heading: L ? "¿Listo para empezar?" : "Ready to get started?", sub: L ? "Respondemos rápido." : "We respond fast — usually within minutes.", button: cat === "tech" ? (L ? "Reservar demo" : "Book a demo") : (L ? "Estimado gratis" : "Get a free quote") };
+
+  const pages = [];
+  pages.push({ id: "home", label: lab.home, sections: [hero, { type: "grid", heading: L ? "Por qué elegirnos" : "Why choose us", sub: "", items: svc.slice(0, 4) }, cta] });
+  pages.push({ id: "services", label: lab.services, sections: [{ type: "grid", heading: cat === "tech" ? (L ? "Lo que incluye" : "What you get") : (L ? "Nuestros servicios" : "Our services"), sub: L ? "Todo lo que hacemos, bien hecho." : "Everything we do, done right.", items: svc }] });
+
+  if (cat === "tech") {
+    pages.push({ id: "third", label: lab.third, sections: [{ type: "pricing", heading: L ? "Planes simples" : "Simple, honest pricing", sub: L ? "Sin contratos. Cancela cuando quieras." : "No contracts. Cancel anytime.", tiers: [
+      { name: L ? "Inicial" : "Starter", price: "$297", period: L ? "/mes" : "/mo", features: [svc[0].title, svc[1].title, L ? "Soporte por correo" : "Email support"], highlight: false },
+      { name: L ? "Crecimiento" : "Growth", price: "$597", period: L ? "/mes" : "/mo", features: [svc[0].title, svc[1].title, svc[2].title, L ? "Soporte prioritario" : "Priority support"], highlight: true },
+      { name: L ? "Escala" : "Scale", price: L ? "A medida" : "Custom", period: "", features: [L ? "Todo en Crecimiento" : "Everything in Growth", svc[3].title, L ? "Gerente dedicado" : "Dedicated manager"], highlight: false },
+    ] }] });
+  } else {
+    const names = ["Sarah M.", "James T.", "Carla R."];
+    pages.push({ id: "third", label: lab.third, sections: [{ type: "reviews", heading: cat === "agency" ? (L ? "Resultados de clientes" : "Client results") : (L ? "Lo que dicen los clientes" : "What our clients say"), items: [
+      { quote: L ? "Respuesta rápida y trabajo impecable. Muy recomendados." : "Fast to respond and the work was flawless. Highly recommend.", name: names[0], meta: loc },
+      { quote: L ? "Profesionales de principio a fin. Volveré sin duda." : "Professional from start to finish. I'll absolutely use them again.", name: names[1], meta: loc },
+      { quote: L ? "La mejor decisión que tomé este año para mi negocio." : "Best decision I made for my business all year.", name: names[2], meta: loc },
+    ] }] });
+  }
+
+  pages.push({ id: "about", label: lab.about, sections: [{ type: "about", heading: L ? `Sobre ${profile.name}` : `About ${profile.name}`,
+    body: L ? `${profile.name} es un negocio de ${profile.industry} construido sobre el trabajo bien hecho y el trato cercano. Cada cliente recibe la misma atención que nos hizo crecer.` : `${profile.name} is a ${profile.industry} business built on doing the job right and treating people well. Every customer gets the same care that grew us in the first place.`,
+    stats: [{ n: "500+", l: L ? "Clientes felices" : "Happy clients" }, { n: "4.9★", l: L ? "Calificación" : "Avg rating" }, { n: cat === "tech" ? "24/7" : "10+", l: cat === "tech" ? (L ? "Disponibilidad" : "Availability") : (L ? "Años de experiencia" : "Years experience") }] }] });
+  pages.push({ id: "contact", label: lab.contact, sections: [{ type: "contact", heading: L ? "Contáctanos" : "Get in touch", blurb: L ? "Cuéntanos qué necesitas y te respondemos rápido." : "Tell us what you need and we'll get right back to you.", phone: "(555) 010-2030", email: `hello@${slugify(profile.name)}.com`, hours: p.hours }] });
+  return { accent: p.accent, business: profile.name, domain: `${slugify(profile.name)}.com`, pages };
+}
+
+/* Offline AI-receptionist responder (simulate mode) — adapts to business type */
+function agentReplyFallback(history, profile, lang) {
+  const last = (history[history.length - 1]?.text || "").toLowerCase();
+  const p = getPreset(profile.industry);
+  const cat = presetCategory(profile.industry);
+  const name = profile.name || (lang === "es" ? "nuestro equipo" : "our team");
+  const has = (...w) => w.some((x) => last.includes(x));
+  const L = lang === "es";
+  const bk = bookConfig(cat, L);
+  if (has("book", "appointment", "estimate", "schedule", "demo", "consult", "call", "agendar", "cita", "estimado", "reserva", "demo", "consulta", "llamada"))
+    return L ? `¡Con gusto agendo ${bk.thing}! ¿Me compartes ${bk.ask}? Lo dejo confirmado.` : `Happy to book ${bk.thing}! Can I get ${bk.ask}? I'll lock it in.`;
+  if (has("hour", "open", "close", "horario", "abren", "cierran"))
+    return L ? `Nuestro horario es ${p.hours}. ¿Quieres que te aparte un espacio?` : `Our hours are ${p.hours}. Want me to grab you a slot?`;
+  if (has("price", "cost", "how much", "quote", "pricing", "precio", "costo", "cuánto", "cotiz", "tarifa"))
+    return cat === "tech"
+      ? (L ? `Tenemos planes desde acceso inicial hasta a medida. Te agendo una demo rápida y vemos cuál te conviene — ¿te parece?` : `We have plans from starter to custom. Let me set up a quick demo and we'll find the right fit — sound good?`)
+      : cat === "agency"
+        ? (L ? `Trabajamos por retainer según tus objetivos. Lo mejor es una llamada corta de estrategia — ¿la agendamos?` : `We work on a retainer scoped to your goals. Best is a short strategy call — shall I book one?`)
+        : (L ? `La consulta inicial es gratis y el precio depende de tu caso. ¿Te agendo ${bk.thing}?` : `The first consult is free and pricing depends on your situation. Want me to book ${bk.thing}?`);
+  if (has("service", "do you", "offer", "feature", "servicio", "ofrecen", "hacen", "funcion"))
+    return L ? `Ofrecemos ${p.services.map((s) => s[0]).join(", ")}. ¿Cuál te interesa?` : `We offer ${p.services.map((s) => s[0]).join(", ")}. Which one are you interested in?`;
+  if (has("how does it work", "how do you", "results", "process", "cómo funciona", "resultados", "proceso"))
+    return cat === "agency" ? (L ? `Auditamos tu marketing, encontramos las fugas y construimos un sistema que genera prospectos de forma predecible. ¿Agendamos una llamada para verlo con tu caso?` : `We audit your marketing, find the leaks, and build a system that generates leads predictably. Want a call to walk through your situation?`)
+      : cat === "tech" ? (L ? `Conectamos en minutos: contestamos cada llamada, calificamos y agendamos directo en tu calendario, 24/7 y bilingüe. ¿Te muestro una demo?` : `We connect in minutes: we answer every call, qualify, and book straight into your calendar — 24/7 and bilingual. Want me to show you a demo?`)
+        : (L ? `Es simple: nos cuentas qué necesitas, te damos una propuesta clara y nos ponemos a trabajar. ¿Empezamos con ${bk.thing}?` : `It's simple: you tell us what you need, we give you a clear proposal, and we get to work. Want to start with ${bk.thing}?`);
+  if (has("spanish", "español", "espanol", "english", "inglés", "ingles", "habla"))
+    return L ? `¡Claro! Atiendo en español e inglés, lo que te sea más cómodo. ¿En qué te ayudo?` : `Absolutely — I handle both English and Spanish, whichever is easier for you. How can I help?`;
+  if (has("where", "location", "address", "area", "remote", "dónde", "donde", "dirección", "ubica"))
+    return cat === "tech" || cat === "agency" ? (L ? `Trabajamos con clientes en todas partes, de forma remota. ¿Quieres agendar ${bk.thing}?` : `We work with clients everywhere, remotely. Want to book ${bk.thing}?`)
+      : (L ? `Servimos toda la zona de ${profile.location || "tu área"}. ¿Confirmo si cubrimos tu dirección?` : `We serve the whole ${profile.location || "local"} area. Want me to confirm we cover your address?`);
+  if (has("human", "person", "agent", "manager", "transfer", "persona", "humano", "gerente"))
+    return L ? `Por supuesto — puedo transferirte con alguien del equipo ahora mismo. Mientras te conecto, ¿me dejas tu nombre y número por si se corta?` : `Of course — I can warm-transfer you to the team right now. While I connect you, can I grab your name and number in case we get cut off?`;
+  if (has("thank", "gracias", "thanks"))
+    return L ? `¡Con mucho gusto! ¿Algo más en lo que te pueda ayudar?` : `My pleasure! Anything else I can help with?`;
+  if (history.length <= 2)
+    return L ? `¡Gracias por contactar a ${name}! Puedo responder preguntas o agendar ${bk.thing}. ¿Qué necesitas hoy?` : `Thanks for reaching ${name}! I can answer questions or book ${bk.thing}. What do you need today?`;
+  return L ? `Entendido. Puedo ayudarte con eso o agendar ${bk.thing} — ¿cuál prefieres?` : `Got it. I can help with that or book ${bk.thing} — which would you prefer?`;
+}
+
+/* ----------------------- Starfield background ----------------------- */
+function Starfield() {
+  const ref = useRef(null);
+  useEffect(() => {
+    const c = ref.current; if (!c) return;
+    const ctx = c.getContext("2d");
+    let w, h, stars, raf;
+    const resize = () => { w = c.width = window.innerWidth; h = c.height = window.innerHeight;
+      stars = Array.from({ length: Math.min(140, Math.floor(w / 11)) }, () => ({
+        x: Math.random() * w, y: Math.random() * h, r: Math.random() * 1.4 + .2,
+        a: Math.random(), s: Math.random() * .015 + .003,
+      })); };
+    resize();
+    const draw = () => {
+      ctx.clearRect(0, 0, w, h);
+      for (const st of stars) {
+        st.a += st.s; const al = .25 + Math.abs(Math.sin(st.a)) * .65;
+        ctx.beginPath(); ctx.arc(st.x, st.y, st.r, 0, 7);
+        ctx.fillStyle = `rgba(180,205,255,${al})`; ctx.fill();
+      }
+      raf = requestAnimationFrame(draw);
+    };
+    draw();
+    window.addEventListener("resize", resize);
+    return () => { cancelAnimationFrame(raf); window.removeEventListener("resize", resize); };
+  }, []);
+  return <canvas ref={ref} className="air-canvas" />;
+}
+
+/* ----------------------- Seal hero visual ----------------------- */
+function Seal({ sealLabel }) {
+  return (
+    <div className="seal">
+      <svg viewBox="0 0 200 200">
+        <defs>
+          <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stopColor="#3ce9ff" /><stop offset=".5" stopColor="#7aa8ff" /><stop offset="1" stopColor="#9d6bff" />
+          </linearGradient>
+        </defs>
+        <circle cx="100" cy="100" r="92" fill="none" stroke="rgba(150,170,235,.12)" />
+        <g className="ring-spin">
+          <circle cx="100" cy="100" r="78" fill="none" stroke="url(#g1)" strokeWidth="1.5" strokeDasharray="4 10" opacity=".55" />
+        </g>
+        <g className="ring-spin2">
+          <circle cx="100" cy="100" r="62" fill="none" stroke="url(#g1)" strokeWidth="2.5" strokeDasharray="180 50" strokeLinecap="round" />
+        </g>
+        <circle cx="100" cy="100" r="46" fill="none" stroke="rgba(150,170,235,.18)" strokeWidth="1" />
+        <circle cx="100" cy="100" r="46" fill="url(#g1)" opacity=".07" />
+        {[0, 60, 120, 180, 240, 300].map((d) => (
+          <circle key={d} cx={100 + 78 * Math.cos((d * Math.PI) / 180)} cy={100 + 78 * Math.sin((d * Math.PI) / 180)} r="2.4" fill="#3ce9ff" />
+        ))}
+      </svg>
+      <div className="seal-label">
+        <div className="pct gradtext">100%</div>
+        <div className="txt">{sealLabel}</div>
+      </div>
+    </div>
+  );
+}
+
+/* =========================== APP =========================== */
+export default function App() {
+  const [lang, setLang] = useState("en");
+  const t = T[lang];
+
+  // wizard state
+  const [step, setStep] = useState("intro"); // intro | website | gbp | industry | running | result
+  const [form, setForm] = useState({ bizname: "", state: "", hasWeb: null, url: "", hasGbp: null, gbp: "", industry: "", age: "", city: "" });
+  const [result, setResult] = useState(null);
+  const [usedFallback, setUsedFallback] = useState(false);
+  const [runStage, setRunStage] = useState(0);
+  const [reqError, setReqError] = useState("");
+
+  // enroll state
+  const [enroll, setEnroll] = useState({ contact: "", email: "", phone: "", company: "", notes: "" });
+  const [enrolled, setEnrolled] = useState(false);
+  const [copied, setCopied] = useState(false);
+
+  // preview + agent state
+  const [modal, setModal] = useState(null);        // null | "site" | "agent"
+  const [site, setSite] = useState(null);
+  const [siteLoading, setSiteLoading] = useState(false);
+  const [activePage, setActivePage] = useState("home");
+  const [pageLoading, setPageLoading] = useState(null);   // page id currently generating
+  const [chat, setChat] = useState([]);
+  const [agentTyping, setAgentTyping] = useState(false);
+  const [agentInput, setAgentInput] = useState("");
+  const [agentMode, setAgentMode] = useState("chat");   // "chat" | "voice"
+  const [listening, setListening] = useState(false);
+  const [speaking, setSpeaking] = useState(false);
+  const recRef = useRef(null);
+  const spokenRef = useRef(-1);
+  const voiceSupported = typeof window !== "undefined" && (("SpeechRecognition" in window) || ("webkitSpeechRecognition" in window)) && ("speechSynthesis" in window);
+
+  const set = (k, v) => setForm((f) => ({ ...f, [k]: v }));
+  const scrollTo = (id) => document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+
+  const runStages = lang === "es"
+    ? ["Recolectando datos públicos…", "Construyendo perfil del negocio…", "Cargando base de conocimiento de la industria…", "Revisando regulaciones del estado…", "Auditando la tienda digital…", "Consultando al Estratega Guru…"]
+    : ["Scraping public data…", "Building business profile…", "Loading industry knowledge base…", "Checking state regulations & trends…", "Auditing the digital storefront…", "Consulting the Strategist Guru…"];
+
+  /* ---------- rules-based fallback (offline / API fail) ---------- */
+  function fallback() {
+    const hasWeb = form.hasWeb === true;
+    const hasGbp = form.hasGbp === true;
+    const verdict = hasWeb ? "rebuild" : "none";
+    const ind = inferIndustry(form.bizname, form.url, form.industry) || (lang === "es" ? "Servicios locales" : "Local services");
+    const cat = presetCategory(ind);
+    const hv = hashNum(form.bizname + form.url);
+    const wScore = hasWeb ? 38 + (hv % 28) : 0;
+    const sScore = hasWeb ? 22 + (hv % 26) : (hasGbp ? 18 + (hv % 12) : 6 + (hv % 8));
+    const niche = cat === "agency" ? (lang === "es" ? "Generación de demanda" : "Demand generation") : cat === "tech" ? (lang === "es" ? "Automatización de ventas con IA" : "AI sales automation") : ind;
+    const strat = decideStrategy({ hasWebsite: hasWeb, websiteVerdict: verdict, hasChatbot: false, missedCallRisk: "high" }, lang);
+    return {
+      businessProfile: { name: form.bizname, industry: ind, vertical: ind, niche, location: [form.city, form.state].filter(Boolean).join(", ") || form.state, summary: lang === "es" ? `${form.bizname} opera en ${ind}. Perfil estimado del nombre, la URL y la ubicación.` : `${form.bizname} operates in ${ind}. Profile estimated from the name, URL, and location provided.` },
+      storefrontAudit: { hasWebsite: hasWeb, websiteVerdict: verdict, websiteScore: wScore, websiteFindings: hasWeb ? (lang === "es" ? ["Diseño y velocidad por debajo del estándar moderno.", "Captura de prospectos débil o ausente."] : ["Design and speed below modern standard.", "Weak or missing lead-capture path."]) : (lang === "es" ? ["No existe tienda digital.", "Prioridad: construir presencia."] : ["No digital storefront exists.", "Priority: build presence."]), seoScore: sScore, hasChatbot: false, missedCallRisk: "high" },
+      marketContext: { stateRegulations: lang === "es" ? `Revisar requisitos de licencia/cumplimiento de ${ind} en ${form.state}.` : `Review ${ind} licensing/compliance requirements in ${form.state}.`, trend: lang === "es" ? "La demanda sigue migrando a búsqueda móvil, reseñas y respuesta inmediata." : "Demand keeps shifting to mobile search, reviews, and instant response." },
+      strategistGuru: strat,
+      package: { components: ["AI Receptionist (EN/ES)", "Website", "Chatbot", "SEO"], headline: lang === "es" ? "Paquete Airlock completo, desplegado por fases." : "Full Airlock package, deployed in phases." },
+    };
+  }
+
+  /* ---------- live audit via Claude API ---------- */
+  async function runAudit() {
+    if (!form.bizname.trim() || !form.state) { setReqError(t.field_req); return; }
+    setReqError(""); setUsedFallback(false); setResult(null); setStep("running"); setRunStage(0);
+    const stageTimer = setInterval(() => setRunStage((s) => Math.min(s + 1, runStages.length - 1)), 1300);
+
+    // SIMULATE: fully offline rules engine — no network. Used for static hosting / demos.
+    if (CONFIG.mode === "simulate") {
+      await new Promise((r) => setTimeout(r, runStages.length * 720));
+      clearInterval(stageTimer); setRunStage(runStages.length - 1);
+      setUsedFallback(false); setResult(fallback()); setStep("result");
+      return;
+    }
+
+    const source = form.hasWeb ? `Website URL: ${form.url}` : (form.hasGbp ? `Google Business listing: ${form.gbp}` : `No website or Google listing. Industry: ${form.industry}. Age: ${form.age}. City: ${form.city || "n/a"}.`);
+    const prompt = `You are the "Strategist Guru" for Orbit AI's Airlock system (an AI receptionist + website/chatbot + SEO stack that seals lead leakage for local SMBs).
+
+Research this business and produce a concise digital-storefront audit.
+Business name: ${form.bizname}
+State: ${form.state}
+${source}
+
+Rules:
+- First, correctly classify the business type from its name, URL, and what you find — it may be a marketing agency, a SaaS/AI company, a professional service (law, medical), a retailer, a restaurant, or a local home-services business. Do NOT default to "home services" or "local services" unless the evidence clearly shows that.
+- If a website URL or Google listing is given, research it via web search and assess the real digital footprint.
+- "websiteVerdict": "rebuild" if no site or the site is weak/dated/slow vs what Airlock would build; "keep" if the current site is genuinely strong; "none" if there is no site at all.
+- The Strategist Guru chooses what to LEAD WITH: "AI Receptionist", "Website + Chatbot", or "Chatbot". Lead-with priority: missed-call leakage is the most expensive leak and the fastest to seal, and the receptionist deploys standalone — so DEFAULT to leading with "AI Receptionist". Only lead with "Website + Chatbot" when there is NO usable digital storefront. SEO never leads.
+- Pull one realistic state-specific regulation note and one local market trend.
+- Identify industry, vertical, and niche.
+
+Respond in ${lang === "es" ? "Spanish" : "English"}.
+Output ONLY minified JSON (no markdown, no prose). Keep every string value to ONE short sentence. Schema:
+{"businessProfile":{"name":"","industry":"","vertical":"","niche":"","location":"","summary":""},"storefrontAudit":{"hasWebsite":true,"websiteVerdict":"rebuild","websiteScore":0,"websiteFindings":["",""],"seoScore":0,"hasChatbot":false,"missedCallRisk":"high"},"marketContext":{"stateRegulations":"","trend":""},"strategistGuru":{"leadWith":"","reasoning":"","sequence":["","",""]},"package":{"components":["AI Receptionist (EN/ES)","Website","Chatbot","SEO"],"headline":""}}`;
+
+    try {
+      // PRODUCTION: hand the lead to your n8n webhook (real scrape + Claude + Attio).
+      if (CONFIG.mode === "production") {
+        const res = await fetch(CONFIG.n8nWebhookUrl, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            businessName: form.bizname, state: form.state, language: lang,
+            hasWebsite: form.hasWeb, websiteUrl: form.url,
+            hasGoogleProfile: form.hasGbp, googleProfile: form.gbp,
+            industry: form.industry, businessAge: form.age, city: form.city,
+          }),
+        });
+        const parsed = await res.json();
+        clearInterval(stageTimer); setRunStage(runStages.length - 1);
+        setResult(parsed); setStep("result");
+        return;
+      }
+
+      // DEMO: live audit inside Claude.ai
+      const res = await fetch("https://api.anthropic.com/v1/messages", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          model: "claude-sonnet-4-20250514",
+          max_tokens: 1000,
+          messages: [{ role: "user", content: prompt }],
+          tools: [{ type: "web_search_20250305", name: "web_search" }],
+        }),
+      });
+      const data = await res.json();
+      const text = (data.content || []).filter((b) => b.type === "text").map((b) => b.text).join("\n");
+      const clean = text.replace(/```json|```/g, "").trim();
+      const jsonStart = clean.indexOf("{"); const jsonEnd = clean.lastIndexOf("}");
+      const parsed = JSON.parse(clean.slice(jsonStart, jsonEnd + 1));
+      clearInterval(stageTimer); setRunStage(runStages.length - 1);
+      setResult(parsed); setStep("result");
+    } catch (e) {
+      clearInterval(stageTimer);
+      setUsedFallback(true); setResult(fallback()); setStep("result");
+    }
+  }
+
+  function resetAudit() {
+    setStep("intro"); setResult(null); setUsedFallback(false);
+    setSite(null); setChat([]); setModal(null);
+    setForm({ bizname: "", state: "", hasWeb: null, url: "", hasGbp: null, gbp: "", industry: "", age: "", city: "" });
+  }
+
+  /* ---------- shared LLM JSON helper (demo mode) ---------- */
+  async function llmJSON(prompt) {
+    const res = await fetch("https://api.anthropic.com/v1/messages", {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ model: "claude-sonnet-4-20250514", max_tokens: 1000, messages: [{ role: "user", content: prompt }] }),
+    });
+    const data = await res.json();
+    const text = (data.content || []).filter((b) => b.type === "text").map((b) => b.text).join("\n");
+    const clean = text.replace(/```json|```/g, "").trim();
+    return JSON.parse(clean.slice(clean.indexOf("{"), clean.lastIndexOf("}") + 1));
+  }
+
+  /* ---------- reveal the generated website (multi-page, interactive) ---------- */
+  async function openSite() {
+    setModal("site");
+    if (site || !result) return;
+    setSiteLoading(true);
+    const p = result.businessProfile;
+    if (CONFIG.mode === "demo") {
+      try {
+        const planPrompt = `Plan a 4–5 page marketing website for "${p.name}", which operates in: ${p.industry} (${p.niche || ""}), located in ${p.location || "the local area"}. First classify the business correctly — it may be a marketing agency, a SaaS/AI company, a professional service, a retailer, or a local service. Do NOT assume home/local services. Choose pages that fit THIS business type (e.g. SaaS/AI → Features + Pricing; agency → Services + Work/Results; local service → Services + Reviews). Output ONLY minified JSON, max 5 pages, respond labels in ${lang === "es" ? "Spanish" : "English"}: {"accent":"#hex","pages":[{"id":"home","label":"Home","kind":"home"}]}. kind ∈ home|services|features|pricing|work|reviews|about|contact.`;
+        const plan = await llmJSON(planPrompt);
+        const pages = (plan.pages || []).slice(0, 5).map((pg) => ({ id: pg.id, label: pg.label, kind: pg.kind, sections: null }));
+        if (!pages.length) throw new Error("no pages");
+        const s = { accent: plan.accent || "#2d6cdf", business: p.name, domain: `${slugify(p.name)}.com`, pages };
+        setSite(s); setActivePage(pages[0].id); setSiteLoading(false);
+        generatePage(pages[0]);
+        return;
+      } catch (e) { /* fall through to offline builder */ }
+    } else {
+      await new Promise((r) => setTimeout(r, 550));
+    }
+    const fb = buildSiteFallback(p, lang);
+    setSite(fb); setActivePage(fb.pages[0].id); setSiteLoading(false);
+  }
+
+  /* ---------- generate one page's content on demand (demo mode) ---------- */
+  async function generatePage(page) {
+    if (!page || page.sections || CONFIG.mode !== "demo") return;
+    setPageLoading(page.id);
+    const p = result.businessProfile;
+    try {
+      const pagePrompt = `Generate the "${page.label}" page (kind: ${page.kind}) for the website of "${p.name}", a ${p.industry} (${p.niche || ""}) in ${p.location || "the local area"}. Respond in ${lang === "es" ? "Spanish" : "English"}. Output ONLY minified JSON: {"sections":[...]}. Use 1–3 sections from these shapes, choosing what fits the page:
+hero {"type":"hero","tagline":"","subhead":"","ctas":[{"label":"","primary":true}]}
+grid {"type":"grid","heading":"","sub":"","items":[{"title":"","desc":"","icon":"✦"}]}
+about {"type":"about","heading":"","body":"","stats":[{"n":"","l":""}]}
+pricing {"type":"pricing","heading":"","sub":"","tiers":[{"name":"","price":"","period":"","features":[""],"highlight":false}]}
+reviews {"type":"reviews","heading":"","items":[{"quote":"","name":"","meta":""}]}
+cta {"type":"cta","heading":"","sub":"","button":""}
+contact {"type":"contact","heading":"","blurb":"","phone":"","email":"","hours":""}
+Keep text concise and specific to this business.`;
+      const data = await llmJSON(pagePrompt);
+      const secs = (data.sections || []).map((sec) => sec.type === "grid" && sec.items ? { ...sec, items: sec.items.map((it, i) => ({ ...it, icon: it.icon || ["✦", "◆", "●", "▲", "■", "✚"][i % 6] })) } : sec);
+      setSite((prev) => prev ? { ...prev, pages: prev.pages.map((pg) => pg.id === page.id ? { ...pg, sections: secs } : pg) } : prev);
+    } catch (e) {
+      const fb = buildSiteFallback(p, lang);
+      const match = fb.pages.find((x) => x.id === page.id) || fb.pages.find((x) => x.label === page.label) || fb.pages[0];
+      setSite((prev) => prev ? { ...prev, pages: prev.pages.map((pg) => pg.id === page.id ? { ...pg, sections: match.sections } : pg) } : prev);
+    }
+    setPageLoading(null);
+  }
+
+  function navTo(id) {
+    setActivePage(id);
+    const pg = site?.pages.find((p) => p.id === id);
+    if (pg && !pg.sections) generatePage(pg);
+  }
+
+  function renderSection(sec, i) {
+    if (!sec) return null;
+    switch (sec.type) {
+      case "hero":
+        return (
+          <div className="psite-hero" key={i}>
+            <span className="ph-tag">{result.businessProfile.location || result.businessProfile.industry}</span>
+            <h1>{sec.tagline}</h1>
+            <p>{sec.subhead}</p>
+            <div className="ph-cta">
+              {(sec.ctas || [{ label: t.ps_book, primary: true }]).map((c, j) => (
+                <button key={j} className={"psite-btn " + (c.primary ? "solid" : "out")} onClick={() => setModal("agent")}>{c.label}</button>
+              ))}
+            </div>
+          </div>
+        );
+      case "grid":
+        return (
+          <div className="psite-sec" key={i}>
+            <h2>{sec.heading}</h2>{sec.sub ? <p className="pss-sub">{sec.sub}</p> : null}
+            <div className="psite-services">
+              {(sec.items || []).map((s, j) => (<div className="psvc" key={j}><div className="psvc-ic">{s.icon || "✦"}</div><h3>{s.title}</h3><p>{s.desc}</p></div>))}
+            </div>
+          </div>
+        );
+      case "about":
+        return (
+          <div className="psite-sec psite-about" key={i}>
+            <h2>{sec.heading}</h2><p>{sec.body}</p>
+            {sec.stats ? <div className="psite-stats">{sec.stats.map((st, j) => (<div className="pstat" key={j}><div className="pstat-n">{st.n}</div><div className="pstat-l">{st.l}</div></div>))}</div> : null}
+          </div>
+        );
+      case "pricing":
+        return (
+          <div className="psite-sec" key={i}>
+            <h2>{sec.heading}</h2>{sec.sub ? <p className="pss-sub">{sec.sub}</p> : null}
+            <div className="psite-tiers">
+              {(sec.tiers || []).map((tr, j) => (
+                <div className={"ptier" + (tr.highlight ? " hi" : "")} key={j}>
+                  <div className="ptier-name">{tr.name}</div>
+                  <div className="ptier-price">{tr.price}<span>{tr.period}</span></div>
+                  <ul>{(tr.features || []).map((f, k) => <li key={k}>{f}</li>)}</ul>
+                  <button className="psite-btn solid" onClick={() => setModal("agent")}>{t.ps_book}</button>
+                </div>
+              ))}
+            </div>
+          </div>
+        );
+      case "reviews":
+        return (
+          <div className="psite-sec psite-about" key={i}>
+            <h2>{sec.heading}</h2>
+            <div className="psite-reviews">
+              {(sec.items || []).map((rv, j) => (<div className="prev" key={j}><p>“{rv.quote}”</p><div className="prev-by">— {rv.name}{rv.meta ? `, ${rv.meta}` : ""}</div></div>))}
+            </div>
+          </div>
+        );
+      case "cta":
+        return (
+          <div className="psite-cta-band" key={i}>
+            <h2>{sec.heading}</h2><p>{sec.sub}</p>
+            <button className="psite-btn" onClick={() => setModal("agent")}>{sec.button || t.ps_book}</button>
+          </div>
+        );
+      case "contact":
+        return (
+          <div className="psite-sec psite-contact" key={i}>
+            <h2>{sec.heading}</h2><p className="pss-sub">{sec.blurb}</p>
+            <div className="pcontact">
+              {sec.phone ? <div className="pcrow">📞 {sec.phone}</div> : null}
+              {sec.email ? <div className="pcrow">✉️ {sec.email}</div> : null}
+              {sec.hours ? <div className="pcrow">🕒 {sec.hours}</div> : null}
+              <button className="psite-btn solid" onClick={() => setModal("agent")}>{t.ps_book}</button>
+            </div>
+          </div>
+        );
+      default: return null;
+    }
+  }
+
+  /* ---------- test the AI receptionist ---------- */
+  function openAgent() {
+    setModal("agent");
+    if (chat.length === 0 && result) {
+      const nm = result.businessProfile.name;
+      const greet = lang === "es"
+        ? `¡Hola, gracias por contactar a ${nm}! Soy el recepcionista de IA. ¿En qué te puedo ayudar hoy?`
+        : `Hi, thanks for reaching ${nm}! I'm the AI receptionist. How can I help you today?`;
+      setChat([{ role: "assistant", text: greet, seed: true }]);
+    }
+  }
+
+  async function sendAgent(text) {
+    const msg = (text ?? agentInput).trim();
+    if (!msg || agentTyping || !result) return;
+    const hist = [...chat, { role: "user", text: msg }];
+    setChat(hist); setAgentInput(""); setAgentTyping(true);
+    if (CONFIG.mode === "demo") {
+      try {
+        const p = result.businessProfile;
+        const sys = `You are the AI receptionist/front-desk agent that Orbit AI's Airlock built for "${p.name}", which operates in ${p.industry} (${p.niche || ""}) in ${p.location || "the local area"}. You are warm, upbeat, and concise. You are fully bilingual — reply in whichever language (English or Spanish) the caller writes in. Adapt to the business: for a local service book a free estimate/visit; for a SaaS/AI company book a demo or start a trial; for a marketing agency book a strategy call; for a professional service (law, medical, finance) book a consultation. Qualify the caller and collect the details needed to book that next step (name, plus phone or email, plus a time). Never invent specific prices; offer the appropriate free next step instead. Keep replies to 1–3 short sentences.`;
+        const apiMsgs = hist.filter((m) => !m.seed).map((m) => ({ role: m.role === "user" ? "user" : "assistant", content: m.text }));
+        const res = await fetch("https://api.anthropic.com/v1/messages", {
+          method: "POST", headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ model: "claude-sonnet-4-20250514", max_tokens: 1000, system: sys, messages: apiMsgs }),
+        });
+        const data = await res.json();
+        const reply = (data.content || []).filter((b) => b.type === "text").map((b) => b.text).join(" ").trim();
+        setChat([...hist, { role: "assistant", text: reply || agentReplyFallback(hist, result.businessProfile, lang) }]);
+      } catch (e) {
+        setChat([...hist, { role: "assistant", text: agentReplyFallback(hist, result.businessProfile, lang) }]);
+      }
+    } else {
+      await new Promise((r) => setTimeout(r, 650));
+      setChat([...hist, { role: "assistant", text: agentReplyFallback(hist, result.businessProfile, lang) }]);
+    }
+    setAgentTyping(false);
+  }
+
+  /* ---------- voice: text-to-speech + speech-to-text ---------- */
+  function speak(text) {
+    try {
+      const synth = window.speechSynthesis; if (!synth || !text) return;
+      synth.cancel();
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = lang === "es" ? "es-ES" : "en-US";
+      u.rate = 1.03;
+      u.onstart = () => setSpeaking(true);
+      u.onend = () => setSpeaking(false);
+      synth.speak(u);
+    } catch (e) { /* no-op */ }
+  }
+  function startListening() {
+    const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!SR || listening) return;
+    try { window.speechSynthesis && window.speechSynthesis.cancel(); setSpeaking(false); } catch (e) {}
+    const rec = new SR(); recRef.current = rec;
+    rec.lang = lang === "es" ? "es-ES" : "en-US";
+    rec.interimResults = false; rec.maxAlternatives = 1;
+    rec.onresult = (e) => { const txt = e.results[0][0].transcript; setListening(false); if (txt) sendAgent(txt); };
+    rec.onerror = () => setListening(false);
+    rec.onend = () => setListening(false);
+    setListening(true);
+    try { rec.start(); } catch (e) { setListening(false); }
+  }
+
+  // Speak new assistant replies while in voice mode
+  useEffect(() => {
+    if (modal !== "agent" || agentMode !== "voice") return;
+    const i = chat.length - 1;
+    if (i > spokenRef.current && chat[i] && chat[i].role === "assistant") { spokenRef.current = i; speak(chat[i].text); }
+  }, [chat, agentMode, modal]);
+
+  // Stop any speech/recognition when the agent modal closes
+  useEffect(() => {
+    if (modal !== "agent") {
+      try { window.speechSynthesis && window.speechSynthesis.cancel(); } catch (e) {}
+      try { recRef.current && recRef.current.stop(); } catch (e) {}
+      setListening(false); setSpeaking(false);
+    }
+  }, [modal]);
+
+  function startEnroll() {
+    setEnroll((e) => ({ ...e, company: form.bizname || e.company }));
+    scrollTo("enroll");
+  }
+
+  function enrollSummary() {
+    if (!result) return "";
+    const r = result;
+    return `=== ORBIT AI · AIRLOCK ENROLLMENT ===
+Company: ${enroll.company || form.bizname}
+Contact: ${enroll.contact}  |  ${enroll.email}  |  ${enroll.phone}
+State: ${form.state}${form.city ? " · " + form.city : ""}
+
+— BUSINESS PROFILE —
+Industry/Vertical/Niche: ${r.businessProfile.industry} / ${r.businessProfile.vertical} / ${r.businessProfile.niche}
+Summary: ${r.businessProfile.summary}
+
+— STOREFRONT AUDIT —
+Website: ${r.storefrontAudit.hasWebsite ? "yes" : "no"} | Verdict: ${r.storefrontAudit.websiteVerdict} | Site score: ${r.storefrontAudit.websiteScore} | SEO: ${r.storefrontAudit.seoScore} | Chatbot: ${r.storefrontAudit.hasChatbot ? "yes" : "no"} | Missed-call risk: ${r.storefrontAudit.missedCallRisk}
+
+— STRATEGIST GURU —
+LEAD WITH: ${r.strategistGuru.leadWith}
+Reasoning: ${r.strategistGuru.reasoning}
+Build order: ${r.strategistGuru.sequence.join(" → ")}
+
+— PACKAGE —
+${r.package.components.join(", ")}
+${r.package.headline}
+
+— NOTES —
+${enroll.notes || "(none)"}`;
+  }
+
+  function copySummary() {
+    const txt = enrollSummary();
+    navigator.clipboard?.writeText(txt).then(() => { setCopied(true); setTimeout(() => setCopied(false), 1800); });
+  }
+
+  const verdictBadge = (v) => v === "rebuild" ? "rebuild" : v === "keep" ? "keep" : "none";
+  const verdictLabel = (v) => {
+    const m = { en: { rebuild: "REBUILD", keep: "KEEP & ADD CHATBOT", none: "BUILD NEW" }, es: { rebuild: "RECONSTRUIR", keep: "MANTENER + CHATBOT", none: "CONSTRUIR NUEVO" } };
+    return m[lang][v] || v.toUpperCase();
+  };
+  const riskLabel = (r) => r === "high" ? t.miss_high : r === "medium" ? t.miss_med : t.miss_low;
+
+  return (
+    <div className="air-root">
+      <style>{STYLES}</style>
+      <Starfield />
+      <div className="air-grain" />
+      <div className="air-glow" style={{ width: 520, height: 520, top: -160, right: -120, background: "#3ce9ff" }} />
+      <div className="air-glow" style={{ width: 460, height: 460, bottom: 200, left: -180, background: "#9d6bff" }} />
+
+      {/* NAV */}
+      <nav className="air-nav">
+        <div className="air-wrap air-nav-in">
+          <div className="logo"><span className="logo-mark" /> Orbit<span className="gradtext">AI</span></div>
+          <div className="nav-links">
+            <button className="nav-link" onClick={() => scrollTo("leaks")}>{t.nav[0]}</button>
+            <button className="nav-link" onClick={() => scrollTo("system")}>{t.nav[1]}</button>
+            <button className="nav-link" onClick={() => scrollTo("how")}>{t.nav[2]}</button>
+            <div className="lang">
+              <button className={lang === "en" ? "on" : ""} onClick={() => setLang("en")}>EN</button>
+              <button className={lang === "es" ? "on" : ""} onClick={() => setLang("es")}>ES</button>
+            </div>
+            <button className="btn btn-grad" onClick={() => scrollTo("audit")}>{t.cta_audit}</button>
+          </div>
+        </div>
+      </nav>
+
+      {/* HERO */}
+      <header className="hero">
+        <div className="air-wrap hero-grid">
+          <div className="fade-up">
+            <span className="eyebrow">{t.hero_eyebrow}</span>
+            <h1 className="disp">{t.hero_h1a}<span className="gradtext">{t.hero_h1b}</span>{t.hero_h1c}</h1>
+            <p className="sub">{t.hero_sub}</p>
+            <div className="hero-cta">
+              <button className="btn btn-grad" onClick={() => scrollTo("audit")}>{t.start_audit}</button>
+              <button className="btn btn-ghost" onClick={() => scrollTo("system")}>{t.see_system}</button>
+              <span className="pill"><span className="dot" />{t.hero_pill}</span>
+            </div>
+            <div className="hero-trust">
+              {t.trust.map((tr, i) => (<div key={i}><span className="n gradtext">{tr[0]}</span><span className="l">{tr[1]}</span></div>))}
+            </div>
+          </div>
+          <div className="fade-up" style={{ animationDelay: ".15s" }}><Seal sealLabel={t.seal_seal} /></div>
+        </div>
+      </header>
+
+      {/* LEAKS */}
+      <section className="sec" id="leaks">
+        <div className="air-wrap">
+          <div className="sec-head">
+            <span className="eyebrow">{t.leaks_eyebrow}</span>
+            <h2 className="disp">{t.leaks_h2}</h2>
+            <p>{t.leaks_p}</p>
+          </div>
+          <div className="leaks">
+            {t.leaks.map((lk, i) => (
+              <div className="leak" key={i}><span className="drip" /><div className="num">{lk[0]}</div><h3>{lk[1]}</h3><p>{lk[2]}</p></div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* SYSTEM */}
+      <section className="sec" id="system">
+        <div className="air-wrap">
+          <div className="sec-head">
+            <span className="eyebrow">{t.sys_eyebrow}</span>
+            <h2 className="disp">{t.sys_h2}</h2>
+            <p>{t.sys_p}</p>
+          </div>
+          <div className="pillars">
+            {t.pillars.map((p, i) => (
+              <div className="pillar" key={i}>
+                <div className="pillar-ic">{p[0]}</div>
+                <h3>{p[1]}</h3><p>{p[2]}</p>
+                <ul>{p[3].map((li, j) => <li key={j}>{li}</li>)}</ul>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* HOW IT WORKS */}
+      <section className="sec" id="how">
+        <div className="air-wrap">
+          <div className="sec-head">
+            <span className="eyebrow">{t.flow_eyebrow}</span>
+            <h2 className="disp">{t.flow_h2}</h2>
+            <p>{t.flow_p}</p>
+          </div>
+          <div className="flow">
+            {t.flow.map((f, i) => (
+              <div className="flow-step" key={i}>
+                <span className="step-n">{f[0]}</span>
+                <div><h4 className="disp">{f[1]}</h4><p>{f[2]}</p></div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* AUDIT WIZARD */}
+      <section className="sec" id="audit">
+        <div className="air-wrap">
+          <div className="sec-head">
+            <span className="eyebrow">{t.audit_eyebrow}</span>
+            <h2 className="disp">{t.audit_h2}</h2>
+            <p>{t.audit_p}</p>
+          </div>
+
+          <div className="audit-card">
+            <div className="audit-top">
+              <div className="guru">
+                <span className={"guru-orb" + (step === "running" ? " think" : "")} />
+                <div>
+                  <div style={{ fontFamily: "'Syne',sans-serif", fontWeight: 700 }}>{t.guru_name}</div>
+                  <div className="mono" style={{ fontSize: 11, color: "var(--muted)" }}>
+                    {step === "running" ? t.guru_status_run : step === "result" ? t.guru_status_done : t.guru_status_idle}
+                  </div>
+                </div>
+              </div>
+              <span className="mono" style={{ fontSize: 11, color: "var(--faint)" }}>orbit://airlock/strategist</span>
+            </div>
+
+            <div className="audit-body">
+              {/* progress bar */}
+              {step !== "running" && step !== "result" && (
+                <div className="step-bar">
+                  {[0, 1].map((s) => (
+                    <span key={s} className={"step-seg" + ((step === "intro" && s === 0) || (step !== "intro" && s <= 1) ? " on" : "")} />
+                  ))}
+                </div>
+              )}
+
+              {/* STEP: INTRO */}
+              {step === "intro" && (
+                <div className="fade-up">
+                  <div className="q-label">{t.q_intro}</div>
+                  <div className="q-help">{t.q_intro_help}</div>
+                  <div className="field">
+                    <label>{t.f_bizname}</label>
+                    <input className="input" value={form.bizname} placeholder="Cultiv8 Landscape" onChange={(e) => set("bizname", e.target.value)} />
+                  </div>
+                  <div className="field">
+                    <label>{t.f_state}</label>
+                    <select className="select" value={form.state} onChange={(e) => set("state", e.target.value)}>
+                      <option value="">—</option>
+                      {STATES.map((s) => <option key={s} value={s}>{s}</option>)}
+                    </select>
+                  </div>
+                  <div className="q-label" style={{ fontSize: 18, marginTop: 22 }}>{t.q_haveweb}</div>
+                  <div className="choice-row" style={{ marginTop: 12 }}>
+                    <button className={"choice" + (form.hasWeb === true ? " sel" : "")} onClick={() => { set("hasWeb", true); }}>
+                      <div className="ch-t">{t.ch_yes_web[0]}</div><div className="ch-s">{t.ch_yes_web[1]}</div>
+                    </button>
+                    <button className={"choice" + (form.hasWeb === false ? " sel" : "")} onClick={() => { set("hasWeb", false); }}>
+                      <div className="ch-t">{t.ch_no_web[0]}</div><div className="ch-s">{t.ch_no_web[1]}</div>
+                    </button>
+                  </div>
+                  {reqError && <div className="mono" style={{ color: "#ff9aaa", fontSize: 13, marginTop: 14 }}>{reqError}</div>}
+                  <div className="wiz-nav">
+                    <span />
+                    <button className="btn btn-grad" disabled={form.hasWeb === null}
+                      onClick={() => { if (!form.bizname.trim() || !form.state) { setReqError(t.field_req); return; } setReqError(""); setStep(form.hasWeb ? "website" : "gbp"); }}>
+                      {form.hasWeb ? t.nav[3] + " →" : "→"}
+                    </button>
+                  </div>
+                </div>
+              )}
+
+              {/* STEP: WEBSITE */}
+              {step === "website" && (
+                <div className="fade-up">
+                  <div className="q-label">{t.q_url}</div>
+                  <div className="q-help">{t.q_url_help}</div>
+                  <div className="field">
+                    <label>{t.f_url}</label>
+                    <input className="input" value={form.url} placeholder="https://cultiv8landscape.com" onChange={(e) => set("url", e.target.value)} />
+                  </div>
+                  <div className="wiz-nav">
+                    <button className="btn btn-ghost" onClick={() => setStep("intro")}>← {t.back}</button>
+                    <button className="btn btn-grad" onClick={runAudit}>{t.run}</button>
+                  </div>
+                </div>
+              )}
+
+              {/* STEP: GBP */}
+              {step === "gbp" && (
+                <div className="fade-up">
+                  <div className="q-label">{t.q_gbp}</div>
+                  <div className="choice-row" style={{ marginTop: 8 }}>
+                    <button className={"choice" + (form.hasGbp === true ? " sel" : "")} onClick={() => set("hasGbp", true)}>
+                      <div className="ch-t">{t.ch_yes_gbp[0]}</div><div className="ch-s">{t.ch_yes_gbp[1]}</div>
+                    </button>
+                    <button className={"choice" + (form.hasGbp === false ? " sel" : "")} onClick={() => set("hasGbp", false)}>
+                      <div className="ch-t">{t.ch_no_gbp[0]}</div><div className="ch-s">{t.ch_no_gbp[1]}</div>
+                    </button>
+                  </div>
+                  {form.hasGbp === true && (
+                    <div className="field" style={{ marginTop: 18 }}>
+                      <label>{t.f_gbp}</label>
+                      <input className="input" value={form.gbp} placeholder="Cultiv8 Landscape, Kansas City" onChange={(e) => set("gbp", e.target.value)} />
+                    </div>
+                  )}
+                  <div className="wiz-nav">
+                    <button className="btn btn-ghost" onClick={() => setStep("intro")}>← {t.back}</button>
+                    {form.hasGbp === true
+                      ? <button className="btn btn-grad" onClick={runAudit}>{t.run}</button>
+                      : <button className="btn btn-grad" disabled={form.hasGbp === null} onClick={() => setStep("industry")}>→</button>}
+                  </div>
+                </div>
+              )}
+
+              {/* STEP: INDUSTRY */}
+              {step === "industry" && (
+                <div className="fade-up">
+                  <div className="q-label">{t.q_industry}</div>
+                  <div className="q-help">{t.q_industry_help}</div>
+                  <div className="field">
+                    <label>{t.f_industry}</label>
+                    <select className="select" value={form.industry} onChange={(e) => set("industry", e.target.value)}>
+                      <option value="">—</option>
+                      {INDUSTRIES.map((s) => <option key={s} value={s}>{s}</option>)}
+                    </select>
+                  </div>
+                  <div className="field">
+                    <label>{t.f_age}</label>
+                    <select className="select" value={form.age} onChange={(e) => set("age", e.target.value)}>
+                      <option value="">—</option>
+                      {t.age_opts.map((s) => <option key={s} value={s}>{s}</option>)}
+                    </select>
+                  </div>
+                  <div className="field">
+                    <label>{t.f_city}</label>
+                    <input className="input" value={form.city} placeholder="Kansas City" onChange={(e) => set("city", e.target.value)} />
+                  </div>
+                  <div className="wiz-nav">
+                    <button className="btn btn-ghost" onClick={() => setStep("gbp")}>← {t.back}</button>
+                    <button className="btn btn-grad" disabled={!form.industry} onClick={runAudit}>{t.run}</button>
+                  </div>
+                </div>
+              )}
+
+              {/* STEP: RUNNING */}
+              {step === "running" && (
+                <div className="fade-up">
+                  <div className="q-label">{t.running}</div>
+                  <div className="run-lines">
+                    {runStages.map((s, i) => (
+                      <div key={i} className={"run-line" + (i < runStage ? " done" : i === runStage ? " active" : "")}>
+                        {i < runStage ? <svg className="run-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><path d="M5 13l4 4L19 7" strokeLinecap="round" strokeLinejoin="round" /></svg>
+                          : i === runStage ? <span className="run-spin" /> : <span style={{ width: 16, height: 16, borderRadius: "50%", border: "2px solid var(--border)" }} />}
+                        {s}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* STEP: RESULT */}
+              {step === "result" && result && (
+                <div className="fade-up">
+                  {usedFallback && <div className="mono" style={{ color: "#ffcf8a", fontSize: 12, marginBottom: 16, padding: "10px 14px", border: "1px solid rgba(255,207,138,.3)", borderRadius: 10, background: "rgba(255,207,138,.06)" }}>{t.err}</div>}
+
+                  {/* Guru verdict */}
+                  <div className="guru-verdict">
+                    <span className="eyebrow">{t.res_verdict}</span>
+                    <div className="lead gradtext">{result.strategistGuru.leadWith}</div>
+                    <p>{result.strategistGuru.reasoning}</p>
+                    <div className="seq">
+                      <span className="mono" style={{ fontSize: 11, color: "var(--faint)", alignSelf: "center" }}>{t.build_order}:</span>
+                      {result.strategistGuru.sequence.map((s, i) => (
+                        <span key={i} className="seq-item">
+                          <span className="seq-chip">{s}</span>
+                          {i < result.strategistGuru.sequence.length - 1 && <span className="seq-arrow">→</span>}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="res-grid">
+                    {/* profile */}
+                    <div className="res-card">
+                      <div className="rc-h">▸ {t.res_profile}</div>
+                      <div className="kv"><span className="k">Name</span><span className="v">{result.businessProfile.name}</span></div>
+                      <div className="kv"><span className="k">Industry</span><span className="v">{result.businessProfile.industry}</span></div>
+                      <div className="kv"><span className="k">Vertical</span><span className="v">{result.businessProfile.vertical}</span></div>
+                      <div className="kv"><span className="k">Niche</span><span className="v">{result.businessProfile.niche}</span></div>
+                      <div className="kv"><span className="k">Location</span><span className="v">{result.businessProfile.location}</span></div>
+                      <p style={{ color: "var(--muted)", fontSize: 13, marginTop: 12 }}>{result.businessProfile.summary}</p>
+                    </div>
+
+                    {/* storefront */}
+                    <div className="res-card">
+                      <div className="rc-h">▸ {t.res_storefront}</div>
+                      <div style={{ marginBottom: 10 }}>
+                        <span className={"badge " + verdictBadge(result.storefrontAudit.websiteVerdict)}>{verdictLabel(result.storefrontAudit.websiteVerdict)}</span>
+                      </div>
+                      <div style={{ fontSize: 12, color: "var(--muted)", marginBottom: 4 }}>Website score</div>
+                      <div className="score"><div className="score-bar"><div className="score-fill" style={{ width: result.storefrontAudit.websiteScore + "%" }} /></div><span className="score-n">{result.storefrontAudit.websiteScore}</span></div>
+                      <div style={{ fontSize: 12, color: "var(--muted)", margin: "10px 0 4px" }}>SEO score</div>
+                      <div className="score"><div className="score-bar"><div className="score-fill" style={{ width: result.storefrontAudit.seoScore + "%" }} /></div><span className="score-n">{result.storefrontAudit.seoScore}</span></div>
+                      <div className="kv" style={{ marginTop: 8 }}><span className="k">Chatbot present</span><span className="v">{result.storefrontAudit.hasChatbot ? "Yes" : "No"}</span></div>
+                      <div className="kv"><span className="k">Missed-call risk</span><span className="v">{riskLabel(result.storefrontAudit.missedCallRisk)}</span></div>
+                    </div>
+
+                    {/* findings */}
+                    <div className="res-card">
+                      <div className="rc-h">▸ {t.res_findings}</div>
+                      {result.storefrontAudit.websiteFindings.map((f, i) => (
+                        <div className="find-li" key={i}><span className="fd">!</span>{f}</div>
+                      ))}
+                    </div>
+
+                    {/* market */}
+                    <div className="res-card">
+                      <div className="rc-h">▸ {t.res_market}</div>
+                      <p style={{ fontSize: 13, color: "var(--text)", marginBottom: 12 }}><strong style={{ color: "var(--cyan)" }}>Reg · {form.state}:</strong> {result.marketContext.stateRegulations}</p>
+                      <p style={{ fontSize: 13, color: "var(--text)" }}><strong style={{ color: "var(--cyan)" }}>Trend:</strong> {result.marketContext.trend}</p>
+                    </div>
+
+                    {/* package */}
+                    <div className="res-card full">
+                      <div className="rc-h">▸ {t.res_package}</div>
+                      <div style={{ display: "flex", gap: 10, flexWrap: "wrap", marginBottom: 12 }}>
+                        {result.package.components.map((c, i) => (<span key={i} className="seq-chip">{c}</span>))}
+                      </div>
+                      <p style={{ color: "var(--muted)", fontSize: 14 }}>{result.package.headline}</p>
+                    </div>
+                  </div>
+
+                  <div className="reveal-row">
+                    <button className="reveal-btn" onClick={openSite}>
+                      <span className="rb-ic">🌐</span>
+                      <span><span className="rb-t">{t.reveal_site}</span><br /><span className="rb-s">{t.reveal_site_sub}</span></span>
+                    </button>
+                    <button className="reveal-btn" onClick={openAgent}>
+                      <span className="rb-ic">🤖</span>
+                      <span><span className="rb-t">{t.test_agent}</span><br /><span className="rb-s">{t.test_agent_sub}</span></span>
+                    </button>
+                  </div>
+
+                  <div className="wiz-nav">
+                    <button className="btn btn-ghost" onClick={resetAudit}>↺ {t.run_another}</button>
+                    <button className="btn btn-grad" onClick={startEnroll}>{t.enroll_this}</button>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ENROLL */}
+      <section className="sec" id="enroll">
+        <div className="air-wrap">
+          <div className="sec-head">
+            <span className="eyebrow">{t.enroll_eyebrow}</span>
+            <h2 className="disp">{t.enroll_h2}</h2>
+            <p>{t.enroll_p}</p>
+          </div>
+          <div className="enroll-card">
+            {!enrolled ? (
+              <>
+                <div className="enroll-grid">
+                  <div className="field"><label>{t.f_contact}</label><input className="input" value={enroll.contact} onChange={(e) => setEnroll({ ...enroll, contact: e.target.value })} /></div>
+                  <div className="field"><label>{t.f_company}</label><input className="input" value={enroll.company} onChange={(e) => setEnroll({ ...enroll, company: e.target.value })} /></div>
+                  <div className="field"><label>{t.f_email}</label><input className="input" value={enroll.email} onChange={(e) => setEnroll({ ...enroll, email: e.target.value })} /></div>
+                  <div className="field"><label>{t.f_phone}</label><input className="input" value={enroll.phone} onChange={(e) => setEnroll({ ...enroll, phone: e.target.value })} /></div>
+                </div>
+                <div className="field"><label>{t.f_notes}</label><input className="input" value={enroll.notes} onChange={(e) => setEnroll({ ...enroll, notes: e.target.value })} /></div>
+                <button className="btn btn-grad" style={{ width: "100%", marginTop: 8 }} disabled={!enroll.contact || !enroll.email} onClick={() => setEnrolled(true)}>{t.submit_enroll}</button>
+                {!result && <p className="mono" style={{ fontSize: 12, color: "var(--faint)", marginTop: 12, textAlign: "center" }}>Run an audit above to attach a full profile to this enrollment.</p>}
+              </>
+            ) : (
+              <div className="confirm">
+                <div className="ico">✓</div>
+                <h3 className="disp" style={{ fontSize: 26, marginBottom: 8 }}>{t.enrolled_t}</h3>
+                <p style={{ color: "var(--muted)", maxWidth: 520, margin: "0 auto 22px" }}>{t.enrolled_p}</p>
+                <pre className="mono" style={{ textAlign: "left", background: "var(--space-900)", border: "1px solid var(--border)", borderRadius: 12, padding: 18, fontSize: 12, color: "var(--muted)", overflowX: "auto", whiteSpace: "pre-wrap" }}>
+{result ? enrollSummary() : `Company: ${enroll.company}\nContact: ${enroll.contact} | ${enroll.email} | ${enroll.phone}\nNotes: ${enroll.notes || "(none)"}\n\n(No audit attached — run the Strategist Guru for a full profile.)`}
+                </pre>
+                <div style={{ display: "flex", gap: 12, justifyContent: "center", marginTop: 18, flexWrap: "wrap" }}>
+                  <button className="btn btn-grad" onClick={copySummary}>{copied ? t.copied : t.copy}</button>
+                  <button className="btn btn-ghost" onClick={() => { setEnrolled(false); }}>← {t.back}</button>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      </section>
+
+      {/* FOOTER */}
+      {/* ============ WEBSITE PREVIEW MODAL ============ */}
+      {modal === "site" && result && (
+        <div className="air-modal" onClick={() => setModal(null)}>
+          <div className="air-modal-card" onClick={(e) => e.stopPropagation()}>
+            <div className="modal-head">
+              <span className="mt">🌐 {t.site_title}</span>
+              <button className="modal-x" onClick={() => setModal(null)}>✕</button>
+            </div>
+            <div className="modal-body">
+              <div className="browser-bar">
+                <span className="tl"><span style={{ background: "#ff5f57" }} /><span style={{ background: "#febc2e" }} /><span style={{ background: "#28c840" }} /></span>
+                <span className="urlbar">🔒 https://{site ? site.domain : slugify(result.businessProfile.name) + ".com"}{site && activePage !== "home" ? "/" + activePage : ""}</span>
+              </div>
+              {siteLoading || !site ? (
+                <div className="site-loading"><span className="run-spin" style={{ width: 26, height: 26 }} />{t.building}</div>
+              ) : (
+                <div className="psite" style={{ "--ps": site.accent || "#2d6cdf" }}>
+                  <div className="psite-nav">
+                    <span className="psite-logo"><span className="pl-dot" />{site.business}</span>
+                    <span className="pn-links">
+                      {site.pages.map((pg) => (
+                        <a key={pg.id} href="#0" className={activePage === pg.id ? "on" : ""} onClick={(e) => { e.preventDefault(); navTo(pg.id); }}>{pg.label}</a>
+                      ))}
+                      <button className="psite-call">📞 {t.ps_call}</button>
+                    </span>
+                  </div>
+                  {(() => {
+                    const page = site.pages.find((p) => p.id === activePage) || site.pages[0];
+                    if (pageLoading === page.id || !page.sections) {
+                      return <div className="site-loading"><span className="run-spin" style={{ width: 26, height: 26 }} />{t.building}</div>;
+                    }
+                    return <div key={page.id} className="psite-page">{page.sections.map((s, i) => renderSection(s, i))}</div>;
+                  })()}
+                  <div className="psite-foot">© {site.business} · <span className="pf-orbit">{t.ps_built}</span></div>
+                  <button className="psite-bubble" onClick={() => setModal("agent")}><span className="pb-dot" />{t.ps_chat}</button>
+                </div>
+              )}
+            </div>
+            <div className="modal-foot">
+              <span className="mf-note">{t.site_note}</span>
+              <button className="btn btn-grad" onClick={() => { setModal(null); startEnroll(); }}>{t.love_it}</button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ============ AI RECEPTIONIST MODAL ============ */}
+      {modal === "agent" && result && (() => {
+        const cat = presetCategory(result.businessProfile.industry);
+        const chips = getChips(cat, lang);
+        const lastBot = [...chat].reverse().find((m) => m.role === "assistant");
+        const lastUser = [...chat].reverse().find((m) => m.role === "user");
+        return (
+        <div className="air-modal" onClick={() => setModal(null)}>
+          <div className="air-modal-card" style={{ maxWidth: 520 }} onClick={(e) => e.stopPropagation()}>
+            <div className="modal-head">
+              <span className="mt">{agentMode === "voice" ? "📞" : "🤖"} {t.agent_title}</span>
+              <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
+                <div className="vmode">
+                  <button className={agentMode === "chat" ? "on" : ""} onClick={() => setAgentMode("chat")}>💬 {t.mode_chat}</button>
+                  <button className={agentMode === "voice" ? "on" : ""} onClick={() => { setAgentMode("voice"); }}>🎙️ {t.mode_voice}</button>
+                </div>
+                <button className="modal-x" onClick={() => setModal(null)}>✕</button>
+              </div>
+            </div>
+            <div className="chat-wrap">
+              <div className="chat-head">
+                <span className="ch-av" />
+                <div><div className="ch-name">{result.businessProfile.name}</div><div className="ch-on">{t.agent_online}</div></div>
+              </div>
+
+              {agentMode === "chat" ? (
+                <>
+                  <div className="chat-msgs" ref={(el) => { if (el) el.scrollTop = el.scrollHeight; }}>
+                    {chat.map((m, i) => (<div key={i} className={"msg " + (m.role === "user" ? "user" : "bot")}>{m.text}</div>))}
+                    {agentTyping && <div className="typing"><span /><span /><span /></div>}
+                  </div>
+                  {chat.length <= 1 && (
+                    <div className="chat-chips">
+                      {chips.map((c, i) => (<button key={i} className="chat-chip" onClick={() => sendAgent(c)}>{c}</button>))}
+                    </div>
+                  )}
+                  <div className="chat-input">
+                    <input value={agentInput} placeholder={t.agent_ph}
+                      onChange={(e) => setAgentInput(e.target.value)}
+                      onKeyDown={(e) => { if (e.key === "Enter") sendAgent(); }} />
+                    <button className="chat-send" disabled={!agentInput.trim() || agentTyping} onClick={() => sendAgent()}>➤</button>
+                  </div>
+                </>
+              ) : (
+                <div className="voice-view">
+                  {!voiceSupported ? (
+                    <p className="voice-unsup">{t.voice_unsupported}</p>
+                  ) : (
+                    <>
+                      <button className={"voice-orb" + (listening ? " listening" : speaking ? " speaking" : "")} onClick={() => { if (speaking) { try { window.speechSynthesis.cancel(); } catch (e) {} setSpeaking(false); } else startListening(); }}>
+                        <span className="vo-icon">{listening ? "🎙️" : speaking ? "🔊" : "🎙️"}</span>
+                      </button>
+                      <div className="voice-status">{agentTyping ? t.voice_thinking : listening ? t.voice_listening : speaking ? t.voice_speaking : t.voice_tap}</div>
+                      {lastUser && <div className="voice-cap you">{t.voice_you}: “{lastUser.text}”</div>}
+                      {lastBot && <div className="voice-cap bot">{lastBot.text}</div>}
+                      {lastBot && !speaking && <button className="voice-replay" onClick={() => speak(lastBot.text)}>🔁 {t.voice_replay}</button>}
+                    </>
+                  )}
+                </div>
+              )}
+            </div>
+            <div className="modal-foot">
+              <span className="mf-note">{t.agent_note}</span>
+            </div>
+          </div>
+        </div>
+        );
+      })()}
+
+      <footer className="air-foot">
+        <div className="air-wrap foot-in">
+          <div>
+            <div className="logo" style={{ marginBottom: 8 }}><span className="logo-mark" /> Orbit<span className="gradtext">AI</span></div>
+            <div className="muted">{t.foot_tag}</div>
+          </div>
+          <div className="muted mono">OrbitAIAutomation.com · Airlock™ · EN / ES</div>
+        </div>
+      </footer>
+    </div>
+  );
+}

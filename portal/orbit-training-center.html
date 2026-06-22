@@ -1,0 +1,312 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Training & Help — Orbit AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* light (customer) default; dark (partner/support) via [data-theme=dark] */
+:root{--bg:#f6f7f9;--card:#fff;--bd:#e4e8ee;--ink:#1a2330;--ink2:#5a6677;--faint:#97a1b0;--accent:#0a66ff;--accent2:#5b8cff;--chipbg:#eef2f7;}
+[data-theme=dark]{--bg:#0a0d13;--card:#10141d;--bd:#1f2738;--ink:#e8edf6;--ink2:#9aa6bd;--faint:#5c6680;--accent:#3dd6d0;--accent2:#5fd38d;--chipbg:#141926;}
+*{box-sizing:border-box}html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font-family:'IBM Plex Sans',system-ui,sans-serif;line-height:1.5}
+.wrap{max-width:920px;margin:0 auto;padding:24px 18px 60px}
+.disp{font-family:'Chakra Petch',sans-serif}
+.head{display:flex;align-items:center;gap:12px;margin-bottom:6px}
+.head .ic{width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-size:19px;color:#fff;flex:none}
+h1{font-family:'Chakra Petch';font-weight:700;font-size:23px;margin:0}
+.sub{color:var(--ink2);font-size:13.5px;margin:0 0 16px}
+.tabs{display:flex;gap:8px;margin-bottom:16px}
+.tabs button{font-family:'IBM Plex Mono';font-size:13px;color:var(--ink2);background:var(--card);border:1px solid var(--bd);border-radius:9px;padding:9px 16px;cursor:pointer}
+.tabs button.on{background:var(--accent);color:#fff;border-color:var(--accent)}
+[data-theme=dark] .tabs button.on{color:var(--bg)}
+.chips{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:14px}
+.chips button{font-family:'IBM Plex Mono';font-size:11.5px;color:var(--ink2);background:var(--chipbg);border:1px solid var(--bd);border-radius:20px;padding:5px 12px;cursor:pointer}
+.chips button.on{color:var(--accent);border-color:var(--accent);font-weight:600}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
+.tut{background:var(--card);border:1px solid var(--bd);border-radius:13px;overflow:hidden;cursor:pointer;transition:.15s}
+.tut:hover{transform:translateY(-2px);border-color:var(--accent)}
+.thumb{height:120px;background:linear-gradient(135deg,var(--accent),var(--accent2));position:relative;display:flex;align-items:center;justify-content:center}
+.thumb .play{width:46px;height:46px;border-radius:50%;background:rgba(255,255,255,.92);display:flex;align-items:center;justify-content:center;color:var(--accent);font-size:18px;padding-left:3px}
+.thumb .kindtag{position:absolute;top:9px;left:9px;font-family:'IBM Plex Mono';font-size:9.5px;text-transform:uppercase;letter-spacing:.05em;color:#fff;background:rgba(0,0,0,.32);padding:2px 7px;border-radius:5px}
+.thumb .dur{position:absolute;bottom:9px;right:9px;font-family:'IBM Plex Mono';font-size:10.5px;color:#fff;background:rgba(0,0,0,.42);padding:2px 7px;border-radius:5px}
+.tut .meta{padding:12px 13px}
+.tut .ttl{font-family:'Chakra Petch';font-weight:600;font-size:14px;margin:0 0 4px}
+.tut .ds{font-size:12px;color:var(--ink2);margin:0}
+.tut .cat{font-family:'IBM Plex Mono';font-size:10px;color:var(--faint);margin-top:7px;text-transform:uppercase;letter-spacing:.04em}
+/* player modal */
+.modal{position:fixed;inset:0;background:rgba(8,12,20,.62);display:none;align-items:flex-start;justify-content:center;padding:30px 16px;overflow-y:auto;z-index:60}
+.modal.open{display:flex}
+.sheet{background:var(--card);border:1px solid var(--bd);border-radius:16px;max-width:680px;width:100%;overflow:hidden}
+.sheet .pl{background:#000;aspect-ratio:16/9;display:flex;align-items:center;justify-content:center}
+.sheet video,.sheet iframe,.sheet audio{width:100%;height:100%;border:0;display:block}
+.sheet .soon{color:#cdd6e6;font-family:'IBM Plex Mono';font-size:13px;text-align:center;padding:20px}
+.sheet .body{padding:16px 19px}
+.sheet .body h2{font-family:'Chakra Petch';font-size:18px;margin:0 0 4px}
+.sheet .body .ds{color:var(--ink2);font-size:13.5px;margin:0 0 12px}
+.sheet .body h3{font-family:'Chakra Petch';font-size:13px;text-transform:uppercase;letter-spacing:.05em;color:var(--accent);margin:14px 0 6px}
+.sheet .body ol{margin:0;padding-left:20px}.sheet .body li{font-size:13.5px;margin-bottom:6px}
+.closex{position:sticky;top:0;float:right;background:rgba(0,0,0,.4);color:#fff;border:none;border-radius:8px;width:30px;height:30px;cursor:pointer;font-size:15px;margin:8px}
+/* ask */
+.ask{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:16px}
+.log{height:300px;overflow-y:auto;margin-bottom:11px}
+.b{max-width:86%;padding:9px 12px;border-radius:12px;margin-bottom:9px;font-size:13.5px;line-height:1.5}
+.b.bot{background:var(--chipbg);border:1px solid var(--bd)}
+.b.me{background:var(--accent);color:#fff;margin-left:auto}
+[data-theme=dark] .b.me{color:var(--bg)}
+.askbar{display:flex;gap:8px}
+.askbar input{flex:1;border:1px solid var(--bd);border-radius:10px;padding:11px 13px;font-size:14px;background:var(--bg);color:var(--ink);outline:none}
+.askbar input:focus{border-color:var(--accent)}
+.mic,.sendb{flex:none;border:none;border-radius:10px;cursor:pointer}
+.mic{width:44px;height:44px;border-radius:50%;background:var(--chipbg);color:var(--accent);font-size:17px}
+.mic.live{background:#ff5a5f;color:#fff}
+.sendb{background:var(--accent);color:#fff;padding:0 17px;font-weight:600}
+[data-theme=dark] .sendb{color:var(--bg)}
+.hint{font-size:12px;color:var(--faint);font-family:'IBM Plex Mono';margin-top:9px}
+footer{margin-top:20px;font-family:'IBM Plex Mono';font-size:11px;color:var(--faint);text-align:center}
+</style></head><body>
+<div class="wrap">
+  <div class="head"><div class="ic">🎓</div><div><h1>Training &amp; Help</h1></div></div>
+  <p class="sub" id="sub">Watch a short tutorial, or ask anything about your account — type or tap the mic.</p>
+  <div class="tabs"><button id="tabT" class="on">📺 Tutorials</button><button id="tabA">💬 Ask</button></div>
+
+  <div id="paneT">
+    <div class="chips" id="cats"></div>
+    <div class="grid" id="grid"></div>
+  </div>
+
+  <div id="paneA" style="display:none">
+    <div class="tabs" style="margin-bottom:10px"><button id="mHelp" class="on">💬 Help KB</button><button id="mGuru">🛠 Architect Guru</button></div>
+    <div id="qbar" style="display:none;font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink2);background:var(--chipbg);border:1px solid var(--bd);border-radius:9px;padding:9px 13px;margin-bottom:11px">Plan: <b id="planName" style="color:var(--accent)">Engage</b> · Questions left: <b id="qLeft">–</b> · DFY left: <b id="dLeft">–</b></div>
+    <div class="ask">
+      <div class="log" id="log"></div>
+      <div class="askbar"><button class="mic" id="mic">🎤</button><input id="q" placeholder="Ask how to do something…" autocomplete="off"><button class="sendb" id="send">Ask</button></div>
+      <button id="dfyOpen" style="display:none;margin-top:9px;background:none;border:1px solid var(--accent);color:var(--accent);border-radius:9px;padding:9px 14px;font-weight:600;cursor:pointer;font-family:inherit;font-size:13px">🛠 Request a change / done-for-you</button>
+      <div id="dfyPanel" style="display:none;margin-top:11px;border-top:1px solid var(--bd);padding-top:12px">
+        <div class="chips" id="dfyCats"></div>
+        <textarea id="dfyText" placeholder="Describe what you'd like set up or changed…" style="width:100%;border:1px solid var(--bd);border-radius:10px;padding:11px 13px;font:inherit;font-size:13.5px;min-height:70px;background:var(--bg);color:var(--ink);outline:none"></textarea>
+        <div style="display:flex;gap:9px;align-items:center;margin-top:9px"><button class="sendb" id="dfySubmit">Submit request</button><span id="dfyMsg" style="font-family:'IBM Plex Mono',monospace;font-size:12px"></span></div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--faint);margin-top:8px">🔒 Nothing goes live until a human on our team reviews & approves it.</div>
+      </div>
+      <div class="hint" id="hint">Tip: try “how do I get the best results from my account?” · Product KB: <b id="kbcount">0</b> answers &amp; growing</div>
+    </div>
+  </div>
+
+  <footer>Orbit AI Automation · Training &amp; Help · drop in your own video URLs (Loom / YouTube / Vimeo / MP4) anytime</footer>
+</div>
+
+<div class="modal" id="modal"><div class="sheet" id="sheet"></div></div>
+
+<script>
+(function(){
+  var $=function(i){return document.getElementById(i);};
+  var P=new URLSearchParams(location.search);
+  var channel=(P.get("channel")||"portal").toLowerCase();      // new | portal | partner | support
+  if(channel==="dark"||channel==="partner"||channel==="support") document.body.setAttribute("data-theme","dark");
+  var HELP_ENDPOINT="https://jonathan777-ui.app.n8n.cloud/webhook/alyxir-help"; // optional live assistant; offline fallback below
+  var lang="en";
+
+  // ---- tutorial + help library (written walkthrough doubles as the script for the recorded video) ----
+  // kind: 'video' (mp4 url) | 'audio' (mp3 url) | 'embed' (youtube/vimeo/loom url) | '' (coming soon)
+  var T=[
+    {id:"welcome",ch:["new","portal"],cat:"Onboarding",ttl:"Welcome & what happens next",dur:"2:30",kind:"",src:"",
+      ds:"The 3 steps from signup to a live AI receptionist.",
+      steps:["We build your site, receptionist and chatbot from your business profile + the KB for your industry.","You complete the “We need from you” items — hours, services, and any keys.","You preview the agent, approve, and we take it live."],
+      keys:["welcome","start","begin","what happens","next","onboard","signup"]},
+    {id:"receptionist",ch:["new","portal"],cat:"Onboarding",ttl:"How your AI receptionist works",dur:"3:10",kind:"",src:"",
+      ds:"What it answers, how it books, and how it stays on-brand.",
+      steps:["It answers every call in English or Spanish, mirroring the caller.","It follows your industry’s rules (e.g. confirming details before quoting).","It captures the lead, books into your calendar, or takes a message — never misses a call."],
+      keys:["receptionist","how it works","answer","calls","voice","agent"]},
+    {id:"preview",ch:["new","portal"],cat:"Onboarding",ttl:"Previewing your agent",dur:"2:00",kind:"",src:"",
+      ds:"Try your receptionist and site before going live.",
+      steps:["Open your preview link and tap “Talk to your receptionist”.","Ask it the questions your customers ask — check tone and answers.","Tell us any tweaks; we update the KB and re-preview."],
+      keys:["preview","try","test","demo"]},
+    {id:"optimum",ch:["portal"],cat:"Best results",ttl:"Getting the optimum results from your account",dur:"4:20",kind:"",src:"",
+      ds:"The handful of things that make the biggest difference.",
+      steps:["Keep your hours, services and FAQs current — the agent is only as good as the KB.","Add your real FAQs and objections so it sounds like your best front-desk person.","Connect your calendar so it can book, not just message.","Review call summaries weekly and send us 2–3 phrasings to refine."],
+      keys:["optimum","best","results","improve","most","get the most","optimize","tips"]},
+    {id:"update-kb",ch:["portal"],cat:"Best results",ttl:"Updating your hours, services & answers",dur:"2:40",kind:"",src:"",
+      ds:"Change what the agent knows in minutes.",
+      steps:["Open the “We need from you” questionnaire in your portal.","Update hours, services, or FAQs and submit.","Changes flow into the receptionist, chatbot and site together — one update, all surfaces."],
+      keys:["update","change","hours","services","faq","edit","kb"]},
+    {id:"keys",ch:["portal","support"],cat:"Best results",ttl:"Submitting keys & access securely",dur:"2:15",kind:"",src:"",
+      ds:"How the write-only vault keeps your credentials safe.",
+      steps:["In “We need from you”, open the keys/calendar item.","Paste the key — we run a quick validity check.","On success it shows “On file — verified”; the value is never shown again, to you or us."],
+      keys:["key","keys","api","credential","vault","secure","calendar access","secret"]},
+    {id:"summaries",ch:["portal"],cat:"Best results",ttl:"Reading your call summaries",dur:"2:50",kind:"",src:"",
+      ds:"Turn every captured call into action.",
+      steps:["Each call leaves a short summary: who, what they wanted, next step.","Follow up on anything flagged for a callback.","Patterns in the summaries tell you what to add to your FAQs."],
+      keys:["summary","summaries","dashboard","report","calls log","leads"]},
+    {id:"pitch",ch:["partner"],cat:"Partner",ttl:"Pitching Alyxir in 5 minutes",dur:"4:00",kind:"",src:"",
+      ds:"The story that lands with SMB owners.",
+      steps:["Lead with the pain: missed calls and unfollowed leads = lost revenue.","Show the preview — let them talk to their own receptionist.","Frame it as revenue infrastructure, not “a chatbot”.","Close on a quick build + preview, not a long sales cycle."],
+      keys:["pitch","sell","sales","partner","present","demo client"]},
+    {id:"price-deal",ch:["partner","support"],cat:"Partner",ttl:"Pricing a deal with the configurator",dur:"3:30",kind:"",src:"",
+      ds:"Pick the stack and read the margin for an account.",
+      steps:["Open the Agent Cost Configurator.","Set the account’s call length and monthly volume.","Choose Cheapest/Balanced/Premium, then decide if the premium voice is worth it for that client.","Quote off the monthly total with your margin on top."],
+      keys:["price","pricing","cost","configurator","deal","margin","quote"]},
+    {id:"deploy",ch:["support"],cat:"Support",ttl:"Deploying a preview to Netlify",dur:"3:45",kind:"",src:"",
+      ds:"From bundle to a live preview link.",
+      steps:["Drag the preview bundle into Netlify (manual deploy).","Add env vars: ANTHROPIC_API_KEY (and ELEVENLABS_API_KEY for premium voice).","Redeploy; open the site and test the agent."],
+      keys:["deploy","netlify","host","publish","launch preview","env"]},
+    {id:"credentials",ch:["support"],cat:"Support",ttl:"Wiring credentials (P0 → P1 → P2)",dur:"4:10",kind:"",src:"",
+      ds:"What to connect, in what order.",
+      steps:["P0 (demo): Anthropic key + Netlify.","P1 (launch): Attio, Telnyx, Deepgram, ElevenLabs, 10DLC/STIR, Google Calendar.","P2 (scale): Oracle Cloud, Apollo, scraping.","Use the Credential Queue to track owner + status."],
+      keys:["credential","keys order","p0","p1","p2","telnyx","provision","setup"]},
+    {id:"merge",ch:["support","partner"],cat:"Support",ttl:"The Merge Engine build flow",dur:"3:20",kind:"",src:"",
+      ds:"Vertical KB + profile → site, receptionist, chatbot.",
+      steps:["Load the business by Lead ID (from Attio) or via the consultant.","The engine merges the industry KB with the profile.","Download/deploy the site + receptionist KB; the voice/cost add-on is optional."],
+      keys:["merge","engine","build","generate","site","kb"]}
+  ];
+
+  var tutorials=T.filter(function(t){ return t.ch.indexOf(channel)>=0 || channel==="all"; });
+  if(!tutorials.length) tutorials=T.slice();
+  var SUBS={"new":"Welcome! A couple of short tutorials to get you live — or ask anything below.",
+    portal:"Watch a short tutorial, or ask anything about your account — type or tap the mic.",
+    partner:"Enablement: how to pitch, price and onboard clients. Ask anything below.",
+    support:"Build & ops playbooks. Ask anything — type or voice."};
+  $("sub").textContent=SUBS[channel]||SUBS.portal;
+
+  // categories
+  var cats=["All"]; tutorials.forEach(function(t){ if(cats.indexOf(t.cat)<0) cats.push(t.cat); });
+  var activeCat="All";
+  function renderCats(){ $("cats").innerHTML=""; cats.forEach(function(c){ var b=document.createElement("button"); b.textContent=c; if(c===activeCat)b.className="on"; b.addEventListener("click",function(){activeCat=c;renderCats();renderGrid();}); $("cats").appendChild(b); }); }
+  function renderGrid(){ var g=$("grid"); g.innerHTML="";
+    tutorials.filter(function(t){return activeCat==="All"||t.cat===activeCat;}).forEach(function(t){
+      var k=t.kind?t.kind:"guide";
+      var el=document.createElement("div"); el.className="tut"; el.setAttribute("data-id",t.id);
+      el.innerHTML='<div class="thumb"><span class="kindtag">'+(t.kind==="audio"?"audio":(t.kind?"video":"walkthrough"))+'</span><span class="play">▶</span><span class="dur">'+t.dur+'</span></div>'
+        +'<div class="meta"><p class="ttl">'+t.ttl+'</p><p class="ds">'+t.ds+'</p><p class="cat">'+t.cat+'</p></div>';
+      el.addEventListener("click",function(){openTut(t.id);});
+      g.appendChild(el);
+    });
+  }
+  function openTut(id){ var t=tutorials.filter(function(x){return x.id===id;})[0]||T.filter(function(x){return x.id===id;})[0]; if(!t)return;
+    var player;
+    if(t.kind==="video"&&t.src) player='<div class="pl"><video controls preload="metadata" src="'+t.src+'"></video></div>';
+    else if(t.kind==="audio"&&t.src) player='<div class="pl" style="aspect-ratio:auto;padding:24px"><audio controls src="'+t.src+'" style="width:100%"></audio></div>';
+    else if(t.kind==="embed"&&t.src) player='<div class="pl"><iframe src="'+t.src+'" allow="autoplay; fullscreen" allowfullscreen></iframe></div>';
+    else player='<div class="pl"><div class="soon">🎬 Video coming soon — full written walkthrough below.</div></div>';
+    var ol=t.steps.map(function(s){return '<li>'+s+'</li>';}).join("");
+    $("sheet").innerHTML='<button class="closex" id="cx">✕</button>'+player
+      +'<div class="body"><h2>'+t.ttl+'</h2><p class="ds">'+t.ds+'</p><h3>Step by step</h3><ol>'+ol+'</ol></div>';
+    $("modal").classList.add("open");
+    $("cx").addEventListener("click",closeTut);
+  }
+  function closeTut(){ $("modal").classList.remove("open"); $("sheet").innerHTML=""; }
+  $("modal").addEventListener("click",function(e){ if(e.target===$("modal")) closeTut(); });
+
+  // ---- tabs ----
+  $("tabT").addEventListener("click",function(){ this.classList.add("on"); $("tabA").classList.remove("on"); $("paneT").style.display=""; $("paneA").style.display="none"; });
+  $("tabA").addEventListener("click",function(){ this.classList.add("on"); $("tabT").classList.remove("on"); $("paneA").style.display=""; $("paneT").style.display="none"; if(!$("log").childNodes.length) add("bot","Hi! Ask me anything about your account — setup, getting the best results, or how a feature works. You can also browse the tutorials tab."); });
+
+  // ---- ask assistant (offline KB responder; live via HELP_ENDPOINT when deployed) ----
+  function add(role,text){ var d=document.createElement("div"); d.className="b "+(role==="me"?"me":"bot"); d.textContent=text; $("log").appendChild(d); $("log").scrollTop=$("log").scrollHeight; }
+  function bestMatch(q){ q=q.toLowerCase(); var best=null,score=0;
+    T.forEach(function(t){ var sc=0; t.keys.forEach(function(k){ if(q.indexOf(k)>=0) sc+=2; });
+      (t.ttl+" "+t.ds).toLowerCase().split(/\s+/).forEach(function(w){ if(w.length>3&&q.indexOf(w)>=0) sc+=1; });
+      if(t.ch.indexOf(channel)>=0) sc+=0.5;
+      if(sc>score){score=sc;best=t;} });
+    return score>0?best:null; }
+  function answerOffline(q){ var t=bestMatch(q);
+    if(!t){ return "I can help with onboarding, getting the best results, keys & security, and how each feature works. Try asking about one of those — or open the Tutorials tab."; }
+    return t.ds+" Here's how:\n• "+t.steps.join("\n• ")+"\n\n(There's a tutorial for this: “"+t.ttl+"” in the Tutorials tab.)"; }
+  // ---- self-growing answer cache = the Product KB (hit -> no LLM call -> $0) ----
+  var KBCACHE=[]; var CSTORE="okb:"; var cuse=false;
+  function norm(q){ return (q||"").toLowerCase().replace(/[^a-z0-9\s]/g,"").replace(/\s+/g," ").trim(); }
+  function words(q){ return norm(q).split(" ").filter(function(w){return w.length>3;}); }
+  function sim(a,b){ var A=words(a),B=words(b); if(!A.length||!B.length) return 0; var set={},inter=0; A.forEach(function(w){set[w]=1;}); B.forEach(function(w){ if(set[w]) inter++; }); return inter/(A.length+B.length-inter); }
+  function findCache(q){ var nq=norm(q),best=null,bs=0; for(var i=0;i<KBCACHE.length;i++){ var e=KBCACHE[i]; if(e.qnorm===nq) return e; var sc=sim(q,e.q); if(sc>bs){bs=sc;best=e;} } return bs>=0.6?best:null; }
+  function updateCount(){ var el=$("kbcount"); if(el) el.textContent=KBCACHE.length; }
+  async function saveCache(q,a){ var e={id:"k"+Date.now()+Math.floor(Math.random()*999),q:q,qnorm:norm(q),a:a,ts:Date.now()}; KBCACHE.push(e);
+    if(cuse){ try{ await window.storage.set(CSTORE+e.id, JSON.stringify(e)); }catch(x){} } updateCount(); }
+  async function loadCache(){ if(typeof window.storage!=="undefined" && window.storage){ cuse=true;
+      try{ var l=await window.storage.list(CSTORE); if(l&&l.keys){ for(var i=0;i<l.keys.length;i++){ try{ var r=await window.storage.get(l.keys[i]); if(r) KBCACHE.push(JSON.parse(r.value)); }catch(x){} } } }catch(x){} }
+    updateCount(); }
+  function answerWithTag(text,tag){ var d=document.createElement("div"); d.className="b bot"; d.textContent=text;
+    var t=document.createElement("div"); t.style.cssText="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--faint);margin-top:6px"; t.textContent=tag; d.appendChild(t);
+    $("log").appendChild(d); $("log").scrollTop=$("log").scrollHeight; }
+  function ask(q){ add("me",q);
+    var hit=findCache(q);
+    if(hit){ answerWithTag(hit.a, "📚 from your Product KB · no LLM call · $0"); return; }
+    if(typeof fetch!=="undefined"){
+      fetch(HELP_ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({q:q,channel:channel,lang:lang})})
+        .then(function(r){return r.json();})
+        .then(function(d){ var a=(d&&d.text)?d.text:answerOffline(q);
+          var tag=(!d||!d.text)?"📘 from built-in KB · saved to KB":(d.source==="cache"?"📚 from shared Product KB · no LLM call · $0":"✨ generated · saved to KB");
+          answerWithTag(a,tag); if(!d||d.source!=="cache") saveCache(q,a); })
+        .catch(function(){ var a=answerOffline(q); answerWithTag(a,"📘 from built-in KB · saved"); saveCache(q,a); });
+    } else { var a=answerOffline(q); answerWithTag(a,"📘 from built-in KB · saved"); saveCache(q,a); }
+  }
+  function sendQ(){ var v=$("q").value.trim(); if(!v)return;
+    if(typeof guru!=="undefined" && guru){ if(left("q")!=="∞" && left("q")<=0){ add("bot","You've reached your question limit on the "+PLANS[plan].label+" plan. Upgrade for more, or browse the Tutorials tab."); return; } usage.q++; saveUsage(); }
+    $("q").value=""; ask(v); }
+  $("send").addEventListener("click",sendQ);
+  $("q").addEventListener("keydown",function(e){ if(e.key==="Enter")sendQ(); });
+
+  // voice input (Web Speech; falls back to typing)
+  var SR=window.SpeechRecognition||window.webkitSpeechRecognition, rec=null, live=false;
+  if(SR){ rec=new SR(); rec.interimResults=false;
+    rec.onresult=function(e){ var t=e.results[0][0].transcript; live=false; $("mic").classList.remove("live"); if(t){$("q").value=t; sendQ();} };
+    rec.onerror=function(){ live=false; $("mic").classList.remove("live"); };
+    rec.onend=function(){ live=false; $("mic").classList.remove("live"); };
+  }
+  $("mic").addEventListener("click",function(){ if(!rec){ $("q").focus(); return; } if(live){ try{rec.stop();}catch(e){} return; } try{ rec.lang=lang==="es"?"es-US":"en-US"; rec.start(); live=true; $("mic").classList.add("live"); }catch(e){} });
+  if(!rec){ $("mic").style.opacity=".5"; $("mic").title="Voice needs Chrome — type instead"; }
+
+
+  // ---- Architect Guru: plan quotas + DFY requests + risk-tiered governance ----
+  var DFY_ENDPOINT="https://jonathan777-ui.app.n8n.cloud/webhook/alyxir-dfy";
+  var PLANS={presence:{label:"Presence",q:25,dfy:1},engage:{label:"Engage",q:100,dfy:3},scale:{label:"Scale",q:9999,dfy:10},concierge:{label:"Concierge · Complete DFY",q:9999,dfy:9999}};
+  var plan=(P.get("plan")||"engage").toLowerCase(); if(!PLANS[plan]) plan="engage";
+  var guru=false, usage={q:0,d:0}, QKEY="oquota:"+plan, quse=false;
+  function left(k){ var max=k==="q"?PLANS[plan].q:PLANS[plan].dfy; var used=k==="q"?usage.q:usage.d; var r=max-used; return r>9000?"∞":r; }
+  function updateQuota(){ $("planName").textContent=PLANS[plan].label; $("qLeft").textContent=left("q"); $("dLeft").textContent=left("d"); }
+  async function loadUsage(){ if(typeof window.storage!=="undefined"&&window.storage){ quse=true; try{ var r=await window.storage.get(QKEY); if(r){ usage=JSON.parse(r.value); } }catch(e){} } updateQuota(); }
+  async function saveUsage(){ if(quse){ try{ await window.storage.set(QKEY,JSON.stringify(usage)); }catch(e){} } updateQuota(); }
+  function setMode(g){ guru=g; $("mHelp").classList.toggle("on",!g); $("mGuru").classList.toggle("on",g);
+    $("qbar").style.display=g?"":"none"; $("dfyOpen").style.display=g?"":"none"; if(!g){ $("dfyPanel").style.display="none"; }
+    if(g && !$("log").querySelector("[data-guru]")){ var d=document.createElement("div"); d.className="b bot"; d.setAttribute("data-guru","1");
+      d.textContent="I'm your Architect Guru — I answer questions and can set things up for you. Cosmetic tweaks I queue instantly (a human approves before they go live); bigger changes go to our team to review; anything that could affect the platform or exceeds your plan is flagged for support."; $("log").appendChild(d); $("log").scrollTop=$("log").scrollHeight; } }
+  $("mHelp").addEventListener("click",function(){ setMode(false); });
+  $("mGuru").addEventListener("click",function(){ setMode(true); });
+
+  // DFY categories
+  var DCATS=["Cosmetic edit","Improve my results","New feature","Something's broken"]; var dcat=DCATS[0];
+  function renderDCats(){ $("dfyCats").innerHTML=""; DCATS.forEach(function(c){ var b=document.createElement("button"); b.textContent=c; if(c===dcat)b.className="on"; b.addEventListener("click",function(){dcat=c;renderDCats();}); $("dfyCats").appendChild(b); }); }
+  renderDCats();
+  $("dfyOpen").addEventListener("click",function(){ var p=$("dfyPanel"); p.style.display=p.style.display==="none"?"":"none"; });
+
+  function classifyOffline(t){ t=(t||"").toLowerCase();
+    if(/delete|remove account|billing|refund|password|security|other customer|all client|database|migrate|architect|admin|root|unlimited|bypass|compliance|payment|disable|api key|integrate/.test(t)) return "forbidden";
+    if(/hour|service|faq|greeting|wording|text|copy|logo|colou?r|phone|address|spelling|typo|name|update|change the/.test(t)) return "auto";
+    return "review"; }
+  function tierMsg(tier){
+    if(tier==="auto") return ["#1f9d57","✅ Safe cosmetic change — queued. A human approves it, then it goes live."];
+    if(tier==="forbidden") return ["#c2790a","🚫 Flagged for support review — this could affect platform stability or exceeds your plan. Our team will reach out before anything is changed."];
+    return ["#0a66ff","📋 Submitted — our team will review and follow up. Nothing changes until approved."]; }
+  function submitDFY(){
+    var req=$("dfyText").value.trim(); var msg=$("dfyMsg");
+    if(!req){ msg.style.color="#c2790a"; msg.textContent="Describe the request first."; return; }
+    if(left("d")!=="∞" && left("d")<=0){ msg.style.color="#c2790a"; msg.textContent="You've used your DFY requests on the "+PLANS[plan].label+" plan — upgrade, or this can be queued as a paid add-on."; return; }
+    msg.style.color="var(--ink2)"; msg.textContent="Reviewing your request…";
+    var fallbackTier=classifyOffline(dcat+" "+req);
+    function outcome(tier){ var tm=tierMsg(tier); add("me","DFY ("+dcat+"): "+req);
+      var d=document.createElement("div"); d.className="b bot"; d.textContent=tm[1];
+      var t=document.createElement("div"); t.style.cssText="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--faint);margin-top:6px"; t.textContent="tier: "+tier+" · human approval required before live"; d.appendChild(t);
+      $("log").appendChild(d); $("log").scrollTop=$("log").scrollHeight;
+      msg.textContent=""; $("dfyText").value=""; $("dfyPanel").style.display="none";
+      if(tier!=="forbidden"){ usage.d++; saveUsage(); } }
+    if(typeof fetch!=="undefined"){
+      fetch(DFY_ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({leadId:(P.get("lead")||""),plan:plan,channel:channel,request:dcat+": "+req})})
+        .then(function(r){return r.json();}).then(function(d){ outcome((d&&d.tier)?d.tier:fallbackTier); })
+        .catch(function(){ outcome(fallbackTier); });
+    } else { outcome(fallbackTier); }
+  }
+  $("dfySubmit").addEventListener("click",submitDFY);
+
+
+  loadUsage();
+  renderCats(); renderGrid(); loadCache();
+})();
+</script>
+</body></html>

@@ -1,0 +1,166 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>How Commission Works — Orbit AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0d13;--panel:#10141d;--panel2:#141926;--bd:#1f2738;--ink:#e8edf6;--ink2:#9aa6bd;--faint:#5c6680;--amber:#ffb020;--cyan:#3dd6d0;--green:#5fd38d;--red:#ff6b6b;--violet:#9b8cff;}
+*{box-sizing:border-box}html,body{margin:0}
+body{background:radial-gradient(1200px 600px at 80% -10%,#141b2b 0,var(--bg) 55%);color:var(--ink);font-family:'IBM Plex Sans',system-ui,sans-serif;line-height:1.5}
+.wrap{max-width:920px;margin:0 auto;padding:26px 18px 64px}
+.topnav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px;font-family:'IBM Plex Mono';font-size:12px}
+.topnav a{color:var(--ink2);text-decoration:none;border:1px solid var(--bd);padding:6px 11px;border-radius:7px;background:var(--panel)}
+.brand{font-family:'Chakra Petch';font-weight:700;letter-spacing:.06em;color:var(--cyan);margin-right:6px}
+h1{font-family:'Chakra Petch';font-weight:700;font-size:26px;margin:0 0 4px}h1 .a{color:var(--cyan)}
+.sub{color:var(--ink2);font-size:14px;max-width:760px;margin:0 0 22px}
+.card{background:linear-gradient(180deg,var(--panel2),var(--panel));border:1px solid var(--bd);border-radius:14px;padding:18px;margin-bottom:16px}
+.card h2{font-family:'Chakra Petch';font-weight:600;font-size:13px;letter-spacing:.05em;text-transform:uppercase;color:var(--cyan);margin:0 0 14px}
+/* phase curve */
+.phases{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;align-items:end;height:170px}
+.ph{display:flex;flex-direction:column;justify-content:flex-end;height:100%}
+.ph .bar{border-radius:10px 10px 0 0;display:flex;flex-direction:column;justify-content:flex-end;padding:8px;position:relative}
+.ph .seg{border-radius:5px;margin-top:3px;font-family:'IBM Plex Mono';font-size:10px;padding:2px 5px;color:#06231a;font-weight:600}
+.ph .lab{text-align:center;margin-top:8px}
+.ph .lab .t{font-family:'Chakra Petch';font-weight:700;font-size:13px}
+.ph .lab .m{font-family:'IBM Plex Mono';font-size:10px;color:var(--faint)}
+.legend{display:flex;gap:16px;margin-top:14px;font-family:'IBM Plex Mono';font-size:11px;color:var(--ink2);flex-wrap:wrap}
+.legend span{display:flex;align-items:center;gap:6px}.sw{width:11px;height:11px;border-radius:3px;display:inline-block}
+/* interactive */
+.seg2{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.seg2 button{font-family:'IBM Plex Mono';font-size:12px;color:var(--ink2);background:var(--panel);border:1px solid var(--bd);border-radius:8px;padding:7px 11px;cursor:pointer}
+.seg2 button.on{border-color:var(--cyan);color:var(--cyan);background:rgba(61,214,208,.1)}
+label{font-family:'IBM Plex Mono';font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:var(--faint);display:block;margin:10px 0 5px}
+input[type=range]{width:100%}
+.pricebar{display:flex;justify-content:space-between;font-family:'IBM Plex Mono';font-size:11px;color:var(--ink2);margin-top:4px}
+.pricebar b{color:var(--ink)}
+.tog{display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--ink2);cursor:pointer;margin-top:6px}
+.tog input{width:auto}
+.flow{margin-top:16px}
+.flowrow{display:flex;align-items:center;gap:10px;margin-bottom:9px;font-size:13px}
+.flowrow .name{width:150px;color:var(--ink2);font-family:'IBM Plex Mono';font-size:12px;flex-shrink:0}
+.flowrow .track{flex:1;background:#0c1018;border-radius:7px;height:30px;overflow:hidden;display:flex}
+.flowrow .fillb{height:100%;display:flex;align-items:center;padding:0 9px;font-family:'IBM Plex Mono';font-size:12px;font-weight:600;color:#06231a;white-space:nowrap;transition:width .25s}
+.verdict{margin-top:14px;border-radius:10px;padding:12px 14px;font-size:13.5px;line-height:1.5}
+.verdict.ok{background:rgba(95,211,141,.1);border:1px solid rgba(95,211,141,.35);color:var(--green)}
+.verdict.claw{background:rgba(255,107,107,.1);border:1px solid rgba(255,107,107,.35);color:#ffb3b3}
+.verdict.over{background:rgba(255,176,32,.1);border:1px solid rgba(255,176,32,.35);color:var(--amber)}
+.y1{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px}
+.y1 .b{background:var(--panel);border:1px solid var(--bd);border-radius:10px;padding:12px;text-align:center}
+.y1 .b .k{font-family:'IBM Plex Mono';font-size:10px;text-transform:uppercase;color:var(--faint)}
+.y1 .b .v{font-family:'Chakra Petch';font-weight:700;font-size:22px;margin-top:3px}
+.y1 .b.cl .v{color:var(--cyan)}.y1 .b.st .v{color:var(--green)}.y1 .b.co .v{color:var(--violet)}
+.rules{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:680px){.rules{grid-template-columns:1fr}.y1{grid-template-columns:1fr}}
+.rule{background:var(--panel);border:1px solid var(--bd);border-radius:11px;padding:13px 15px}
+.rule .t{font-family:'Chakra Petch';font-weight:700;font-size:14px;margin-bottom:5px}
+.rule.g .t{color:var(--green)}.rule.c .t{color:var(--cyan)}.rule.r .t{color:var(--red)}.rule.a .t{color:var(--amber)}.rule.v .t{color:var(--violet)}
+.rule p{font-size:12.5px;color:var(--ink2);margin:0}
+.note{font-family:'IBM Plex Mono';font-size:11px;color:var(--faint);margin-top:12px;line-height:1.6}
+</style></head><body><div class="wrap">
+<div class="topnav"><span class="brand">ORBIT&nbsp;AI</span><a href="./orbit.html">◐ Hub</a><a href="./orbit-comp-plan.html">Comp Calculator</a><a href="./partner-portal.html">Partner</a></div>
+
+<h1>How you get <span class="a">paid</span>.</h1>
+<p class="sub">Three phases, front-loaded so you earn big early — plus a setter guarantee that protects the appointment-setter no matter how the closer prices the deal. Drag the price below to watch it work.</p>
+
+<div class="card">
+  <h2>① The payout curve — aggressive early, then a lifetime trail</h2>
+  <div class="phases">
+    <div class="ph"><div class="bar" style="height:100%;background:linear-gradient(180deg,rgba(95,211,141,.18),rgba(61,214,208,.05))">
+      <div class="seg" style="background:var(--cyan)">Closer 20%</div><div class="seg" style="background:var(--green)">Setter 20%</div></div>
+      <div class="lab"><div class="t">Q1 Accelerator</div><div class="m">months 1–3 · 40% of MRR</div></div></div>
+    <div class="ph"><div class="bar" style="height:40%;background:linear-gradient(180deg,rgba(95,211,141,.14),rgba(61,214,208,.04))">
+      <div class="seg" style="background:var(--cyan)">Closer 10%</div><div class="seg" style="background:var(--green)">Setter 5%</div></div>
+      <div class="lab"><div class="t">Standard</div><div class="m">months 4–12 · 15%</div></div></div>
+    <div class="ph"><div class="bar" style="height:26%;background:linear-gradient(180deg,rgba(95,211,141,.12),rgba(61,214,208,.03))">
+      <div class="seg" style="background:var(--cyan)">Closer 7%</div><div class="seg" style="background:var(--green)">Setter 3%</div></div>
+      <div class="lab"><div class="t">Lifetime</div><div class="m">month 13+ · while active</div></div></div>
+  </div>
+  <div class="note">Q1 is paid on the customer's average monthly revenue (≈ Q1 revenue ÷ 3). After month 12 the lifetime trail continues for as long as the agent stays active — 50% legacy if you leave in good standing, 0% if you pull a customer off the platform.</div>
+</div>
+
+<div class="card">
+  <h2>② A live deal — the setter guarantee & closer accountability</h2>
+  <label>Package</label>
+  <div class="seg2" id="pkg"><button data-pkg="Presence">Presence</button><button data-pkg="Engage" class="on">Engage</button><button data-pkg="Scale">Scale</button></div>
+  <label>What the closer sells it for <span id="priceLbl"></span></label>
+  <input type="range" id="price" min="0" max="100" value="100">
+  <div class="pricebar"><span>floor <b id="floorV"></b></span><span>target / retail <b id="retailV"></b></span></div>
+  <label class="tog"><input type="checkbox" id="override"> Platform override — company approves the low price &amp; absorbs the gap</label>
+
+  <div class="flow" id="flow"></div>
+  <div class="verdict" id="verdict"></div>
+
+  <div class="y1">
+    <div class="b cl"><div class="k">Closer · year 1</div><div class="v" id="closerY1"></div></div>
+    <div class="b st"><div class="k">Setter · year 1</div><div class="v" id="setterY1"></div></div>
+    <div class="b co"><div class="k">Company · year 1</div><div class="v" id="companyY1"></div></div>
+  </div>
+  <div class="note" id="marginNote"></div>
+</div>
+
+<div class="card">
+  <h2>③ The rules, in plain English</h2>
+  <div class="rules">
+    <div class="rule g"><div class="t">🛡 Setter guarantee</div><p>The setter is paid as if the deal closed at <b>full target price</b> — they did their job booking a qualified appointment, so the closer's pricing can't shrink their check.</p></div>
+    <div class="rule c"><div class="t">🎯 Closer accountability</div><p>The closer earns on the <b>actual</b> price. Discount below target and the gap to cover the setter's guarantee comes <b>out of the closer's commission</b> — so hold price, or own the cost.</p></div>
+    <div class="rule a"><div class="t">✋ Platform override</div><p>If Orbit approves a strategic low price (to win a logo or a referral source), the <b>company absorbs the gap</b> and the closer is made whole. The company takes that loss knowingly — a closer can't do it alone.</p></div>
+    <div class="rule v"><div class="t">🚀 Q1 accelerator</div><p>Months 1–3 pay double the standard rate (20%/20%) on the customer's monthly revenue — your big early cash for landing the account.</p></div>
+    <div class="rule g"><div class="t">♻ Lifetime trail</div><p>After the trail-down you keep earning every month the agent stays active — and 50% of it for life even if you stop selling, as long as you never poach a customer.</p></div>
+    <div class="rule c"><div class="t">🏛 The floor protects everyone</div><p>No deal can be sold below the price floor — it guarantees the company always clears its costs, which is what lets us pay this aggressively up top.</p></div>
+  </div>
+</div>
+
+<div class="note">Defaults shown (Q1 20/20 · Std 10/5 · Lifetime 7/3 · setter guarantee at target) are tunable in the comp calculator. Company-sourced / ad leads pay a reduced rate since Orbit covered acquisition. Planning model — confirm against live numbers before publishing.</div>
+
+<script>
+(function(){
+  var $=function(i){return document.getElementById(i);};
+  var PKG={Presence:{retail:297,floor:49,cogs:18},Engage:{retail:597,floor:149,cogs:94},Scale:{retail:997,floor:269,cogs:170}};
+  var q1=0.20, stdC=0.10, stdS=0.05;  // setter Q1 = closer Q1 = 0.20
+  var S={pkg:"Engage",price:100,override:false};
+  function money(n){return "$"+Math.round(n).toLocaleString();}
+  function priceFor(pk){var lo=pk.floor,hi=pk.retail*1.3;return lo+(hi-lo)*(S.price/100);}
+
+  function calc(){
+    var pk=PKG[S.pkg], price=priceFor(pk), retail=pk.retail;
+    var setterActualQ1=3*q1*price, setterGuar=3*q1*retail;
+    var setterQ1=Math.max(setterActualQ1,setterGuar), topUp=Math.max(0,setterGuar-setterActualQ1);
+    var closerActualQ1=3*q1*price;
+    var closerQ1 = S.override ? closerActualQ1 : Math.max(0, closerActualQ1-topUp);
+    var fromCloser = S.override ? 0 : Math.min(topUp, closerActualQ1);
+    var companyExtra = S.override ? topUp : Math.max(0, topUp-closerActualQ1);
+    var closerY1=closerQ1+9*stdC*price, setterY1=setterQ1+9*stdS*price;
+    var companyY1=12*price-12*pk.cogs-(closerY1+setterY1)-companyExtra;
+    return {pk:pk,price:price,retail:retail,setterActualQ1:setterActualQ1,setterGuar:setterGuar,setterQ1:setterQ1,topUp:topUp,
+      closerActualQ1:closerActualQ1,closerQ1:closerQ1,fromCloser:fromCloser,companyExtra:companyExtra,
+      closerY1:closerY1,setterY1:setterY1,companyY1:companyY1,margin:companyY1/(12*price)*100};
+  }
+  function bar(name,amount,max,color,label){
+    var pct=max>0?Math.max(2,amount/max*100):0;
+    return '<div class="flowrow"><span class="name">'+name+'</span><div class="track"><div class="fillb" style="width:'+pct+'%;background:'+color+'">'+label+'</div></div></div>';
+  }
+  function render(){
+    var c=calc(), pk=c.pk;
+    $("floorV").textContent=money(pk.floor); $("retailV").textContent=money(pk.retail);
+    $("priceLbl").innerHTML="· <b style='color:var(--cyan)'>"+money(c.price)+"/mo</b>";
+    var max=Math.max(c.setterQ1,c.closerActualQ1,1);
+    var flow="";
+    flow+=bar("Setter (Q1, guaranteed)",c.setterQ1,max,"var(--green)",money(c.setterQ1));
+    flow+=bar("Closer (Q1, after gap)",c.closerQ1,max,"var(--cyan)",money(c.closerQ1));
+    if(c.fromCloser>0) flow+=bar("↳ clawed from closer",c.fromCloser,max,"var(--red)","−"+money(c.fromCloser)+" → setter");
+    if(c.companyExtra>0) flow+=bar("↳ company absorbs",c.companyExtra,max,"var(--amber)",money(c.companyExtra));
+    $("flow").innerHTML=flow;
+    var v=$("verdict");
+    if(c.topUp<=0){ v.className="verdict ok"; v.innerHTML="✅ <b>Sold at or above target.</b> Setter and closer both earn full Q1 commission — no gap, no clawback."; }
+    else if(S.override){ v.className="verdict over"; v.innerHTML="✋ <b>Platform override.</b> Company absorbed "+money(c.topUp)+" so the setter stays whole and the closer keeps full commission. A strategic loss the company chose to take."; }
+    else { v.className="verdict claw"; v.innerHTML="🎯 <b>Discounted "+money(c.retail-c.price)+"/mo below target.</b> "+money(c.fromCloser)+" was clawed from the closer to fund the setter's guarantee"+(c.companyExtra>0?(", and the closer was maxed out so the company had to cover "+money(c.companyExtra)+" — exactly why flooring needs sign-off."):"."); }
+    $("closerY1").textContent=money(c.closerY1); $("setterY1").textContent=money(c.setterY1); $("companyY1").textContent=money(c.companyY1);
+    $("marginNote").innerHTML="Company year-1 margin: <b style='color:"+(c.margin<0?"var(--red)":"var(--green)")+"'>"+c.margin.toFixed(0)+"%</b>"+(c.margin<0?" — selling at the floor loses money; that's why it's gated behind platform override, never a closer's call.":"")+" · Lifetime after yr 1: closer "+money(0.07*c.price)+"/mo, setter "+money(0.03*c.price)+"/mo.";
+  }
+  $("pkg").querySelectorAll("button").forEach(function(b){b.addEventListener("click",function(){$("pkg").querySelectorAll("button").forEach(function(x){x.classList.remove("on");});b.classList.add("on");S.pkg=b.getAttribute("data-pkg");render();});});
+  $("price").addEventListener("input",function(){S.price=+this.value;render();});
+  $("override").addEventListener("change",function(){S.override=this.checked;render();});
+  render(); window.__exp={calc:calc,render:render,S:S};
+})();
+</script>
+</div></body></html>

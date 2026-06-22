@@ -1,0 +1,23 @@
+{
+  "lastUpdated": "2026-06-07",
+  "source": "built-in baseline — overwritten by the scheduled n8n refresh",
+  "llm": {
+    "gemini-flash-lite":{"inp":0.10,"out":0.40}, "deepseek-v32":{"inp":0.14,"out":0.28},
+    "llama4":{"inp":0.15,"out":0.60}, "gemini-flash":{"inp":0.15,"out":0.60},
+    "mistral-small":{"inp":0.20,"out":0.60}, "gpt5-nano":{"inp":0.20,"out":0.80},
+    "haiku45":{"inp":1.00,"out":5.00}, "gemini-pro":{"inp":1.25,"out":10.00},
+    "gpt54":{"inp":2.50,"out":15.00}, "sonnet46":{"inp":3.00,"out":15.00},
+    "grok3":{"inp":3.00,"out":15.00}, "opus48":{"inp":5.00,"out":25.00}
+  },
+  "stt": {
+    "browser":0, "groq-whisper":0.0006, "rev":0.002, "assembly":0.0037,
+    "deepgram-batch":0.0036, "eleven-scribe":0.004, "openai-transcribe":0.006,
+    "deepgram":0.0077, "speechmatics":0.0117, "google-stt":0.016, "azure-stt":0.0167, "aws-transcribe":0.024
+  },
+  "tts": {
+    "browser":{"perM":0,"plan":0}, "qwen3":{"perM":20,"plan":0}, "openai-tts":{"perM":15,"plan":0},
+    "azure-tts":{"perM":15,"plan":0}, "deepgram-aura":{"perM":15,"plan":0}, "google-tts":{"perM":16,"plan":0},
+    "polly":{"perM":16,"plan":0}, "playht":{"perM":39,"plan":0}, "cartesia":{"perM":50,"plan":0},
+    "eleven-flash":{"perM":100,"plan":22}, "eleven-v3":{"perM":200,"plan":22}
+  }
+}

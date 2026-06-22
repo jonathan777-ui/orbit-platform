@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Alyxir — Setup & Onboarding</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#f6f4ef;--card:#fffdf9;--ink:#1c1a17;--ink-dim:#5d574e;--ink-faint:#938b7e;--line:#e4ddd1;--line-2:#d6cdbd;--amber:#c8841f;--amber-soft:#f6ead4;--green:#2e7d52;--red:#bb3b3b;--display:"Chakra Petch",system-ui,sans-serif;--sans:"IBM Plex Sans",system-ui,sans-serif;--mono:"IBM Plex Mono",monospace;}
+  *{box-sizing:border-box}html,body{margin:0;padding:0}
+  body{background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.5}
+  .wrap{max-width:860px;margin:0 auto;padding:26px 22px 90px}
+  .head{border:1px solid var(--line);background:var(--card);border-radius:16px;padding:22px 24px;margin-bottom:18px}
+  .brand{font-family:var(--display);font-weight:700;letter-spacing:.04em;font-size:13px;color:var(--amber);text-transform:uppercase}
+  .head h1{font-family:var(--display);font-weight:700;font-size:26px;margin:6px 0 4px}
+  .head p{margin:0;color:var(--ink-dim);font-size:14px}
+  .ids{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+  .idpill{font-family:var(--mono);font-size:11px;color:var(--ink-dim);background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:6px 10px}
+  .idpill b{color:var(--ink)}
+  .prog{position:sticky;top:0;z-index:5;background:var(--paper);padding:10px 0 8px;margin-bottom:8px}
+  .progbar{height:8px;border-radius:99px;background:var(--line);overflow:hidden}.progbar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--amber),var(--green));transition:width .3s}
+  .progtxt{font-family:var(--mono);font-size:11px;color:var(--ink-faint);margin-top:5px}
+  .sec{border:1px solid var(--line);background:var(--card);border-radius:14px;margin-bottom:14px;overflow:hidden}
+  .sec>summary{cursor:pointer;list-style:none;padding:16px 20px;display:flex;align-items:center;gap:12px}
+  .sec>summary::-webkit-details-marker{display:none}
+  .sec>summary .no{font-family:var(--display);font-weight:700;font-size:13px;color:#fff;background:var(--amber);border-radius:8px;width:26px;height:26px;display:flex;align-items:center;justify-content:center;flex:none}
+  .sec>summary h2{font-family:var(--display);font-size:16px;font-weight:700;margin:0;flex:1}
+  .sec>summary .st{font-family:var(--mono);font-size:10.5px;color:var(--ink-faint)}
+  .sec>summary .st.done{color:var(--green)}
+  .sec[open]>summary{border-bottom:1px solid var(--line)}
+  .body{padding:18px 20px}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .full{grid-column:1/-1}
+  @media(max-width:620px){.grid{grid-template-columns:1fr}}
+  label{display:block;font-size:12.5px;font-weight:600;color:var(--ink-dim);margin:0 0 5px}
+  label .req{color:var(--amber)}
+  input,select,textarea{width:100%;font-family:var(--sans);font-size:14px;color:var(--ink);background:var(--paper);border:1px solid var(--line-2);border-radius:9px;padding:10px 12px}
+  textarea{resize:vertical;min-height:64px;line-height:1.5}
+  input:focus,select:focus,textarea:focus{outline:none;border-color:var(--amber);background:#fff}
+  .hint{font-size:11.5px;color:var(--ink-faint);margin-top:4px}
+  .checks{display:flex;flex-wrap:wrap;gap:8px}
+  .chk{display:inline-flex;align-items:center;gap:7px;font-size:13px;border:1px solid var(--line-2);border-radius:9px;padding:8px 11px;cursor:pointer;background:var(--paper)}
+  .chk input{width:auto}
+  .chk.on{border-color:var(--amber);background:var(--amber-soft)}
+  .rep{border:1px dashed var(--line-2);border-radius:10px;padding:12px;margin-bottom:10px;position:relative}
+  .rep .rm{position:absolute;top:8px;right:8px;border:none;background:none;color:var(--red);cursor:pointer;font-size:16px;line-height:1}
+  .addbtn{font-family:var(--mono);font-size:12px;border:1px dashed var(--line-2);background:var(--paper);color:var(--ink-dim);border-radius:9px;padding:9px 13px;cursor:pointer}
+  .addbtn:hover{border-color:var(--amber);color:var(--amber)}
+  .bar{position:fixed;left:0;right:0;bottom:0;background:var(--card);border-top:1px solid var(--line);padding:12px 22px;display:flex;gap:12px;align-items:center;justify-content:center;z-index:10}
+  .btn{font-family:var(--display);font-weight:700;letter-spacing:.04em;font-size:13px;border:none;border-radius:11px;padding:12px 22px;cursor:pointer;color:#fff;background:var(--amber)}
+  .ghost{font-family:var(--mono);font-size:12px;border:1px solid var(--line-2);background:var(--paper);color:var(--ink-dim);border-radius:10px;padding:11px 16px;cursor:pointer}
+  .ghost:hover{border-color:var(--amber);color:var(--amber)}
+  .savemsg{font-family:var(--mono);font-size:11px;color:var(--green)}
+  @media print{.bar,.prog,.addbtn,.rep .rm{display:none}.sec{break-inside:avoid}.sec>summary{pointer-events:none}details{open:true}}
+  .imap{border:1px solid var(--line);background:var(--card);border-radius:16px;padding:20px 24px;margin-bottom:18px}
+  .imap-h{font-family:var(--display);font-weight:700;font-size:16px;margin:0 0 4px}
+  .imap-sub{font-size:12.5px;color:var(--ink-faint);margin:0 0 14px}
+  .imap-steps{list-style:none;margin:0;padding:0}
+  .imap-steps li{display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-top:1px solid var(--line)}
+  .imap-steps li:first-child{border-top:none}
+  .imap-steps .dot{flex:none;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;background:var(--paper);border:1px solid var(--line-2);color:var(--ink-faint);margin-top:1px}
+  .imap-steps li.done .dot{background:var(--green);border-color:var(--green);color:#fff}
+  .imap-steps li.now .dot{background:var(--amber);border-color:var(--amber);color:#fff}
+  .imap-steps li>div{display:flex;flex-direction:column;gap:1px}
+  .imap-steps li b{font-size:14px}
+  .imap-steps li.now b{color:var(--amber)}
+  .imap-steps li em{font-style:normal;font-size:12.5px;color:var(--ink-faint)}
+  .imap-foot{margin-top:14px;font-size:13px;color:var(--ink-dim);background:var(--amber-soft);border-radius:10px;padding:11px 13px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="head">
+    <div class="brand">Orbit AI Automation · Alyxir</div>
+    <h1>Your Setup &amp; Onboarding</h1>
+    <p>Thanks for coming aboard. Complete this before (or on) your onboarding call — it's how we map your exact setup and launch your AI receptionist, chatbot, and site world-class. Saves automatically as you go.</p>
+    <div class="ids" id="ids"></div>
+  </div>
+
+  <div class="prog"><div class="progbar"><i id="progBar"></i></div><div class="progtxt" id="progTxt">0% complete</div></div>
+
+  <div class="imap">
+    <div class="imap-h">Your implementation map</div>
+    <p class="imap-sub">Here's exactly what happens and when — so you never have to wonder what's next.</p>
+    <ol class="imap-steps">
+      <li class="done"><span class="dot">✓</span><div><b>Enrolled &amp; paid</b><em>Complete</em></div></li>
+      <li class="done"><span class="dot">✓</span><div><b>Client Portal access created</b><em>Complete</em></div></li>
+      <li class="now"><span class="dot">●</span><div><b>Complete this setup form</b><em>You're here — this is the only thing we need from you</em></div></li>
+      <li><span class="dot">○</span><div><b>Website live</b><em>Within 24 hours of this form</em></div></li>
+      <li><span class="dot">○</span><div><b>AI receptionist live</b><em>48–72 hours — the exact timing is set by your customization, which we confirm on the pre-launch call</em></div></li>
+      <li><span class="dot">○</span><div><b>Pre-launch call → go live → we monitor</b><em>We confirm everything with you, launch, and watch the first calls together</em></div></li>
+    </ol>
+    <div class="imap-foot">That's the whole path. Once you submit this form, our team builds and launches — you won't need to chase anything or send anything else.</div>
+  </div>
+
+  <div id="form"></div>
+
+  <div class="bar">
+    <span class="savemsg" id="saveMsg"></span>
+    <button class="ghost" id="exportBtn">⤓ Export setup spec (JSON)</button>
+    <button class="ghost" id="printBtn">⎙ Print / PDF</button>
+    <button class="btn" id="submitBtn">Submit to Orbit →</button>
+  </div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var $=function(id){return document.getElementById(id);};
+  var qp=new URLSearchParams(location.search);
+
+  /* ---- schema ---- */
+  var VERTS=["Law Firm","Accounting & Tax","Insurance","Financial Advisory","Medical / Dental","Med Spa / Aesthetics","Veterinary","Behavioral Health","Real Estate","Property Management","Mortgage & Lending","Home Services","Construction / Remodeling","Solar & Energy","Automotive","Restaurant","Fine Dining / Catering","Hospitality / Lodging","Beauty / Personal Care","Fitness / Wellness","Other"];
+  var CAP=["Full name","Best phone","Email","Service address","Reason for call","Preferred appointment time","Insurance / payer","Budget range","Consent to be contacted (TCPA)","How they heard about you"];
+
+  var SECTIONS=[
+   {id:"biz",t:"Your Business",fields:[
+     {k:"legal",l:"Legal business name",req:1},
+     {k:"dba",l:"DBA / brand name customers know"},
+     {k:"vertical",l:"Industry",type:"select",opts:VERTS,req:1},
+     {k:"niche",l:"What you specialize in (niche)",req:1},
+     {k:"website",l:"Website URL (if any)"},
+     {k:"gbp",l:"Google Business Profile link"},
+     {k:"area",l:"Service area / locations",full:1,req:1,ph:"e.g., Tampa + 30 mi; or 3 locations…"},
+     {k:"tz",l:"Time zone",type:"select",opts:["Eastern","Central","Mountain","Pacific","Alaska","Hawaii"],req:1},
+     {k:"hours",l:"Business hours",full:1,req:1,ph:"Mon–Fri 8–6, Sat 9–1, closed Sun…"}
+   ]},
+   {id:"voice",t:"Language & Voice",fields:[
+     {k:"langs",l:"Languages your customers speak",type:"select",opts:["English only","Spanish only","English + Spanish (bilingual)"],req:1},
+     {k:"dialect",l:"Spanish region / dialect of your customers",ph:"Mexican, Cuban, Central American, mixed…"},
+     {k:"tone",l:"Tone you want",type:"select",opts:["Warm & friendly","Professional & polished","Energetic & upbeat","Calm & reassuring","Luxe & discreet"],req:1},
+     {k:"formality",l:"Spanish formality",type:"select",opts:["Formal (usted)","Casual (tú)","Mixed by caller"]},
+     {k:"greeting",l:"How you'd love the agent to greet callers",full:1,ph:"Thanks for calling [Business], this is…"},
+     {k:"use_words",l:"Words / phrases to USE (brand voice)"},
+     {k:"avoid_words",l:"Words / phrases to AVOID"}
+   ]},
+   {id:"calls",t:"Calls & Routing",fields:[
+     {k:"main_num",l:"Main business number",req:1},
+     {k:"answer_when",l:"When should the AI answer?",type:"select",opts:["All calls","After-hours only","Overflow (when staff busy)","New leads only"],req:1},
+     {k:"afterhours",l:"After-hours handling",full:1,ph:"Take a message? Emergency line? Book for next day?"},
+     {k:"emergency",l:"What counts as an emergency / urgent call, and where should it go?",full:1,req:1,ph:"e.g., active leak → text owner immediately at…"},
+     {k:"voicemail",l:"Voicemail / fallback if no one's available",full:1}
+   ],rep:{k:"transfers",t:"Warm-transfer destinations",cols:[{k:"name",l:"Name / role"},{k:"num",l:"Number"},{k:"when",l:"When to transfer here"}]}},
+   {id:"svc",t:"Services",fields:[
+     {k:"services",l:"Services you offer",full:1,req:1,ph:"List your services…"},
+     {k:"promote",l:"Top services to promote / upsell",full:1},
+     {k:"not_offer",l:"Services you do NOT offer (so the agent never promises them)",full:1,req:1},
+     {k:"seasonal",l:"Seasonal or special notes"}
+   ]},
+   {id:"price",t:"Pricing the Agent Can Quote",fields:[
+     {k:"estimate_only",l:"What always requires an estimate / consult (no firm price by phone)?",full:1,req:1},
+     {k:"payment",l:"Deposit / payment policy",full:1}
+   ],rep:{k:"pricebook",t:"Price book — only prices the agent may state",cols:[{k:"item",l:"Item / service"},{k:"price",l:"Price"},{k:"firm",l:"Firm or estimate?"}]}},
+   {id:"book",t:"Booking & Capture",fields:[
+     {k:"takes_appts",l:"Do you take appointments?",type:"select",opts:["Yes","No — messages only"],req:1},
+     {k:"cal_tool",l:"Calendar / booking tool",ph:"Google Calendar, Calendly, Housecall Pro…"},
+     {k:"book_link",l:"Booking link (if any)"},
+     {k:"appt_types",l:"Appointment types + durations",full:1,ph:"Inspection 30m, consult 1h…"}
+   ],checks:{k:"capture",t:"What should the agent capture from every caller?",opts:CAP}},
+   {id:"comp",t:"Compliance & Guardrails",fields:[
+     {k:"no_claims",l:"Claims the agent must NEVER make",full:1,req:1,ph:"e.g., no guaranteed results, no diagnosis, no firm price…"},
+     {k:"disclaimers",l:"Required disclaimers (if any)",full:1},
+     {k:"license",l:"License / registration # to reference (if any)"},
+     {k:"consent",l:"Texting / call consent preferences"}
+   ]},
+   {id:"faq",t:"FAQs & Policies",fields:[
+     {k:"cancel",l:"Cancellation / no-show policy",full:1},
+     {k:"warranty",l:"Warranty / guarantee policy",full:1},
+     {k:"payment_methods",l:"Payment methods accepted"},
+     {k:"location_notes",l:"Parking / location / access notes"}
+   ],rep:{k:"faqs",t:"Common questions the agent should answer",cols:[{k:"q",l:"Question"},{k:"a",l:"Answer"}]}},
+   {id:"int",t:"Integrations & Tools",fields:[
+     {k:"crm",l:"CRM you use (if any)"},
+     {k:"calendar_sys",l:"Calendar / scheduling system"},
+     {k:"phone_sys",l:"Current phone system / provider"},
+     {k:"connect",l:"Anything we'll need to connect on the pre-launch call (APIs, tools, logins)",full:1},
+     {k:"tech_contact",l:"Technical contact (name + email)",full:1}
+   ]},
+   {id:"brand",t:"Brand & Assets",fields:[
+     {k:"colors",l:"Brand colors (hex or describe)"},
+     {k:"platform",l:"Website platform (if you have one)"},
+     {k:"logo_note",l:"Where can we get your logo?",ph:"Link, or 'will email'"},
+     {k:"anything",l:"Anything else we should know to make this world-class?",full:1}
+   ]}
+  ];
+
+  var KEY="alyxir_onboarding";
+  var data={ids:{agent:qp.get("agent")||"",chat:qp.get("chat")||"",site:qp.get("site")||""},fields:{},checks:{},reps:{}};
+  try{var s=JSON.parse(localStorage.getItem(KEY)||"null");if(s)data=Object.assign(data,s);}catch(e){}
+  if(qp.get("agent"))data.ids.agent=qp.get("agent");
+  if(qp.get("chat"))data.ids.chat=qp.get("chat");
+  if(qp.get("site"))data.ids.site=qp.get("site");
+
+  function save(){try{localStorage.setItem(KEY,JSON.stringify(data));}catch(e){}flashSaved();updateProg();}
+  var st;function flashSaved(){$("saveMsg").textContent="saved ✓";clearTimeout(st);st=setTimeout(function(){$("saveMsg").textContent="";},1200);}
+
+  /* ids */
+  $("ids").innerHTML=["agent","chat","site"].map(function(k){return '<span class="idpill">'+k.toUpperCase()+' ID: <b>'+(data.ids[k]||"—")+'</b></span>';}).join("");
+
+  /* render */
+  function field(sec,f){
+    var v=(data.fields[sec.id]&&data.fields[sec.id][f.k])||"";
+    var inp;
+    if(f.type==="select"){inp='<select data-sec="'+sec.id+'" data-k="'+f.k+'"><option value="">— select —</option>'+f.opts.map(function(o){return '<option'+(o===v?" selected":"")+'>'+o+'</option>';}).join("")+'</select>';}
+    else if(f.full){inp='<textarea data-sec="'+sec.id+'" data-k="'+f.k+'" placeholder="'+(f.ph||"")+'">'+v+'</textarea>';}
+    else{inp='<input data-sec="'+sec.id+'" data-k="'+f.k+'" placeholder="'+(f.ph||"")+'" value="'+v.replace(/"/g,"&quot;")+'">';}
+    return '<div class="'+(f.full?"full":"")+'"><label>'+f.l+(f.req?' <span class="req">*</span>':'')+'</label>'+inp+(f.hint?'<div class="hint">'+f.hint+'</div>':'')+'</div>';
+  }
+  function checksBlock(sec){
+    var on=data.checks[sec.id]||[];
+    return '<div class="full"><label>'+sec.checks.t+'</label><div class="checks">'+sec.checks.opts.map(function(o){var c=on.indexOf(o)>=0;return '<label class="chk'+(c?" on":"")+'"><input type="checkbox" data-csec="'+sec.id+'" value="'+o+'"'+(c?" checked":"")+'>'+o+'</label>';}).join("")+'</div></div>';
+  }
+  function repBlock(sec){
+    var rep=sec.rep,rows=(data.reps[sec.id]&&data.reps[sec.id][rep.k])||[{}];
+    return '<div class="full" data-rep="'+sec.id+'"><label>'+rep.t+'</label><div data-rows>'+rows.map(function(r,i){return repRow(sec,r,i);}).join("")+'</div><button class="addbtn" data-add="'+sec.id+'">+ add row</button></div>';
+  }
+  function repRow(sec,r,i){
+    return '<div class="rep"><button class="rm" data-rm="'+sec.id+'" data-i="'+i+'">×</button><div class="grid">'+sec.rep.cols.map(function(c){return '<div><label>'+c.l+'</label><input data-rsec="'+sec.id+'" data-rk="'+c.k+'" data-ri="'+i+'" value="'+((r[c.k]||"")).replace(/"/g,"&quot;")+'"></div>';}).join("")+'</div></div>';
+  }
+  function render(){
+    $("form").innerHTML=SECTIONS.map(function(sec,idx){
+      var inner='<div class="grid">'+sec.fields.map(function(f){return field(sec,f);}).join("")+'</div>';
+      if(sec.checks)inner+='<div class="grid" style="margin-top:14px">'+checksBlock(sec)+'</div>';
+      if(sec.rep)inner+='<div style="margin-top:14px">'+repBlock(sec)+'</div>';
+      return '<details class="sec" '+(idx===0?"open":"")+' data-sec="'+sec.id+'"><summary><span class="no">'+(idx+1)+'</span><h2>'+sec.t+'</h2><span class="st" data-status="'+sec.id+'"></span></summary><div class="body">'+inner+'</div></details>';
+    }).join("");
+    wire();updateProg();
+  }
+  function wire(){
+    document.querySelectorAll("[data-sec][data-k]").forEach(function(el){el.addEventListener("input",function(){data.fields[this.dataset.sec]=data.fields[this.dataset.sec]||{};data.fields[this.dataset.sec][this.dataset.k]=this.value;save();});el.addEventListener("change",function(){data.fields[this.dataset.sec]=data.fields[this.dataset.sec]||{};data.fields[this.dataset.sec][this.dataset.k]=this.value;save();});});
+    document.querySelectorAll("[data-csec]").forEach(function(el){el.addEventListener("change",function(){var sid=this.dataset.csec;var arr=data.checks[sid]||[];if(this.checked){if(arr.indexOf(this.value)<0)arr.push(this.value);}else{arr=arr.filter(function(x){return x!==this.value;}.bind(this));}data.checks[sid]=arr;this.closest(".chk").classList.toggle("on",this.checked);save();});});
+    document.querySelectorAll("[data-rsec]").forEach(function(el){el.addEventListener("input",function(){var sid=this.dataset.rsec,k=this.dataset.rk,i=+this.dataset.ri;var sec=SECTIONS.filter(function(s){return s.id===sid;})[0];data.reps[sid]=data.reps[sid]||{};data.reps[sid][sec.rep.k]=data.reps[sid][sec.rep.k]||[{}];data.reps[sid][sec.rep.k][i]=data.reps[sid][sec.rep.k][i]||{};data.reps[sid][sec.rep.k][i][k]=this.value;save();});});
+    document.querySelectorAll("[data-add]").forEach(function(b){b.addEventListener("click",function(){var sid=this.dataset.add;var sec=SECTIONS.filter(function(s){return s.id===sid;})[0];data.reps[sid]=data.reps[sid]||{};data.reps[sid][sec.rep.k]=data.reps[sid][sec.rep.k]||[{}];data.reps[sid][sec.rep.k].push({});render();var d=document.querySelector('[data-sec="'+sid+'"]');if(d)d.open=true;});});
+    document.querySelectorAll("[data-rm]").forEach(function(b){b.addEventListener("click",function(){var sid=this.dataset.rm,i=+this.dataset.i;var sec=SECTIONS.filter(function(s){return s.id===sid;})[0];var arr=data.reps[sid][sec.rep.k];arr.splice(i,1);if(!arr.length)arr.push({});save();render();var d=document.querySelector('[data-sec="'+sid+'"]');if(d)d.open=true;});});
+  }
+  function secDone(sec){
+    var reqs=sec.fields.filter(function(f){return f.req;});
+    return reqs.every(function(f){return ((data.fields[sec.id]||{})[f.k]||"").trim();});
+  }
+  function updateProg(){
+    var done=0;SECTIONS.forEach(function(sec){var d=secDone(sec);var el=document.querySelector('[data-status="'+sec.id+'"]');if(el){el.textContent=d?"complete ✓":"";el.className="st"+(d?" done":"");}if(d)done++;});
+    var pct=Math.round(done/SECTIONS.length*100);$("progBar").style.width=pct+"%";$("progTxt").textContent=pct+"% complete · "+done+"/"+SECTIONS.length+" sections";
+  }
+
+  $("exportBtn").addEventListener("click",function(){var blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"});var a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="alyxir-setup-"+(data.ids.agent||"spec")+".json";a.click();});
+  $("printBtn").addEventListener("click",function(){document.querySelectorAll(".sec").forEach(function(d){d.open=true;});window.print();});
+  $("submitBtn").addEventListener("click",function(){var miss=SECTIONS.filter(function(s){return !secDone(s);});if(miss.length){alert("Almost there — these sections still need the required (*) fields:\n\n"+miss.map(function(s){return "• "+s.t;}).join("\n"));document.querySelector('[data-sec="'+miss[0].id+'"]').open=true;document.querySelector('[data-sec="'+miss[0].id+'"]').scrollIntoView({behavior:"smooth"});return;}save();alert("Thank you! Your setup spec is saved. Use Export to send it to your Orbit onboarding team, or bring it to your onboarding call.\n\n(On the live site this submits straight to Orbit and attaches to your Agent/Chat/Site IDs.)");});
+
+  render();
+})();
+</script>
+</body>
+</html>

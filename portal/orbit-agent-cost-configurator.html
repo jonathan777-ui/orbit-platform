@@ -1,0 +1,344 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Orbit AI — Agent Cost Configurator</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0d13;--panel:#10141d;--panel2:#141926;--bd:#1f2738;--ink:#e8edf6;--ink2:#9aa6bd;--faint:#5c6680;
+--amber:#ffb020;--cyan:#3dd6d0;--green:#5fd38d;--violet:#9b8cff;}
+*{box-sizing:border-box}html,body{margin:0}
+body{background:radial-gradient(1200px 600px at 80% -10%,#141b2b 0,var(--bg) 55%);color:var(--ink);
+font-family:'IBM Plex Sans',system-ui,sans-serif;line-height:1.5;min-height:100vh}
+.wrap{max-width:1000px;margin:0 auto;padding:30px 20px 70px}
+.topnav{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:20px;font-family:'IBM Plex Mono',monospace;font-size:12px}
+.topnav a{color:var(--ink2);text-decoration:none;border:1px solid var(--bd);padding:6px 11px;border-radius:7px;background:var(--panel)}
+.topnav a:hover{color:var(--ink);border-color:var(--faint)}
+.brand{font-family:'Chakra Petch';font-weight:700;letter-spacing:.06em;color:var(--cyan);margin-right:6px}
+h1{font-family:'Chakra Petch';font-weight:700;font-size:27px;margin:0 0 6px}h1 .a{color:var(--cyan)}
+.sub{color:var(--ink2);max-width:780px;margin:0 0 18px;font-size:14px}
+.presets{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+.presets button{font-family:'IBM Plex Mono';font-size:12px;color:var(--ink2);background:var(--panel);border:1px solid var(--bd);border-radius:8px;padding:8px 14px;cursor:pointer}
+.presets button:hover{color:var(--ink);border-color:var(--cyan)}
+.presets button b{color:var(--cyan)}
+.card{background:linear-gradient(180deg,var(--panel2),var(--panel));border:1px solid var(--bd);border-radius:14px;padding:18px 19px;margin-bottom:16px}
+.card h2{font-family:'Chakra Petch';font-weight:600;font-size:13px;letter-spacing:.07em;text-transform:uppercase;color:var(--cyan);margin:0 0 14px}
+.layer{display:grid;grid-template-columns:74px 1fr;gap:12px;align-items:start;margin-bottom:14px}
+.layer .tag{font-family:'Chakra Petch';font-weight:700;font-size:12px;color:var(--amber);padding-top:9px;letter-spacing:.04em}
+.lrow{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+select,input[type=text],input[type=number]{font-family:'IBM Plex Mono';font-size:12.5px;color:var(--ink);background:var(--bg);border:1px solid var(--bd);border-radius:8px;padding:8px 10px;outline:none}
+select{min-width:190px;cursor:pointer}
+select:focus,input:focus{border-color:var(--cyan)}
+input[type=text]{width:120px}
+.rate{display:flex;align-items:center;gap:4px;font-family:'IBM Plex Mono';font-size:11px;color:var(--faint)}
+.rate input{width:74px;text-align:right}
+.rate .u{color:var(--faint)}
+.note2{font-family:'IBM Plex Mono';font-size:10.5px;color:var(--faint);margin-top:5px}
+.fld{margin-bottom:16px}
+.fld label{display:flex;justify-content:space-between;font-size:13px;color:var(--ink2);margin-bottom:7px}
+.fld label b{font-family:'IBM Plex Mono';color:var(--ink);font-weight:600}
+input[type=range]{width:100%;-webkit-appearance:none;height:6px;border-radius:5px;background:var(--bd);outline:none}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(--cyan);cursor:pointer;box-shadow:0 0 0 4px rgba(61,214,208,.15)}
+input[type=range]::-moz-range-thumb{width:18px;height:18px;border:none;border-radius:50%;background:var(--cyan);cursor:pointer}
+.out{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:6px}
+@media(max-width:640px){.out{grid-template-columns:1fr}.layer{grid-template-columns:1fr}.layer .tag{padding-top:0}}
+.metric .lbl{font-family:'IBM Plex Mono';font-size:11px;color:var(--faint);text-transform:uppercase;letter-spacing:.05em}
+.metric .v{font-family:'Chakra Petch';font-weight:700;font-size:30px;line-height:1.1}
+.metric .v.cy{color:var(--cyan)}.metric .v.gr{color:var(--green)}.metric .v.am{color:var(--amber)}
+.bk{height:12px;border-radius:6px;overflow:hidden;display:flex;background:var(--bg);border:1px solid var(--bd);margin:16px 0 8px}
+.bk i{height:100%}.bk .llm{background:var(--violet)}.bk .stt{background:var(--green)}.bk .tts{background:var(--amber)}
+.leg{display:flex;gap:14px;font-family:'IBM Plex Mono';font-size:11px;color:var(--ink2);flex-wrap:wrap}
+.leg span{display:flex;align-items:center;gap:6px}.dot{width:9px;height:9px;border-radius:2px;display:inline-block}
+.row{display:flex;justify-content:space-between;font-family:'IBM Plex Mono';font-size:12.5px;padding:6px 0;border-bottom:1px solid var(--bd)}
+.row:last-child{border-bottom:none}.row b{color:var(--ink)}
+.note{font-size:12px;color:var(--ink2);margin-top:12px;padding-top:12px;border-top:1px solid var(--bd)}
+.note b{color:var(--amber)}
+footer{margin-top:26px;border-top:1px solid var(--bd);padding-top:13px;font-family:'IBM Plex Mono';font-size:11px;color:var(--faint)}
+</style></head><body><div class="wrap">
+<div class="topnav"><span class="brand">ORBIT&nbsp;AI</span>
+<a href="./support-portal.html">← Support Portal</a>
+<a href="./orbit-demo-cost-calculator.html">Demo Calculator</a>
+<a href="./orbit-credential-queue.html">Credential Queue</a></div>
+
+<h1>Agent Cost <span class="a">Configurator</span></h1>
+<p class="sub">Pick any LLM, speech-to-text, and voice provider — or type in your own rates for a source not listed — set the account's call profile, and see the per-call and monthly cost instantly. Every rate is editable; defaults are current list prices (~June 2026) and drift, so verify before quoting a client.</p>
+
+<div class="presets" style="margin-bottom:8px"><span style="font-family:'IBM Plex Mono';font-size:11.5px;color:var(--faint);align-self:center">Rates as of <b id="asOf" style="color:var(--ink2)">built-in</b></span><button id="refreshBtn" title="Pull the latest published rates">↻ Refresh rates</button></div>
+<div class="presets">
+  <span style="font-family:'IBM Plex Mono';font-size:12px;color:var(--faint);align-self:center">Quick combos:</span>
+  <button data-preset="cheap"><b>Cheapest</b></button>
+  <button data-preset="balanced"><b>Balanced</b></button>
+  <button data-preset="premium"><b>Premium</b></button>
+</div>
+
+<div class="card">
+  <h2>Stack — choose any source per layer</h2>
+  <div class="layer"><div class="tag">LLM</div><div>
+    <div class="lrow"><select id="llmSel"></select><input type="text" id="llmName">
+      <span class="rate">in $<input type="number" id="llmIn" step="0.01">/M</span>
+      <span class="rate">out $<input type="number" id="llmOut" step="0.01">/M</span></div>
+    <div class="note2" id="llmTag"></div></div></div>
+  <div class="layer"><div class="tag">STT</div><div>
+    <div class="lrow"><select id="sttSel"></select><input type="text" id="sttName">
+      <span class="rate">$<input type="number" id="sttRate" step="0.0001">/min</span></div>
+    <div class="note2" id="sttTag"></div></div></div>
+  <div class="layer"><div class="tag">TTS</div><div>
+    <div class="lrow"><select id="ttsSel"></select><input type="text" id="ttsName">
+      <span class="rate">$<input type="number" id="ttsRate" step="1">/1M chars</span>
+      <span class="rate">plan $<input type="number" id="ttsPlan" step="1">/mo</span></div>
+    <div class="note2" id="ttsTag"></div></div></div>
+</div>
+
+<div class="card">
+  <h2>Account call profile</h2>
+  <div class="fld"><label>Avg call length <b><span id="lenV">5</span> min</b></label>
+    <input type="range" id="len" min="1" max="20" step="1" value="5"></div>
+  <div class="fld"><label>Calls / interactions per month <b><span id="cntV">500</span></b></label>
+    <input type="range" id="cnt" min="20" max="5000" step="20" value="500"></div>
+  <div class="note2">Model assumes the caller speaks ~40% of the call (billed to STT) and the agent ~50% (billed to TTS + LLM output). Tune length/volume to the specific account.</div>
+</div>
+
+<div class="card">
+  <h2>Cost for this account</h2>
+  <div class="out">
+    <div class="metric"><div class="lbl">Per call</div><div class="v cy" id="perCall">$0</div></div>
+    <div class="metric"><div class="lbl">Blended / minute</div><div class="v" id="perMin" style="font-size:24px">$0</div></div>
+    <div class="metric"><div class="lbl">Monthly total</div><div class="v gr" id="monthly">$0</div></div>
+  </div>
+  <div class="bk"><i class="llm" id="bLlm"></i><i class="stt" id="bStt"></i><i class="tts" id="bTts"></i></div>
+  <div class="leg">
+    <span><i class="dot" style="background:var(--violet)"></i>LLM <span id="cLlm">$0</span></span>
+    <span><i class="dot" style="background:var(--green)"></i>STT <span id="cStt">$0</span></span>
+    <span><i class="dot" style="background:var(--amber)"></i>TTS <span id="cTts">$0</span></span>
+  </div>
+  <div style="margin-top:16px">
+    <div class="row"><span>Usage (<span id="cntV2">500</span> calls × per-call)</span><b id="moUsage">$0</b></div>
+    <div class="row"><span id="planLbl">Voice base plan</span><b id="moPlan">$0</b></div>
+    <div class="row" style="font-size:14px"><span><b>Estimated monthly total</b></span><b class="" id="moTotal" style="color:var(--green)">$0</b></div>
+  </div>
+  <div class="note" id="note"></div>
+</div>
+
+<div class="card">
+  <h2>Try the agent · unified KB</h2>
+  <div class="lrow" style="margin-bottom:10px">
+    <select id="kbVert">
+      <option value="auto">Auto / performance (Riley)</option>
+      <option value="roof">Roofing</option>
+      <option value="hvac">HVAC</option>
+      <option value="dental">Dental</option>
+      <option value="medspa">Med spa</option>
+      <option value="immigration">Immigration law</option>
+      <option value="restaurant">Restaurant</option>
+    </select>
+    <button id="kbLang" class="" style="font-family:'IBM Plex Mono';font-size:12px;color:var(--ink2);background:var(--bg);border:1px solid var(--bd);border-radius:8px;padding:8px 12px;cursor:pointer">ES</button>
+    <span class="note2" style="align-self:center">Same unified KB that powers the receptionist, chatbot &amp; site — switch vertical to re-skin the agent instantly.</span>
+  </div>
+  <div id="pvLog" style="background:var(--bg);border:1px solid var(--bd);border-radius:10px;padding:12px;height:240px;overflow-y:auto;margin-bottom:10px"></div>
+  <div class="lrow"><input type="text" id="pvText" placeholder="Type a question…" style="flex:1;min-width:200px"><button id="pvSend" style="border:none;background:var(--cyan);color:var(--bg);border-radius:8px;padding:9px 16px;font-weight:600;cursor:pointer;font-family:'IBM Plex Mono'">Send</button></div>
+  <div class="note2" style="margin-top:8px">Inline preview uses the deterministic KB so it runs with no keys. Deployed, it speaks through the LLM/STT/TTS stack you chose above — at the per-call cost shown.</div>
+</div>
+<footer>Orbit AI Automation · Agent Cost Configurator · defaults are current list prices ~2026-06-07 and are editable · streaming STT / real-time TTS assumed · estimates only — verify provider pricing before client quotes</footer>
+
+<script>
+(function(){
+  var $=function(i){return document.getElementById(i);};
+  // ---- catalogs (editable defaults; $ per MTok for LLM, $/min for STT, $/1M chars for TTS) ----
+  var LLM=[
+    {id:"gemini-flash-lite",name:"Gemini 2.5 Flash-Lite",inp:0.10,out:0.40,tag:"cheapest proprietary"},
+    {id:"deepseek-v32",name:"DeepSeek V3.2",inp:0.14,out:0.28,tag:"very cheap, strong quality"},
+    {id:"llama4",name:"Llama 4 (hosted)",inp:0.15,out:0.60,tag:"open-weight via Groq/Together"},
+    {id:"gemini-flash",name:"Gemini 2.5 Flash",inp:0.15,out:0.60,tag:"cheap, fast, multimodal"},
+    {id:"mistral-small",name:"Mistral Small 3.2",inp:0.20,out:0.60,tag:"budget, GDPR-friendly"},
+    {id:"gpt5-nano",name:"GPT-5 Nano",inp:0.20,out:0.80,tag:"cheap OpenAI tier"},
+    {id:"haiku45",name:"Claude Haiku 4.5",inp:1.00,out:5.00,tag:"fast, great bilingual — default"},
+    {id:"gemini-pro",name:"Gemini 2.5 Pro",inp:1.25,out:10.00,tag:"strong, 1M context"},
+    {id:"gpt54",name:"GPT-5.4",inp:2.50,out:15.00,tag:"top-tier general"},
+    {id:"sonnet46",name:"Claude Sonnet 4.6",inp:3.00,out:15.00,tag:"balanced quality — premium pick"},
+    {id:"grok3",name:"Grok 3",inp:3.00,out:15.00,tag:"X/real-time data"},
+    {id:"opus48",name:"Claude Opus 4.8",inp:5.00,out:25.00,tag:"highest quality"}
+  ];
+  var STT=[
+    {id:"browser",name:"Browser Web Speech",rate:0,tag:"free, Chrome — preview only"},
+    {id:"groq-whisper",name:"Groq Whisper-v3-Turbo",rate:0.0006,tag:"cheapest API"},
+    {id:"rev",name:"Rev AI (batch)",rate:0.002,tag:"cheap batch"},
+    {id:"assembly",name:"AssemblyAI Universal",rate:0.0037,tag:"transcript intelligence"},
+    {id:"deepgram-batch",name:"Deepgram Nova-3 (batch)",rate:0.0043,tag:"best value batch"},
+    {id:"eleven-scribe",name:"ElevenLabs Scribe v2",rate:0.004,tag:"multilingual real-time"},
+    {id:"openai-transcribe",name:"OpenAI gpt-4o-transcribe",rate:0.006,tag:"solid default"},
+    {id:"deepgram",name:"Deepgram Nova-3 (streaming)",rate:0.0077,tag:"voice-agent standard · +20% multilingual"},
+    {id:"speechmatics",name:"Speechmatics",rate:0.0117,tag:"accents/dialects"},
+    {id:"google-stt",name:"Google Cloud STT",rate:0.016,tag:"broad languages"},
+    {id:"azure-stt",name:"Azure Speech",rate:0.0167,tag:"enterprise"},
+    {id:"aws-transcribe",name:"AWS Transcribe",rate:0.024,tag:"AWS ecosystem"}
+  ];
+  var TTS=[
+    {id:"browser",name:"Browser Web Speech",perM:0,plan:0,tag:"free, robotic — preview only"},
+    {id:"qwen3",name:"Qwen3-TTS (hosted)",perM:20,plan:0,tag:"cheap, LatAm Spanish"},
+    {id:"openai-tts",name:"OpenAI tts / 4o-mini-tts",perM:15,plan:0,tag:"reliable, 6 voices"},
+    {id:"azure-tts",name:"Azure Neural",perM:15,plan:0,tag:"500+ voices, 140+ langs"},
+    {id:"deepgram-aura",name:"Deepgram Aura-2",perM:30,plan:0,tag:"voice agents · 7 langs incl ES"},
+    {id:"deepgram-aura1",name:"Deepgram Aura-1",perM:15,plan:0,tag:"utility/IVR · cheaper"},
+    {id:"google-tts",name:"Google Cloud TTS",perM:16,plan:0,tag:"cloud, Chirp HD pricier"},
+    {id:"polly",name:"Amazon Polly Neural",perM:16,plan:0,tag:"AWS ecosystem"},
+    {id:"playht",name:"PlayHT / PlayAI",perM:39,plan:0,tag:"expressive, cloning"},
+    {id:"cartesia",name:"Cartesia Sonic",perM:50,plan:0,tag:"~40ms — fastest real-time"},
+    {id:"eleven-flash",name:"ElevenLabs Flash v2.5",perM:100,plan:22,tag:"premium, ~75ms, accents"},
+    {id:"eleven-v3",name:"ElevenLabs v3 / Multilingual",perM:200,plan:22,tag:"top expressiveness/clone"}
+  ];
+  var st={len:5,cnt:500};
+
+  // ---- live pricing feed (refreshed by the scheduled n8n job; baked-in values are the fallback) ----
+  var PRICING_URL = "https://jonathan777-ui.app.n8n.cloud/webhook/alyxir-pricing"; // served from n8n Data Table
+  function applyFeed(feed){
+    if(!feed||typeof feed!=="object") return false;
+    if(feed.llm) LLM.forEach(function(m){ var r=feed.llm[m.id]; if(r){ if(r.inp!=null)m.inp=r.inp; if(r.out!=null)m.out=r.out; } });
+    if(feed.stt) STT.forEach(function(m){ var r=feed.stt[m.id]; if(r!=null){ m.rate=(typeof r==="object"?r.rate:r); } });
+    if(feed.tts) TTS.forEach(function(m){ var r=feed.tts[m.id]; if(r){ if(r.perM!=null)m.perM=r.perM; if(r.plan!=null)m.plan=r.plan; } });
+    $("asOf").textContent = feed.lastUpdated || "feed";
+    // re-apply to current selections
+    setLLM($("llmSel").value); setSTT($("sttSel").value); setTTS($("ttsSel").value); render();
+    return true;
+  }
+  function loadPricing(manual){
+    if(typeof fetch==="undefined"){ if(manual)$("asOf").textContent="built-in"; return; }
+    if(manual) $("asOf").textContent="updating…";
+    var tryUrl=function(url,next){ fetch(url,{cache:"no-store"}).then(function(r){return r.json();})
+      .then(function(d){ if(!applyFeed(d)&&next) next(); }).catch(function(){ if(next) next(); }); };
+    // n8n feed -> local pricing.json -> keep built-in
+    tryUrl(PRICING_URL, function(){ tryUrl("./pricing.json", function(){ if(manual)$("asOf").textContent="built-in (feed unreachable)"; }); });
+  }
+
+  function opt(a,sel){ sel.innerHTML=""; a.forEach(function(o){var e=document.createElement("option");e.value=o.id;e.textContent=o.name;sel.appendChild(e);});
+    var c=document.createElement("option");c.value="custom";c.textContent="Custom source…";sel.appendChild(c); }
+  opt(LLM,$("llmSel")); opt(STT,$("sttSel")); opt(TTS,$("ttsSel"));
+
+  function setLLM(id){ var m=LLM.filter(function(x){return x.id===id;})[0];
+    if(m){ $("llmName").value=m.name; $("llmIn").value=m.inp; $("llmOut").value=m.out; $("llmTag").textContent=m.tag; }
+    else { $("llmName").value="My LLM"; $("llmTag").textContent="custom source — enter rates"; } }
+  function setSTT(id){ var m=STT.filter(function(x){return x.id===id;})[0];
+    if(m){ $("sttName").value=m.name; $("sttRate").value=m.rate; $("sttTag").textContent=m.tag; }
+    else { $("sttName").value="My STT"; $("sttTag").textContent="custom source — enter $/min"; } }
+  function setTTS(id){ var m=TTS.filter(function(x){return x.id===id;})[0];
+    if(m){ $("ttsName").value=m.name; $("ttsRate").value=m.perM; $("ttsPlan").value=m.plan; $("ttsTag").textContent=m.tag; }
+    else { $("ttsName").value="My TTS"; $("ttsTag").textContent="custom source — enter $/1M chars"; } }
+
+  function money(n){ if(n>=100) return "$"+n.toFixed(0); if(n>=10) return "$"+n.toFixed(1); if(n>=1) return "$"+n.toFixed(2); if(n>=0.01) return "$"+n.toFixed(3); return "$"+n.toFixed(4); }
+  function num(id){ var v=parseFloat($(id).value); return isNaN(v)?0:v; }
+
+  function calc(){
+    var L=st.len;
+    var callerMin=L*0.4, agentMin=L*0.5;
+    var agentWords=agentMin*150, agentChars=agentWords*6.2;
+    var turns=Math.max(1,Math.round(L*1.5));
+    var outTok=agentWords*1.35, inTok=1000+turns*700;
+    var llm=(inTok/1e6)*num("llmIn")+(outTok/1e6)*num("llmOut");
+    var stt=callerMin*num("sttRate");
+    var tts=(agentChars/1e6)*num("ttsRate");
+    return {llm:llm,stt:stt,tts:tts,per:llm+stt+tts,plan:num("ttsPlan")};
+  }
+  function render(){
+    $("lenV").textContent=st.len; $("cntV").textContent=st.cnt; $("cntV2").textContent=st.cnt;
+    var c=calc();
+    $("perCall").textContent=money(c.per);
+    $("perMin").textContent=money(c.per/st.len)+"/min";
+    var usage=c.per*st.cnt, plan=c.plan||0;
+    $("monthly").textContent=money(usage+plan);
+    $("cLlm").textContent=money(c.llm); $("cStt").textContent=money(c.stt); $("cTts").textContent=money(c.tts);
+    var tot=c.per||1e-6;
+    $("bLlm").style.width=(c.llm/tot*100)+"%"; $("bStt").style.width=(c.stt/tot*100)+"%"; $("bTts").style.width=(c.tts/tot*100)+"%";
+    $("moUsage").textContent=money(usage);
+    $("planLbl").textContent= plan? ("Voice base plan ("+$("ttsName").value+")") : "No base subscription";
+    $("moPlan").textContent= plan? ("$"+plan) : "$0";
+    $("moTotal").textContent=money(usage+plan);
+    // read line
+    var parts=[["LLM",c.llm],["STT",c.stt],["TTS",c.tts]].sort(function(a,b){return b[1]-a[1];});
+    var driver=parts[0][1]>0?parts[0][0]:"nothing";
+    var msg="<b>Driver:</b> "+driver+" is the biggest line at "+money(parts[0][1])+"/call. ";
+    if($("sttSel").value==="browser") msg+="Browser STT is free but Chrome-only — fine for preview, not live calls. ";
+    if($("ttsSel").value==="browser") msg+="Browser voice is free but robotic. ";
+    if(c.plan) msg+="This voice carries a $"+c.plan+"/mo base plan on top of usage. ";
+    msg+="Blended agent cost ≈ "+money(c.per/st.len)+"/minute of call.";
+    $("note").innerHTML=msg;
+  }
+  function wire(id){ $(id).addEventListener("input",render); }
+  ["llmIn","llmOut","sttRate","ttsRate","ttsPlan"].forEach(wire);
+  $("llmSel").addEventListener("change",function(){setLLM(this.value);render();});
+  $("sttSel").addEventListener("change",function(){setSTT(this.value);render();});
+  $("ttsSel").addEventListener("change",function(){setTTS(this.value);render();});
+  $("len").addEventListener("input",function(){st.len=+this.value;render();});
+  $("cnt").addEventListener("input",function(){st.cnt=+this.value;render();});
+
+  function applyPreset(p){
+    var map={ cheap:["gemini-flash-lite","deepgram-batch","qwen3"],
+              balanced:["haiku45","deepgram","deepgram-aura"],
+              premium:["sonnet46","deepgram","eleven-flash"] };
+    var c=map[p]; $("llmSel").value=c[0]; setLLM(c[0]); $("sttSel").value=c[1]; setSTT(c[1]); $("ttsSel").value=c[2]; setTTS(c[2]); render();
+  }
+  Array.prototype.forEach.call(document.querySelectorAll("button[data-preset]"),function(b){
+    b.addEventListener("click",function(){applyPreset(b.getAttribute("data-preset"));});
+  });
+
+  // init: balanced default
+  $("llmSel").value="haiku45"; setLLM("haiku45");
+  $("sttSel").value="deepgram"; setSTT("deepgram");
+  $("ttsSel").value="qwen3"; setTTS("qwen3");
+  render();
+  $("refreshBtn").addEventListener("click",function(){loadPricing(true);});
+  loadPricing(false);                 // pull fresh rates on load
+  setInterval(function(){loadPricing(false);}, 5*3600*1000); // and every ~5 hours while open
+})();
+</script>
+</div><script>
+(function(){
+  var $=function(i){return document.getElementById(i);};
+  var lang="en";
+  // compact unified KB per vertical: greeting + compliant intent replies (EN/ES)
+  var KBQ={
+    auto:{gEn:"Thanks for calling Track Dog Racing — parts, a tune, or service today?",gEs:"¡Gracias por llamar a Track Dog Racing! ¿Partes, una afinación o servicio hoy?",
+      hoursEn:"We're open Mon–Thu 9am–5pm in Dallas, TX. Want to set up a visit?",hoursEs:"Abrimos lunes a jueves, 9am–5pm, en Dallas, TX. ¿Agendamos una visita?",
+      priceEn:"Pricing depends on your car — after a quick look we give a written estimate. What year, make & model?",priceEs:"El precio depende de su auto — tras una revisión le damos un estimado por escrito. ¿Año, marca y modelo?",
+      gateEn:"To confirm fitment, what year, model and trim is your Miata?",gateEs:"Para confirmar compatibilidad, ¿qué año, modelo y versión es su Miata?"},
+    roof:{gEn:"Thanks for calling — are you dealing with a leak, storm damage, or planning a new roof?",gEs:"Gracias por llamar — ¿tiene una gotera, daño por tormenta, o planea un techo nuevo?",
+      hoursEn:"We can get an inspector out this week. What's the property address?",hoursEs:"Podemos enviar un inspector esta semana. ¿Cuál es la dirección?",
+      priceEn:"Every roof's different — we'll do a free inspection and a written estimate. Is this storm/insurance related?",priceEs:"Cada techo es distinto — hacemos una inspección gratis y un estimado por escrito. ¿Es por tormenta/seguro?",
+      gateEn:"Got it — what's the address and is the roof actively leaking right now?",gateEs:"Entendido — ¿cuál es la dirección y el techo gotea en este momento?"},
+    hvac:{gEn:"Thanks for calling — is your system not heating, not cooling, or is this maintenance?",gEs:"Gracias por llamar — ¿su sistema no calienta, no enfría, o es mantenimiento?",
+      hoursEn:"If you have no heat or AC we treat it as urgent. What's the address?",hoursEs:"Si no tiene calefacción o aire, es urgente. ¿Cuál es la dirección?",
+      priceEn:"We give a written estimate after a technician checks the unit. What's going on with the system?",priceEs:"Damos un estimado por escrito tras revisar la unidad. ¿Qué ocurre con el sistema?",
+      gateEn:"Is anyone in the home elderly or with health needs? I can prioritize the dispatch.",gateEs:"¿Hay personas mayores o con necesidades de salud en casa? Puedo priorizar el envío."},
+    dental:{gEn:"Thanks for calling our dental office — are you a new or existing patient?",gEs:"Gracias por llamar a nuestra clínica dental — ¿es paciente nuevo o actual?",
+      hoursEn:"I can offer a few appointment times this week — which works best?",hoursEs:"Tengo varias citas esta semana — ¿cuál le conviene?",
+      priceEn:"Exact cost depends on the exam and your insurance — we'll confirm before any treatment. May I take your info?",priceEs:"El costo exacto depende del examen y su seguro — lo confirmamos antes de cualquier tratamiento. ¿Me da sus datos?",
+      gateEn:"I can't give medical advice over the phone, but I can book you with the dentist. Is this causing pain?",gateEs:"No puedo dar consejo médico por teléfono, pero puedo agendarle con el dentista. ¿Tiene dolor?"},
+    medspa:{gEn:"Thanks for calling — are you interested in a consultation or booking a treatment?",gEs:"Gracias por llamar — ¿le interesa una consulta o reservar un tratamiento?",
+      hoursEn:"I can set up a consultation so a provider can review what's right for you. What days work?",hoursEs:"Puedo agendar una consulta para que un especialista revise lo adecuado para usted. ¿Qué días le sirven?",
+      priceEn:"Pricing is set at your consultation since plans are personalized — I won't quote results or candidacy. Want me to book one?",priceEs:"El precio se define en su consulta porque los planes son personalizados — no prometo resultados ni elegibilidad. ¿La agendo?",
+      gateEn:"A provider will assess what's appropriate at the consult. Shall I get you scheduled?",gateEs:"Un especialista evaluará lo apropiado en la consulta. ¿Le agendo?"},
+    immigration:{gEn:"Thank you for calling — I can take your information and schedule a consultation with the attorney.",gEs:"Gracias por llamar — puedo tomar su información y agendar una consulta con el abogado.",
+      hoursEn:"The attorney reviews case details at the consultation. What's the best number to reach you?",hoursEs:"El abogado revisa los detalles del caso en la consulta. ¿Cuál es el mejor número para contactarle?",
+      priceEn:"Fees are confirmed by the attorney after reviewing your situation — I can't quote a case fee. Would you like a consultation?",priceEs:"Los honorarios los confirma el abogado tras revisar su situación — no puedo cotizar el caso. ¿Desea una consulta?",
+      gateEn:"I'm not able to give legal advice, but the attorney can. Is anyone currently detained or facing a court date?",gateEs:"No puedo dar asesoría legal, pero el abogado sí. ¿Hay alguien detenido o con fecha en corte?"},
+    restaurant:{gEn:"Thanks for calling! Would you like a reservation, takeout, or info on the menu?",gEs:"¡Gracias por llamar! ¿Desea una reservación, para llevar, o información del menú?",
+      hoursEn:"We'd love to host you — what date, time, and party size?",hoursEs:"Nos encantaría recibirle — ¿qué fecha, hora y cuántas personas?",
+      priceEn:"I can walk you through the menu and today's specials — what are you in the mood for?",priceEs:"Le puedo contar el menú y las especialidades de hoy — ¿qué se le antoja?",
+      gateEn:"For allergies I'll flag the kitchen, though I can't guarantee an allergen-free dish. What should I note?",gateEs:"Por alergias avisaré a la cocina, aunque no puedo garantizar un plato libre de alérgenos. ¿Qué anoto?"}
+  };
+  function add(role,text){var d=document.createElement("div");
+    d.style.cssText="max-width:85%;padding:8px 11px;border-radius:11px;margin-bottom:8px;font-size:13px;"+(role==="me"?"background:var(--cyan);color:var(--bg);margin-left:auto":"background:var(--panel2);border:1px solid var(--bd);color:var(--ink)");
+    d.textContent=text; $("pvLog").appendChild(d); $("pvLog").scrollTop=$("pvLog").scrollHeight;}
+  function kb(){return KBQ[$("kbVert").value]||KBQ.auto;}
+  function reply(t){ var k=kb(),es=lang==="es",s=(t||"").toLowerCase();
+    if(/hour|open|when|location|address|horario|abierto|cuándo|direcci|ubicaci/.test(s)) return es?k.hoursEs:k.hoursEn;
+    if(/price|cost|how much|quote|fee|precio|costo|cuánto|tarifa|honorario/.test(s)) return es?k.priceEs:k.priceEn;
+    if(/book|appoint|schedule|reserv|visit|agendar|cita|reserva/.test(s)) return es?k.hoursEs:k.hoursEn;
+    return es?k.gateEs:k.gateEn; }
+  function greet(){ $("pvLog").innerHTML=""; add("bot", lang==="es"?kb().gEs:kb().gEn); }
+  function send(){ var v=$("pvText").value.trim(); if(!v)return; $("pvText").value=""; add("me",v); setTimeout(function(){add("bot",reply(v));},120); }
+  $("kbVert").addEventListener("change",greet);
+  $("kbLang").addEventListener("click",function(){lang=lang==="es"?"en":"es"; this.textContent=lang==="es"?"EN":"ES"; greet();});
+  $("pvSend").addEventListener("click",send);
+  $("pvText").addEventListener("keydown",function(e){if(e.key==="Enter")send();});
+  greet();
+})();
+</script>
+</body></html>

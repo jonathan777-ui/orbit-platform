@@ -1,0 +1,646 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Digital Presence Audit · Orbit AI Automation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#f6f2ea; --paper-2:#fffdf8; --ink:#1b1d22; --ink-soft:#4a4f59; --ink-faint:#8b8f99;
+    --line:#e2dccf; --line-2:#cfc7b5; --amber:#cf8419; --amber-deep:#a9690f; --brand-dark:#10141b;
+    --crit:#c0392b; --weak:#d97706; --fair:#b8860b; --strong:#2f9e6b; --exc:#1f7a52; --slate:#6b7280; --apex:#7c3aed;
+    --display:"Chakra Petch",system-ui,sans-serif; --sans:"IBM Plex Sans",system-ui,sans-serif; --mono:"IBM Plex Mono",ui-monospace,monospace;
+  }
+  *{box-sizing:border-box} html,body{margin:0;padding:0}
+  body{background:radial-gradient(circle at 88% -8%,rgba(207,132,25,.08),transparent 42%),var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.5}
+  .sheet{max-width:940px;margin:0 auto;padding:0 0 90px}
+
+  .band{background:var(--brand-dark);color:#f4efe6;padding:22px 30px;display:flex;align-items:center;gap:18px;border-bottom:3px solid var(--amber);animation:fade .5s ease both}
+  .mark{font-family:var(--display);font-weight:700;letter-spacing:.16em;font-size:19px}
+  .mark .d{color:var(--amber)}
+  .band .ttl{font-family:var(--display);letter-spacing:.32em;font-size:11px;color:#b7bdc8;border-left:1px solid #2a313d;padding-left:18px}
+  .band .spacer{flex:1}
+  .conf{font-family:var(--mono);font-size:10px;letter-spacing:.14em;color:#7c8492;border:1px solid #2a313d;border-radius:999px;padding:5px 11px}
+
+  .intake{padding:26px 30px;animation:fade .55s ease both}
+  .intake .lead{font-size:14px;color:var(--ink-soft);margin:0 0 4px}
+  .intake .reqnote{font-family:var(--mono);font-size:11px;color:var(--ink-faint);margin:0 0 22px}
+  .fgrid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}
+  .f{display:flex;flex-direction:column}
+  .f.c12{grid-column:span 12}.f.c6{grid-column:span 6}.f.c4{grid-column:span 4}.f.c3{grid-column:span 3}.f.c5{grid-column:span 5}.f.c7{grid-column:span 7}
+  @media(max-width:620px){.f.c6,.f.c4,.f.c3,.f.c5,.f.c7{grid-column:span 12}}
+  .f label{font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;color:var(--ink-faint);text-transform:uppercase;margin-bottom:5px}
+  .f label .req{color:var(--crit)}
+  .f label .opt{color:var(--ink-faint);text-transform:none;letter-spacing:0}
+  .f input,.f textarea{border:1px solid var(--line-2);background:var(--paper-2);border-radius:8px;font-family:var(--sans);font-size:14px;color:var(--ink);padding:10px 12px}
+  .f input:focus,.f textarea:focus{outline:none;border-color:var(--amber)}
+  .f input.missing,.f textarea.missing{border-color:var(--crit);background:#fdf3f1}
+  .f textarea{resize:vertical;min-height:54px;line-height:1.5}
+  .gatebar{display:flex;align-items:center;gap:16px;margin-top:24px;flex-wrap:wrap}
+  .gateMsg{font-family:var(--mono);font-size:12px;color:var(--crit);flex:1;min-width:200px}
+  .gateMsg:empty{display:none}
+
+  .profile{background:var(--paper-2);border-bottom:1px solid var(--line);padding:16px 30px;display:flex;align-items:flex-start;gap:18px;flex-wrap:wrap;animation:fade .55s ease both}
+  .profile .pmain{flex:1;min-width:240px}
+  .profile h2{font-family:var(--display);font-size:19px;margin:0 0 3px;letter-spacing:.01em}
+  .profile .pline{font-family:var(--mono);font-size:12px;color:var(--ink-soft);line-height:1.7}
+  .profile .pnotes{font-size:12.5px;color:var(--ink-soft);margin-top:7px;max-width:60ch}
+  .profile .pnotes b{color:var(--ink)}
+  .mbadge{font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.08em;padding:5px 11px;border-radius:999px;color:#fff;white-space:nowrap}
+  .editbtn{font-family:var(--mono);font-size:10.5px;letter-spacing:.05em;border:1px solid var(--line-2);background:var(--paper);color:var(--ink-soft);border-radius:7px;padding:7px 11px;cursor:pointer}
+  .editbtn:hover{border-color:var(--amber);color:var(--amber-deep)}
+
+  .hero{padding:26px 30px;display:flex;align-items:center;gap:26px;flex-wrap:wrap;border-bottom:1px solid var(--line);animation:fade .6s ease both}
+  .gauges{display:flex;align-items:center;gap:16px;flex:none}
+  .gauge{position:relative;width:140px;height:140px}
+  .gauge svg{transform:rotate(-90deg)}
+  .gauge .ctr{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+  .gauge .ctr .grade{font-family:var(--display);font-weight:700;font-size:36px;line-height:1;color:var(--ink)}
+  .gauge .ctr .pct{font-family:var(--mono);font-size:11px;color:var(--ink-faint);letter-spacing:.06em;margin-top:3px}
+  .gauge .cap{position:absolute;top:-16px;left:0;right:0;text-align:center;font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;color:var(--ink-faint);text-transform:uppercase}
+  .arrow{display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--amber-deep)}
+  .arrow .a{font-size:22px;line-height:1}
+  .arrow .delta{font-family:var(--mono);font-size:11px;font-weight:600;color:var(--strong);white-space:nowrap}
+  .herobody{flex:1;min-width:230px}
+  .herobody .ey{font-family:var(--mono);font-size:10px;letter-spacing:.18em;color:var(--amber-deep);text-transform:uppercase}
+  .herobody h1{font-family:var(--display);font-size:23px;margin:6px 0 8px;letter-spacing:.01em;line-height:1.2}
+  .verdict{display:inline-block;font-family:var(--display);font-weight:600;letter-spacing:.04em;font-size:14px;padding:8px 14px;border-radius:8px;border:1px solid var(--line-2);background:var(--paper-2)}
+  .herobody p{color:var(--ink-soft);font-size:13px;margin:12px 0 0;max-width:48ch}
+
+  /* upsell */
+  .upsell{margin:24px 30px 0;border-radius:14px;overflow:hidden;border:1px solid #2a313d;background:linear-gradient(135deg,#12161e,#1a2030);color:#eef1f6;animation:fade .65s ease both;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .upsell .uhead{padding:14px 20px;font-family:var(--display);font-size:15px;letter-spacing:.04em;display:flex;align-items:center;gap:12px;border-bottom:1px solid #262d3a}
+  .upsell .utag{font-family:var(--mono);font-size:9.5px;font-weight:600;letter-spacing:.14em;background:var(--amber);color:#1a1205;padding:4px 9px;border-radius:5px}
+  .ubody{padding:18px 20px}
+  .usub{font-size:13px;color:#aeb6c4;margin:0 0 16px}
+  .tiers{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:620px){.tiers{grid-template-columns:1fr}}
+  .tier{position:relative;border:1.5px solid #2a313d;border-radius:12px;padding:16px;cursor:pointer;transition:.18s;background:#141925}
+  .tier:hover{border-color:#3a4456}
+  .tier.sel{border-color:var(--amber);box-shadow:0 0 0 1px var(--amber),0 10px 28px -12px rgba(207,132,25,.6)}
+  .tier.apex.sel{border-color:#a78bfa;box-shadow:0 0 0 1px #a78bfa,0 10px 28px -12px rgba(124,58,237,.6)}
+  .tier .ribbon{position:absolute;top:-10px;right:14px;font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.12em;background:#a78bfa;color:#1a1228;padding:4px 9px;border-radius:5px}
+  .tname{font-family:var(--display);font-size:15px;font-weight:600;letter-spacing:.02em;color:#eef1f6}
+  .tscore{display:flex;align-items:baseline;gap:9px;margin:9px 0 12px}
+  .tscore b{font-family:var(--display);font-size:34px;line-height:1}
+  .tier.apex .tscore b{color:#c4b5fd}
+  .tier:not(.apex) .tscore b{color:#86efac}
+  .tscore span{font-family:var(--mono);font-size:11px;color:#8a93a4}
+  .plus{font-family:var(--mono);font-size:10px;letter-spacing:.06em;color:var(--amber);text-transform:uppercase;margin:2px 0 8px}
+  .tincl{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:6px}
+  .tincl li{font-size:12px;color:#cdd3dd;display:flex;gap:8px;line-height:1.4}
+  .tincl li::before{content:"+";color:var(--amber);font-weight:700;flex:none}
+  .tpick{margin-top:13px;font-family:var(--mono);font-size:10px;letter-spacing:.08em;color:#8a93a4;border-top:1px solid #262d3a;padding-top:11px}
+  .tier.sel .tpick{color:var(--amber)}
+  .tier.apex.sel .tpick{color:#c4b5fd}
+  .ulift{margin-top:16px;border-top:1px solid #262d3a;padding-top:14px}
+  .ulift .ult{font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;color:#8a93a4;text-transform:uppercase;margin-bottom:9px}
+  .uliftrow{display:flex;align-items:center;gap:12px;font-size:12.5px;margin:6px 0}
+  .uliftrow .un{flex:1;color:#dfe3ea}
+  .uliftrow .ub{font-family:var(--mono);font-size:11px;color:#8a93a4;white-space:nowrap}
+  .uliftrow .ug{font-family:var(--mono);font-size:11px;color:#86efac;font-weight:600;width:54px;text-align:right}
+
+  .priority{margin:24px 30px 0;border:1px solid var(--line-2);border-radius:12px;overflow:hidden;animation:fade .65s ease both}
+  .priority .ph{background:var(--brand-dark);color:#f4efe6;padding:12px 18px;font-family:var(--display);letter-spacing:.16em;font-size:12px;display:flex;align-items:center;gap:10px}
+  .priority .ph .dot{width:7px;height:7px;border-radius:50%;background:var(--amber)}
+  .priority ol{margin:0;padding:6px 0;list-style:none}
+  .priority li{display:flex;align-items:center;gap:14px;padding:11px 18px;border-bottom:1px solid var(--line)}
+  .priority li:last-child{border-bottom:none}
+  .priority .rank{font-family:var(--display);font-weight:700;color:var(--amber-deep);width:22px}
+  .priority .pname{flex:1;font-weight:600;font-size:14px}
+  .priority .gain{font-family:var(--mono);font-size:12px;color:var(--strong);font-weight:600;white-space:nowrap}
+  .priority .pscore{font-family:var(--mono);font-size:11px;color:var(--ink-faint);width:84px;text-align:right}
+
+  .seclabel{font-family:var(--mono);font-size:10px;letter-spacing:.16em;color:var(--ink-faint);text-transform:uppercase;margin:30px 30px 12px;display:flex;align-items:center;gap:12px}
+  .seclabel .rule{flex:1;height:1px;background:var(--line-2)}
+  .cats{padding:0 30px;display:flex;flex-direction:column;gap:12px}
+  .cat{border:1px solid var(--line);border-radius:12px;background:var(--paper-2);padding:16px 18px;animation:fade .5s ease both}
+  .cat.absent{background:#faf7f0;border-style:dashed}
+  .cat .top{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+  .cat .name{flex:1;min-width:0}
+  .cat .name h3{margin:0;font-family:var(--display);font-size:16px;letter-spacing:.01em}
+  .cat .name .w{font-family:var(--mono);font-size:10.5px;color:var(--ink-faint);letter-spacing:.04em}
+  .chip{font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.08em;padding:4px 9px;border-radius:6px;color:#fff;white-space:nowrap}
+  .scorerow{display:flex;align-items:center;gap:12px;margin:7px 0}
+  .scorerow .rl{font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;color:var(--ink-faint);width:54px;flex:none}
+  .sq{font-family:var(--display);font-weight:700;font-size:20px;width:48px;height:40px;flex:none;display:grid;place-items:center;border-radius:8px;color:#fff}
+  .sq.tgt{background:var(--exc)}
+  input[type=range]{-webkit-appearance:none;appearance:none;height:6px;border-radius:99px;flex:1;background:linear-gradient(90deg,var(--amber) 0%,var(--amber) var(--fill,40%),var(--line-2) var(--fill,40%));cursor:pointer}
+  input[type=range].tgt{background:linear-gradient(90deg,var(--exc) 0%,var(--exc) var(--fill,40%),var(--line-2) var(--fill,40%))}
+  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:#fff;border:3px solid var(--amber);box-shadow:0 1px 4px rgba(0,0,0,.2);cursor:pointer}
+  input[type=range].tgt::-webkit-slider-thumb{border-color:var(--exc)}
+  input[type=range].tgt.apexsel{background:linear-gradient(90deg,var(--apex) 0%,var(--apex) var(--fill,40%),var(--line-2) var(--fill,40%))}
+  input[type=range].tgt.apexsel::-webkit-slider-thumb{border-color:var(--apex)}
+  input[type=range].tgt.apexsel::-moz-range-thumb{border-color:var(--apex)}
+  input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;background:#fff;border:3px solid var(--amber);cursor:pointer}
+  .pts{font-family:var(--mono);font-size:11px;color:var(--ink-soft);white-space:nowrap;width:62px;text-align:right}
+  .pts b{color:var(--ink)}
+  .findings{width:100%;border:1px dashed var(--line-2);border-radius:8px;background:var(--paper);font-family:var(--sans);font-size:13px;color:var(--ink-soft);padding:9px 11px;resize:vertical;min-height:46px;line-height:1.55;margin-top:8px}
+  .findings:focus{outline:none;border-color:var(--amber);border-style:solid}
+
+  .aio-live{margin-top:10px;border:1px solid var(--line-2);border-radius:9px;background:var(--paper);padding:12px}
+  .aio-live .lh{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  .aio-btn{font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.06em;border:1px solid var(--brand-dark);background:var(--brand-dark);color:#f4efe6;border-radius:8px;padding:9px 14px;cursor:pointer}
+  .aio-btn:hover{background:#1c2430}
+  .aio-btn:disabled{opacity:.55;cursor:wait}
+  .aio-live .hint{font-family:var(--mono);font-size:10px;color:var(--ink-faint)}
+  .aio-res{margin-top:11px;font-size:13px;display:none}
+  .aio-res.show{display:block}
+  .vpill{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.08em;padding:4px 10px;border-radius:999px;color:#fff}
+  .qlist{margin:9px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:5px}
+  .qlist li{font-family:var(--mono);font-size:11.5px;color:var(--ink-soft);display:flex;gap:8px}
+  .qlist li::before{content:"\25B8";color:var(--amber-deep)}
+  .compline{margin-top:9px;font-size:12.5px;color:var(--ink-soft)}
+  .compline b{color:var(--ink)}
+  .aio-sum{margin-top:9px;font-size:13px;color:var(--ink);line-height:1.55}
+  .spinner{display:inline-block;width:13px;height:13px;border:2px solid var(--line-2);border-top-color:var(--amber);border-radius:50%;animation:spin .7s linear infinite;vertical-align:-2px;margin-right:6px}
+
+  .toolbar{position:sticky;bottom:0;margin-top:30px;background:rgba(246,242,234,.93);backdrop-filter:blur(6px);border-top:1px solid var(--line-2);padding:14px 30px;display:flex;gap:14px;justify-content:flex-end;align-items:center;z-index:5;flex-wrap:wrap}
+  .toolbar .note{margin-right:auto;font-family:var(--mono);font-size:10.5px;color:var(--ink-faint)}
+  .switch{display:inline-flex;align-items:center;gap:9px;font-family:var(--mono);font-size:11px;letter-spacing:.04em;color:var(--ink-soft);cursor:pointer;user-select:none}
+  .switch input{display:none}
+  .track{width:38px;height:20px;border-radius:99px;background:var(--line-2);position:relative;transition:.18s}
+  .track::after{content:"";position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.25);transition:.18s}
+  .switch input:checked + .track{background:var(--amber)}
+  .switch input:checked + .track::after{transform:translateX(18px)}
+  .btn{font-family:var(--display);letter-spacing:.08em;font-size:12px;font-weight:600;border-radius:9px;padding:11px 18px;cursor:pointer;border:1px solid var(--line-2);background:var(--paper-2);color:var(--ink)}
+  .btn:hover{border-color:var(--amber)}
+  .btn.primary{background:var(--amber);border-color:var(--amber);color:#1a1205}
+  .btn.primary:hover{background:var(--amber-deep);border-color:var(--amber-deep)}
+  .btn.lg{padding:13px 26px;font-size:13px}
+
+  .foot{padding:22px 30px 0;color:var(--ink-faint);font-family:var(--mono);font-size:10.5px;letter-spacing:.04em;text-align:center}
+  .foot b{color:var(--ink-soft);font-weight:500}
+
+  body.mode-audit .target-only{display:none!important}
+  .hidden{display:none!important}
+
+  @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+  @keyframes spin{to{transform:rotate(360deg)}}
+
+  @media print{
+    @page{margin:13mm}
+    body{background:#fff}
+    .toolbar,.no-print{display:none!important}
+    .band{background:#10141b!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    .cat,.priority,.hero,.profile,.upsell{break-inside:avoid;animation:none}
+    input[type=range]{display:none}
+    .scorerow .rl{width:auto}
+    .findings{border:none;background:#fff;padding-left:0}
+    .editbtn{display:none}
+    .sheet{max-width:none;padding-bottom:0}
+    *{animation:none!important}
+  }
+</style>
+</head>
+<body class="mode-compare">
+<div class="sheet">
+
+  <div class="band">
+    <span class="mark">ORB<span class="d">I</span>T</span>
+    <span class="ttl">DIGITAL PRESENCE AUDIT</span>
+    <span class="spacer"></span>
+    <span class="conf">CONFIDENTIAL</span>
+  </div>
+
+  <!-- ============ INTAKE ============ -->
+  <div class="intake" id="intakeView">
+    <p class="lead">Tell us about the business. Provide a website and/or Google Business Profile if there is one — we'll audit whatever exists today and project the rebuild.</p>
+    <p class="reqnote"><b>Business name</b>, <b>City</b>, <b>State</b>, <b>ZIP</b> and <b>Industry</b> are required. Everything else is optional.</p>
+
+    <div class="fgrid">
+      <div class="f c7"><label>Business name <span class="req">*</span></label><input id="i_biz" placeholder="Acme Roofing LLC"></div>
+      <div class="f c5"><label>Industry / niche <span class="req">*</span></label><input id="i_ind" placeholder="Roofing contractor"></div>
+
+      <div class="f c6"><label>Website URL <span class="opt">— if any</span></label><input id="i_web" placeholder="www.example.com"></div>
+      <div class="f c6"><label>Google Business Profile <span class="opt">— link or listing name</span></label><input id="i_gbp" placeholder="Acme Roofing — Tampa, FL"></div>
+
+      <div class="f c7"><label>Street address</label><input id="i_addr" placeholder="123 Main St"></div>
+      <div class="f c5"><label>Phone</label><input id="i_phone" placeholder="(813) 555-0142"></div>
+
+      <div class="f c5"><label>City <span class="req">*</span></label><input id="i_city" placeholder="Tampa"></div>
+      <div class="f c4"><label>State <span class="req">*</span></label><input id="i_state" placeholder="FL"></div>
+      <div class="f c3"><label>ZIP <span class="req">*</span></label><input id="i_zip" placeholder="33602"></div>
+
+      <div class="f c12"><label>Hours of operation</label><input id="i_hours" placeholder="Mon–Fri 8–5, Sat 9–1, Sun closed"></div>
+      <div class="f c12"><label>Notes / additional information</label><textarea id="i_notes" placeholder="Anything else relevant — service area, current pain points, competitors, goals…"></textarea></div>
+    </div>
+
+    <div class="gatebar">
+      <span class="gateMsg" id="gateMsg"></span>
+      <button class="btn primary lg" id="continueBtn">Run audit →</button>
+    </div>
+  </div>
+
+  <!-- ============ AUDIT ============ -->
+  <div id="auditView" class="hidden">
+    <div class="profile">
+      <div class="pmain">
+        <h2 id="p_biz">—</h2>
+        <div class="pline" id="p_line"></div>
+        <div class="pnotes" id="p_notes"></div>
+      </div>
+      <span class="mbadge" id="p_badge"></span>
+      <button class="editbtn no-print" id="editBtn">✎ Edit details</button>
+    </div>
+
+    <div class="hero">
+      <div class="gauges">
+        <div class="gauge">
+          <span class="cap" id="capCur">Current</span>
+          <svg width="140" height="140" viewBox="0 0 140 140">
+            <circle cx="70" cy="70" r="58" fill="none" stroke="var(--line-2)" stroke-width="11"/>
+            <circle id="ringCur" cx="70" cy="70" r="58" fill="none" stroke="var(--amber)" stroke-width="11" stroke-linecap="round" stroke-dasharray="364" stroke-dashoffset="364"/>
+          </svg>
+          <div class="ctr"><span class="grade" id="gradeCur">—</span><span class="pct" id="pctCur">0</span></div>
+        </div>
+        <div class="arrow target-only"><span class="a">→</span><span class="delta" id="delta">+0</span></div>
+        <div class="gauge target-only">
+          <span class="cap" id="capTgt">Orbit Rebuild</span>
+          <svg width="140" height="140" viewBox="0 0 140 140">
+            <circle cx="70" cy="70" r="58" fill="none" stroke="var(--line-2)" stroke-width="11"/>
+            <circle id="ringTgt" cx="70" cy="70" r="58" fill="none" stroke="var(--exc)" stroke-width="11" stroke-linecap="round" stroke-dasharray="364" stroke-dashoffset="364"/>
+          </svg>
+          <div class="ctr"><span class="grade" id="gradeTgt" style="color:var(--exc)">—</span><span class="pct" id="pctTgt">0</span></div>
+        </div>
+      </div>
+      <div class="herobody">
+        <div class="ey" id="eyebrow">Digital Storefront Score</div>
+        <h1 id="verdictTitle">Evaluating…</h1>
+        <span class="verdict" id="verdict">—</span>
+        <p id="summary"></p>
+      </div>
+    </div>
+
+    <!-- UPSELL -->
+    <div class="upsell" id="upsell">
+      <div class="uhead"><span class="utag">PACKAGES</span> Choose the build that fits the goal</div>
+      <div class="ubody">
+        <p class="usub" id="u_sub"></p>
+        <div class="tiers">
+          <div class="tier" data-tier="standard">
+            <div class="tname">Standard Rebuild</div>
+            <div class="tscore"><b id="u_reb">—</b><span id="u_rebpct"></span></div>
+            <ul class="tincl">
+              <li>Full website rebuild, mobile-first</li>
+              <li>AI receptionist + website chatbot</li>
+              <li>SEO foundations + JSON-LD structured data</li>
+              <li>Google Business Profile optimization</li>
+              <li>Lead capture + instant-response path</li>
+            </ul>
+            <div class="tpick" data-pick>Click to select</div>
+          </div>
+          <div class="tier apex" data-tier="apex">
+            <span class="ribbon">RECOMMENDED</span>
+            <div class="tname">Apex — Advanced SEO + AIO</div>
+            <div class="tscore"><b id="u_apex">—</b><span id="u_apexpct"></span></div>
+            <div class="plus">Everything in Standard, plus</div>
+            <ul class="tincl">
+              <li>Advanced entity &amp; technical SEO — topical maps, link architecture, programmatic schema</li>
+              <li>Deep AIO — llms.txt tuning, citation-optimized content, multi-engine targeting</li>
+              <li>Content authority engine — ongoing publishing &amp; E-E-A-T</li>
+              <li>Review velocity &amp; reputation system</li>
+              <li>Performance hardening + conversion-rate optimization</li>
+            </ul>
+            <div class="tpick" data-pick>Click to select</div>
+          </div>
+        </div>
+        <div class="ulift">
+          <div class="ult">Where Apex adds points over Standard</div>
+          <div id="u_lift"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="priority">
+      <div class="ph"><span class="dot"></span>PRIORITY MOVES &middot; HIGHEST ROI FIRST</div>
+      <ol id="priorityList"></ol>
+    </div>
+
+    <div class="seclabel">Weighted Categories <span class="rule"></span> <span id="wsum">100 pts</span></div>
+    <div class="cats" id="cats"></div>
+
+    <div class="foot">
+      <b>Prepared by Orbit AI Automation</b> &middot; Confidential &middot; <span id="footDate"></span><br>
+      Current-state scores reflect the presence that exists today. Rebuild targets are achievable post-deployment; the Advanced package targets a near-perfect ceiling.
+    </div>
+
+    <div class="toolbar no-print">
+      <span class="note">Saved to this browser &middot; print for client PDF</span>
+      <label class="switch"><input type="checkbox" id="modeToggle" checked><span class="track"></span>Rebuild projection</label>
+      <button class="btn" id="resetBtn">Reset</button>
+      <button class="btn primary" id="printBtn">⤓ Save / Print PDF</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var $=function(id){return document.getElementById(id);};
+  var NOSITE="No website currently exists — counted as build scope, not a deduction against a live asset. The rebuild establishes this from scratch.";
+
+  var CATS = [
+    {key:"design", name:"Design & Visual Credibility", weight:12, tgt:92, apex:98, siteDep:true,
+     cur:{website:45,gbp:0,none:0},
+     find:{website:"Dated layout and inconsistent branding undercut first-impression trust. Visual hierarchy doesn't guide visitors toward action.",gbp:NOSITE,none:NOSITE}},
+    {key:"speed", name:"Performance & Speed", weight:12, tgt:90, apex:98, siteDep:true,
+     cur:{website:38,gbp:0,none:0},
+     find:{website:"Slow mobile load from heavy, unoptimized assets. Every extra second measurably increases bounce and lost leads.",gbp:NOSITE,none:NOSITE}},
+    {key:"mobile", name:"Mobile Experience", weight:10, tgt:94, apex:98, siteDep:true,
+     cur:{website:42,gbp:0,none:0},
+     find:{website:"Layout not fully responsive; tap targets and forms are awkward on phones, where most local search happens.",gbp:NOSITE,none:NOSITE}},
+    {key:"capture", name:"Lead Capture & Conversion Path", weight:14, tgt:90, apex:96, siteDep:true,
+     cur:{website:30,gbp:0,none:0},
+     find:{website:"No clear primary CTA, weak forms, and no instant-response path (chat/AI). Visitors leave without converting.",gbp:NOSITE,none:NOSITE}},
+    {key:"seo", name:"SEO Foundations", weight:12, tgt:88, apex:99, siteDep:false,
+     cur:{website:40,gbp:22,none:8},
+     find:{website:"Thin metadata, weak heading structure, limited keyword targeting. Not positioned to rank for high-intent local queries.",
+           gbp:"Search presence is limited to the Google Business Profile; there are no indexable site pages to rank for high-intent queries.",
+           none:"No search footprint yet. Starting from zero — the full SEO foundation has to be built."}},
+    {key:"aio", name:"AIO / AI-Readiness", weight:12, tgt:95, apex:100, siteDep:false,
+     cur:{website:12,gbp:15,none:5},
+     find:{website:"No structured data (JSON-LD), no llms.txt, content not formatted for extraction. Invisible when prospects ask AI for a recommendation.",
+           gbp:"AI engines have only a sparse GBP to draw from — no structured site data or content to cite. Visibility is thin and uncontrolled.",
+           none:"Nothing for AI engines to surface. The business is effectively invisible to AI recommendation queries."}},
+    {key:"local", name:"Local & GBP Presence", weight:10, tgt:90, apex:97, siteDep:false,
+     cur:{website:48,gbp:50,none:10},
+     find:{website:"Google Business Profile incomplete; inconsistent NAP weakens map-pack and 'near me' visibility.",
+           gbp:"GBP exists but is likely unoptimized — categories, photos, posts, Q&A and NAP consistency all have room. This is the strongest existing asset to build on.",
+           none:"No claimed local presence. Map-pack and 'near me' visibility to be established from scratch."}},
+    {key:"trust", name:"Trust & Social Proof", weight:8, tgt:86, apex:95, siteDep:false,
+     cur:{website:35,gbp:40,none:10},
+     find:{website:"Reviews and testimonials not surfaced on-site; few trust signals to reassure first-time visitors.",
+           gbp:"Reviews may exist on the GBP but aren't reinforced anywhere else; limited trust scaffolding.",
+           none:"No reviews or trust signals established yet."}},
+    {key:"content", name:"Content Depth & Authority", weight:6, tgt:82, apex:97, siteDep:true,
+     cur:{website:55,gbp:0,none:0},
+     find:{website:"Some useful content exists but is under-structured and not built to demonstrate authority or earn citations.",gbp:NOSITE,none:NOSITE}},
+    {key:"security", name:"Security & Technical Health", weight:4, tgt:96, apex:99, siteDep:true,
+     cur:{website:70,gbp:0,none:0},
+     find:{website:"SSL present; minor technical hygiene issues (broken links, redirects, crawl errors) to clean up.",gbp:NOSITE,none:NOSITE}}
+  ];
+
+  var MODE_LABEL={website:{t:"WEBSITE AUDIT",c:"var(--strong)"},gbp:{t:"GBP-ONLY · NO WEBSITE",c:"var(--amber)"},none:{t:"NEW · NO PRESENCE",c:"var(--slate)"}};
+  var KEY="orbit_presence_audit_v4";
+  var PROFILE={biz:"",ind:"",web:"",gbp:"",addr:"",phone:"",city:"",state:"",zip:"",hours:"",notes:"",date:""};
+  var mode="website", lastApplied=null, selectedTier="standard";
+  var catOf=function(k){ for(var i=0;i<CATS.length;i++){ if(CATS[i].key===k) return CATS[i]; } };
+  var apexEff=function(c){ return Math.max(c.apex,c.tgt); };
+
+  function deriveMode(){ return PROFILE.web ? "website" : (PROFILE.gbp ? "gbp" : "none"); }
+
+  function applyScenario(m){
+    CATS.forEach(function(c){ c._cur=c.cur[m]; c._find=c.find[m]; c._absent=c.siteDep && m!=="website"; });
+    lastApplied=m;
+  }
+
+  function save(){
+    try{
+      var s={profile:PROFILE,mode:mode,lastApplied:lastApplied,tier:selectedTier,compare:$("modeToggle").checked,step:$("auditView").classList.contains("hidden")?"intake":"audit",cur:{},tgt:{},find:{}};
+      CATS.forEach(function(c){ s.cur[c.key]=c._cur; s.tgt[c.key]=c.tgt; s.find[c.key]=c._find; });
+      localStorage.setItem(KEY,JSON.stringify(s));
+    }catch(e){}
+  }
+  function load(){ try{ return JSON.parse(localStorage.getItem(KEY)||"null"); }catch(e){ return null; } }
+
+  function statusFor(s){ if(s<40)return{t:"CRITICAL",v:"var(--crit)"};if(s<60)return{t:"WEAK",v:"var(--weak)"};if(s<75)return{t:"FAIR",v:"var(--fair)"};if(s<90)return{t:"STRONG",v:"var(--strong)"};return{t:"EXCELLENT",v:"var(--exc)"}; }
+  function gradeFor(t){ var g=[[97,"A+"],[93,"A"],[90,"A-"],[87,"B+"],[83,"B"],[80,"B-"],[77,"C+"],[73,"C"],[70,"C-"],[67,"D+"],[63,"D"],[60,"D-"]]; for(var i=0;i<g.length;i++){if(t>=g[i][0])return g[i][1];} return "F"; }
+  function verdictFor(t){
+    if(t>=85)return{h:"Strong presence — optimize & maintain",v:"Maintain & extend",c:"var(--exc)"};
+    if(t>=70)return{h:"Solid base — targeted fixes win",v:"Targeted optimization",c:"var(--strong)"};
+    if(t>=50)return{h:"Underperforming — rebuild ROI is high",v:"Rebuild recommended",c:"var(--weak)"};
+    if(t>=25)return{h:"Major gaps — build priority",v:"Build / rebuild priority",c:"var(--crit)"};
+    return{h:"Little to no digital presence — greenfield build",v:"Build from scratch",c:"var(--crit)"};
+  }
+
+  function readIntake(){
+    PROFILE.biz=$("i_biz").value.trim(); PROFILE.ind=$("i_ind").value.trim();
+    PROFILE.web=$("i_web").value.trim(); PROFILE.gbp=$("i_gbp").value.trim();
+    PROFILE.addr=$("i_addr").value.trim(); PROFILE.phone=$("i_phone").value.trim();
+    PROFILE.city=$("i_city").value.trim(); PROFILE.state=$("i_state").value.trim(); PROFILE.zip=$("i_zip").value.trim();
+    PROFILE.hours=$("i_hours").value.trim(); PROFILE.notes=$("i_notes").value.trim();
+  }
+  function gateCheck(){
+    var miss=[];
+    [["i_biz","Business name"],["i_city","City"],["i_state","State"],["i_zip","ZIP"],["i_ind","Industry"]].forEach(function(p){
+      var el=$(p[0]); var empty=!el.value.trim(); el.classList.toggle("missing",empty); if(empty) miss.push(p[1]);
+    });
+    return miss;
+  }
+  function fillIntake(){
+    $("i_biz").value=PROFILE.biz; $("i_ind").value=PROFILE.ind; $("i_web").value=PROFILE.web; $("i_gbp").value=PROFILE.gbp;
+    $("i_addr").value=PROFILE.addr; $("i_phone").value=PROFILE.phone; $("i_city").value=PROFILE.city; $("i_state").value=PROFILE.state;
+    $("i_zip").value=PROFILE.zip; $("i_hours").value=PROFILE.hours; $("i_notes").value=PROFILE.notes;
+  }
+
+  function runAuditFromIntake(){
+    var miss=gateCheck();
+    if(miss.length){ $("gateMsg").textContent="Required to continue: "+miss.join(", ")+"."; return; }
+    $("gateMsg").textContent=""; readIntake();
+    mode=deriveMode();
+    if(lastApplied!==mode) applyScenario(mode);
+    showAudit(); save();
+  }
+
+  function showAudit(){
+    $("intakeView").classList.add("hidden"); $("auditView").classList.remove("hidden");
+    renderProfile(); buildCats(); recompute(); syncFoot();
+    $("wsum").textContent=CATS.reduce(function(a,c){return a+c.weight;},0)+" pts";
+    window.scrollTo(0,0);
+  }
+  function showIntake(){ fillIntake(); $("auditView").classList.add("hidden"); $("intakeView").classList.remove("hidden"); window.scrollTo(0,0); save(); }
+
+  function renderProfile(){
+    $("p_biz").textContent=PROFILE.biz||"(Business name not provided)";
+    var loc=[PROFILE.city,PROFILE.state].filter(Boolean).join(", ")+(PROFILE.zip?" "+PROFILE.zip:"");
+    var parts=[];
+    if(PROFILE.ind)parts.push(PROFILE.ind);
+    if(loc)parts.push(loc);
+    if(PROFILE.addr)parts.push(PROFILE.addr);
+    if(PROFILE.phone)parts.push(PROFILE.phone);
+    if(PROFILE.hours)parts.push("Hours: "+PROFILE.hours);
+    if(PROFILE.web)parts.push(PROFILE.web);
+    if(PROFILE.gbp)parts.push("GBP: "+PROFILE.gbp);
+    $("p_line").innerHTML=parts.map(esc).join('&nbsp;&nbsp;·&nbsp;&nbsp;');
+    $("p_notes").innerHTML=PROFILE.notes?('<b>Notes:</b> '+esc(PROFILE.notes)):"";
+    var ml=MODE_LABEL[mode]; var b=$("p_badge"); b.textContent=ml.t; b.style.background=ml.c;
+  }
+
+  function buildCats(){
+    var wrap=$("cats"); wrap.innerHTML="";
+    CATS.forEach(function(c,i){
+      var el=document.createElement("div"); el.className="cat"+(c._absent?" absent":""); el.style.animationDelay=(i*0.03)+"s"; c._el=el;
+      var aio=c.key==="aio"?
+        '<div class="aio-live no-print"><div class="lh"><button class="aio-btn" data-aiocheck>▶ Run live AI visibility check</button>'+
+        '<span class="hint">Searches the web via the API to see if this business is cited by AI engines.</span></div>'+
+        '<div class="aio-res" data-aiores></div></div>':'';
+      el.innerHTML=
+        '<div class="top"><div class="name"><h3>'+c.name+'</h3><span class="w">Weight '+c.weight+' pts</span></div><span class="chip" data-chip></span></div>'+
+        '<div class="scorerow"><span class="rl">NOW</span><div class="sq" data-sq></div><input type="range" min="0" max="100" step="1" value="'+c._cur+'" data-cur><span class="pts" data-ptscur></span></div>'+
+        '<div class="scorerow target-only"><span class="rl" data-tgtlabel>REBUILD</span><div class="sq tgt" data-sqt></div><input type="range" class="tgt" min="0" max="100" step="1" value="'+c.tgt+'" data-tgt><span class="pts" data-ptstgt></span></div>'+
+        '<textarea class="findings" data-find>'+esc(c._find)+'</textarea>'+aio;
+      wrap.appendChild(el);
+      el.querySelector("[data-cur]").addEventListener("input",function(){ c._cur=+this.value; c._absent=false; el.classList.remove("absent"); paintCat(c); recompute(); save(); });
+      el.querySelector("[data-tgt]").addEventListener("input",function(){ if(selectedTier==="apex") c.apex=+this.value; else c.tgt=+this.value; paintCat(c); recompute(); save(); });
+      el.querySelector("[data-find]").addEventListener("input",function(){ c._find=this.value; save(); });
+      if(c.key==="aio"){ el.querySelector("[data-aiocheck]").addEventListener("click",function(){ runAioCheck(this,el.querySelector("[data-aiores]")); }); }
+      paintCat(c);
+    });
+  }
+  function paintCat(c){
+    var el=c._el, st=statusFor(c._cur);
+    var sq=el.querySelector("[data-sq]"); sq.textContent=c._cur;
+    var chip=el.querySelector("[data-chip]");
+    if(c._absent){ sq.style.background="var(--slate)"; chip.textContent="NO WEBSITE"; chip.style.background="var(--slate)"; }
+    else { sq.style.background=st.v; chip.textContent=st.t; chip.style.background=st.v; }
+    el.querySelector("[data-ptscur]").innerHTML='<b>'+(c._cur*c.weight/100).toFixed(1)+'</b> / '+c.weight;
+    var apexSel=selectedTier==="apex", at=apexSel?c.apex:c.tgt;
+    el.querySelector("[data-tgtlabel]").textContent=apexSel?"APEX":"REBUILD";
+    var sqt=el.querySelector("[data-sqt]"); sqt.textContent=at; sqt.style.background=apexSel?"var(--apex)":"var(--exc)";
+    el.querySelector("[data-ptstgt]").innerHTML='<b>'+(at*c.weight/100).toFixed(1)+'</b> / '+c.weight;
+    var rc=el.querySelector("[data-cur]"); rc.value=c._cur; rc.style.setProperty("--fill",c._cur+"%");
+    var rt=el.querySelector("[data-tgt]"); rt.value=at; rt.style.setProperty("--fill",at+"%"); rt.classList.toggle("apexsel",apexSel);
+  }
+  function repaintAll(){ CATS.forEach(function(c){ if(c._el) paintCat(c); }); }
+
+  function recompute(){
+    var ct=0,tt=0,ax=0; CATS.forEach(function(c){ ct+=c._cur*c.weight/100; tt+=c.tgt*c.weight/100; ax+=apexEff(c)*c.weight/100; });
+    ct=Math.round(ct*10)/10; tt=Math.round(tt*10)/10; ax=Math.round(ax*10)/10;
+    var vd=verdictFor(ct);
+    var proj=selectedTier==="apex"?ax:tt, projGrade=gradeFor(proj), apexCol="var(--apex)";
+    var tgtCol=selectedTier==="apex"?apexCol:"var(--exc)";
+    $("ringCur").style.strokeDashoffset=(364-364*(ct/100)).toFixed(1); $("ringCur").setAttribute("stroke",vd.c);
+    $("gradeCur").textContent=gradeFor(ct); $("gradeCur").style.color=vd.c; $("pctCur").textContent=ct.toFixed(1)+" / 100";
+    $("ringTgt").style.strokeDashoffset=(364-364*(proj/100)).toFixed(1); $("ringTgt").setAttribute("stroke",tgtCol);
+    $("gradeTgt").textContent=projGrade; $("gradeTgt").style.color=tgtCol; $("pctTgt").textContent=proj.toFixed(1)+" / 100";
+    $("capTgt").textContent=selectedTier==="apex"?"Apex Target":"Orbit Rebuild";
+    $("delta").textContent="+"+(proj-ct).toFixed(1)+" pts";
+
+    var opp=mode!=="website";
+    $("eyebrow").textContent=opp?"Presence Opportunity":"Digital Storefront Score";
+    $("capCur").textContent=opp?"Today":"Current";
+    var pill=$("verdict");
+    if(opp){
+      $("verdictTitle").textContent=mode==="gbp"?"Strong upside — most of the storefront is still to be built":"Greenfield — build a top-tier presence from day one";
+      pill.textContent="Build to "+projGrade+" · "+proj.toFixed(0); pill.style.color=tgtCol; pill.style.borderColor=tgtCol;
+    } else {
+      $("verdictTitle").textContent=vd.h; pill.textContent=vd.v; pill.style.color=vd.c; pill.style.borderColor=vd.c;
+    }
+
+    var present=CATS.filter(function(c){return !c._absent;}).slice().sort(function(a,b){return b._cur-a._cur;});
+    var best=present[0], worst=present[present.length-1];
+    var lead= mode==="website"
+      ? ("Strongest area: "+(best?best.name:"—")+" ("+(best?best._cur:0)+"). Biggest drag: "+(worst?worst.name:"—")+" ("+(worst?worst._cur:0)+"). ")
+      : (mode==="gbp" ? "No website exists; the Google Business Profile is the only live asset. " : "No meaningful digital presence exists yet. ");
+    $("summary").textContent=lead+"The plan below lifts this from "+gradeFor(ct)+" to "+projGrade+" ("+(selectedTier==="apex"?"Apex":"Standard")+" target).";
+
+    var atOf=function(c){ return selectedTier==="apex"?Math.max(c.apex,c.tgt):c.tgt; };
+    var pri=CATS.map(function(c){ return {c:c,at:atOf(c),gain:c.weight*Math.max(0,atOf(c)-c._cur)/100}; })
+                .filter(function(p){return p.gain>0.4;}).sort(function(a,b){return b.gain-a.gain;}).slice(0,5);
+    var ol=$("priorityList"); ol.innerHTML="";
+    if(!pri.length){ ol.innerHTML='<li><span class="pname">No material gaps — maintain mode.</span></li>'; }
+    pri.forEach(function(p,i){
+      var li=document.createElement("li");
+      var tag=p.c._absent?'<span class="pscore">build → '+p.at+'</span>':'<span class="pscore">'+p.c._cur+' → '+p.at+'</span>';
+      li.innerHTML='<span class="rank">'+(i+1)+'</span><span class="pname">'+p.c.name+'</span>'+tag+'<span class="gain">+'+p.gain.toFixed(1)+' pts</span>';
+      ol.appendChild(li);
+    });
+
+    renderUpsell(tt,ax);
+  }
+
+  function renderUpsell(reb,ax){
+    $("u_reb").textContent=gradeFor(reb); $("u_rebpct").textContent=reb.toFixed(0)+" / 100";
+    $("u_apex").textContent=gradeFor(ax); $("u_apexpct").textContent=ax.toFixed(0)+" / 100";
+    $("u_sub").textContent="Standard reaches "+gradeFor(reb)+" ("+reb.toFixed(0)+"). Apex carries the advanced SEO & AIO work to "+gradeFor(ax)+" ("+ax.toFixed(0)+") — as close to perfect as the model allows. Pick a package to set the projection above.";
+    var lift=CATS.map(function(c){ return {c:c,g:c.weight*Math.max(0,apexEff(c)-c.tgt)/100}; })
+                 .filter(function(x){return x.g>0.05;}).sort(function(a,b){return b.g-a.g;}).slice(0,5);
+    var box=$("u_lift"); box.innerHTML="";
+    lift.forEach(function(x){
+      var row=document.createElement("div"); row.className="uliftrow";
+      row.innerHTML='<span class="un">'+x.c.name+'</span><span class="ub">'+x.c.tgt+' → '+apexEff(x.c)+'</span><span class="ug">+'+x.g.toFixed(1)+'</span>';
+      box.appendChild(row);
+    });
+    applyTierSel();
+  }
+  function applyTierSel(){
+    Array.prototype.forEach.call(document.querySelectorAll(".tier"),function(el){
+      var on=el.dataset.tier===selectedTier;
+      el.classList.toggle("sel",on);
+      var p=el.querySelector("[data-pick]"); if(p) p.textContent=on?"✓ Selected — projected above":"Click to select";
+    });
+  }
+
+  function runAioCheck(btn,resEl){
+    var biz=PROFILE.biz, loc=[PROFILE.city,PROFILE.state].filter(Boolean).join(", "), ind=PROFILE.ind;
+    if(!biz){ alert("Add the business name in the details before running the live check."); return; }
+    btn.disabled=true; var orig=btn.textContent; btn.innerHTML='<span class="spinner"></span>Checking AI engines…';
+    resEl.classList.add("show"); resEl.innerHTML='<span class="hint">Querying live AI search results — this can take 20–40 seconds…</span>';
+    var prompt=
+      "You are auditing a local business's visibility inside AI answer engines (how ChatGPT, Gemini, Perplexity and Google AI Mode recommend businesses).\n\n"+
+      'Business: "'+biz+'"\nLocation: "'+(loc||"unknown")+'"\nIndustry/service: "'+(ind||"local services")+'"\n\n'+
+      "Use web search to test 3-4 high-intent prompts a real customer would ask, e.g. \"best "+(ind||"provider")+" in "+(loc||"the area")+"\", \""+(ind||"service")+" near me\", \"top rated "+(ind||"company")+" "+(loc||"")+"\". "+
+      "Judge whether THIS specific business surfaces or is cited, and which competitors show up instead.\n\n"+
+      "Scoring (0-100): 0-20 invisible/not found; 21-50 minimal/inconsistent; 51-75 appears for some queries; 76-100 consistently cited.\n\n"+
+      'Respond with ONLY a JSON object, no markdown: {"score": <int 0-100>, "cited": <true|false>, "queriesTested": [<up to 4 strings>], "competitorsCited": [<up to 5 names or empty>], "summary": "<2-3 sentences for the owner>"}';
+    fetch("https://api.anthropic.com/v1/messages",{
+      method:"POST",headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:1000,messages:[{role:"user",content:prompt}],tools:[{type:"web_search_20250305",name:"web_search"}]})
+    }).then(function(r){return r.json();}).then(function(data){
+      var text=(data.content||[]).filter(function(b){return b.type==="text";}).map(function(b){return b.text;}).join("\n");
+      var clean=text.replace(/```json|```/g,"").trim(); var a=clean.indexOf("{"),z=clean.lastIndexOf("}");
+      if(a<0||z<0) throw new Error("no JSON in response");
+      var d=JSON.parse(clean.slice(a,z+1)); renderAio(resEl,d);
+      var c=catOf("aio");
+      if(typeof d.score==="number"){ c._cur=Math.max(0,Math.min(100,Math.round(d.score))); c._absent=false; }
+      var sum=d.summary||""; if(d.competitorsCited&&d.competitorsCited.length){ sum+=" Competitors surfacing instead: "+d.competitorsCited.join(", ")+"."; }
+      if(sum){ c._find=sum; c._el.querySelector("[data-find]").value=sum; }
+      paintCat(c); recompute(); save();
+    }).catch(function(err){
+      resEl.innerHTML='<span class="hint" style="color:var(--crit)">Live check failed: '+esc(err.message||String(err))+'. If running from disk this is likely a sandbox/CORS limit — deploy to your domain, or score this row manually.</span>';
+    }).finally(function(){ btn.disabled=false; btn.textContent=orig; });
+  }
+  function renderAio(resEl,d){
+    var cited=!!d.cited;
+    var h='<div><span class="vpill" style="background:'+(cited?"var(--strong)":"var(--crit)")+'">'+(cited?"CITED BY AI":"NOT FOUND")+'</span> <span class="hint">AI-visibility score: <b style="color:var(--ink)">'+(d.score!=null?d.score:"—")+'</b>/100 · written into the audit</span></div>';
+    if(d.queriesTested&&d.queriesTested.length){ h+='<ul class="qlist">'; d.queriesTested.forEach(function(q){h+='<li>'+esc(q)+'</li>';}); h+='</ul>'; }
+    if(d.competitorsCited&&d.competitorsCited.length){ h+='<div class="compline"><b>Competitors AI surfaced:</b> '+d.competitorsCited.map(esc).join(", ")+'</div>'; }
+    if(d.summary){ h+='<div class="aio-sum">'+esc(d.summary)+'</div>'; }
+    resEl.innerHTML=h;
+  }
+  function esc(s){ return String(s==null?"":s).replace(/[&<>]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;"}[c];}); }
+
+  function todayStr(){ return new Date().toLocaleDateString("en-US",{year:"numeric",month:"long",day:"numeric"}); }
+  function syncFoot(){ $("footDate").textContent=PROFILE.date||todayStr(); }
+  function applyToggle(){ document.body.className=$("modeToggle").checked?"mode-compare":"mode-audit"; }
+
+  ["i_biz","i_city","i_state","i_zip","i_ind"].forEach(function(id){ $(id).addEventListener("input",function(){ this.classList.remove("missing"); }); });
+  $("continueBtn").addEventListener("click",runAuditFromIntake);
+  $("editBtn").addEventListener("click",showIntake);
+  Array.prototype.forEach.call(document.querySelectorAll(".tier"),function(el){ el.addEventListener("click",function(){ selectedTier=this.dataset.tier; repaintAll(); recompute(); save(); }); });
+  $("printBtn").addEventListener("click",function(){ window.print(); });
+  $("modeToggle").addEventListener("change",function(){ applyToggle(); save(); });
+  $("resetBtn").addEventListener("click",function(){ if(!confirm("Reset everything to defaults?"))return; try{localStorage.removeItem(KEY);}catch(e){} location.reload(); });
+
+  var s=load();
+  if(s){
+    if(s.profile) PROFILE=Object.assign(PROFILE,s.profile);
+    if(s.mode) mode=s.mode;
+    if(s.tier) selectedTier=s.tier;
+    if(typeof s.compare==="boolean") $("modeToggle").checked=s.compare;
+    applyScenario(mode);
+    if(s.cur){ CATS.forEach(function(c){ if(typeof s.cur[c.key]==="number"){ c._cur=s.cur[c.key]; if(c._cur>0)c._absent=false; } if(s.tgt&&typeof s.tgt[c.key]==="number")c.tgt=s.tgt[c.key]; if(s.find&&typeof s.find[c.key]==="string")c._find=s.find[c.key]; }); }
+    lastApplied=s.lastApplied||mode;
+    applyToggle(); fillIntake();
+    if(s.step==="audit" && PROFILE.biz && PROFILE.city && PROFILE.state && PROFILE.zip && PROFILE.ind){ showAudit(); }
+  } else {
+    applyToggle();
+  }
+})();
+</script>
+</body>
+</html>

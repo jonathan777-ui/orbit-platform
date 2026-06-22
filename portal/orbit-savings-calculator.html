@@ -1,0 +1,143 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>What You're Really Saving — Orbit AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--accent:#0a66ff;--ink:#0e1726;--ink2:#51607a;--faint:#8a96aa;--line:#e4e8ef;--paper:#fff;--soft:#f4f8ff;--good:#127a45;--warn:#c2410c;}
+*{box-sizing:border-box}html,body{margin:0}
+body{background:#eef1f6;color:var(--ink);font-family:'IBM Plex Sans',system-ui,sans-serif;line-height:1.5}
+.wrap{max-width:760px;margin:22px auto;background:var(--paper);border-radius:14px;box-shadow:0 2px 20px rgba(16,24,40,.08);overflow:hidden}
+.hd{padding:26px 30px;background:linear-gradient(135deg,var(--accent),#0b1220);color:#fff}
+.hd .k{font-family:'IBM Plex Mono';font-size:11px;letter-spacing:.16em;text-transform:uppercase;opacity:.85}
+.hd h1{font-family:'Chakra Petch';font-weight:700;font-size:26px;margin:6px 0 4px}
+.hd p{margin:0;opacity:.95;font-size:14px;max-width:52ch}
+.body{padding:24px 30px}
+h2{font-family:'Chakra Petch';font-weight:700;font-size:13px;letter-spacing:.04em;text-transform:uppercase;color:var(--accent);margin:0 0 12px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:560px){.row{grid-template-columns:1fr}}
+label{font-family:'IBM Plex Mono';font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:var(--faint);display:block;margin:10px 0 5px}
+input,select{font-family:'IBM Plex Sans';font-size:15px;color:var(--ink);background:#fff;border:1px solid var(--line);border-radius:9px;padding:10px 12px;width:100%;outline:none}
+input:focus,select:focus{border-color:var(--accent)}
+.hero{margin:22px 0;padding:18px;border-radius:13px;background:var(--soft);border:1px solid #d9e6ff;text-align:center}
+.hero .vol{font-family:'Chakra Petch';font-weight:700;font-size:30px;color:var(--accent);line-height:1.1}
+.hero .sub{font-family:'IBM Plex Mono';font-size:12px;color:var(--ink2);margin-top:4px}
+.bars{margin-top:8px}
+.barrow{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.barrow .nm{width:150px;font-size:13px;color:var(--ink2);flex-shrink:0}
+.barrow .nm b{display:block;color:var(--ink);font-family:'Chakra Petch'}
+.barrow .track{flex:1;background:#f0f3f8;border-radius:8px;height:34px;overflow:hidden}
+.barrow .fill{height:100%;display:flex;align-items:center;padding:0 10px;color:#fff;font-family:'IBM Plex Mono';font-size:13px;font-weight:600;white-space:nowrap;transition:width .3s}
+.savings{margin-top:18px;padding:18px;border-radius:13px;background:rgba(18,122,69,.08);border:1px solid rgba(18,122,69,.3);text-align:center}
+.savings .big{font-family:'Chakra Petch';font-weight:700;font-size:34px;color:var(--good);line-height:1}
+.savings .lab{font-size:13px;color:var(--ink2);margin-top:4px}
+.savings .yr{font-family:'IBM Plex Mono';font-size:13px;color:var(--good);margin-top:6px}
+.trans{margin-top:16px;border:1px solid var(--line);border-radius:11px;padding:13px 15px;background:#fafcff;font-size:13px;color:var(--ink2)}
+.trans b{color:var(--ink)}
+.seg{display:flex;gap:6px;flex-wrap:wrap;margin:4px 0 6px}
+.seg button{font-family:'IBM Plex Mono';font-size:12px;color:var(--ink2);background:#fff;border:1px solid var(--line);border-radius:8px;padding:7px 11px;cursor:pointer}
+.seg button.on{border-color:var(--accent);color:var(--accent);background:var(--soft)}
+.tog{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);cursor:pointer;margin-top:12px}
+.tog input{width:auto}
+details{margin-top:16px;border:1px solid var(--line);border-radius:10px}
+summary{cursor:pointer;padding:11px 14px;font-family:'IBM Plex Mono';font-size:12px;color:var(--accent)}
+.lev{display:grid;grid-template-columns:1fr 1fr;gap:8px 14px;padding:0 14px 14px}
+.lev div{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.lev label{margin:0;flex:1}.lev input{width:90px;font-size:13px;padding:6px 8px}
+.foot{padding:14px 30px;border-top:1px solid var(--line);font-family:'IBM Plex Mono';font-size:11px;color:var(--faint)}
+</style></head><body><div class="wrap">
+<div class="hd"><div class="k">Orbit AI · Cost & Savings</div>
+  <h1>What you're really saving.</h1>
+  <p>Your AI receptionist runs on a model we own — so the AI itself costs pennies. Here's the proof, and what the same coverage costs the old way.</p></div>
+<div class="body">
+  <h2>Your monthly volume</h2>
+  <div class="row">
+    <div><label>Calls / month</label><input type="number" id="calls" value="400"></div>
+    <div><label>Avg call length (min)</label><input type="number" id="avgMin" value="3"></div>
+  </div>
+  <div class="row">
+    <div><label>Chat conversations / month</label><input type="number" id="chats" value="200"></div>
+    <div><label>Your Orbit plan ($/mo)</label><input type="number" id="plan" value="597"></div>
+  </div>
+
+  <div class="hero"><div class="vol" id="vol">—</div><div class="sub" id="volSub"></div></div>
+
+  <h2>The same coverage, the old way vs Orbit</h2>
+  <div class="seg" id="baseline">
+    <span style="font-family:'IBM Plex Mono';font-size:11px;color:var(--faint);align-self:center;margin-right:4px">Compare savings to:</span>
+    <button data-b="human" class="on">Human receptionist</button>
+    <button data-b="answering">Answering service</button>
+  </div>
+  <div class="bars" id="bars"></div>
+
+  <div class="savings"><div class="big" id="save">—</div><div class="lab" id="saveLab"></div><div class="yr" id="saveYr"></div></div>
+
+  <div class="trans" id="trans"></div>
+  <label class="tog"><input type="checkbox" id="showCost"> Show Orbit's real cost to run it (full transparency)</label>
+
+  <details><summary>⚙ Assumptions (editable — adjust to current rates)</summary>
+    <div class="lev">
+      <div><label>Tokens / voice minute</label><input type="number" id="a_tokVoice" value="500"></div>
+      <div><label>Tokens / chat message</label><input type="number" id="a_tokChat" value="350"></div>
+      <div><label>Messages / chat</label><input type="number" id="a_msgs" value="6"></div>
+      <div><label>Commercial LLM ($/1M tokens)</label><input type="number" id="a_llm" value="6"></div>
+      <div><label>Commercial voice STT+TTS ($/min)</label><input type="number" id="a_voiceApi" value="0.10" step="0.01"></div>
+      <div><label>Human receptionist ($/mo)</label><input type="number" id="a_human" value="3000"></div>
+      <div><label>Answering service ($/min)</label><input type="number" id="a_ans" value="1.25" step="0.05"></div>
+      <div><label>Orbit cost — voice ($/min)</label><input type="number" id="a_oVoice" value="0.06" step="0.01"></div>
+      <div><label>Orbit cost — tokens ($/1M)</label><input type="number" id="a_oTok" value="0.30" step="0.05"></div>
+    </div>
+  </details>
+</div>
+<div class="foot">Estimates for illustration — adjust the assumptions to current provider rates. The AI runs on an Orbit-owned model + your knowledge base, which is why per-use cost is far below commercial API pricing.</div>
+</div>
+<script>
+(function(){
+  var $=function(i){return document.getElementById(i);};
+  var S={baseline:"human",showCost:false};
+  function money(n){return "$"+Math.round(n).toLocaleString();}
+  function vals(){return{
+    calls:+$("calls").value||0, avgMin:+$("avgMin").value||0, chats:+$("chats").value||0, plan:+$("plan").value||0,
+    tokVoice:+$("a_tokVoice").value||0, tokChat:+$("a_tokChat").value||0, msgs:+$("a_msgs").value||0,
+    llm:+$("a_llm").value||0, voiceApi:+$("a_voiceApi").value||0, human:+$("a_human").value||0, ans:+$("a_ans").value||0,
+    oVoice:+$("a_oVoice").value||0, oTok:+$("a_oTok").value||0 };}
+  function calc(){
+    var v=vals();
+    var voiceMin=v.calls*v.avgMin, chatMsgs=v.chats*v.msgs;
+    var tokens=voiceMin*v.tokVoice + chatMsgs*v.tokChat;
+    var rawAI=tokens/1e6*v.llm + voiceMin*v.voiceApi;
+    var orbitCost=voiceMin*v.oVoice + tokens/1e6*v.oTok;
+    var human=v.human, answering=voiceMin*v.ans, orbit=v.plan;
+    return {voiceMin:voiceMin,chatMsgs:chatMsgs,tokens:tokens,rawAI:rawAI,orbitCost:orbitCost,human:human,answering:answering,orbit:orbit};
+  }
+  function render(){
+    var c=calc();
+    var M=(c.tokens/1e6);
+    $("vol").textContent=(M>=1?M.toFixed(2)+"M":Math.round(c.tokens/1000)+"K")+" AI tokens / month";
+    $("volSub").textContent="≈ "+c.voiceMin.toLocaleString()+" voice minutes + "+c.chatMsgs.toLocaleString()+" chat messages handled by AI";
+    var baseCost = S.baseline==="human"?c.human:c.answering;
+    var rows=[
+      ["human","Human receptionist","full-time hire",c.human,"#c2410c"],
+      ["answering","Answering service","per-minute",c.answering,"#b45309"],
+      ["orbit","Orbit — all included","site + chatbot + AI receptionist, 24/7, bilingual",c.orbit,"#127a45"]
+    ];
+    var max=Math.max(c.human,c.answering,c.orbit,1);
+    $("bars").innerHTML=rows.map(function(r){
+      var pct=Math.max(6,r[3]/max*100);
+      return '<div class="barrow"><div class="nm"><b>'+r[1]+'</b>'+r[2]+'</div><div class="track"><div class="fill" style="width:'+pct+'%;background:'+r[4]+'">'+money(r[3])+'/mo</div></div></div>';
+    }).join("");
+    var save=baseCost-c.orbit;
+    $("save").textContent=save>=0?money(save)+"/mo":"—";
+    $("saveLab").innerHTML=save>=0?("saved vs a "+(S.baseline==="human"?"human receptionist":"answering service")+" — and the AI never misses a call"):"At this volume the plan covers far more than the comparison; the value is full coverage.";
+    $("saveYr").textContent=save>=0?("that's "+money(save*12)+" a year"):"";
+    var transHtml="<b>The AI itself is cheap.</b> Your "+c.voiceMin.toLocaleString()+" minutes + "+c.chatMsgs.toLocaleString()+" chats would burn ~"+(M>=1?M.toFixed(2)+"M":Math.round(c.tokens/1000)+"K")+" tokens — about <b>"+money(c.rawAI)+"/mo</b> in raw commercial API costs. You're not paying for tokens; you're paying for an always-on, bilingual system that books the job every time.";
+    if(S.showCost) transHtml+=" <br><br><b>Full transparency:</b> Orbit's actual cost to run yours is ~<b>"+money(c.orbitCost)+"/mo</b> — low because we own the model. That efficiency is exactly what lets us deliver this below the cost of a hire.";
+    $("trans").innerHTML=transHtml;
+  }
+  $("baseline").querySelectorAll("button").forEach(function(b){b.addEventListener("click",function(){$("baseline").querySelectorAll("button").forEach(function(x){x.classList.remove("on");});b.classList.add("on");S.baseline=b.getAttribute("data-b");render();});});
+  $("showCost").addEventListener("change",function(){S.showCost=this.checked;render();});
+  ["calls","avgMin","chats","plan","a_tokVoice","a_tokChat","a_msgs","a_llm","a_voiceApi","a_human","a_ans","a_oVoice","a_oTok"].forEach(function(id){var e=$(id);if(e)e.addEventListener("input",render);});
+  render(); window.__sav={calc:calc,render:render,S:S};
+})();
+</script>
+</body></html>

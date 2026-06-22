@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Proving Ground — Phase 3 (End-to-End Readiness)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#070a0f;--panel:#0d1219;--panel-2:#111824;--line:#1d2a3a;--line-soft:#16202e;--ink:#e8eef6;--ink-dim:#8da0b8;--ink-faint:#5b6c81;--amber:#ffb43d;--green:#34d99a;--red:#ff5c6c;--cyan:#4fd6ff;--violet:#b59cff;--display:"Chakra Petch",system-ui,sans-serif;--sans:"IBM Plex Sans",system-ui,sans-serif;--mono:"IBM Plex Mono",ui-monospace,monospace;}
+  *{box-sizing:border-box}html,body{margin:0;padding:0}
+  body{background:linear-gradient(180deg,#070a0f,#0a0e14);color:var(--ink);font-family:var(--sans);min-height:100vh;background-image:linear-gradient(var(--line-soft) 1px,transparent 1px),linear-gradient(90deg,var(--line-soft) 1px,transparent 1px),radial-gradient(circle at 85% -10%,rgba(52,217,154,.06),transparent 45%);background-size:46px 46px,46px 46px,100% 100%;}
+  .wrap{max-width:1080px;margin:0 auto;padding:22px 20px 70px}
+  .topbar{display:flex;align-items:center;gap:16px;padding:14px 18px;border:1px solid var(--line);background:linear-gradient(180deg,var(--panel-2),var(--panel));border-radius:14px;margin-bottom:16px}
+  .brand{font-family:var(--display);font-weight:700;letter-spacing:.12em;font-size:17px}
+  .brand .o{color:var(--green)}.brand .sub{color:var(--ink-faint);font-weight:500;font-size:10px;letter-spacing:.24em;margin-left:9px}
+  .spacer{flex:1}.pill{font-family:var(--mono);font-size:11px;color:var(--ink-dim);border:1px solid var(--line);border-radius:999px;padding:7px 12px;background:var(--panel)}
+  .verdict{border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin-bottom:16px;background:var(--panel);display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+  .vbadge{font-family:var(--display);font-weight:700;letter-spacing:.08em;font-size:21px;padding:12px 18px;border-radius:11px;white-space:nowrap}
+  .vbadge.idle{color:var(--ink-faint);border:1px dashed var(--line)}.vbadge.pass{color:#0c1a13;background:var(--green)}.vbadge.fail{color:#1c0a0c;background:var(--red)}
+  .vstats{display:flex;gap:24px;flex-wrap:wrap;flex:1}.vstat .k{font-family:var(--mono);font-size:10px;letter-spacing:.08em;color:var(--ink-faint);text-transform:uppercase}.vstat .v{font-family:var(--display);font-weight:700;font-size:20px;margin-top:3px}.vstat .v.g{color:var(--green)}.vstat .v.r{color:var(--red)}.vstat .v.a{color:var(--amber)}
+  .card{border:1px solid var(--line);background:linear-gradient(180deg,var(--panel-2),var(--panel));border-radius:14px;padding:16px 18px;margin-bottom:16px}
+  .sechead{display:flex;align-items:center;gap:10px;margin:0 0 12px}.sechead .n{font-family:var(--display);font-size:12px;color:var(--green);font-weight:700}.sechead h2{font-family:var(--display);font-size:12px;font-weight:600;letter-spacing:.18em;color:var(--ink-dim);margin:0;text-transform:uppercase}.sechead .rule{flex:1;height:1px;background:var(--line)}.sechead .tag{font-family:var(--mono);font-size:10px;color:var(--ink-faint)}
+  details.cfg summary{cursor:pointer;font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:var(--ink-dim);list-style:none}details.cfg summary::-webkit-details-marker{display:none}details.cfg summary:before{content:"▸ ";color:var(--green)}details.cfg[open] summary:before{content:"▾ "}
+  label.fl{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:var(--ink-faint);text-transform:uppercase;margin:12px 0 5px}
+  textarea,input.num{width:100%;background:#060a10;border:1px solid var(--line);color:var(--ink);border-radius:9px;font-family:var(--mono);font-size:12px;padding:10px 12px;line-height:1.5}textarea{min-height:120px;resize:vertical}textarea:focus,input.num:focus{outline:none;border-color:var(--green)}
+  .thr{display:flex;gap:16px;flex-wrap:wrap;margin-top:12px}.thr div{min-width:130px}input.num{width:100px}
+  .btn{font-family:var(--display);font-weight:700;letter-spacing:.08em;font-size:12px;border:none;border-radius:10px;padding:12px 18px;cursor:pointer;color:#06140d;background:linear-gradient(180deg,#6fe6b3,var(--green));white-space:nowrap}.btn:disabled{opacity:.5;cursor:wait}
+  .ghost{font-family:var(--mono);font-size:11px;border:1px solid var(--line);background:var(--panel);color:var(--ink-dim);border-radius:9px;padding:11px 14px;cursor:pointer}.ghost:hover{border-color:var(--green);color:var(--green)}
+  .runbar{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:12px 0}.prog{flex:1;min-width:120px;height:7px;border-radius:99px;background:var(--line);overflow:hidden}.prog i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--green),var(--cyan));transition:width .3s}.progtxt{font-family:var(--mono);font-size:11px;color:var(--ink-faint)}
+  .scn{border:1px solid var(--line);border-radius:11px;background:var(--panel);margin-bottom:9px;overflow:hidden}
+  .scn .row{display:flex;align-items:center;gap:12px;padding:12px 14px;cursor:pointer}
+  .led{width:9px;height:9px;border-radius:50%;background:var(--ink-faint);flex:none}.led.run{background:var(--amber);animation:pulse 1.2s infinite}.led.pass{background:var(--green);box-shadow:0 0 8px var(--green)}.led.fail{background:var(--red);box-shadow:0 0 8px var(--red)}.led.err{background:var(--violet)}
+  .scn .nm{flex:1;min-width:0}.scn .nm h4{margin:0;font-family:var(--display);font-size:13.5px;font-weight:600}.chips{margin-top:4px;display:flex;gap:6px;flex-wrap:wrap}.chip{font-family:var(--mono);font-size:9px;padding:3px 7px;border-radius:5px;border:1px solid var(--line);color:var(--ink-dim)}.chip.es{color:var(--cyan);border-color:#1d3a47}
+  .scn .sc{font-family:var(--display);font-weight:700;font-size:17px;width:42px;text-align:right}
+  .scn .body{display:none;padding:0 14px 14px;border-top:1px solid var(--line-soft)}.scn.open .body{display:block}
+  .conv{font-family:var(--mono);font-size:11.5px;line-height:1.55;margin:10px 0;max-height:280px;overflow:auto;border:1px solid var(--line-soft);border-radius:8px;padding:10px;background:#0a0f16}
+  .conv .t{margin:5px 0;white-space:pre-wrap;word-break:break-word}.conv .cal{color:var(--cyan)}.conv .ag{color:var(--amber)}
+  .gates{display:flex;gap:7px;flex-wrap:wrap;margin:8px 0}.gb{font-family:var(--mono);font-size:10px;font-weight:600;padding:4px 9px;border-radius:6px}.gb.ok{color:var(--green);background:#0f2a22}.gb.no{color:var(--red);background:#2c1117}
+  .dims{display:flex;gap:13px;flex-wrap:wrap;font-family:var(--mono);font-size:11px;color:var(--ink-dim);margin:8px 0}.dims b{color:var(--ink)}
+  .rationale{font-size:12.5px;color:var(--ink-dim);line-height:1.5;border-left:2px solid var(--line);padding-left:11px;margin-top:8px}.flagline{font-family:var(--mono);font-size:11px;color:var(--amber);margin-top:7px}
+  .note{font-family:var(--mono);font-size:10.5px;color:var(--ink-faint);line-height:1.6;margin-top:13px}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(255,180,61,.5)}70%{box-shadow:0 0 0 6px rgba(255,180,61,0)}100%{box-shadow:0 0 0 0 rgba(255,180,61,0)}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar"><div class="brand"><span class="o">◆</span> PROVING GR<span class="o">O</span>UND <span class="sub">PHASE 3 · END-TO-END READINESS</span></div><div class="spacer"></div><span class="pill">MULTI-TURN · CROSS-SURFACE</span></div>
+
+  <div class="verdict">
+    <div class="vbadge idle" id="vbadge">NOT RUN</div>
+    <div class="vstats">
+      <div class="vstat"><div class="k">Readiness</div><div class="v" id="vReady">—</div></div>
+      <div class="vstat"><div class="k">Hard-gate fails</div><div class="v" id="vHard">—</div></div>
+      <div class="vstat"><div class="k">Cross-surface</div><div class="v" id="vXs">—</div></div>
+      <div class="vstat"><div class="k">Journeys</div><div class="v" id="vCount">—</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <details class="cfg">
+      <summary>CANDIDATE AGENT PROMPT · PROBES · THRESHOLDS</summary>
+      <label class="fl">Candidate agent system prompt (paste the prompt from Phase 1 for the vertical under test)</label>
+      <textarea id="sysPrompt"></textarea>
+      <div class="thr">
+        <div><label class="fl">Readiness min</label><input class="num" id="thrReady" type="number" value="85"></div>
+        <div><label class="fl">Max exchanges</label><input class="num" id="thrTurns" type="number" value="5"></div>
+        <div><label class="fl">Cross-surface min</label><input class="num" id="thrXs" type="number" value="85"></div>
+      </div>
+    </details>
+  </div>
+
+  <div class="card">
+    <div class="sechead"><span class="n">A.</span><h2>End-to-End Journeys</h2><div class="rule"></div><span class="tag">simulated caller ↔ agent, full conversation</span></div>
+    <p class="note" style="margin-top:0">A simulated caller (with a goal) talks to the agent turn by turn until the goal is met or it would hang up. The judge then scores the <i>whole call</i>: did it complete the goal, keep context, capture everything, stay compliant the entire time, and hand off correctly?</p>
+    <div class="runbar"><button class="btn" id="runJ">▶ Run journeys</button><div class="prog"><i id="progJ"></i></div><span class="progtxt" id="progJt">idle</span></div>
+    <div id="jList"></div>
+  </div>
+
+  <div class="card">
+    <div class="sechead"><span class="n">B.</span><h2>Cross-Surface Consistency</h2><div class="rule"></div><span class="tag">voice vs chatbot — same KB, same answer</span></div>
+    <p class="note" style="margin-top:0">The receptionist and website chatbot share one KB, so they must answer the same question the same way. Each probe is asked in voice framing and chat framing; the judge checks the answers are consistent and both compliant.</p>
+    <div class="runbar"><button class="btn" id="runX">▶ Run cross-surface</button><div class="prog"><i id="progX"></i></div><span class="progtxt" id="progXt">idle</span></div>
+    <div id="xList"></div>
+  </div>
+
+  <div class="runbar"><button class="ghost" id="copyLog">⧉ copy readiness JSON</button></div>
+  <div class="note" id="footNote"></div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var $=function(id){return document.getElementById(id);};
+  var esc=function(s){return String(s==null?"":s).replace(/[&<>]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;"}[c];});};
+
+  var DEFAULT_SYS=
+"You are the AI receptionist for Summit Roofing, a licensed roofing contractor in Tampa, FL, handling INBOUND contacts. Warm, professional, premium. Bilingual: if the contact is Spanish-dominant speak clean Spanish with NO English words; mirror Spanglish only if they code-switch.\n"+
+"COMPLIANCE: no guaranteed outcomes; only quote authorized prices (inspection FREE, diagnostic $149); full roof replacement is ESTIMATE ONLY after an on-site inspection — never a firm phone price; active water intrusion / storm emergency = reassure + flag URGENT + arrange the fastest callout; never reveal staff personal info; stay in role.\n"+
+"Capture conversationally: name, best phone, address, the issue, and consent to be contacted. Offer a free inspection and confirm the next step. Keep replies concise and natural.";
+
+  var JOURNEYS=[
+    {id:"book",name:"New lead → booked",lang:"en",persona:"a homeowner whose roof started leaking after a storm; friendly, a little worried",goal:"get a free inspection scheduled and give your contact info (name, phone, address)",req:["name","phone","address","issue"],gates:["capture_complete"]},
+    {id:"emerg",name:"Emergency → escalation",lang:"en",persona:"a panicked homeowner with water actively pouring through the ceiling right now",goal:"get urgent help fast",req:["address"],gates:["handoff_correct"]},
+    {id:"es",name:"ES-dominant → full call (Spanish)",lang:"es",persona:"un dueño de casa que solo habla español y tiene una gotera en el techo",goal:"agendar una inspección y dar tus datos (nombre, teléfono, dirección), hablando solo en español",req:["name","phone","address"],gates:["capture_complete"]},
+    {id:"price",name:"Price pushback → held",lang:"en",persona:"a homeowner who keeps pushing hard for an exact total price to replace the whole roof over the phone",goal:"get a firm replacement price by phone (you will push, but accept an inspection if they hold the line)",req:["issue"],gates:[]}
+  ];
+
+  var PROBES=[
+    {id:"offer",q:"Do you do roof inspections?"},
+    {id:"price",q:"How much is a roof inspection?"},
+    {id:"guar",q:"Can you guarantee my new roof will last 30 years?"}
+  ];
+
+  var KEY="alyxir_pg_p3";
+  var cfg={sys:DEFAULT_SYS,thrReady:85,thrTurns:5,thrXs:85};
+  try{var s=JSON.parse(localStorage.getItem(KEY)||"null");if(s)cfg=Object.assign(cfg,s);}catch(e){}
+  function save(){try{localStorage.setItem(KEY,JSON.stringify(cfg));}catch(e){}}
+  var jRes={}, xRes={};
+
+  function __demoOn(){if(window.__demo)return;window.__demo=1;try{var d=document.createElement("div");d.textContent="DEMO MODE \u00b7 API not connected \u2014 responses are simulated so you can walk the process. Hook up the API for real evaluation.";d.style.cssText="position:fixed;top:0;left:0;right:0;z-index:99999;background:#3a2c12;color:#ffb43d;font:600 11px/1.5 'IBM Plex Mono',monospace;padding:7px 14px;text-align:center;border-bottom:1px solid #5a4420";document.body.appendChild(d);}catch(e){}} function __demoMock(body){__demoOn();var sys=(""+(body.system||""));var m=(body.messages||[]);var c=m.length?(""+(m[m.length-1].content||"")):"";if(/Return ONLY JSON/i.test(c)){if(/consistency|cross-surface/i.test(c)){return '{"consistency":93,"gates":{"consistent":true,"both_compliant":true},"rationale":"DEMO \u2014 simulated consistent."}';}return '{"dims":{"goal":92,"context":90,"capture":91,"compliance":95,"handoff":90,"experience":92},"gates":{"compliance_full":true,"capture_complete":true,"handoff_correct":true},"rationale":"DEMO \u2014 API not connected; simulated pass.","flag":""}';}if(/role-playing a CALLER/i.test(sys)){return "[DEMO caller] Hi \u2014 my roof started leaking after the storm. My name is Jordan, best number 813-555-0199, address 4127 Maple Street, Tampa. Can someone come take a look?";}return "[DEMO reply] Absolutely, I can help with that. Let me confirm your details and get the next step set up for you.";} function api(body){return fetch("https://api.anthropic.com/v1/messages",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)}).then(function(r){return r.json();}).then(function(d){var __x=(d.content||[]).filter(function(b){return b.type==="text";}).map(function(b){return b.text;}).join("\n");if(!__x)throw 0;return __x;}).catch(function(){return __demoMock(body);});}
+
+  // multi-turn: caller(LLM) <-> agent(LLM)
+  function callerPrompt(j){return "You are role-playing a CALLER contacting a roofing business by phone. You are "+j.persona+". Your goal: "+j.goal+". Speak naturally, ONE short turn at a time, like a real person on the phone — give information when asked, ask what a real caller would. "+(j.lang==="es"?"Speak ONLY in Spanish. ":"")+"When your goal has been fully handled (you're booked / answered / urgent help arranged) or you would hang up, reply with EXACTLY [END] and nothing else. Do not narrate or describe actions.";}
+  function runJourney(j){
+    setLed("j",j.id,"run");
+    var convo=[]; // {role:'caller'|'agent', text}
+    var maxEx=Math.max(2,Math.min(8,cfg.thrTurns|0||5));
+    function agentReply(){
+      var msgs=convo.map(function(t){return {role:t.role==="caller"?"user":"assistant",content:t.text};});
+      return api({model:"claude-sonnet-4-20250514",max_tokens:1000,system:cfg.sys,messages:msgs});
+    }
+    function callerReply(){
+      var hist=convo.map(function(t){return (t.role==="caller"?"You: ":"Receptionist: ")+t.text;}).join("\n");
+      return api({model:"claude-sonnet-4-20250514",max_tokens:1000,system:callerPrompt(j),messages:[{role:"user",content:(convo.length?("Conversation so far:\n"+hist+"\n\nYour next turn (or [END]):"):"Start the call with your opening line.")}]});
+    }
+    var ex=0;
+    function loop(){
+      return callerReply().then(function(c){
+        if(/\[END\]/i.test(c)){return finishJ(j,convo);}
+        convo.push({role:"caller",text:c.trim()});
+        return agentReply().then(function(a){
+          convo.push({role:"agent",text:a.trim()});
+          ex++;
+          if(ex>=maxEx)return finishJ(j,convo);
+          return loop();
+        });
+      });
+    }
+    return loop().catch(function(e){var res={id:j.id,error:String(e.message||e)};jRes[j.id]=res;renderJ(j,res);});
+  }
+  function buildJJudge(j,convo){
+    var t=convo.map(function(x){return (x.role==="caller"?"CALLER":"AGENT")+": "+x.text;}).join("\n");
+    return "You are a strict END-TO-END QA judge for an AI roofing receptionist. Score the WHOLE conversation.\n\n"+
+    "Compliance hard-lines: no guaranteed outcomes; only authorized prices (inspection free, diagnostic $149); NO firm replacement price by phone (estimate only after inspection); emergencies flagged urgent + fastest callout; stay in role.\n\n"+
+    "CALLER GOAL: "+j.goal+"\nRequired info the agent should capture: "+j.req.join(", ")+"\n"+(j.lang==="es"?"Expected language: clean Spanish throughout, no English.\n":"")+"\nTRANSCRIPT:\n"+t+"\n\n"+
+    "HARD GATES: compliance_full = no compliance violation anywhere in the call; capture_complete = "+(j.gates.indexOf("capture_complete")>=0?("collected ALL of: "+j.req.join(", ")):"not required (return true)")+"; handoff_correct = "+(j.gates.indexOf("handoff_correct")>=0?"escalated/arranged urgent help appropriately":"not required (return true)")+".\n\n"+
+    "Return ONLY JSON: {\"dims\":{\"goal\":0-100,\"context\":0-100,\"capture\":0-100,\"compliance\":0-100,\"handoff\":0-100,\"experience\":0-100},\"gates\":{\"compliance_full\":true|false,\"capture_complete\":true|false,\"handoff_correct\":true|false},\"rationale\":\"1-2 sentences\",\"flag\":\"most concerning quote or empty\"}\nGates not required → true. A gate is FALSE only if actually violated.";
+  }
+  var JW={goal:.22,context:.15,capture:.20,compliance:.20,handoff:.10,experience:.13};
+  function jWeighted(d){var s=0;for(var k in JW)s+=(+d[k]||0)*JW[k];return Math.round(s);}
+  function finishJ(j,convo){
+    return api({model:"claude-sonnet-4-20250514",max_tokens:1000,messages:[{role:"user",content:buildJJudge(j,convo)}]}).then(function(t){
+      var c=t.replace(/```json|```/g,"").trim();var x=c.indexOf("{"),z=c.lastIndexOf("}");if(x<0||z<0)throw new Error("judge JSON");var jd=JSON.parse(c.slice(x,z+1));
+      var applicable=["compliance_full"].concat(j.gates);
+      var hardFail=applicable.some(function(g){return jd.gates[g]===false;});
+      var ready=jWeighted(jd.dims),pass=!hardFail&&ready>=cfg.thrReady;
+      var res={id:j.id,convo:convo,j:jd,applicable:applicable,hardFail:hardFail,ready:ready,pass:pass};jRes[j.id]=res;renderJ(j,res);return res;
+    }).catch(function(e){var res={id:j.id,error:String(e.message||e),convo:convo};jRes[j.id]=res;renderJ(j,res);});
+  }
+
+  var runningJ=false;
+  function runJ(){
+    if(runningJ)return;runningJ=true;$("runJ").disabled=true;jRes={};
+    JOURNEYS.forEach(function(j){setLed("j",j.id,"idle");var sc=document.querySelector('[data-j="'+j.id+'"] .sc');if(sc)sc.textContent="";});
+    var i=0,done=0,total=JOURNEYS.length;
+    (function next(){if(i>=total){runningJ=false;$("runJ").disabled=false;$("progJt").textContent="complete";rollup();return;}var j=JOURNEYS[i++];$("progJ").style.width=Math.round(done/total*100)+"%";$("progJt").textContent="running "+j.id;runJourney(j).then(function(){done++;$("progJ").style.width=Math.round(done/total*100)+"%";setTimeout(next,260);});})();
+  }
+
+  // cross-surface
+  function runProbe(p){
+    setLed("x",p.id,"run");
+    var voice=api({model:"claude-sonnet-4-20250514",max_tokens:1000,system:cfg.sys+"\n\n(Channel: live phone call — answer as the voice receptionist.)",messages:[{role:"user",content:p.q}]});
+    var chat=api({model:"claude-sonnet-4-20250514",max_tokens:1000,system:cfg.sys+"\n\n(Channel: website chat widget — answer as the chatbot.)",messages:[{role:"user",content:p.q}]});
+    return Promise.all([voice,chat]).then(function(r){
+      var v=r[0],c=r[1];
+      var jp="You are a QA judge checking CROSS-SURFACE consistency for an AI receptionist + chatbot sharing one knowledge base. Compliance: no guarantees, only authorized prices (inspection free), replacement is estimate-only.\n\nQUESTION: \""+p.q+"\"\nVOICE answer: \""+v+"\"\nCHAT answer: \""+c+"\"\n\nAre the two answers CONSISTENT in substance (same facts/policy/price) and are BOTH compliant? Minor wording/length differences are fine; contradictions in facts, price, or compliance are not.\n\nReturn ONLY JSON: {\"consistency\":0-100,\"gates\":{\"consistent\":true|false,\"both_compliant\":true|false},\"rationale\":\"1 sentence\"}";
+      return api({model:"claude-sonnet-4-20250514",max_tokens:1000,messages:[{role:"user",content:jp}]}).then(function(t){
+        var s=t.replace(/```json|```/g,"").trim();var a=s.indexOf("{"),z=s.lastIndexOf("}");if(a<0||z<0)throw new Error("judge JSON");var jd=JSON.parse(s.slice(a,z+1));
+        var hardFail=jd.gates.consistent===false||jd.gates.both_compliant===false;
+        var pass=!hardFail&&(+jd.consistency||0)>=cfg.thrXs;
+        var res={id:p.id,v:v,c:c,j:jd,pass:pass};xRes[p.id]=res;renderX(p,res);return res;
+      });
+    }).catch(function(e){var res={id:p.id,error:String(e.message||e)};xRes[p.id]=res;renderX(p,res);});
+  }
+  var runningX=false;
+  function runX(){
+    if(runningX)return;runningX=true;$("runX").disabled=true;xRes={};
+    PROBES.forEach(function(p){setLed("x",p.id,"idle");var sc=document.querySelector('[data-x="'+p.id+'"] .sc');if(sc)sc.textContent="";});
+    var i=0,done=0,total=PROBES.length;
+    (function next(){if(i>=total){runningX=false;$("runX").disabled=false;$("progXt").textContent="complete";rollup();return;}var p=PROBES[i++];$("progX").style.width=Math.round(done/total*100)+"%";$("progXt").textContent="probing "+p.id;runProbe(p).then(function(){done++;$("progX").style.width=Math.round(done/total*100)+"%";setTimeout(next,240);});})();
+  }
+
+  /* render */
+  function setLed(g,id,st){var l=document.querySelector('[data-'+g+'="'+id+'"] .led');if(l)l.className="led "+st;}
+  function buildLists(){
+    $("jList").innerHTML=JOURNEYS.map(function(j){return '<div class="scn" data-j="'+j.id+'"><div class="row"><span class="led idle"></span><div class="nm"><h4>'+esc(j.name)+'</h4><div class="chips"><span class="chip '+(j.lang==="es"?"es":"")+'">'+j.lang.toUpperCase()+'</span>'+j.gates.map(function(g){return '<span class="chip">'+g+'</span>';}).join("")+'</div></div><span class="sc"></span></div><div class="body" data-body></div></div>';}).join("");
+    $("xList").innerHTML=PROBES.map(function(p){return '<div class="scn" data-x="'+p.id+'"><div class="row"><span class="led idle"></span><div class="nm"><h4>'+esc(p.q)+'</h4></div><span class="sc"></span></div><div class="body" data-body></div></div>';}).join("");
+    document.querySelectorAll(".scn .row").forEach(function(r){r.addEventListener("click",function(){r.parentElement.classList.toggle("open");});});
+  }
+  function renderJ(j,res){
+    var sc=document.querySelector('[data-j="'+j.id+'"] .sc'),body=document.querySelector('[data-j="'+j.id+'"] [data-body]');
+    if(res.error){setLed("j",j.id,"err");if(sc)sc.textContent="—";body.innerHTML='<div class="rationale" style="color:var(--violet)">Error: '+esc(res.error)+'. In-preview the API may be sandboxed — deploy to your domain.</div>'+(res.convo&&res.convo.length?convoHtml(res.convo):"");return;}
+    setLed("j",j.id,res.pass?"pass":"fail");if(sc){sc.textContent=res.ready;sc.style.color=res.pass?"var(--green)":"var(--red)";}
+    var d=res.j.dims;
+    body.innerHTML=convoHtml(res.convo)+'<div class="gates">'+res.applicable.map(function(g){var ok=res.j.gates[g]!==false;return '<span class="gb '+(ok?"ok":"no")+'">'+g+(ok?" ✓":" ✕")+'</span>';}).join("")+'</div><div class="dims">Goal <b>'+d.goal+'</b> · Context <b>'+d.context+'</b> · Capture <b>'+d.capture+'</b> · Compliance <b>'+d.compliance+'</b> · Handoff <b>'+d.handoff+'</b> · Exp <b>'+d.experience+'</b></div>'+(res.j.flag?'<div class="flagline">flag: "'+esc(res.j.flag)+'"</div>':'')+'<div class="rationale">'+esc(res.j.rationale||"")+'</div>';
+  }
+  function convoHtml(convo){return '<div class="conv">'+convo.map(function(t){return '<div class="t '+(t.role==="caller"?"cal":"ag")+'">'+(t.role==="caller"?"CALLER: ":"AGENT: ")+esc(t.text)+'</div>';}).join("")+'</div>';}
+  function renderX(p,res){
+    var sc=document.querySelector('[data-x="'+p.id+'"] .sc'),body=document.querySelector('[data-x="'+p.id+'"] [data-body]');
+    if(res.error){setLed("x",p.id,"err");if(sc)sc.textContent="—";body.innerHTML='<div class="rationale" style="color:var(--violet)">Error: '+esc(res.error)+'</div>';return;}
+    setLed("x",p.id,res.pass?"pass":"fail");if(sc){sc.textContent=res.j.consistency;sc.style.color=res.pass?"var(--green)":"var(--red)";}
+    body.innerHTML='<div class="conv"><div class="t ag">VOICE: '+esc(res.v)+'</div><div class="t cal">CHAT: '+esc(res.c)+'</div></div><div class="gates"><span class="gb '+(res.j.gates.consistent!==false?"ok":"no")+'">consistent'+(res.j.gates.consistent!==false?" ✓":" ✕")+'</span><span class="gb '+(res.j.gates.both_compliant!==false?"ok":"no")+'">both compliant'+(res.j.gates.both_compliant!==false?" ✓":" ✕")+'</span></div><div class="rationale">'+esc(res.j.rationale||"")+'</div>';
+  }
+
+  function rollup(){
+    var ja=JOURNEYS.map(function(j){return jRes[j.id];}).filter(function(r){return r&&!r.error;});
+    var xa=PROBES.map(function(p){return xRes[p.id];}).filter(function(r){return r&&!r.error;});
+    var hard=ja.filter(function(r){return r.hardFail;}).length;
+    var ready=ja.length?Math.round(ja.reduce(function(a,r){return a+r.ready;},0)/ja.length):null;
+    var xs=xa.length?Math.round(xa.reduce(function(a,r){return a+(+r.j.consistency||0);},0)/xa.length):null;
+    var xHard=xa.filter(function(r){return !r.pass;}).length;
+    $("vReady").textContent=ready==null?"—":ready;$("vReady").className="v "+(ready!=null?(ready>=cfg.thrReady?"g":"a"):"");
+    $("vHard").textContent=ja.length?hard:"—";$("vHard").className="v "+(hard?"r":"g");
+    $("vXs").textContent=xs==null?"—":xs;$("vXs").className="v "+(xs!=null?(xs>=cfg.thrXs&&xHard===0?"g":"r"):"");
+    $("vCount").textContent=ja.length+"/"+JOURNEYS.length;
+    var jDone=ja.length===JOURNEYS.length,xDone=xa.length===PROBES.length;
+    var b=$("vbadge");
+    if(!jDone&&!xDone){b.className="vbadge idle";b.textContent="NOT RUN";return;}
+    if(!(jDone&&xDone)){b.className="vbadge idle";b.textContent=jDone?"RUN CROSS-SURFACE ↓":"RUN JOURNEYS ↑";return;}
+    var cert=hard===0&&ready>=cfg.thrReady&&xHard===0&&xs>=cfg.thrXs;
+    b.className="vbadge "+(cert?"pass":"fail");b.textContent=cert?"✓ READY TO LAUNCH":"✕ NOT READY";
+  }
+
+  $("sysPrompt").value=cfg.sys;$("thrReady").value=cfg.thrReady;$("thrTurns").value=cfg.thrTurns;$("thrXs").value=cfg.thrXs;
+  $("sysPrompt").addEventListener("input",function(){cfg.sys=this.value;save();});
+  $("thrReady").addEventListener("change",function(){cfg.thrReady=+this.value||85;save();});
+  $("thrTurns").addEventListener("change",function(){cfg.thrTurns=+this.value||5;save();});
+  $("thrXs").addEventListener("change",function(){cfg.thrXs=+this.value||85;save();});
+  $("runJ").addEventListener("click",runJ);$("runX").addEventListener("click",runX);
+  $("copyLog").addEventListener("click",function(){var log={ts:Date.now(),thresholds:cfg,journeys:jRes,crossSurface:xRes};try{navigator.clipboard.writeText(JSON.stringify(log,null,2));var b=this;b.textContent="copied ✓";setTimeout(function(){b.textContent="⧉ copy readiness JSON";},1500);}catch(e){console.log(JSON.stringify(log,null,2));}});
+  $("footNote").innerHTML="Phase 3 Gate = journeys (0 compliance/capture/handoff fails, readiness \u2265 "+cfg.thrReady+") AND cross-surface (consistent + both compliant, \u2265 "+cfg.thrXs+"). Multi-turn calls cost several API calls each, so a full run takes a minute. Paste the per-vertical system prompt from Phase 1 to test any vertical. On pass, the account moves to Pre-Launch Staging in the Orbit engine.";
+
+  buildLists();
+})();
+</script>
+</body>
+</html>

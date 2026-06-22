@@ -1,0 +1,106 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Orbit AI — Unit Economics & Scale</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#0e1726;--ink2:#51607a;--faint:#8a96aa;--line:#e4e8ef;--navy:#0a2a66;--blue:#0a66ff;--good:#127a45;--bg:#fff;--soft:#f5f8fd;}
+*{box-sizing:border-box}html,body{margin:0}
+body{background:#eef1f6;color:var(--ink);font-family:'IBM Plex Sans',system-ui,sans-serif;line-height:1.5}
+.page{max-width:860px;margin:22px auto;background:var(--bg);padding:34px 38px;box-shadow:0 2px 18px rgba(16,24,40,.08);border-radius:6px}
+.kick{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--blue)}
+h1{font-family:'Chakra Petch';font-weight:700;font-size:27px;margin:4px 0 6px;color:var(--navy)}
+.thesis{font-size:14.5px;color:var(--ink2);margin:0 0 20px;max-width:680px}
+.thesis b{color:var(--ink)}
+h2{font-family:'Chakra Petch';font-weight:600;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--navy);margin:24px 0 10px;padding-bottom:6px;border-bottom:2px solid var(--line)}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th,td{text-align:right;padding:7px 10px;border-bottom:1px solid var(--line)}
+th:first-child,td:first-child{text-align:left}
+th{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--faint);font-weight:500}
+td b{color:var(--navy)}
+.good{color:var(--good);font-weight:600}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:4px}
+.c{border:1px solid var(--line);border-radius:10px;padding:14px;background:var(--soft)}
+.c .h{font-family:'Chakra Petch';font-weight:700;font-size:14px;color:var(--navy)}
+.c .s{font-size:11px;color:var(--faint);font-family:'IBM Plex Mono';margin-bottom:9px}
+.c .big{font-family:'Chakra Petch';font-weight:700;font-size:23px;color:var(--blue);line-height:1.1}
+.c .big small{font-size:11px;color:var(--faint);font-weight:400;font-family:'IBM Plex Mono'}
+.c ul{margin:9px 0 0;padding-left:0;list-style:none}
+.c li{font-size:12px;color:var(--ink2);padding:3px 0;display:flex;justify-content:space-between;gap:8px}
+.c li b{color:var(--ink)}
+.wedge{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:6px}
+.wedge .w{border:1px solid var(--line);border-radius:10px;padding:13px 15px}
+.wedge .w.them{background:#fbf6f3}.wedge .w.us{background:#f1f7ff;border-color:#cfe0ff}
+.wedge .w h3{font-family:'Chakra Petch';font-size:12px;text-transform:uppercase;letter-spacing:.05em;margin:0 0 8px;color:var(--navy)}
+.wedge .w p{margin:5px 0;font-size:12.5px;color:var(--ink2)}
+.foot{margin-top:22px;border-top:1px solid var(--line);padding-top:11px;font-family:'IBM Plex Mono';font-size:10.5px;color:var(--faint);line-height:1.6}
+.hl{background:linear-gradient(180deg,transparent 62%,#cfe6d6 62%);padding:0 2px}
+@media print{body{background:#fff}.page{box-shadow:none;margin:0;max-width:none;padding:0 8mm}@page{margin:12mm}}
+@media(max-width:640px){.cards,.wedge{grid-template-columns:1fr}}
+</style></head><body><div class="page">
+
+<div class="kick">Orbit AI Automation · Confidential</div>
+<h1>Unit Economics & Path to Scale</h1>
+<p class="thesis">Orbit sells <b>revenue infrastructure</b> — a bilingual AI receptionist, chatbot and website on one unified knowledge base — at a <b>marginal cost of pennies per minute</b>. That lets us price below an agency retainer and still run <span class="hl">83–94% gross margins</span>, then scale the same product through direct, aggregator, and white-label channels with no added headcount.</p>
+
+<h2>Per-account unit economics (monthly)</h2>
+<table>
+  <thead><tr><th>Package</th><th>Retail</th><th>Fulfillment (COGS)</th><th>Contribution</th><th>Gross margin</th></tr></thead>
+  <tbody>
+    <tr><td>Presence</td><td>$297</td><td>$18</td><td><b>$279</b></td><td class="good">94%</td></tr>
+    <tr><td>Engage</td><td>$597</td><td>$94</td><td><b>$503</b></td><td class="good">84%</td></tr>
+    <tr><td>Scale</td><td>$997</td><td>$170</td><td><b>$827</b></td><td class="good">83%</td></tr>
+    <tr><td>Concierge (Complete DFY)</td><td>$2,497</td><td>$300</td><td><b>$2,197</b></td><td class="good">88%</td></tr>
+    <tr><td><b>Blended ARPA</b> <span style="color:var(--faint);font-size:11px">(40/45/15 mix)</span></td><td><b>$537</b></td><td><b>$75</b></td><td><b>$462</b></td><td class="good">86%</td></tr>
+  </tbody>
+</table>
+
+<h2>Three go-to-market engines</h2>
+<div class="cards">
+  <div class="c">
+    <div class="h">Direct</div><div class="s">we sell at retail</div>
+    <div class="big">$1.29M<small> ARR @ 200</small></div>
+    <ul><li>Gross profit/yr <b>$1.11M</b></li><li>MRR @ 200 <b>$107K</b></li><li>Margin <b class="good">86%</b></li></ul>
+  </div>
+  <div class="c">
+    <div class="h">Aggregator</div><div class="s">200-account book, hands-off</div>
+    <div class="big">$501K<small> ARR to Orbit</small></div>
+    <ul><li>Per account (35% band) <b>$209</b></li><li>Orbit GP/yr <b>$276K</b> (55%)</li><li>They keep <b>$78K/mo</b> reselling</li></ul>
+  </div>
+  <div class="c">
+    <div class="h">White-label</div><div class="s">100 accts, their brand</div>
+    <div class="big">$188K<small> ARR to Orbit</small></div>
+    <ul><li>License + $39/acct + usage</li><li>Orbit GP/yr <b>$75K</b></li><li>Zero CAC, zero support load</li></ul>
+  </div>
+</div>
+
+<h2>Direct scale snapshot (blended ARPA $537)</h2>
+<table>
+  <thead><tr><th>Active accounts</th><th>MRR</th><th>ARR</th><th>Gross profit / yr</th></tr></thead>
+  <tbody>
+    <tr><td>50</td><td>$26,850</td><td>$322K</td><td class="good">$277K</td></tr>
+    <tr><td>200</td><td>$107,400</td><td>$1.29M</td><td class="good">$1.11M</td></tr>
+    <tr><td>500</td><td>$268,500</td><td>$3.22M</td><td class="good">$2.77M</td></tr>
+    <tr><td>1,000</td><td>$537,000</td><td>$6.44M</td><td class="good">$5.54M</td></tr>
+  </tbody>
+</table>
+<p style="font-size:12.5px;color:var(--ink2);margin:10px 0 0"><b>Illustrative Year-1 exit</b> — 150 direct + one 200-account aggregator + two 50-seat white-label partners (450 accounts touched): <b style="color:var(--navy)">~$1.66M ARR</b>, <b class="good">~$1.19M gross profit</b> at a blended 72% margin — on a team of two.</p>
+
+<h2>Why this surprises the industry</h2>
+<div class="wedge">
+  <div class="w them"><h3>Legacy agency model</h3>
+    <p>Sells <b>human hours</b> — $2,000–$5,000/mo retainers.</p>
+    <p>High fixed cost; margin capped by headcount.</p>
+    <p>Weeks-to-months to launch; doesn't scale.</p></div>
+  <div class="w us"><h3>Orbit infrastructure model</h3>
+    <p>Sells <b>always-on AI</b> at pennies-per-minute cost.</p>
+    <p>83–94% gross margin; scales without hiring.</p>
+    <p>Live in days via the Merge Engine; aggregator + white-label ready day one.</p></div>
+</div>
+<p style="font-size:13px;color:var(--ink);margin:12px 0 0">Same outcome the agency promises — every call answered, every lead worked, in English and Spanish — at a fraction of the price and near-infinite scale. <b>That is why the agency-partner model looks outdated the moment this launches.</b></p>
+
+<div class="foot">
+Assumptions: fulfillment costs from current LLM/STT/TTS/telephony rates (~$0.10/voice-min, ~$0.02/SMS, ~$0.01/chat); blended ARPA from a 40% Presence / 45% Engage / 15% Scale mix; aggregator priced at the 100+ wholesale band (35% of retail); white-label = $499/mo license + $39/active account + usage at cost+20%. Figures are planning models, not guarantees; provider pricing moves and real COGS trends lower as the cache-first knowledge base matures. Confidential — Orbit AI Automation.
+</div>
+
+</div></body></html>

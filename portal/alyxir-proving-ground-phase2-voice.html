@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Proving Ground — Phase 2 (Voice)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#070a0f;--panel:#0d1219;--panel-2:#111824;--line:#1d2a3a;--line-soft:#16202e;--ink:#e8eef6;--ink-dim:#8da0b8;--ink-faint:#5b6c81;--amber:#ffb43d;--green:#34d99a;--red:#ff5c6c;--cyan:#4fd6ff;--violet:#b59cff;--display:"Chakra Petch",system-ui,sans-serif;--sans:"IBM Plex Sans",system-ui,sans-serif;--mono:"IBM Plex Mono",ui-monospace,monospace;}
+  *{box-sizing:border-box} html,body{margin:0;padding:0}
+  body{background:linear-gradient(180deg,#070a0f,#0a0e14),var(--bg);color:var(--ink);font-family:var(--sans);min-height:100vh;background-image:linear-gradient(var(--line-soft) 1px,transparent 1px),linear-gradient(90deg,var(--line-soft) 1px,transparent 1px),radial-gradient(circle at 85% -10%,rgba(79,214,255,.06),transparent 45%);background-size:46px 46px,46px 46px,100% 100%;}
+  .wrap{max-width:1080px;margin:0 auto;padding:22px 20px 70px}
+  .topbar{display:flex;align-items:center;gap:16px;padding:14px 18px;border:1px solid var(--line);background:linear-gradient(180deg,var(--panel-2),var(--panel));border-radius:14px;margin-bottom:16px;animation:rise .5s ease both}
+  .brand{font-family:var(--display);font-weight:700;letter-spacing:.12em;font-size:17px}
+  .brand .o{color:var(--cyan)}.brand .sub{color:var(--ink-faint);font-weight:500;font-size:10px;letter-spacing:.26em;margin-left:9px}
+  .spacer{flex:1}
+  .pill{font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--ink-dim);border:1px solid var(--line);border-radius:999px;padding:7px 12px;background:var(--panel)}
+  .verdict{border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin-bottom:16px;background:var(--panel);display:flex;align-items:center;gap:20px;flex-wrap:wrap;animation:rise .55s ease both}
+  .vbadge{font-family:var(--display);font-weight:700;letter-spacing:.08em;font-size:21px;padding:12px 18px;border-radius:11px;white-space:nowrap}
+  .vbadge.idle{color:var(--ink-faint);border:1px dashed var(--line)}.vbadge.pass{color:#0c1a13;background:var(--green)}.vbadge.fail{color:#1c0a0c;background:var(--red)}
+  .vstats{display:flex;gap:22px;flex-wrap:wrap;flex:1}
+  .vstat .k{font-family:var(--mono);font-size:10px;letter-spacing:.08em;color:var(--ink-faint);text-transform:uppercase}
+  .vstat .v{font-family:var(--display);font-weight:700;font-size:20px;margin-top:3px}
+  .vstat .v.g{color:var(--green)}.vstat .v.r{color:var(--red)}.vstat .v.a{color:var(--amber)}.vstat .v.c{color:var(--cyan)}
+  .card{border:1px solid var(--line);background:linear-gradient(180deg,var(--panel-2),var(--panel));border-radius:14px;padding:16px 18px;margin-bottom:16px;animation:rise .6s ease both}
+  .sechead{display:flex;align-items:center;gap:10px;margin:0 0 12px}
+  .sechead h2{font-family:var(--display);font-size:12px;font-weight:600;letter-spacing:.18em;color:var(--ink-dim);margin:0;text-transform:uppercase}
+  .sechead .n{font-family:var(--display);font-size:12px;color:var(--cyan);font-weight:700}
+  .sechead .rule{flex:1;height:1px;background:var(--line)}.sechead .tag{font-family:var(--mono);font-size:10px;color:var(--ink-faint)}
+  label.fl{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:var(--ink-faint);text-transform:uppercase;margin:0 0 5px}
+  textarea,input.num{width:100%;background:#060a10;border:1px solid var(--line);color:var(--ink);border-radius:9px;font-family:var(--mono);font-size:12px;padding:10px 12px;line-height:1.5}
+  textarea{resize:vertical}textarea.sys{min-height:120px}textarea.json{min-height:110px}
+  textarea:focus,input.num:focus{outline:none;border-color:var(--cyan)}
+  details.cfg summary{cursor:pointer;font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:var(--ink-dim);list-style:none}
+  details.cfg summary::-webkit-details-marker{display:none}
+  details.cfg summary:before{content:"▸ ";color:var(--cyan)} details.cfg[open] summary:before{content:"▾ "}
+  .thr{display:flex;gap:16px;flex-wrap:wrap;margin-top:12px}.thr div{min-width:130px} input.num{width:100px}
+  .btn{font-family:var(--display);font-weight:700;letter-spacing:.08em;font-size:12px;border:none;border-radius:10px;padding:12px 18px;cursor:pointer;color:#06141a;background:linear-gradient(180deg,#7fe3ff,var(--cyan));white-space:nowrap}
+  .btn.amber{background:linear-gradient(180deg,#ffc964,var(--amber));color:#1a1205}
+  .btn:disabled{opacity:.5;cursor:wait}
+  .ghost{font-family:var(--mono);font-size:11px;border:1px solid var(--line);background:var(--panel);color:var(--ink-dim);border-radius:9px;padding:11px 14px;cursor:pointer}.ghost:hover{border-color:var(--cyan);color:var(--cyan)}
+  .runbar{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:12px 0}
+  .prog{flex:1;min-width:120px;height:7px;border-radius:99px;background:var(--line);overflow:hidden}.prog i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--cyan),var(--green));transition:width .3s}
+  .progtxt{font-family:var(--mono);font-size:11px;color:var(--ink-faint)}
+  .scn{border:1px solid var(--line);border-radius:11px;background:var(--panel);margin-bottom:9px;overflow:hidden}
+  .scn .row{display:flex;align-items:center;gap:12px;padding:12px 14px;cursor:pointer}
+  .led{width:9px;height:9px;border-radius:50%;background:var(--ink-faint);flex:none}
+  .led.run{background:var(--amber);animation:pulse 1.2s infinite}.led.pass{background:var(--green);box-shadow:0 0 8px var(--green)}.led.fail{background:var(--red);box-shadow:0 0 8px var(--red)}.led.err{background:var(--violet)}
+  .scn .nm{flex:1;min-width:0}.scn .nm h4{margin:0;font-family:var(--display);font-size:13.5px;font-weight:600}
+  .chips{margin-top:4px;display:flex;gap:6px;flex-wrap:wrap}
+  .chip{font-family:var(--mono);font-size:9px;letter-spacing:.05em;padding:3px 7px;border-radius:5px;border:1px solid var(--line);color:var(--ink-dim)}
+  .chip.es{color:var(--cyan);border-color:#1d3a47}.chip.crit{color:var(--amber);border-color:#4a3a18}
+  .scn .sc{font-family:var(--display);font-weight:700;font-size:17px;width:42px;text-align:right}
+  .scn .body{display:none;padding:0 14px 14px;border-top:1px solid var(--line-soft)}.scn.open .body{display:block}
+  .tline{font-family:var(--mono);font-size:11.5px;line-height:1.6;margin:10px 0;white-space:pre-wrap;word-break:break-word}
+  .tline .who{color:var(--ink-faint)} .tline .who.clean{color:var(--green)} .tline .who.asr{color:var(--amber)} .tline .who.ag{color:var(--cyan)}
+  .gates{display:flex;gap:7px;flex-wrap:wrap;margin:8px 0}.gb{font-family:var(--mono);font-size:10px;font-weight:600;padding:4px 9px;border-radius:6px}.gb.ok{color:var(--green);background:#0f2a22}.gb.no{color:var(--red);background:#2c1117}
+  .rationale{font-size:12.5px;color:var(--ink-dim);line-height:1.5;border-left:2px solid var(--line);padding-left:11px;margin-top:8px}
+  /* timeline */
+  .tl{display:flex;flex-direction:column;gap:6px;margin-top:6px}
+  .turn{display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:11.5px;padding:8px 11px;border-radius:8px;background:#0a0f16;border:1px solid var(--line-soft)}
+  .turn .role{width:54px;font-weight:600}.turn .role.cal{color:var(--cyan)}.turn .role.ag{color:var(--amber)}
+  .turn .txt{flex:1;color:var(--ink-dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .turn .met{font-size:10.5px;color:var(--ink-faint);white-space:nowrap}
+  .turn .met b{color:var(--ink)}
+  .turn.warnlat{border-color:#4a3a18}.turn.warnlat .met b{color:var(--amber)}
+  .turn.bad{border-color:#4a2025}.turn.bad .met b{color:var(--red)}
+  .mflags{display:flex;gap:18px;flex-wrap:wrap;font-family:var(--mono);font-size:11px;color:var(--ink-dim);margin-top:11px}.mflags b{color:var(--ink)}
+  .note{font-family:var(--mono);font-size:10.5px;color:var(--ink-faint);line-height:1.6;margin-top:13px}
+  .warnbox{border:1px solid #3a2c12;background:#1a1408;border-radius:10px;padding:11px 13px;font-family:var(--mono);font-size:11px;color:var(--amber);line-height:1.55;margin-bottom:14px}
+  @keyframes rise{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:none}}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(255,180,61,.5)}70%{box-shadow:0 0 0 6px rgba(255,180,61,0)}100%{box-shadow:0 0 0 0 rgba(255,180,61,0)}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar">
+    <div class="brand"><span class="o">◆</span> PROVING GR<span class="o">O</span>UND <span class="sub">PHASE 2 · VOICE LAYER</span></div>
+    <div class="spacer"></div>
+    <span class="pill">ASR ROBUSTNESS + CALL TELEMETRY</span>
+  </div>
+
+  <div class="warnbox">Latency, barge-in and dead-air are produced by the live Telnyx/Deepgram pipeline — this console <b>scores</b> that telemetry (paste a real call export, or simulate). The <b>ASR-robustness</b> eval runs live via the API: it feeds the agent garbled transcripts to test recovery. Wire the real call export at launch.</div>
+
+  <div class="verdict">
+    <div class="vbadge idle" id="vbadge">NOT RUN</div>
+    <div class="vstats">
+      <div class="vstat"><div class="k">ASR resilience</div><div class="v" id="vRes">—</div></div>
+      <div class="vstat"><div class="k">Confirm-critical fails</div><div class="v" id="vCrit">—</div></div>
+      <div class="vstat"><div class="k">Latency p95</div><div class="v" id="vLat">—</div></div>
+      <div class="vstat"><div class="k">Talk-overs</div><div class="v" id="vBarge">—</div></div>
+      <div class="vstat"><div class="k">Max dead-air</div><div class="v" id="vDead">—</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <details class="cfg">
+      <summary>CANDIDATE AGENT PROMPT · THRESHOLDS</summary>
+      <label class="fl" style="margin-top:12px">Candidate agent system prompt (paste the prompt from Phase 1 for the vertical under test)</label>
+      <textarea class="sys" id="sysPrompt"></textarea>
+      <div class="thr">
+        <div><label class="fl">Latency budget (ms)</label><input class="num" id="thrLat" type="number" value="500"></div>
+        <div><label class="fl">Dead-air limit (ms)</label><input class="num" id="thrDead" type="number" value="1500"></div>
+        <div><label class="fl">Resilience min</label><input class="num" id="thrRes" type="number" value="75"></div>
+        <div><label class="fl">Low-conf ASR (&lt;)</label><input class="num" id="thrConf" type="number" step="0.05" value="0.6"></div>
+      </div>
+    </details>
+  </div>
+
+  <!-- SECTION A -->
+  <div class="card">
+    <div class="sechead"><span class="n">A.</span><h2>ASR Robustness</h2><div class="rule"></div><span class="tag">live · runs via API</span></div>
+    <p class="note" style="margin-top:0">Each scenario shows what the caller <i>said</i> vs. what ASR <i>heard</i> (garbled). The agent only sees the garbled text. It must recover gracefully — confirm/clarify critical fields, never silently act on a misheard number or address, stay clean in Spanish.</p>
+    <div class="runbar"><button class="btn" id="runAsr">▶ Run ASR eval</button><div class="prog"><i id="progA"></i></div><span class="progtxt" id="progAt">idle</span></div>
+    <div id="asrList"></div>
+  </div>
+
+  <!-- SECTION B -->
+  <div class="card">
+    <div class="sechead"><span class="n">B.</span><h2>Call Mechanics</h2><div class="rule"></div><span class="tag">real telemetry or simulated</span></div>
+    <label class="fl">Telnyx call export — turns JSON: [{role:"caller|agent", text, start, end, conf, interrupted}] (ms timestamps)</label>
+    <textarea class="json" id="callJson" placeholder='Paste a real call export, or click Simulate…'></textarea>
+    <div class="runbar">
+      <button class="btn amber" id="scoreCall">▶ Score call</button>
+      <button class="ghost" id="simCall">⤿ Simulate sample call</button>
+      <span class="progtxt" id="mechMsg"></span>
+    </div>
+    <div id="tl"></div>
+    <div class="mflags" id="mflags"></div>
+  </div>
+
+  <div class="runbar"><button class="ghost" id="copyLog">⧉ copy voice-gate JSON</button></div>
+  <div class="note" id="footNote"></div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var $=function(id){return document.getElementById(id);};
+  var esc=function(s){return String(s==null?"":s).replace(/[&<>]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;"}[c];});};
+
+  var DEFAULT_SYS=
+"You are the AI voice receptionist for a Home Services (roofing) business in Tampa, FL, handling INBOUND calls. Warm, professional, premium. Bilingual: if the caller is Spanish-dominant, speak clean Spanish with NO English words; mirror Spanglish only if they code-switch.\n"+
+"VOICE DISCIPLINE: You are on a phone line, so transcription may be imperfect. ALWAYS read back and confirm critical details (phone numbers, addresses, names, appointment times) before acting on them. If a word or number is unclear/garbled, ASK the caller to repeat it — never guess or silently proceed on a misheard critical field. Keep replies short and natural for voice.\n"+
+"COMPLIANCE: no guarantees; no firm replacement price over the phone (estimate only after inspection); for an active safety emergency (gas, active flooding) give safety guidance + emergency dispatch.\n"+
+"Capture name, best phone, address, the issue, and consent to be contacted; offer a free inspection.";
+
+  // ASR scenarios: clean = what caller said; asr = what Deepgram "heard" (garbled)
+  var ASR=[
+    {id:"phone",name:"Phone capture · digit garble",lang:"en",crit:true,
+     clean:"Sure, my number is 813-555-0142.",
+     asr:"Sure, my number is eight one three, five five five, oh one four two... or maybe fifty-two.",
+     must:["read the number back to confirm","invite correction; do not lock a guessed digit"],never:["state a single confirmed number without confirming","ignore the ambiguity"]},
+    {id:"addr",name:"Address · inaudible street #",lang:"en",crit:true,
+     clean:"It's 4127 Maple Street, Tampa.",
+     asr:"It's [inaudible] Maple Street, Tampa.",
+     must:["ask for the missing street number","not invent an address"],never:["proceed with a guessed or blank street number"]},
+    {id:"es_garble",name:"ES-dominant · accent mis-transcription",lang:"es",crit:false,
+     clean:"Tengo una gotera en el techo y necesito que vengan hoy.",
+     asr:"Tengo una [inaudible] en el techo y necesito que vengan hoy.",
+     must:["clean Spanish reply","politely confirm the unclear word (what's wrong with the roof)"],never:["English tokens","guess the problem wrongly and proceed"]},
+    {id:"name",name:"Name · spelling unclear",lang:"en",crit:true,
+     clean:"My name is Nguyen, N-G-U-Y-E-N.",
+     asr:"My name is [unclear], it sounded like 'win' or 'nuyen'.",
+     must:["ask them to spell the name","confirm spelling"],never:["record a guessed spelling as final"]},
+    {id:"emerg_noise",name:"Emergency · partial garble",lang:"en",crit:false,
+     clean:"There's water pouring through my ceiling right now!",
+     asr:"There's [crosstalk] water pouring through my [inaudible] right now!",
+     must:["still treat as urgent/active intrusion","reassure + arrange priority dispatch"],never:["downgrade urgency because of the noise","ask routine scheduling questions only"]},
+    {id:"clarify",name:"Ambiguous · graceful clarify",lang:"en",crit:false,
+     clean:"I need someone out Tuesday afternoon for the leak.",
+     asr:"I need someone out [inaudible]day afternoon for the leak.",
+     must:["clarify which day","keep it natural, not robotic"],never:["assume a specific day and book it"]}
+  ];
+
+  var KEY="alyxir_pg_p2";
+  var cfg={sys:DEFAULT_SYS,thrLat:500,thrDead:1500,thrRes:75,thrConf:0.6};
+  try{var s=JSON.parse(localStorage.getItem(KEY)||"null");if(s)cfg=Object.assign(cfg,s);}catch(e){}
+  function save(){try{localStorage.setItem(KEY,JSON.stringify(cfg));}catch(e){}}
+  var asrRes={}, mech=null;
+
+  var EN_RX=/\b(the|your|sorry|okay|thanks|please|sure|we|you|will|can|help|number|address|repeat|confirm|spell|day|today)\b/ig;
+  function enTokens(t){var m=t.match(EN_RX);return m?Array.from(new Set(m.map(function(x){return x.toLowerCase();}))).slice(0,8):[];}
+
+  function __demoOn(){if(window.__demo)return;window.__demo=1;try{var d=document.createElement("div");d.textContent="DEMO MODE \u00b7 API not connected \u2014 responses are simulated so you can walk the process. Hook up the API for real evaluation.";d.style.cssText="position:fixed;top:0;left:0;right:0;z-index:99999;background:#3a2c12;color:#ffb43d;font:600 11px/1.5 'IBM Plex Mono',monospace;padding:7px 14px;text-align:center;border-bottom:1px solid #5a4420";document.body.appendChild(d);}catch(e){}} function __demoMock(body){__demoOn();var m=(body.messages||[]);var c=m.length?(""+(m[m.length-1].content||"")):"";if(/Return ONLY JSON/i.test(c)){return '{"resilience":88,"gates":{"confirm_critical":true,"no_false_assume":true,"language":true},"rationale":"DEMO \u2014 simulated pass.","flag":""}';}return "[DEMO reply] I want to make sure I have that exactly right \u2014 let me read it back and confirm with you before we go further.";} function api(body){return fetch("https://api.anthropic.com/v1/messages",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)}).then(function(r){return r.json();}).then(function(d){var __x=(d.content||[]).filter(function(b){return b.type==="text";}).map(function(b){return b.text;}).join("\n");if(!__x)throw 0;return __x;}).catch(function(){return __demoMock(body);});}
+  function buildJudge(s,a,en){
+    return "You are a strict VOICE QA judge for an AI phone receptionist. The caller's speech was transcribed by ASR with errors; the agent only saw the garbled transcript.\n\n"+
+    "What the caller actually SAID: \""+s.clean+"\"\nWhat ASR HEARD (garbled, what the agent received): \""+s.asr+"\"\nAGENT REPLY: \""+a+"\"\n\n"+
+    "MUST: "+s.must.join("; ")+"\nMUST NOT: "+s.never.join("; ")+"\n\n"+
+    (s.lang==="es"?("Expected language: clean Spanish, no English. English tokens detected in reply: "+(en.length?en.join(", "):"none")+"\n\n"):"")+
+    "Score the agent's ASR RESILIENCE: did it recover gracefully — confirm/clarify the unclear or critical info instead of guessing, and stay natural for voice?\n"+
+    "HARD GATES for this scenario: confirm_critical = "+(s.crit?"REQUIRED — must read back/confirm or ask to repeat the critical field (number/address/name), never silently lock a guess":"not applicable (return true)")+"; no_false_assume = must NOT act on a misheard/garbled detail as if certain; language = "+(s.lang==="es"?"reply has NO English words":"n/a (return true)")+".\n\n"+
+    "Return ONLY JSON, no markdown: {\"resilience\":0-100,\"gates\":{\"confirm_critical\":true|false,\"no_false_assume\":true|false,\"language\":true|false},\"rationale\":\"1-2 sentences\",\"flag\":\"most concerning quote or empty\"}\nA gate is FALSE only if actually violated.";
+  }
+  function runOne(s){
+    setLed(s.id,"run");
+    return api({model:"claude-sonnet-4-20250514",max_tokens:1000,system:cfg.sys,messages:[{role:"user",content:s.asr}]}).then(function(a){
+      var en=s.lang==="es"?enTokens(a):[];
+      return api({model:"claude-sonnet-4-20250514",max_tokens:1000,messages:[{role:"user",content:buildJudge(s,a,en)}]}).then(function(t){
+        var c=t.replace(/```json|```/g,"").trim();var x=c.indexOf("{"),z=c.lastIndexOf("}");if(x<0||z<0)throw new Error("judge JSON");var j=JSON.parse(c.slice(x,z+1));
+        var hardFail=(s.crit&&j.gates.confirm_critical===false)||j.gates.no_false_assume===false||(s.lang==="es"&&j.gates.language===false);
+        var pass=!hardFail&&(+j.resilience||0)>=cfg.thrRes;
+        var res={id:s.id,a:a,j:j,hardFail:hardFail,pass:pass};asrRes[s.id]=res;renderAsr(s,res);return res;
+      });
+    }).catch(function(e){var res={id:s.id,error:String(e.message||e)};asrRes[s.id]=res;renderAsr(s,res);return res;});
+  }
+  var running=false;
+  function runAsr(){
+    if(running)return;running=true;$("runAsr").disabled=true;asrRes={};
+    ASR.forEach(function(s){setLed(s.id,"idle");var sc=document.querySelector('[data-a="'+s.id+'"] .sc');if(sc)sc.textContent="";});
+    var i=0,done=0,total=ASR.length;
+    (function next(){if(i>=total){running=false;$("runAsr").disabled=false;$("progAt").textContent="complete";rollup();return;}var s=ASR[i++];$("progA").style.width=Math.round(done/total*100)+"%";$("progAt").textContent="running "+s.id;runOne(s).then(function(){done++;$("progA").style.width=Math.round(done/total*100)+"%";setTimeout(next,240);});})();
+  }
+  function setLed(id,st){var l=document.querySelector('[data-a="'+id+'"] .led');if(l)l.className="led "+st;}
+  function renderAsr(s,res){
+    var sc=document.querySelector('[data-a="'+s.id+'"] .sc'),body=document.querySelector('[data-a="'+s.id+'"] [data-body]');
+    if(res.error){setLed(s.id,"err");if(sc)sc.textContent="—";body.innerHTML='<div class="rationale" style="color:var(--violet)">Error: '+esc(res.error)+'. In-preview the API may be sandboxed — deploy to your domain.</div>';return;}
+    setLed(s.id,res.pass?"pass":"fail");if(sc){sc.textContent=res.j.resilience;sc.style.color=res.pass?"var(--green)":"var(--red)";}
+    var gates=[];if(s.crit)gates.push(["confirm_critical",res.j.gates.confirm_critical!==false]);gates.push(["no_false_assume",res.j.gates.no_false_assume!==false]);if(s.lang==="es")gates.push(["language",res.j.gates.language!==false]);
+    body.innerHTML='<div class="tline"><span class="who clean">SAID:</span> '+esc(s.clean)+'</div><div class="tline"><span class="who asr">ASR HEARD:</span> '+esc(s.asr)+'</div><div class="tline"><span class="who ag">AGENT:</span> '+esc(res.a)+'</div>'+
+      '<div class="gates">'+gates.map(function(g){return '<span class="gb '+(g[1]?"ok":"no")+'">'+g[0]+(g[1]?" ✓":" ✕")+'</span>';}).join("")+'</div>'+
+      (res.j.flag?'<div class="rationale" style="color:var(--amber)">flag: "'+esc(res.j.flag)+'"</div>':'')+
+      '<div class="rationale">'+esc(res.j.rationale||"")+'</div>';
+  }
+  function buildAsrList(){
+    var L=$("asrList");L.innerHTML="";
+    ASR.forEach(function(s){
+      var el=document.createElement("div");el.className="scn";el.setAttribute("data-a",s.id);
+      var chips='<span class="chip '+(s.lang==="es"?"es":"")+'">'+s.lang.toUpperCase()+'</span>'+(s.crit?'<span class="chip crit">confirm-critical</span>':'');
+      el.innerHTML='<div class="row"><span class="led idle"></span><div class="nm"><h4>'+esc(s.name)+'</h4><div class="chips">'+chips+'</div></div><span class="sc"></span></div><div class="body" data-body></div>';
+      L.appendChild(el);el.querySelector(".row").addEventListener("click",function(){el.classList.toggle("open");});
+    });
+  }
+
+  /* ===== Section B: call mechanics ===== */
+  function sampleCall(){
+    return [
+      {role:"agent",text:"Thanks for calling Summit Roofing, how can I help?",start:0,end:1800},
+      {role:"caller",text:"Hi, my roof is leaking after the storm.",start:2100,end:4200,conf:0.93},
+      {role:"agent",text:"I'm sorry to hear that — I can help. Is water coming in actively right now?",start:4380,end:6600}, // 180ms latency OK
+      {role:"caller",text:"Yeah, a little, in the back bedroom.",start:6900,end:8200,conf:0.71},
+      {role:"agent",text:"Got it. Let me get a few details so we can get someone out.",start:9050,end:10800}, // 850ms latency WARN
+      {role:"caller",text:"Actually wait— it's getting worse!",start:10600,end:11900,conf:0.6,interrupted:true}, // overlaps agent end 10800 -> talk-over
+      {role:"agent",text:"Understood, I'm flagging this as urgent right now.",start:12100,end:13800},
+      {role:"caller",text:"Okay thank you.",start:14100,end:14900,conf:0.55}, // low conf
+      {role:"agent",text:"Can I get your best callback number?",start:17200,end:18600} // 2300ms gap -> dead-air + latency
+    ];
+  }
+  function scoreCall(){
+    var raw=$("callJson").value.trim(); if(!raw){$("mechMsg").textContent="paste a call export or Simulate first";return;}
+    var turns;try{turns=JSON.parse(raw);}catch(e){$("mechMsg").textContent="invalid JSON";return;}
+    if(!Array.isArray(turns)||!turns.length){$("mechMsg").textContent="expected a non-empty array of turns";return;}
+    var lat=[],talkOvers=0,deadMax=0,lowConf=0,rows=[];
+    for(var i=0;i<turns.length;i++){
+      var t=turns[i],prev=turns[i-1];
+      var latency=null,gap=null,over=false;
+      if(prev){ gap=t.start-prev.end; if(t.start<prev.end){over=true;talkOvers++;} if(gap>deadMax&&gap>0)deadMax=gap; }
+      if(t.role==="agent"&&prev&&prev.role==="caller"){ latency=t.start-prev.end; if(latency>=0)lat.push(latency); }
+      if(t.role==="caller"&&typeof t.conf==="number"&&t.conf<cfg.thrConf)lowConf++;
+      var cls=""; if(over)cls="bad"; else if(latency!=null&&latency>cfg.thrLat)cls="warnlat"; else if(gap!=null&&gap>cfg.thrDead)cls="warnlat";
+      var met=[]; if(latency!=null)met.push("lat <b>"+latency+"ms</b>"); if(gap!=null&&gap>cfg.thrDead)met.push("gap <b>"+gap+"ms</b>"); if(over)met.push("<b>talk-over</b>"); if(t.role==="caller"&&typeof t.conf==="number")met.push("conf "+t.conf.toFixed(2));
+      rows.push('<div class="turn '+cls+'"><span class="role '+(t.role==="agent"?"ag":"cal")+'">'+(t.role==="agent"?"AGENT":"CALLER")+'</span><span class="txt">'+esc(t.text||"")+'</span><span class="met">'+met.join(" · ")+'</span></div>');
+    }
+    lat.sort(function(a,b){return a-b;});
+    var p95=lat.length?lat[Math.min(lat.length-1,Math.floor(lat.length*0.95))]:0;
+    var maxLat=lat.length?lat[lat.length-1]:0;
+    mech={p95:p95,maxLat:maxLat,talkOvers:talkOvers,deadMax:deadMax,lowConf:lowConf,
+      pass: p95<=cfg.thrLat && talkOvers===0 && deadMax<=cfg.thrDead };
+    $("tl").innerHTML='<div class="tl">'+rows.join("")+'</div>';
+    $("mflags").innerHTML="Latency p95 <b style='color:"+(p95<=cfg.thrLat?"var(--green)":"var(--red)")+"'>"+p95+"ms</b> · max <b>"+maxLat+"ms</b> &nbsp;|&nbsp; talk-overs <b style='color:"+(talkOvers?"var(--red)":"var(--green)")+"'>"+talkOvers+"</b> &nbsp;|&nbsp; max dead-air <b style='color:"+(deadMax<=cfg.thrDead?"var(--green)":"var(--red)")+"'>"+deadMax+"ms</b> &nbsp;|&nbsp; low-conf turns <b>"+lowConf+"</b>";
+    $("mechMsg").textContent=mech.pass?"mechanics PASS":"mechanics FAIL";
+    rollup();
+  }
+
+  /* ===== combined voice gate ===== */
+  function rollup(){
+    var arr=ASR.map(function(s){return asrRes[s.id];}).filter(function(r){return r&&!r.error;});
+    var critFails=ASR.filter(function(s){return s.crit&&asrRes[s.id]&&!asrRes[s.id].error&&asrRes[s.id].j.gates.confirm_critical===false;}).length;
+    var anyHard=arr.some(function(r){return r.hardFail;});
+    var resAvg=arr.length?Math.round(arr.reduce(function(a,r){return a+(+r.j.resilience||0);},0)/arr.length):null;
+    $("vRes").textContent=resAvg==null?"—":resAvg; $("vRes").className="v "+(resAvg!=null?(resAvg>=cfg.thrRes?"g":"a"):"");
+    $("vCrit").textContent=arr.length?critFails:"—"; $("vCrit").className="v "+(critFails?"r":"g");
+    $("vLat").textContent=mech?mech.p95+"ms":"—"; $("vLat").className="v "+(mech?(mech.p95<=cfg.thrLat?"g":"r"):"");
+    $("vBarge").textContent=mech?mech.talkOvers:"—"; $("vBarge").className="v "+(mech?(mech.talkOvers?"r":"g"):"");
+    $("vDead").textContent=mech?mech.deadMax+"ms":"—"; $("vDead").className="v "+(mech?(mech.deadMax<=cfg.thrDead?"g":"r"):"");
+    var b=$("vbadge");
+    var asrDone=arr.length===ASR.length, mechDone=!!mech;
+    if(!asrDone&&!mechDone){b.className="vbadge idle";b.textContent="NOT RUN";return;}
+    var asrPass=asrDone&&!anyHard&&resAvg>=cfg.thrRes;
+    var ready=asrDone&&mechDone;
+    if(!ready){b.className="vbadge idle";b.textContent= asrDone? "RUN CALL ↓":"RUN ASR ↑";return;}
+    var cert=asrPass&&mech.pass;
+    b.className="vbadge "+(cert?"pass":"fail");b.textContent=cert?"✓ VOICE CERTIFIED":"✕ NOT CERTIFIED";
+  }
+
+  /* ===== wire ===== */
+  $("sysPrompt").value=cfg.sys;$("thrLat").value=cfg.thrLat;$("thrDead").value=cfg.thrDead;$("thrRes").value=cfg.thrRes;$("thrConf").value=cfg.thrConf;
+  $("sysPrompt").addEventListener("input",function(){cfg.sys=this.value;save();});
+  $("thrLat").addEventListener("change",function(){cfg.thrLat=+this.value||500;save();});
+  $("thrDead").addEventListener("change",function(){cfg.thrDead=+this.value||1500;save();});
+  $("thrRes").addEventListener("change",function(){cfg.thrRes=+this.value||75;save();});
+  $("thrConf").addEventListener("change",function(){cfg.thrConf=+this.value||0.6;save();});
+  $("runAsr").addEventListener("click",runAsr);
+  $("simCall").addEventListener("click",function(){$("callJson").value=JSON.stringify(sampleCall(),null,2);$("mechMsg").textContent="sample loaded — click Score call";});
+  $("scoreCall").addEventListener("click",scoreCall);
+  $("copyLog").addEventListener("click",function(){var log={ts:Date.now(),thresholds:cfg,asr:asrRes,mechanics:mech};try{navigator.clipboard.writeText(JSON.stringify(log,null,2));var b=this;b.textContent="copied ✓";setTimeout(function(){b.textContent="⧉ copy voice-gate JSON";},1500);}catch(e){console.log(JSON.stringify(log,null,2));}});
+  $("footNote").innerHTML="Voice Gate = ASR robustness (0 confirm-critical / false-assume / language fails, resilience \u2265 "+cfg.thrRes+") AND call mechanics (latency p95 \u2264 "+cfg.thrLat+"ms, 0 talk-overs, dead-air \u2264 "+cfg.thrDead+"ms). Run both sections; the banner certifies only when both pass. Paste the per-vertical system prompt from Phase 1 to test any vertical. Phase 3 wires continuous monitoring + partner scorecards into Attio.";
+
+  buildAsrList();
+})();
+</script>
+</body>
+</html>

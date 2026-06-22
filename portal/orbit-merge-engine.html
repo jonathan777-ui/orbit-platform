@@ -1,0 +1,687 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Orbit · Merge Engine</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#070a0f;--panel:#0d1219;--panel-2:#111824;--line:#1d2a3a;--line-soft:#16202e;--ink:#e8eef6;--ink-dim:#8da0b8;--ink-faint:#5b6c81;--amber:#ffb43d;--green:#34d99a;--red:#ff5c6c;--cyan:#4fd6ff;--violet:#b59cff;--display:"Chakra Petch",system-ui,sans-serif;--sans:"IBM Plex Sans",system-ui,sans-serif;--mono:"IBM Plex Mono",ui-monospace,monospace;}
+  *{box-sizing:border-box}html,body{margin:0;padding:0}
+  body{background:linear-gradient(180deg,#070a0f,#0a0e14);color:var(--ink);font-family:var(--sans);min-height:100vh;background-image:linear-gradient(var(--line-soft) 1px,transparent 1px),linear-gradient(90deg,var(--line-soft) 1px,transparent 1px),radial-gradient(circle at 88% -8%,rgba(255,180,61,.06),transparent 45%);background-size:46px 46px,46px 46px,100% 100%;}
+  .wrap{max-width:1320px;margin:0 auto;padding:20px 18px 70px}
+  .topbar{display:flex;align-items:center;gap:14px;padding:13px 18px;border:1px solid var(--line);background:linear-gradient(180deg,var(--panel-2),var(--panel));border-radius:14px;margin-bottom:16px}
+  .brand{font-family:var(--display);font-weight:700;letter-spacing:.1em;font-size:16px}.brand .o{color:var(--amber)}.brand .sub{color:var(--ink-faint);font-weight:500;font-size:10px;letter-spacing:.22em;margin-left:8px}
+  .spacer{flex:1}
+  .cap{font-family:var(--mono);font-size:11px;color:var(--ink-dim);border:1px solid var(--line);border-radius:999px;padding:6px 12px}
+  .layout{display:grid;grid-template-columns:340px 1fr;gap:16px}
+  @media(max-width:920px){.layout{grid-template-columns:1fr}}
+  .card{border:1px solid var(--line);background:linear-gradient(180deg,var(--panel-2),var(--panel));border-radius:14px;padding:18px;margin-bottom:16px}
+  .sechead{display:flex;align-items:center;gap:10px;margin:0 0 14px}
+  .sechead h2{font-family:var(--display);font-size:12px;font-weight:600;letter-spacing:.16em;color:var(--ink-dim);margin:0;text-transform:uppercase}
+  .sechead .rule{flex:1;height:1px;background:var(--line)}.sechead .tag{font-family:var(--mono);font-size:10px;color:var(--ink-faint)}
+  label.fl{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.06em;color:var(--ink-faint);text-transform:uppercase;margin:11px 0 5px}
+  input,select,textarea{width:100%;background:#060a10;border:1px solid var(--line);color:var(--ink);border-radius:9px;font-family:var(--sans);font-size:14px;padding:9px 11px}
+  textarea{font-family:var(--mono);font-size:12px;min-height:54px;resize:vertical}
+  input:focus,select:focus,textarea:focus{outline:none;border-color:var(--amber)}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .btn{font-family:var(--display);font-weight:700;letter-spacing:.04em;font-size:13px;border:none;border-radius:11px;padding:12px 18px;cursor:pointer;color:#1a1205;background:linear-gradient(180deg,#ffc964,var(--amber))}
+  .btn.c{background:linear-gradient(180deg,#9fe9ff,var(--cyan));color:#04222e}
+  .ghost{font-family:var(--mono);font-size:11px;border:1px solid var(--line);background:var(--panel);color:var(--ink-dim);border-radius:9px;padding:10px 13px;cursor:pointer;text-decoration:none;display:inline-block}
+  .ghost:hover{border-color:var(--amber);color:var(--amber)}
+  .kbsec{border:1px solid var(--line-soft);border-radius:9px;margin-bottom:7px;background:#0a0f16}
+  .kbsec summary{cursor:pointer;font-family:var(--mono);font-size:11px;color:var(--ink-dim);padding:8px 10px;list-style:none}
+  .kbsec summary::-webkit-details-marker{display:none}
+  .kbsec summary:before{content:"\25b8 ";color:var(--amber)}.kbsec[open] summary:before{content:"\25be "}
+  .kbsec .body{padding:0 12px 11px;font-size:12.5px;color:var(--ink-dim);line-height:1.55;white-space:pre-wrap}
+  .kbsec .body .slot{color:var(--amber);font-family:var(--mono);font-size:11.5px}
+  .pill{font-family:var(--mono);font-size:9px;letter-spacing:.05em;color:var(--cyan);border:1px solid #1d3a47;border-radius:5px;padding:2px 7px;text-transform:uppercase}
+  .tabs{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap}
+  .tab{font-family:var(--display);font-weight:700;font-size:12px;letter-spacing:.04em;border:1px solid var(--line);background:var(--panel);color:var(--ink-dim);border-radius:10px;padding:9px 14px;cursor:pointer}
+  .tab.active{border-color:var(--amber);color:var(--amber);background:linear-gradient(180deg,#16202e,var(--panel))}
+  .frame{width:100%;height:520px;border:1px solid var(--line);border-radius:12px;background:#fff;display:block}
+  .md{font-family:var(--mono);font-size:12px;color:var(--ink);line-height:1.6;white-space:pre-wrap;background:#060a10;border:1px solid var(--line);border-radius:12px;padding:16px;max-height:560px;overflow:auto}
+  .qr{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+  .qrb{font-family:var(--mono);font-size:12px;color:var(--cyan);border:1px solid #1d3a47;border-radius:999px;padding:7px 13px;background:#081016}
+  .row{display:flex;gap:8px;align-items:center;margin-bottom:7px}
+  .row input{flex:1}
+  .row .x{flex:none;width:30px;border-color:var(--line);color:var(--ink-faint);background:var(--panel);cursor:pointer;border-radius:8px;padding:9px 0;text-align:center;font-family:var(--mono)}
+  .note{font-family:var(--mono);font-size:10.5px;color:var(--ink-faint);line-height:1.6;margin-top:12px}
+  .switch{display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:11px;color:var(--ink-dim);margin-top:12px}
+  .switch input{width:auto}
+  .status{font-family:var(--mono);font-size:11px;color:var(--ink-faint);margin-top:8px}
+  .compliance{border:1px solid #3a2c12;background:#1a1408;border-radius:10px;padding:11px 13px;margin-top:8px}
+  .compliance .h{font-family:var(--display);font-size:11px;letter-spacing:.1em;color:var(--amber);text-transform:uppercase;margin-bottom:6px}
+  .compliance ul{margin:0;padding-left:18px}.compliance li{font-size:12px;color:var(--ink-dim);margin:3px 0}
+  .out-ok{border:1px solid #1d3a2c;background:#0c1c16;border-radius:10px;padding:11px 13px;font-size:13px;margin-bottom:12px}
+  .gh{font-family:var(--display);font-weight:700;font-size:18px;letter-spacing:.02em;margin:0 0 4px}.gh .o{color:var(--amber)}
+  .gsub{font-family:var(--mono);font-size:11px;color:var(--ink-faint);margin-bottom:12px}
+  .msgs{display:flex;flex-direction:column;gap:9px;max-height:360px;overflow:auto;padding:4px;margin-bottom:10px}
+  .b-msg{max-width:82%;padding:10px 13px;border-radius:13px;font-size:13.5px;line-height:1.5;white-space:pre-wrap}
+  .b-msg.a{align-self:flex-start;background:#0f1722;border:1px solid var(--line);color:var(--ink)}
+  .b-msg.u{align-self:flex-end;background:linear-gradient(180deg,#16324a,#102234);border:1px solid #1d3a4f;color:#dff1ff}
+  .crow{display:flex;gap:8px}.crow input{flex:1}
+  .typing{font-family:var(--mono);font-size:11px;color:var(--ink-faint);padding:2px 6px}
+  .leadbar{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;align-items:center}.leadbar input{flex:1;min-width:120px}.leadbar .lb{font-family:var(--mono);font-size:10px;color:var(--ink-faint);width:100%}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar">
+    <div class="brand"><span class="o">\u25c6</span> ORBIT <span class="sub">MERGE ENGINE</span></div>
+    <div class="spacer"></div>
+    <span class="cap">vertical KB + business profile \u2192 site \u00b7 receptionist \u00b7 chatbot</span>
+  </div>
+
+  <details class="addon" style="margin-bottom:14px;border:1px dashed #2a3346;border-radius:12px;background:rgba(255,176,32,.04)"><summary style="cursor:pointer;padding:13px 16px;font-family:'Chakra Petch',sans-serif;font-weight:600;color:#ffb020">\u2699 Voice agent &amp; live cost <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#5c6680;font-weight:400;margin-left:8px">optional add-on \u00b7 upsell \u00b7 not required for the standard build</span></summary><div style="padding:0 14px 14px"><p style="color:#9aa6bd;font-size:13px;margin:4px 0 12px">Premium add-on: choose the LLM / STT / voice stack, preview the live agent on the unified KB, and see the exact per-call cost for this account. The standard site + receptionist + chatbot build needs none of this.</p><div style="border:1px solid #1f2738;border-radius:12px;overflow:hidden;background:#10141d"><iframe src="./orbit-agent-cost-configurator.html" title="Agent stack &amp; cost (add-on)" loading="lazy" style="width:100%;height:1320px;border:0;display:block"></iframe></div></div></details>
+  <div class="card" id="guided">
+    <h2 class="gh"><span class="o">\u25c6</span> Welcome to the Infrastructure Generation Engine</h2>
+    <div class="gsub">Your AI growth consultant guides the build \u2014 or fill the form below yourself. Both feed the same engine, and you'll watch your profile populate as we talk.</div>
+    <div class="leadbar"><span class="lb">Have a Lead ID from your rep? Load the business straight from the CRM:</span><input id="leadId" placeholder="Lead ID (e.g. ORB-10428)" autocomplete="off"><input id="leadCode" placeholder="Access code" autocomplete="off"><button class="ghost" id="leadBtn">Load from CRM</button></div>
+    <div class="msgs" id="msgs"></div>
+    <div class="typing" id="typing" style="display:none">consultant is thinking\u2026</div>
+    <div class="crow"><input id="cin" placeholder="Tell me about your business\u2026" autocomplete="off"><button class="btn c" id="csend">Send</button></div>
+    <div class="note" id="cmode"></div>
+  </div>
+
+  <div class="layout">
+    <div>
+      <div class="card">
+        <div class="sechead"><h2>Vertical KB</h2><div class="rule"></div><span class="tag">the reusable layer</span></div>
+        <label class="fl">Vertical / niche base</label>
+        <select id="kbSel"></select>
+        <label class="fl">Sub-niche (overlay)</label>
+        <select id="nicheSel"></select>
+        <div class="note" style="margin-top:8px">Built once per vertical to the airlock KB standard (15 sections, bilingual EN/ES, dialect-aware). The business profile fills the <span style="color:var(--amber)">{{slots}}</span>. Persona, compliance, intent map, glossary, objection &amp; handoff scripts are vertical-level \u2014 not regenerated per customer.</div>
+        <div class="compliance" id="compBox"></div>
+      </div>
+      <div class="card">
+        <div class="sechead"><h2>KB sections (0\u201314)</h2><div class="rule"></div></div>
+        <div id="kbSections"></div>
+      </div>
+    </div>
+
+    <div>
+      <div class="card">
+        <div class="sechead"><h2>Business profile</h2><div class="rule"></div><span class="tag">the per-customer facts</span></div>
+        <div class="grid2">
+          <div><label class="fl">Business name</label><input id="pBiz"></div>
+          <div><label class="fl">Niche / specialty</label><input id="pNiche"></div>
+          <div><label class="fl">City</label><input id="pCity"></div>
+          <div><label class="fl">State</label><input id="pState"></div>
+          <div><label class="fl">Phone</label><input id="pPhone"></div>
+          <div><label class="fl">Booking link (optional)</label><input id="pBooking"></div>
+        </div>
+        <label class="fl">Address</label><input id="pAddr">
+        <label class="fl">Hours of operation</label><textarea id="pHours"></textarea>
+        <label class="fl">Languages</label>
+        <select id="pLang"><option value="bilingual">Bilingual (EN + ES)</option><option value="en">English-dominant</option><option value="es">Spanish-dominant</option></select>
+        <label class="fl">Services (name \u00b7 Spanish \u00b7 optional price)</label>
+        <div id="svcRows"></div>
+        <button class="ghost" id="addSvc" style="margin-top:6px">+ add service</button>
+
+        <div style="margin-top:16px;display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+          <button class="btn" id="mergeBtn">\u26a1 Merge \u2192 build</button>
+          <a class="ghost" id="dlSite" style="display:none">Download site.html</a>
+          <a class="ghost" id="dlKB" style="display:none">Download receptionist-kb.md</a>
+        </div>
+        <div class="switch">
+          <input type="checkbox" id="polishChk">
+          <label for="polishChk">Optional: polish bilingual copy with AI after merge (uses the n8n endpoint; merge already works without it)</label>
+        </div>
+        <div class="status" id="status"></div>
+      </div>
+
+      <div class="card" id="outCard" style="display:none">
+        <div class="sechead"><h2>Output</h2><div class="rule"></div><span class="tag" id="outTag"></span></div>
+        <div class="tabs">
+          <button class="tab active" data-tab="site">Website</button>
+          <button class="tab" data-tab="recep">AI Receptionist KB</button>
+          <button class="tab" data-tab="chat">Website Chatbot</button>
+        </div>
+        <div id="tabSite"><iframe id="siteFrame" class="frame"></iframe></div>
+        <div id="tabRecep" style="display:none"><div class="out-ok">This is the receptionist's knowledge \u2014 the vertical KB with this business's facts merged in, all 15 sections, bilingual. It powers the voice agent and the chatbot identically.</div><div class="md" id="kbMd"></div></div>
+        <div id="tabChat" style="display:none"><div class="out-ok">Greeting and quick-replies for the website chatbot \u2014 same brain, text surface.</div><div id="chatOut"></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+"use strict";
+window.onerror=function(m){try{var e=document.createElement("div");e.textContent="JS error: "+m;e.style.cssText="position:fixed;bottom:0;left:0;right:0;z-index:99999;background:#2c1117;color:#ff5c6c;font:600 12px/1.4 monospace;padding:8px;text-align:center";document.body.appendChild(e);}catch(_){}return false;};
+var $=function(id){return document.getElementById(id);};
+var esc=function(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c];});};
+var KB_ENDPOINT="https://jonathan777-ui.app.n8n.cloud/webhook/alyxir-generate-kb";
+var LEAD_ENDPOINT="https://jonathan777-ui.app.n8n.cloud/webhook/alyxir-lead-lookup"; /* Attio company profile -> merge */
+/* schema.org LocalBusiness subtype per vertical (AIO/SEO) */
+var SCHEMATYPE={auto:"AutoRepair",roof:"RoofingContractor",hvac:"HVACBusiness",dental:"Dentist",medspa:"HealthAndBeautyBusiness",immigration:"Attorney",restaurant:"Restaurant"};
+/* sub-niche overlays per deep vertical (label -> positioning focus) */
+var NICHES={
+  auto:[["Performance / tuning","performance builds, forced induction & dyno tuning"],["Auto repair / mechanic","honest diagnostics & repair"],["Body / collision","collision repair & insurance work"],["Tire / wheel","tires, wheels & alignment"],["Detailing","detailing & paint correction"]],
+  roof:[["Roof repair / leak","fast leak repair & patching"],["Roof replacement","full roof replacement"],["Storm / insurance","storm damage & insurance claims"],["Commercial roofing","commercial & flat roofing"],["Gutters","gutters & drainage"]],
+  hvac:[["AC repair","fast AC repair"],["Heating / furnace","heating & furnace service"],["Install / replacement","system install & replacement"],["Maintenance plans","tune-ups & maintenance plans"],["Commercial HVAC","commercial HVAC"]],
+  dental:[["General dentistry","cleanings, exams & fillings"],["Orthodontics","braces & Invisalign"],["Cosmetic","cosmetic & whitening"],["Oral surgery","extractions & implants"],["Pediatric","kids' dentistry"],["Emergency","same-day emergency dental"]],
+  medspa:[["Injectables","Botox, filler & touch-ups"],["Laser / skin","laser & skin treatments"],["Body contouring","body contouring"],["Medical dermatology","medical dermatology"],["Lash / brow","lash, brow & non-medical"]],
+  immigration:[["Family-based","family petitions & green cards"],["Citizenship","citizenship & naturalization"],["Removal defense","removal & deportation defense"],["Asylum","asylum cases"],["DACA","DACA renewals"],["Work visas","employment & work visas"]],
+  restaurant:[["Full-service","reservations & dining"],["Fast-casual","quick orders & pickup"],["Bar / nightlife","bar, events & bottle service"],["Catering","off-site catering"],["Pizza / delivery","orders & delivery"]]
+};
+
+/* ============================================================
+   VERTICAL KB LIBRARY (reusable layer, airlock 15-section standard)
+   auto = polished from the real TrackDog Racing KB; the rest are
+   converted to the same depth with their correct compliance overlay.
+   {{slots}}: biz niche city state phone addr hours
+   ============================================================ */
+var KBS = {
+  auto: {
+    label:"Automotive \u00b7 Performance / Repair", register:"Plain-warm, gearhead-credible. ES: usted-leaning, TX Mexican / Mexican-American, enthusiast Spanglish welcome.",
+    s0:"The agent is the front desk + parts/fitment intake + service scheduler for {{biz}} \u2014 a knowledgeable, friendly gearhead-professional, NOT a mechanic or tuner. It makes the caller feel they reached the specialist, captures the vehicle + goal cleanly, and moves a quote/booking forward \u2014 it never diagnoses a car by phone, guarantees a power number, promises a part is street-legal/emissions-compliant, or gives a binding install price.",
+    s1_en:"{{biz}} \u2014 {{niche}} done right in {{city}}, {{state}}. Real enthusiasts, straight answers, no upsell games.",
+    s1_es:"{{biz}} \u2014 {{niche}} hecho bien en {{city}}, {{state}}. Entusiastas de verdad, respuestas claras, sin juegos de venta.",
+    persona:"Warm, sharp, enthusiast-credible but composed \u2014 generation-fluent and honest. Default agent name 'Riley' (swappable). Tagline it lives by: 'we only recommend parts we'd run on our own cars.'",
+    greeting_en:"Thanks for calling {{biz}} \u2014 are you after parts, a tune, or service today?",
+    greeting_es:"\u00a1Gracias por llamar a {{biz}}! \u00bfBusca partes, una afinaci\u00f3n o servicio hoy?",
+    glossary:[["year/make/model/trim","a\u00f1o/marca/modelo/versi\u00f3n"],["fitment","compatibilidad"],["install","instalaci\u00f3n"],["dyno tune","afinaci\u00f3n en dyno"],["forced induction","sobrealimentaci\u00f3n"],["estimate","estimado / cotizaci\u00f3n"]],
+    intent:["New lead / quote / parts inquiry \u2014 TOP priority","Fitment question (gate before any commitment)","Service / install / dyno booking","Existing order or job status","Accident / unsafe-to-drive \u2192 safety path","Vendor or wrong party"],
+    compliance:["No diagnosis by phone as fact \u2014 frame an inspection","No guaranteed horsepower or dyno numbers","No street-legal / emissions-compliance promises","No binding install quote without seeing the vehicle","Hard fitment gate: confirm year / make / model / trim before any parts commitment","Safety: brakes/steering/smoke or an accident \u2192 don't drive it, tow; injury \u2192 911 first"],
+    intake:["Name","Phone","Preferred language","Year / Make / Model / Trim","What they want (parts, tune, repair)","Current mods (if any)","Mileage (for service)","Urgency / timeline"],
+    faq:[
+      {q_en:"Do you work on my car?",a_en:"Tell me the year, make, model and trim and I'll confirm fitment before we book or quote anything.",q_es:"\u00bfTrabajan en mi auto?",a_es:"D\u00edgame el a\u00f1o, la marca, el modelo y la versi\u00f3n y confirmo compatibilidad antes de cotizar o agendar."},
+      {q_en:"How much horsepower will this add?",a_en:"Numbers depend on your exact setup, so I won't quote a figure \u2014 the techs go over realistic gains on the build consult.",q_es:"\u00bfCu\u00e1nta potencia le suma?",a_es:"Depende de su configuraci\u00f3n exacta, as\u00ed que no doy una cifra \u2014 los t\u00e9cnicos repasan ganancias realistas en la consulta."},
+      {q_en:"What are your hours and where are you?",a_en:"{{hours}}. We're at {{addr}}, {{city}}, {{state}}.",q_es:"\u00bfHorario y ubicaci\u00f3n?",a_es:"{{hours}}. Estamos en {{addr}}, {{city}}, {{state}}."},
+      {q_en:"Can you give me a price for the install?",a_en:"I can get you a written estimate after a quick look \u2014 install time varies by car, so we don't quote it blind.",q_es:"\u00bfPrecio de la instalaci\u00f3n?",a_es:"Le consigo un estimado por escrito tras una revisi\u00f3n \u2014 el tiempo var\u00eda por auto, no cotizamos a ciegas."}
+    ],
+    booking:"Offer two concrete slots within hours ({{hours}}). What to bring: the vehicle, VIN, and a list of current mods. Confirm by text.",
+    schema:["contact: name, phone, preferred_language, spanish_variety","vehicle: year, make, model, trim, mileage, current_mods","job: type (parts/tune/service), goal, urgency","activity: disposition, quote_requested, booking_set, consent"],
+    objections:[
+      {sit:"Just give me a ballpark",en:"I hear you \u2014 I can't throw a number out blind because it'd be wrong, but a quick look gets you a real written estimate fast.",es:"Le entiendo \u2014 no le aviento un n\u00famero a ciegas porque saldr\u00eda mal, pero una revisi\u00f3n r\u00e1pida le da un estimado real por escrito."},
+      {sit:"Will it pass inspection / be street legal?",en:"I can't promise street-legal or emissions outcomes \u2014 the techs walk through what's compliant for your setup before anything's installed.",es:"No puedo prometer legalidad ni emisiones \u2014 los t\u00e9cnicos repasan qu\u00e9 cumple para su configuraci\u00f3n antes de instalar."},
+      {sit:"I found it cheaper online",en:"Totally fair \u2014 a lot of folks bring their own parts. What we add is the fitment check and the install done right.",es:"Justo \u2014 muchos traen sus propias partes. Lo que aportamos es verificar compatibilidad y la instalaci\u00f3n bien hecha."}
+    ],
+    handoff:["Accident with injury \u2192 tell them to call 911 first, capture callback, flag URGENT","Unsafe to drive (brakes/steering/smoke) \u2192 tow guidance + priority","Upset customer or anything needing a tech's judgment \u2192 live person"],
+    site:{tagline_en:"{{niche}} you can trust",tagline_es:"{{niche}} en quien puede confiar",about_en:"{{biz}} handles {{niche}} for drivers in and around {{city}}, {{state}} \u2014 straight answers, clean work, bilingual service. We only recommend parts we'd run ourselves.",about_es:"{{biz}} ofrece {{niche}} para conductores en {{city}}, {{state}} y alrededores \u2014 respuestas claras, trabajo limpio y atenci\u00f3n biling\u00fce. Solo recomendamos partes que usar\u00edamos nosotros."},
+    quick_en:["Book service","Parts fitment","Get a quote","Hours & location","Hablar en espa\u00f1ol"],
+    quick_es:["Agendar servicio","Compatibilidad","Pedir cotizaci\u00f3n","Horario y ubicaci\u00f3n","Speak English"]
+  },
+
+  roof: {
+    label:"Home Services \u00b7 Roofing", register:"Warm, plain, fast. ES: usted, Mexican/Central-American heavy, Spanglish common.",
+    s0:"The agent is the front desk for {{biz}}. It welcomes, screens for active leaks/storm damage, captures the property address + issue, and books a free inspection \u2014 it never quotes a firm price by phone, promises an insurance/claim outcome, or sends the caller onto the roof.",
+    s1_en:"{{biz}} \u2014 {{niche}} for {{city}}, {{state}} homeowners. Fast response, free inspections.",
+    s1_es:"{{biz}} \u2014 {{niche}} para propietarios en {{city}}, {{state}}. Respuesta r\u00e1pida, inspecciones gratis.",
+    persona:"Calm, reassuring, quick \u2014 a roof problem is stressful and the agent steadies the caller while getting the address.",
+    greeting_en:"Thanks for calling {{biz}} \u2014 do you have an active leak right now, or are you planning ahead?",
+    greeting_es:"\u00a1Gracias por llamar a {{biz}}! \u00bfTiene una gotera activa ahora o est\u00e1 planeando con tiempo?",
+    glossary:[["leak","gotera / filtraci\u00f3n"],["shingle","teja"],["estimate","estimado"],["storm damage","da\u00f1o por tormenta"],["insurance claim","reclamo de seguro"],["inspection","inspecci\u00f3n"]],
+    intent:["Active leak / storm damage \u2014 URGENT","New estimate / replacement \u2014 top priority","Insurance / claim question","Existing job status","Vendor or wrong party"],
+    compliance:["No firm price by phone \u2014 book a free inspection","No promise of an insurance / claim outcome","No roof-safety advice \u2014 never tell the caller to go up","Confirm the property address for dispatch","Active interior water \u2192 flag URGENT + priority dispatch"],
+    intake:["Name","Phone","Preferred language","Property address","Issue (leak, age, storm, estimate)","Roof type/age if known","Urgency"],
+    faq:[
+      {q_en:"Do you offer free estimates?",a_en:"Yes \u2014 inspections are free. I can get one on the calendar for you now.",q_es:"\u00bfEstimados gratis?",a_es:"S\u00ed \u2014 las inspecciones son gratis. Le agendo una ahora."},
+      {q_en:"My roof is leaking, can someone come today?",a_en:"Let me get your address and flag this as urgent so we prioritize the visit.",q_es:"Tengo una gotera, \u00bfpueden venir hoy?",a_es:"D\u00e9me su direcci\u00f3n y lo marco urgente para priorizar la visita."},
+      {q_en:"Do you handle insurance claims?",a_en:"We work with claims often \u2014 I can't promise an outcome, but we'll document everything for your adjuster.",q_es:"\u00bfManejan reclamos de seguro?",a_es:"Trabajamos con reclamos seguido \u2014 no prometo un resultado, pero documentamos todo para su ajustador."},
+      {q_en:"What areas do you serve?",a_en:"We cover {{city}}, {{state}} and the surrounding area \u2014 give me your address and I'll confirm.",q_es:"\u00bfQu\u00e9 \u00e1reas cubren?",a_es:"Cubrimos {{city}}, {{state}} y alrededores \u2014 d\u00e9me su direcci\u00f3n y confirmo."}
+    ],
+    booking:"Offer two concrete inspection slots within hours ({{hours}}). Confirm property address and a callback number by text.",
+    schema:["contact: name, phone, preferred_language, spanish_variety","property: address, roof_type, roof_age","job: issue, urgency, insurance_involved","activity: disposition, inspection_set, consent"],
+    objections:[
+      {sit:"How much for a new roof?",en:"It really depends on size and material \u2014 the inspection is free and gives you an exact written number, no obligation.",es:"Depende del tama\u00f1o y material \u2014 la inspecci\u00f3n es gratis y le da un n\u00famero exacto por escrito, sin compromiso."},
+      {sit:"Will insurance cover it?",en:"I can't promise what your carrier approves, but we'll document the damage thoroughly to support your claim.",es:"No puedo prometer qu\u00e9 aprueba su aseguradora, pero documentamos el da\u00f1o a fondo para apoyar su reclamo."}
+    ],
+    handoff:["Active interior water / structural sag \u2192 flag URGENT, priority dispatch","Caller upset about a prior job \u2192 live person","Adjuster/claim specifics beyond intake \u2192 estimator"],
+    site:{tagline_en:"{{niche}} you can trust",tagline_es:"{{niche}} en quien puede confiar",about_en:"{{biz}} provides {{niche}} for homeowners in {{city}}, {{state}} \u2014 fast response, free inspections, bilingual service.",about_es:"{{biz}} ofrece {{niche}} para propietarios en {{city}}, {{state}} \u2014 respuesta r\u00e1pida, inspecciones gratis y atenci\u00f3n biling\u00fce."},
+    quick_en:["Report a leak","Free estimate","Insurance help","Hours & service area","Hablar en espa\u00f1ol"],
+    quick_es:["Reportar gotera","Estimado gratis","Ayuda con seguro","Horario y cobertura","Speak English"]
+  },
+
+  hvac: {
+    label:"Home Services \u00b7 HVAC", register:"Warm, plain, fast. ES: usted, Mexican/Central-American heavy.",
+    s0:"The agent is the front desk + dispatch intake for {{biz}}. It welcomes, screens for safety (gas smell, CO, no heat in a freeze, no AC in a heat wave with a vulnerable occupant), captures the address + system + symptom, and books \u2014 it never diagnoses the fault as fact or gives a binding repair price by phone.",
+    s1_en:"{{biz}} \u2014 {{niche}} for {{city}}, {{state}}. Comfort restored, fast and honest.",
+    s1_es:"{{biz}} \u2014 {{niche}} para {{city}}, {{state}}. Comodidad restaurada, r\u00e1pido y honesto.",
+    persona:"Reassuring and efficient \u2014 people call when they're hot, cold, or worried. Move fast, stay calm.",
+    greeting_en:"Thanks for calling {{biz}} \u2014 is your system out right now, or is this maintenance?",
+    greeting_es:"\u00a1Gracias por llamar a {{biz}}! \u00bfSu sistema est\u00e1 fallando ahora o es mantenimiento?",
+    glossary:[["furnace","calefacci\u00f3n / horno"],["AC unit","unidad de aire"],["no heat","sin calefacci\u00f3n"],["thermostat","termostato"],["service call","visita de servicio"],["estimate","estimado"]],
+    intent:["No heat / no AC \u2014 urgent (weather + occupant sensitive)","Gas smell / CO / burning \u2192 SAFETY path first","Maintenance / tune-up","Install / replacement quote","Existing job status","Vendor or wrong party"],
+    compliance:["Gas smell or CO \u2192 tell them to leave the home and call 911 / the gas utility now, then capture callback + flag URGENT","No fault diagnosis as fact by phone","No binding repair/install price by phone \u2014 frame the service call/estimate","No heat in a freeze or no AC in extreme heat with elderly/infant/medical occupant \u2192 priority","Confirm the service address for dispatch"],
+    intake:["Name","Phone","Preferred language","Service address","System type & approx age","Symptom (no heat, no cool, noise, leak)","Vulnerable occupant? (priority)","Urgency"],
+    faq:[
+      {q_en:"My AC stopped \u2014 can someone come today?",a_en:"Let me get your address and the symptom and find you the soonest slot \u2014 if anyone vulnerable is home, tell me and I'll prioritize.",q_es:"Se par\u00f3 mi aire, \u00bfpueden venir hoy?",a_es:"D\u00e9me su direcci\u00f3n y el s\u00edntoma y le busco lo m\u00e1s pronto \u2014 si hay alguien vulnerable en casa, d\u00edgame y lo priorizo."},
+      {q_en:"How much is a repair?",a_en:"It depends on the system and the issue \u2014 the tech confirms on site and gives a price before any work.",q_es:"\u00bfCu\u00e1nto cuesta una reparaci\u00f3n?",a_es:"Depende del sistema y la falla \u2014 el t\u00e9cnico confirma en sitio y da el precio antes de trabajar."},
+      {q_en:"I smell gas \u2014 what do I do?",a_en:"Please leave the home now and call 911 or your gas company from outside. Give me a callback number and I'll flag this urgently.",q_es:"Huelo a gas, \u00bf qu\u00e9 hago?",a_es:"Por favor salga de la casa y llame al 911 o a la compa\u00f1\u00eda de gas desde afuera. D\u00e9me un n\u00famero y lo marco urgente."},
+      {q_en:"Do you do maintenance plans?",a_en:"We do \u2014 I can book a tune-up and the tech will go over plan options on site.",q_es:"\u00bfTienen planes de mantenimiento?",a_es:"S\u00ed \u2014 le agendo una afinaci\u00f3n y el t\u00e9cnico repasa las opciones en sitio."}
+    ],
+    booking:"Offer two concrete slots within hours ({{hours}}); for outages, find the soonest. Confirm service address + callback by text.",
+    schema:["contact: name, phone, preferred_language, spanish_variety","property: address, system_type, system_age","job: symptom, vulnerable_occupant, urgency","activity: disposition, dispatch_set, safety_flag, consent"],
+    objections:[
+      {sit:"Just tell me what's wrong with it",en:"I can't diagnose it over the phone and be right \u2014 the tech checks it on site so you get a real answer, not a guess.",es:"No puedo diagnosticarlo por tel\u00e9fono y acertar \u2014 el t\u00e9cnico lo revisa en sitio para darle una respuesta real, no una adivinanza."},
+      {sit:"What's the service-call fee?",en:"I can have the tech confirm pricing before any work \u2014 want me to get you on the schedule?",es:"El t\u00e9cnico confirma el precio antes de trabajar \u2014 \u00bfle agendo la visita?"}
+    ],
+    handoff:["Gas/CO/burning \u2192 safety script + 911/utility + URGENT flag","No heat in freeze / no AC in heat with vulnerable occupant \u2192 priority dispatch","Repeat failure or upset customer \u2192 live person"],
+    site:{tagline_en:"{{niche}} done fast and right",tagline_es:"{{niche}} r\u00e1pido y bien hecho",about_en:"{{biz}} keeps {{city}}, {{state}} homes comfortable \u2014 honest service, fast dispatch, bilingual support.",about_es:"{{biz}} mantiene c\u00f3modos los hogares de {{city}}, {{state}} \u2014 servicio honesto, despacho r\u00e1pido y atenci\u00f3n biling\u00fce."},
+    quick_en:["No heat / no AC","Book maintenance","Get a quote","Hours & service area","Hablar en espa\u00f1ol"],
+    quick_es:["Sin calefacci\u00f3n / aire","Agendar mantenimiento","Pedir cotizaci\u00f3n","Horario y cobertura","Speak English"]
+  },
+
+  dental: {
+    label:"Medical \u00b7 Dental Practice", register:"Gentle, caring, reassuring. ES: usted, gentle warmth.",
+    s0:"The agent is the front desk for {{biz}}. It welcomes, books, and reassures \u2014 it never diagnoses, gives treatment or medication advice, or reads patient health information back to anyone. It collects only what's needed to book; emergent symptoms route to same-day care or 911/ER.",
+    s1_en:"{{biz}} \u2014 {{niche}} in {{city}}, {{state}}. You'll be seen and cared for.",
+    s1_es:"{{biz}} \u2014 {{niche}} en {{city}}, {{state}}. Lo atenderemos y cuidaremos.",
+    persona:"Calm, warm, unhurried \u2014 many callers are anxious or in pain. Kind and efficient.",
+    greeting_en:"Thank you for calling {{biz}} \u2014 are you a new patient, or is this about a current concern?",
+    greeting_es:"Gracias por llamar a {{biz}} \u2014 \u00bfes paciente nuevo o se trata de una molestia actual?",
+    glossary:[["cleaning","limpieza"],["filling","empaste / tapadura"],["toothache","dolor de muela"],["insurance","seguro"],["new patient","paciente nuevo"],["X-ray","radiograf\u00eda"]],
+    intent:["New patient booking \u2014 top priority","Tooth pain / broken tooth (screen urgency)","Cleaning / exam / routine","Insurance / cost question","Reschedule / existing patient","Vendor or wrong party"],
+    compliance:["No diagnosis, no treatment or medication advice","HIPAA-minded: collect only booking data; never read health info to a third party","Trauma, heavy bleeding, facial swelling, trouble breathing \u2192 same-day / ER / 911","Confirm patient identity for any account-specific request","No promises on insurance coverage \u2014 verify at the office"],
+    intake:["Name","Phone","Preferred language","New or existing patient","Reason (brief)","Insurance carrier","Date of birth (for records)","Urgency"],
+    faq:[
+      {q_en:"Do you take my insurance?",a_en:"Tell me your carrier and we'll verify it \u2014 I can also book you while we check.",q_es:"\u00bfAceptan mi seguro?",a_es:"D\u00edgame su aseguradora y la verificamos \u2014 le puedo agendar mientras revisamos."},
+      {q_en:"I have a bad toothache \u2014 can I be seen today?",a_en:"I'm sorry you're hurting. Let me check today's openings \u2014 if there's swelling or bleeding, we'll prioritize you.",q_es:"Tengo mucho dolor de muela, \u00bfme pueden ver hoy?",a_es:"Lamento que le duela. Reviso los espacios de hoy \u2014 si hay hinchaz\u00f3n o sangrado, lo priorizamos."},
+      {q_en:"Are you accepting new patients?",a_en:"We are \u2014 I can get you set up. What works better, mornings or afternoons?",q_es:"\u00bfAceptan pacientes nuevos?",a_es:"S\u00ed \u2014 le agendo. \u00bfPrefiere ma\u00f1anas o tardes?"},
+      {q_en:"What are your hours?",a_en:"{{hours}}. We're at {{addr}}, {{city}}, {{state}}.",q_es:"\u00bfCu\u00e1l es su horario?",a_es:"{{hours}}. Estamos en {{addr}}, {{city}}, {{state}}."}
+    ],
+    booking:"Offer two concrete slots within hours ({{hours}}). For new patients, note to bring insurance card + ID and arrive 10 min early. Confirm by text.",
+    schema:["contact: name, phone, preferred_language, spanish_variety, dob","patient: new_or_existing, insurance_carrier","visit: reason, urgency","activity: disposition, appt_set, consent"],
+    objections:[
+      {sit:"Is this going to hurt?",en:"I can't speak to the clinical side, but the team is great with nervous patients \u2014 want me to note that on your visit?",es:"No puedo hablar de lo cl\u00ednico, pero el equipo es muy bueno con pacientes nerviosos \u2014 \u00bflo anoto en su cita?"},
+      {sit:"How much will it cost?",en:"Cost depends on what the dentist sees and your coverage \u2014 we'll verify insurance and go over it at the visit.",es:"El costo depende de lo que vea el dentista y su cobertura \u2014 verificamos el seguro y lo repasamos en la cita."}
+    ],
+    handoff:["Trauma / heavy bleeding / swelling / trouble breathing \u2192 same-day or 911/ER + flag","Billing dispute or clinical question \u2192 office staff / provider","Distressed patient \u2192 live person"],
+    site:{tagline_en:"{{niche}} with a gentle touch",tagline_es:"{{niche}} con trato amable",about_en:"{{biz}} provides {{niche}} for {{city}}, {{state}} families \u2014 caring, modern, bilingual. New patients welcome.",about_es:"{{biz}} ofrece {{niche}} para familias de {{city}}, {{state}} \u2014 trato amable, moderno y biling\u00fce. Bienvenidos pacientes nuevos."},
+    quick_en:["Book appointment","New patient","Insurance check","Tooth pain","Hablar en espa\u00f1ol"],
+    quick_es:["Agendar cita","Paciente nuevo","Revisar seguro","Dolor de muela","Speak English"]
+  },
+
+  medspa: {
+    label:"Aesthetics \u00b7 Med Spa", register:"Warm, aspirational, discreet. ES: warm; usted or t\u00fa if brand is youthful.",
+    s0:"The agent is the front desk + consultation concierge for {{biz}}. It welcomes, books consultations, and reassures \u2014 it never makes medical or efficacy claims, never promises a result or that someone is a candidate, and defers all medical questions to the provider consult.",
+    s1_en:"{{biz}} \u2014 {{niche}} in {{city}}, {{state}}. Confidence, beautifully and discreetly.",
+    s1_es:"{{biz}} \u2014 {{niche}} en {{city}}, {{state}}. Confianza, con belleza y discreci\u00f3n.",
+    persona:"Polished, encouraging, never body-shaming \u2014 makes the caller feel cared for and in expert hands.",
+    greeting_en:"Thank you for calling {{biz}} \u2014 are you booking a treatment, or would you like a consultation first?",
+    greeting_es:"Gracias por llamar a {{biz}} \u2014 \u00bfagenda un tratamiento o prefiere una consulta primero?",
+    glossary:[["consultation","consulta"],["injectables","inyectables"],["filler","relleno"],["touch-up","retoque"],["package","paquete"],["treatment","tratamiento"]],
+    intent:["Treatment / consult booking \u2014 top priority","Pricing / package question","First-time / candidacy question (defer to consult)","Post-treatment concern \u2192 provider line","Reschedule / existing client","Vendor or wrong party"],
+    compliance:["No medical or efficacy claims, no result guarantees","Never tell a caller they're a candidate \u2014 the provider decides at consult","Separate medical (injectables/laser) from non-medical services in scope","Adverse reaction after a procedure \u2192 route to the provider / medical line now","No diagnosis of skin/medical conditions"],
+    intake:["Name","Phone","Preferred language","Treatment of interest / goal area","First-time or returning","Event/timeline (if any)","Best time to reach"],
+    faq:[
+      {q_en:"How much is Botox / filler?",a_en:"Pricing depends on the plan the provider recommends \u2014 the consult is where we map that out for you. I can book it now.",q_es:"\u00bfCu\u00e1nto cuesta el Botox / relleno?",a_es:"El precio depende del plan que recomiende el proveedor \u2014 lo definimos en la consulta. Se la agendo ahora."},
+      {q_en:"Will it work for me?",a_en:"That's exactly what the provider assesses at the consultation \u2014 I won't guess, but I can get you in to find out.",q_es:"\u00bfMe va a funcionar?",a_es:"Eso lo eval\u00faa el proveedor en la consulta \u2014 no adivino, pero le agendo para averiguarlo."},
+      {q_en:"Do you offer consultations?",a_en:"We do \u2014 they're the best first step. What day works for you?",q_es:"\u00bfOfrecen consultas?",a_es:"S\u00ed \u2014 son el mejor primer paso. \u00bfQu\u00e9 d\u00eda le conviene?"},
+      {q_en:"I have swelling after my treatment.",a_en:"Let me connect you with the provider right away so they can advise you directly.",q_es:"Tengo hinchaz\u00f3n despu\u00e9s del tratamiento.",a_es:"Le conecto con el proveedor de inmediato para que le oriente directamente."}
+    ],
+    booking:"Offer two concrete consult slots within hours ({{hours}}). Note any event date for timing. Confirm by text.",
+    schema:["contact: name, phone, preferred_language, spanish_variety","client: new_or_returning, goal_area, event_date","interest: treatment, consult_type","activity: disposition, consult_set, consent"],
+    objections:[
+      {sit:"Just give me a price",en:"I'd love to, but pricing follows the plan the provider builds for you \u2014 the consult is quick and there's no pressure.",es:"Con gusto, pero el precio sigue el plan que arma el proveedor \u2014 la consulta es r\u00e1pida y sin presi\u00f3n."},
+      {sit:"How long will results last?",en:"That varies by person and treatment \u2014 the provider gives you honest expectations at the consult.",es:"Var\u00eda por persona y tratamiento \u2014 el proveedor le da expectativas honestas en la consulta."}
+    ],
+    handoff:["Post-procedure adverse reaction \u2192 provider / medical line immediately","Medical/candidacy questions \u2192 provider consult","Upset client \u2192 live person"],
+    site:{tagline_en:"{{niche}} that builds confidence",tagline_es:"{{niche}} que da confianza",about_en:"{{biz}} offers {{niche}} in {{city}}, {{state}} \u2014 discreet, expert, bilingual. Consultations available.",about_es:"{{biz}} ofrece {{niche}} en {{city}}, {{state}} \u2014 discreto, experto y biling\u00fce. Consultas disponibles."},
+    quick_en:["Book consultation","Treatments","Pricing & packages","Existing client","Hablar en espa\u00f1ol"],
+    quick_es:["Agendar consulta","Tratamientos","Precios y paquetes","Cliente actual","Speak English"]
+  },
+
+  immigration: {
+    label:"Law \u00b7 Immigration", register:"Reassuring, confidential, dignified. ES: usted, very warm; heaviest bilingual niche.",
+    s0:"The agent is the front desk + intake screener for {{biz}}. It welcomes, screens, captures, and books a consultation \u2014 it never gives legal advice, says whether someone 'has a case', or promises an outcome or fee. It never treats immigration status as a barrier to help. ICE detention is an emergency.",
+    s1_en:"{{biz}} \u2014 {{niche}} serving {{city}}, {{state}}. You're in caring, confidential hands.",
+    s1_es:"{{biz}} \u2014 {{niche}} al servicio de {{city}}, {{state}}. Est\u00e1 en manos cuidadosas y confidenciales.",
+    persona:"Calm, respectful, trust-building \u2014 callers may be frightened. Never judgmental, never rushed.",
+    greeting_en:"Thank you for calling {{biz}} \u2014 I'm here to help. Is this about a current case, or starting something new?",
+    greeting_es:"Gracias por llamar a {{biz}} \u2014 estoy para ayudarle. \u00bfEs sobre un caso actual o algo nuevo?",
+    glossary:[["consultation","consulta"],["green card","residencia / green card"],["detention","detenci\u00f3n"],["hearing","audiencia"],["A-number","n\u00famero A"],["work permit","permiso de trabajo"]],
+    intent:["ICE detention / removal hearing \u2192 EMERGENCY","New consultation \u2014 top priority","Family-based / citizenship / DACA / visa inquiry","Existing case status","Document / appointment question","Vendor or wrong party"],
+    compliance:["No legal advice and no 'do you have a case' \u2014 only the attorney advises","No fee, timeline, or outcome guarantees","Never make status a condition of helping; don't use it as a gate","No attorney-client relationship is created by the call; keep it confidential","ICE detention = emergency: capture detainee name, A-number if known, facility, caller callback; flag URGENT"],
+    intake:["Name","Phone","Preferred language","Matter type (family, citizenship, removal, work permit)","Brief situation (no oversharing)","Any deadline / hearing date","Urgency"],
+    faq:[
+      {q_en:"Do I have a case?",a_en:"That's exactly what the attorney determines \u2014 I can't advise on that, but I can get you a consultation to find out.",q_es:"\u00bfTengo caso?",a_es:"Eso lo determina el abogado \u2014 no puedo aconsejarle, pero le agendo una consulta para averiguarlo."},
+      {q_en:"A family member was detained by ICE.",a_en:"I'm going to get someone on this right away. Can you tell me the person's name, their A-number if you have it, and where they're being held?",q_es:"Detuvieron a un familiar (ICE).",a_es:"Voy a poner a alguien con usted de inmediato. \u00bfMe da el nombre de la persona, su n\u00famero A si lo tiene, y d\u00f3nde est\u00e1 detenida?"},
+      {q_en:"How much do you charge?",a_en:"Fees depend on the matter, so the attorney reviews that with you at the consultation \u2014 I can book it now.",q_es:"\u00bfCu\u00e1nto cobran?",a_es:"Los honorarios dependen del caso, el abogado lo revisa en la consulta \u2014 se la agendo ahora."},
+      {q_en:"Is what I tell you confidential?",a_en:"We treat your information with care and privacy. I only collect what's needed to set up your consultation.",q_es:"\u00bfEs confidencial lo que le diga?",a_es:"Tratamos su informaci\u00f3n con cuidado y privacidad. Solo recojo lo necesario para agendar su consulta."}
+    ],
+    booking:"Offer two concrete consult slots within hours ({{hours}}). Note what to bring (IDs, any notices/dates). Confirm by text; offer to proceed by text if a call isn't safe.",
+    schema:["contact: name, phone, preferred_language, spanish_variety","matter: type, brief_situation, deadline_or_hearing","emergency: detainee_name, a_number, facility (if applicable)","activity: disposition, consult_set, urgency_flag, consent"],
+    objections:[
+      {sit:"Can you just tell me what to do?",en:"I really wish I could, but only the attorney can advise \u2014 the consultation is where you'll get real answers for your situation.",es:"Ojal\u00e1 pudiera, pero solo el abogado puede aconsejar \u2014 la consulta es donde tendr\u00e1 respuestas reales para su caso."},
+      {sit:"I'm worried about my status / sharing info",en:"Your status never stops us from helping, and your information stays private \u2014 I only need a little to set up your consultation.",es:"Su estatus nunca nos impide ayudar, y su informaci\u00f3n es privada \u2014 solo necesito un poco para agendar la consulta."}
+    ],
+    handoff:["ICE detention / removal hearing / imminent deadline \u2192 live attorney now + URGENT","Caller in distress \u2192 live person, gently","Anything requiring legal judgment \u2192 attorney"],
+    site:{tagline_en:"{{niche}} you can trust",tagline_es:"{{niche}} en quien puede confiar",about_en:"{{biz}} provides {{niche}} for {{city}}, {{state}} families \u2014 confidential, compassionate, fully bilingual. Status is never a barrier to getting help.",about_es:"{{biz}} ofrece {{niche}} para familias de {{city}}, {{state}} \u2014 confidencial, compasivo y totalmente biling\u00fce. El estatus nunca es barrera para recibir ayuda."},
+    quick_en:["Book consultation","Family / citizenship","Someone was detained","Case status","Hablar en espa\u00f1ol"],
+    quick_es:["Agendar consulta","Familia / ciudadan\u00eda","Detuvieron a alguien","Estado del caso","Speak English"]
+  },
+
+  restaurant: {
+    label:"Restaurants \u00b7 Full-Service", register:"Warm-casual, on-brand, efficient. ES: t\u00fa ok, matches venue vibe.",
+    s0:"The agent is the host for {{biz}}. It welcomes, takes reservations and orders, answers hours/menu/location, and handles large parties \u2014 it never promises a dish is allergen-free (it captures the allergy and flags the kitchen/manager) and defers alcohol/age questions to venue policy.",
+    s1_en:"{{biz}} \u2014 {{niche}} in {{city}}, {{state}}. Come hungry, leave happy.",
+    s1_es:"{{biz}} \u2014 {{niche}} en {{city}}, {{state}}. Ven con hambre, vete feliz.",
+    persona:"Friendly, upbeat, on-brand \u2014 makes the caller feel welcome and gets them booked or ordering quickly.",
+    greeting_en:"Thanks for calling {{biz}}! Are you looking to make a reservation, place an order, or check our hours?",
+    greeting_es:"\u00a1Gracias por llamar a {{biz}}! \u00bfQuieres hacer una reservaci\u00f3n, ordenar o ver nuestro horario?",
+    glossary:[["reservation","reservaci\u00f3n"],["party size","n\u00famero de personas"],["allergy","alergia"],["takeout","para llevar"],["catering","banquetes / catering"],["wait time","tiempo de espera"]],
+    intent:["Reservation \u2014 top priority","Takeout / order","Hours / location / menu question","Large party / private event","Complaint / manager request","Vendor or wrong party"],
+    compliance:["Never promise a dish is allergen-free \u2014 capture the allergy and flag the kitchen/manager","Alcohol / age questions \u2192 defer to venue policy","Don't guarantee a wait time \u2014 give an estimate","Capture order/reservation details accurately (date, time, party, items)","Complaint \u2192 route to a manager, don't argue"],
+    intake:["Name","Phone","Preferred language","Date & time","Party size","Allergies / dietary notes","Occasion (optional)"],
+    faq:[
+      {q_en:"Can I make a reservation for tonight?",a_en:"Absolutely \u2014 what time and how many in your party?",q_es:"\u00bfPuedo reservar para esta noche?",a_es:"\u00a1Claro! \u00bfA qu\u00e9 hora y para cu\u00e1ntas personas?"},
+      {q_en:"Do you have gluten-free / nut-free options?",a_en:"We have options and I'll flag your allergy for the kitchen \u2014 I can't promise a dish is fully allergen-free, so the chef will guide you on the safest picks.",q_es:"\u00bfTienen opciones sin gluten / sin nueces?",a_es:"Tenemos opciones y marco tu alergia para la cocina \u2014 no puedo prometer que un platillo est\u00e9 libre de al\u00e9rgenos, el chef te gu\u00eda en lo m\u00e1s seguro."},
+      {q_en:"What are your hours?",a_en:"{{hours}}. We're at {{addr}}, {{city}}, {{state}}.",q_es:"\u00bfCu\u00e1l es su horario?",a_es:"{{hours}}. Estamos en {{addr}}, {{city}}, {{state}}."},
+      {q_en:"Do you do large parties or catering?",a_en:"We do \u2014 tell me the date, headcount, and occasion and I'll set it up or get a manager to help.",q_es:"\u00bfHacen grupos grandes o catering?",a_es:"S\u00ed \u2014 dime la fecha, cu\u00e1ntas personas y la ocasi\u00f3n y lo arreglo o te paso a un gerente."}
+    ],
+    booking:"For reservations: capture date, time, party size, allergies, occasion; confirm by text. For orders: items + pickup time + name.",
+    schema:["contact: name, phone, preferred_language, spanish_variety","reservation: date, time, party_size, occasion","notes: allergies, dietary, special_requests","activity: disposition, booking_or_order, allergy_flag"],
+    objections:[
+      {sit:"Is the kitchen busy / how long is the wait?",en:"I can give you an estimate but it shifts \u2014 want me to put your name down so you're in the queue?",es:"Te doy un estimado pero cambia \u2014 \u00bfanoto tu nombre para que est\u00e9s en la fila?"},
+      {sit:"Can you guarantee my dish is nut-free?",en:"I can't guarantee a dish is allergen-free, but I'll flag it for the kitchen and the chef will steer you to the safest options.",es:"No puedo garantizar que un platillo est\u00e9 libre de al\u00e9rgenos, pero lo marco para la cocina y el chef te gu\u00eda a lo m\u00e1s seguro."}
+    ],
+    handoff:["Allergy \u2192 kitchen/manager flag","Complaint or special request beyond booking \u2192 manager","Large private event \u2192 events manager"],
+    site:{tagline_en:"{{niche}} done right",tagline_es:"{{niche}} bien hecho",about_en:"{{biz}} serves {{niche}} in {{city}}, {{state}} \u2014 warm hospitality, fresh food, bilingual service. Reservations welcome.",about_es:"{{biz}} sirve {{niche}} en {{city}}, {{state}} \u2014 hospitalidad c\u00e1lida, comida fresca y atenci\u00f3n biling\u00fce. Reservaciones bienvenidas."},
+    quick_en:["Make a reservation","Order takeout","Hours & location","Large party","Hablar en espa\u00f1ol"],
+    quick_es:["Hacer reservaci\u00f3n","Ordenar para llevar","Horario y ubicaci\u00f3n","Grupo grande","Speak English"]
+  }
+};
+
+/* ---------- profile state (prefilled with real TrackDog facts) ---------- */
+var REV={
+  auto:{pain:"Missed service calls and unsold estimates",angle:"Catch every missed call and follow unsold work into booked jobs"},
+  roof:{pain:"Lost estimates and missed follow-ups ($8K\u2013$25K jobs)",angle:"Turn old/unsold estimates into booked jobs; never miss an inbound lead"},
+  hvac:{pain:"Missed calls during peak demand",angle:"Capture every missed call into a booked service or install"},
+  dental:{pain:"Old consults, no-shows, unbooked high-ticket cases",angle:"Reactivate old consults and book every new patient fast"},
+  medspa:{pain:"Empty appointment slots and consult drop-offs",angle:"Fill open slots fast from inbound + reactivation, no slot wasted"},
+  immigration:{pain:"Missed intakes = lost signed cases",angle:"Every missed call becomes a captured, booked consultation"},
+  restaurant:{pain:"Abandoned calls, missed reservations and orders",angle:"Answer every call \u2192 booked tables and captured orders"}
+};
+
+var profile = {
+  biz:"TrackDog Racing", niche:"Miata / MX-5 performance & repair", city:"Fort Worth", state:"TX",
+  phone:"1-214-340-9797", booking:"", addr:"Fort Worth, TX (confirm street address)",
+  hours:"Mon\u2013Thu 9am\u20135pm CST", lang:"bilingual",
+  services:[
+    {en:"Performance upgrades & forced induction",es:"Mejoras de rendimiento y sobrealimentaci\u00f3n",price:""},
+    {en:"Suspension & brakes",es:"Suspensi\u00f3n y frenos",price:""},
+    {en:"Dyno tuning",es:"Afinaci\u00f3n en dyno",price:""},
+    {en:"Diagnostics & repair",es:"Diagn\u00f3stico y reparaci\u00f3n",price:""}
+  ]
+};
+var lastSite="", lastKBmd="";
+
+/* ---------- slot fill ---------- */
+function fill(t){
+  return String(t||"")
+    .replace(/\{\{biz\}\}/g, profile.biz||"")
+    .replace(/\{\{niche\}\}/g, profile.niche||"")
+    .replace(/\{\{city\}\}/g, profile.city||"")
+    .replace(/\{\{state\}\}/g, profile.state||"")
+    .replace(/\{\{phone\}\}/g, profile.phone||"")
+    .replace(/\{\{addr\}\}/g, profile.addr||"")
+    .replace(/\{\{hours\}\}/g, profile.hours||"");
+}
+function curKB(){return KBS[$("kbSel").value];}
+
+/* ---------- LEFT panel render ---------- */
+function renderKBPanel(){
+  var k=curKB();
+  $("compBox").innerHTML='<div class="h">\u00a75 Compliance guardrails (always on)</div><ul>'+k.compliance.map(function(c){return '<li>'+esc(c)+'</li>';}).join("")+'</ul>';
+  function slotmark(s){return esc(s).replace(/\{\{(\w+)\}\}/g,'<span class="slot">{{$1}}</span>');}
+  var glos=k.glossary.map(function(g){return g[0]+"  \u2194  "+g[1];}).join("\n");
+  var obj=k.objections.map(function(o){return o.sit+"\n  EN: "+o.en+"\n  ES: "+o.es;}).join("\n\n");
+  var secs=[
+    ["0 \u00b7 Role", k.s0],
+    ["1 \u00b7 Positioning (EN / ES)", k.s1_en+"\n"+k.s1_es],
+    ["1b \u00b7 Revenue angle", (REV[$("kbSel").value]?("Angle: "+REV[$("kbSel").value].angle+"\nPrimary pain solved: "+REV[$("kbSel").value].pain):"\u2014")],
+    ["2 \u00b7 Persona & voice", k.persona],
+    ["3 \u00b7 Register + glossary", k.register+"\n\n"+glos],
+    ["4 \u00b7 Intent map", k.intent.join("\n")],
+    ["6 \u00b7 Intake fields", k.intake.join("\n")],
+    ["8 \u00b7 Booking", k.booking],
+    ["9 \u00b7 Data schema", k.schema.join("\n")],
+    ["10 \u00b7 Objection scripts", obj],
+    ["11 \u00b7 Human-handoff triggers", k.handoff.join("\n")],
+    ["12 \u00b7 Site copy (EN)", k.site.tagline_en+"\n"+k.site.about_en],
+    ["13 \u00b7 Chatbot quick-replies", k.quick_en.join(" \u00b7 ")]
+  ];
+  $("kbSections").innerHTML=secs.map(function(s){return '<details class="kbsec"><summary>\u00a7'+esc(s[0])+'</summary><div class="body">'+slotmark(s[1])+'</div></details>';}).join("");
+}
+
+/* ---------- service rows ---------- */
+function renderSvcRows(){
+  $("svcRows").innerHTML=profile.services.map(function(s,i){
+    return '<div class="row"><input data-si="'+i+'" data-sk="en" placeholder="Service (EN)" value="'+esc(s.en)+'"><input data-si="'+i+'" data-sk="es" placeholder="Servicio (ES)" value="'+esc(s.es)+'"><input data-si="'+i+'" data-sk="price" placeholder="$" style="max-width:80px" value="'+esc(s.price)+'"><button class="x" data-rm="'+i+'">\u00d7</button></div>';
+  }).join("");
+  document.querySelectorAll("[data-si]").forEach(function(inp){inp.addEventListener("input",function(){profile.services[+this.dataset.si][this.dataset.sk]=this.value;});});
+  document.querySelectorAll("[data-rm]").forEach(function(b){b.addEventListener("click",function(){profile.services.splice(+this.dataset.rm,1);renderSvcRows();});});
+}
+
+/* ---------- the MERGE (deterministic, no API) ---------- */
+function mergeReceptionistMD(){
+  var k=curKB();
+  function svcList(lang){return profile.services.map(function(s){return "- "+(lang==="es"?(s.es||s.en):s.en)+(s.price?(" ("+s.price+")"):"");}).join("\n");}
+  var glos=k.glossary.map(function(g){return "- "+g[0]+" \u2194 "+g[1];}).join("\n");
+  var faqs=k.faq.map(function(f){return "**"+fill(f.q_en)+"** \u2014 "+fill(f.a_en)+"\n**"+fill(f.q_es)+"** \u2014 "+fill(f.a_es);}).join("\n\n");
+  var objs=k.objections.map(function(o){return "- *"+o.sit+"*\n  - EN: "+o.en+"\n  - ES: "+o.es;}).join("\n");
+  return [
+    "# AI Receptionist KB \u2014 "+profile.biz,
+    "_Vertical base: "+k.label+" \u00b7 merged with business profile. Bilingual EN/ES, dialect-aware._",
+    "",
+    "## \u00a70 Role","- "+fill(k.s0),
+    "## \u00a71 Positioning","- EN: "+fill(k.s1_en),"- ES: "+fill(k.s1_es),
+    "## \u00a72 Persona & voice","- "+k.persona,"- Greeting (EN): "+fill(k.greeting_en),"- Saludo (ES): "+fill(k.greeting_es),
+    "## \u00a73 Language & dialect","- Register: "+k.register,"- Mode: "+profile.lang,"- Glossary (intake-critical):\n"+glos,
+    "## \u00a74 Intent map","- "+k.intent.join("\n- "),
+    "## \u00a74a Revenue priority (internal)","- New/inbound leads are top priority \u2014 capture every one, book fast, offer reactivation where relevant.",(REV[$("kbSel").value]?("- Angle: "+REV[$("kbSel").value].angle+" \u00b7 Pain solved: "+REV[$("kbSel").value].pain):""),
+    "## \u00a75 COMPLIANCE GUARDRAILS (hard lines \u2014 override everything)","- "+k.compliance.join("\n- "),
+    "## \u00a76 Intake & qualification","- "+k.intake.join("\n- "),
+    "## \u00a77 FAQ (EN/ES)",faqs,
+    "## \u00a78 Booking & scheduling","- "+fill(k.booking),
+    "## \u00a79 Data schema","- "+k.schema.join("\n- "),
+    "## \u00a710 Objection & sensitive scripts",objs,
+    "## \u00a711 Human-handoff triggers","- "+k.handoff.join("\n- "),
+    "## \u00a712 Website copy","- Tagline (EN): "+fill(k.site.tagline_en),"- About (EN): "+fill(k.site.about_en),"- Services:\n"+svcList("en"),
+    "## \u00a713 Chatbot quick-replies","- EN: "+k.quick_en.join(" \u00b7 "),"- ES: "+k.quick_es.join(" \u00b7 "),
+    "",
+    "### Business facts merged",
+    "- Phone: "+(profile.phone||"\u2014")+" \u00b7 Address: "+(profile.addr||"\u2014")+", "+profile.city+", "+profile.state,
+    "- Hours: "+profile.hours,
+    "- Booking: "+(profile.booking||"(scheduled by the agent)")
+  ].join("\n");
+}
+
+function mergeSiteHTML(){
+  var k=curKB(), p=profile;
+  function T(a,b){return '<span class="en">'+esc(a)+'</span><span class="es">'+esc(b||a)+'</span>';}
+  var svc=p.services.map(function(s){return '<article class="svc"><div class="dot"></div><div>'+T(s.en,s.es||s.en)+(s.price?' <em style="color:#5b6577">'+esc(s.price)+'</em>':'')+'</div></article>';}).join("");
+  var faq=k.faq.map(function(f){return '<div class="fq"><b>'+T(fill(f.q_en),fill(f.q_es))+'</b><div class="fa">'+T(fill(f.a_en),fill(f.a_es))+'</div></div>';}).join("");
+  var css="*{box-sizing:border-box;margin:0;padding:0}body{font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:#1a2330;line-height:1.55;background:#fff}.en,.es{display:none}body[data-lang=en] .en{display:inline}body[data-lang=es] .es{display:inline}a{color:inherit;text-decoration:none}header.bar{display:flex;align-items:center;gap:16px;padding:15px 26px;border-bottom:1px solid #eef0f3;position:sticky;top:0;background:rgba(255,255,255,.96);backdrop-filter:blur(6px);z-index:5}.bz{font-weight:800;font-size:18px}nav{margin-left:auto;display:flex;gap:16px;font-size:14px;color:#5b6577}.lng{border:1px solid #d6dae1;background:#fff;border-radius:8px;padding:7px 12px;font-size:13px;font-weight:600;cursor:pointer}.hero{padding:64px 26px 48px;text-align:center;background:linear-gradient(180deg,#f4f8ff,#fff)}.hero h1{font-size:40px;letter-spacing:-.02em;margin-bottom:8px}.hero .tag{font-size:18px;color:#5b6577;margin-bottom:14px}.contact{font-size:14px;color:#3a4453;margin-bottom:22px}.cta{display:inline-flex;gap:12px;flex-wrap:wrap;justify-content:center}.btn{border-radius:10px;padding:13px 22px;font-weight:700;font-size:15px;cursor:pointer;border:none}.btn.p{background:#0a66ff;color:#fff}.btn.s{background:#eef2f7;color:#0a66ff}.sec{max-width:940px;margin:0 auto;padding:48px 26px}.sec h2{font-size:25px;margin-bottom:20px;text-align:center}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:13px}@media(max-width:640px){.grid{grid-template-columns:1fr}.hero h1{font-size:30px}}.svc{display:flex;gap:11px;align-items:flex-start;border:1px solid #eef0f3;border-radius:12px;padding:15px;font-weight:600}.svc .dot{width:9px;height:9px;border-radius:50%;background:#0a66ff;margin-top:7px;flex:none}.about{background:#f7f9fc}.about p{max-width:740px;margin:0 auto;text-align:center;font-size:17px;color:#3a4453}.fq{border-top:1px solid #eef0f3;padding:15px 0}.fq .fa{color:#5b6577;margin-top:5px}.hrs{max-width:600px;margin:14px auto 0;font-size:15px;color:#3a4453;text-align:center;white-space:pre-line}footer.foot{background:#0c1320;color:#cdd6e4;text-align:center;padding:38px 26px}.foot .bz{color:#fff;font-size:20px;margin-bottom:6px}.cbtn{position:fixed;right:20px;bottom:20px;width:56px;height:56px;border-radius:50%;background:#0a66ff;color:#fff;border:none;font-size:23px;cursor:pointer;box-shadow:0 8px 24px rgba(10,102,255,.4)}.cp{position:fixed;right:20px;bottom:86px;width:310px;max-width:90vw;background:#fff;border:1px solid #e4e8ee;border-radius:16px;box-shadow:0 18px 50px rgba(0,0,0,.22);display:none;overflow:hidden}.cp .h{background:#0a66ff;color:#fff;padding:12px 15px;font-weight:700}.cp .b{padding:14px;font-size:14px}.cp .msg{background:#f1f5fb;border-radius:12px;padding:10px 12px;margin-bottom:8px}.cp .qr{display:flex;flex-wrap:wrap;gap:6px}.cp .qr span{font-size:12px;border:1px solid #d6e0f5;color:#0a66ff;border-radius:999px;padding:5px 10px}";
+  var langBtn='<button class="lng" onclick="var b=document.body;b.dataset.lang=(b.dataset.lang===\'es\'?\'en\':\'es\');document.documentElement.lang=b.dataset.lang;this.firstChild.textContent=(b.dataset.lang===\'es\'?\'English\':\'Espa\u00f1ol\')"><span>Espa\u00f1ol</span></button>';
+  var quick=k.quick_en.map(function(q,i){return '<span>'+T(q,k.quick_es[i]||q)+'</span>';}).join("");
+  var chat='<button class="cbtn" aria-label="Chat" onclick="var p=document.getElementById(\'cp\');p.style.display=(p.style.display===\'block\'?\'none\':\'block\')">\u{1F4AC}</button><div class="cp" id="cp"><div class="h">'+T("Chat with "+p.biz,"Chatea con "+p.biz)+'</div><div class="b"><div class="msg">'+T(fill(k.greeting_en),fill(k.greeting_es))+'</div><div class="qr">'+quick+'</div></div></div>';
+  /* ---- AIO/SEO: JSON-LD structured data (LocalBusiness subtype + FAQPage + Breadcrumb) ---- */
+  var desc=fill(k.site.about_en);
+  var ld={"@context":"https://schema.org","@graph":[
+    {"@type":["LocalBusiness",(SCHEMATYPE[$("kbSel").value]||"LocalBusiness")],"@id":"#business","name":p.biz,"description":desc,"telephone":p.phone,"areaServed":(p.city?(p.city+", "+p.state):p.state),"knowsLanguage":["en","es"],"address":{"@type":"PostalAddress","streetAddress":p.addr,"addressLocality":p.city,"addressRegion":p.state,"addressCountry":"US"},"openingHours":p.hours,"makesOffer":p.services.map(function(s){return {"@type":"Offer","itemOffered":{"@type":"Service","name":s.en}};})},
+    {"@type":"FAQPage","mainEntity":k.faq.map(function(f){return {"@type":"Question","name":fill(f.q_en),"acceptedAnswer":{"@type":"Answer","text":fill(f.a_en)}};})},
+    {"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home"},{"@type":"ListItem","position":2,"name":"Services"}]}
+  ]};
+  var LD='<script type="application/ld+json">'+JSON.stringify(ld)+'<\/script>';
+  var head='<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">'+
+    '<title>'+esc(p.biz)+' \u2014 '+esc(fill(k.site.tagline_en))+'</title>'+
+    '<meta name="description" content="'+esc(desc)+'">'+
+    '<meta property="og:type" content="business.business"><meta property="og:title" content="'+esc(p.biz)+'"><meta property="og:description" content="'+esc(desc)+'"><meta name="twitter:card" content="summary">'+
+    '<link rel="alternate" hreflang="en" href="./"><link rel="alternate" hreflang="es" href="./?lang=es">'+
+    LD+'<style>'+css+'</style>';
+  return '<!doctype html><html lang="en"><head>'+head+'</head><body data-lang="en">'+
+    '<header class="bar"><div class="bz">'+esc(p.biz)+'</div><nav><a href="#svc">'+T("Services","Servicios")+'</a><a href="#about">'+T("About","Nosotros")+'</a><a href="#faq">'+T("FAQ","Preguntas")+'</a><a href="#contact">'+T("Contact","Contacto")+'</a></nav>'+langBtn+'</header>'+
+    '<main>'+
+    '<section class="hero"><h1>'+esc(p.biz)+'</h1><p class="tag">'+T(fill(k.site.tagline_en),fill(k.site.tagline_es))+'</p><p class="contact">'+esc(p.phone)+' \u00b7 '+esc(p.addr)+', '+esc(p.city)+', '+esc(p.state)+'</p><div class="cta"><a class="btn p" href="tel:'+esc(p.phone)+'">'+T("Call now","Ll\u00e1menos")+'</a><button class="btn s">'+T("Get a quote","Pedir cotizaci\u00f3n")+'</button></div></section>'+
+    '<section class="sec" id="svc"><h2>'+T("What we do","Lo que hacemos")+'</h2><div class="grid">'+svc+'</div></section>'+
+    '<section class="about" id="about"><div class="sec"><h2>'+T("About us","Sobre nosotros")+'</h2><p>'+T(fill(k.site.about_en),fill(k.site.about_es))+'</p></div></section>'+
+    '<section class="sec" id="faq"><h2>'+T("Frequently asked","Preguntas frecuentes")+'</h2>'+faq+'<div class="hrs"><b>'+T("Hours","Horario")+'</b>\n'+esc(p.hours)+'</div></section>'+
+    '</main>'+
+    '<footer class="foot" id="contact"><div class="bz">'+esc(p.biz)+'</div><div>'+esc(p.phone)+' \u00b7 '+esc(p.addr)+', '+esc(p.city)+', '+esc(p.state)+'</div></footer>'+chat+'</body></html>';
+}
+
+function renderChat(){
+  var k=curKB();
+  $("chatOut").innerHTML='<label class="fl">Greeting (EN)</label><div class="md" style="max-height:none">'+esc(fill(k.greeting_en))+'</div>'+
+    '<label class="fl">Saludo (ES)</label><div class="md" style="max-height:none">'+esc(fill(k.greeting_es))+'</div>'+
+    '<label class="fl">Quick-replies</label><div class="qr">'+k.quick_en.map(function(q){return '<span class="qrb">'+esc(q)+'</span>';}).join("")+'</div>'+
+    '<div class="qr" style="margin-top:6px">'+k.quick_es.map(function(q){return '<span class="qrb" style="color:var(--violet);border-color:#332a52">'+esc(q)+'</span>';}).join("")+'</div>';
+}
+
+function doMerge(){
+  profile.biz=$("pBiz").value.trim(); profile.niche=$("pNiche").value.trim(); profile.city=$("pCity").value.trim();
+  profile.state=$("pState").value.trim(); profile.phone=$("pPhone").value.trim(); profile.booking=$("pBooking").value.trim();
+  profile.addr=$("pAddr").value.trim(); profile.hours=$("pHours").value.trim(); profile.lang=$("pLang").value;
+  if(!profile.biz){alert("Enter the business name.");return;}
+  lastSite=mergeSiteHTML(); lastKBmd=mergeReceptionistMD();
+  $("siteFrame").srcdoc=lastSite; $("kbMd").textContent=lastKBmd; renderChat();
+  $("outCard").style.display="block"; $("outTag").textContent=curKB().label+" \u00b7 deterministic merge";
+  try{var u=URL.createObjectURL(new Blob([lastSite],{type:"text/html"}));$("dlSite").href=u;$("dlSite").download=(profile.biz||"site").toLowerCase().replace(/[^a-z0-9]+/g,"-")+".html";$("dlSite").style.display="inline-block";
+  var u2=URL.createObjectURL(new Blob([lastKBmd],{type:"text/markdown"}));$("dlKB").href=u2;$("dlKB").download=(profile.biz||"kb").toLowerCase().replace(/[^a-z0-9]+/g,"-")+"-receptionist-kb.md";$("dlKB").style.display="inline-block";}catch(e){}
+  $("status").textContent="Merged \u2014 deterministic, no API used.";
+  $("outCard").scrollIntoView({behavior:"smooth"});
+  if($("polishChk").checked) polish();
+}
+
+function polish(){
+  $("status").textContent="Polishing bilingual copy with AI\u2026";
+  fetch(KB_ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({biz:profile.biz,vert:curKB().label,niche:profile.niche,url:""})})
+    .then(function(r){if(!r.ok)throw new Error(r.status);return r.json();})
+    .then(function(d){
+      var kb=(d&&d.kb)?d.kb:d; if(!kb)throw new Error("empty");
+      var k=curKB();
+      if(kb.tagline_en){k.site.tagline_en=kb.tagline_en;}
+      if(kb.tagline_es){k.site.tagline_es=kb.tagline_es;}
+      if(kb.summary){k.site.about_en=kb.summary;}
+      if(kb.summary_es){k.site.about_es=kb.summary_es;}
+      if(kb.greeting_en){k.greeting_en=kb.greeting_en;}
+      if(kb.greeting_es){k.greeting_es=kb.greeting_es;}
+      if(Array.isArray(kb.services)&&kb.services.length){profile.services=kb.services.map(function(s){return {en:s.en||s,es:s.es||s.en||s,price:""};});renderSvcRows();}
+      if(Array.isArray(kb.faqs)&&kb.faqs.length){k.faq=kb.faqs.map(function(f){return {q_en:f.q||f.q_en||"",a_en:f.a||f.a_en||"",q_es:f.q_es||f.q||"",a_es:f.a_es||f.a||""};});}
+      lastSite=mergeSiteHTML(); lastKBmd=mergeReceptionistMD();
+      $("siteFrame").srcdoc=lastSite; $("kbMd").textContent=lastKBmd; renderChat();
+      $("status").textContent="AI polish applied (compliance + structure preserved from the KB).";
+    })
+    .catch(function(e){$("status").textContent="AI polish unavailable ("+e.message+") \u2014 kept the deterministic merge. (Publish the n8n workflow to enable polish.)";});
+}
+
+/* ---------- consultant: ties the engine to a live Claude guide ---------- */
+var DEFNICHE={auto:"auto performance & repair",roof:"roofing",hvac:"heating & cooling",dental:"dental care",medspa:"aesthetic treatments",immigration:"immigration services",restaurant:"dining"};
+var CONSULTANT_SYS=[
+  "You are the Orbit Infrastructure Consultant \u2014 an elite, warm, sharp small-business growth consultant welcoming an owner to the Infrastructure Generation Engine.",
+  "From ONE bilingual (English+Spanish) knowledge base, Orbit builds a near-perfect website, an AI voice receptionist, and a website chatbot \u2014 all three speaking identically, inbound-focused.",
+  "Your job: make the owner feel they reached a true expert, run a smart consultative intake, and INTERJECT with guidance so the result is above satisfactory. Ask only one or two focused questions per turn. Be concise and human, never robotic.",
+  "Deep verticals (use the key): auto (Automotive/performance & repair), roof (Roofing), hvac (HVAC), dental (Dental), medspa (Med Spa), immigration (Immigration law), restaurant (Restaurant). If their business differs, pick the closest key and say so.",
+  "Respect each vertical's hard compliance lines and show that expertise (auto: no phone diagnosis, no guaranteed horsepower, hard fitment gate; roof/hvac: no firm price by phone, safety hazards/gas\u2192911; dental/medspa: no diagnosis or efficacy claims; immigration: no legal advice, status never a barrier, ICE detention=emergency; restaurant: never promise allergen-free). Never give regulated professional advice yourself.",
+  "Drive an above-satisfactory result: if they skip hours, phone, or services, explain why it matters (e.g. 'without hours the receptionist can't book') and get it. Flag the bilingual line as a real differentiator in FL/TX. Recommend the sub-niche that fits.",
+  "Speak to each niche's revenue reality so you sound like a true growth consultant: roofing = lost $8K\u2013$25K estimates recovered; med spa = fill empty slots; dental = reactivate old consults into high-ticket cases; HVAC/plumbing = capture peak-demand missed calls; immigration/PI law = missed intakes become signed cases; restaurants = answer every call into booked tables/orders. Connect their pain to the inbound capture + reactivation the AI receptionist delivers \u2014 never quote a price.",
+  "Collect: business name; vertical (+sub-niche); city & state; phone; address; hours; main services (with Spanish where you can); language mode (en/es/bilingual).",
+  "When you have enough for a strong build, reply with a short friendly confirmation AND exactly one fenced json block:",
+  "```json",
+  '{"ready":true,"vertical":"<key>","niche":"<sub-niche label or empty>","profile":{"biz":"","city":"","state":"","phone":"","addr":"","hours":"","lang":"bilingual","services":[{"en":"","es":"","price":""}]}}',
+  "```",
+  "Until ready, converse normally with NO json block. Never invent facts the owner didn't give \u2014 leave unknowns blank and ask for the important ones."
+].join("\n");
+var hist=[];
+function bubble(role,text){var d=document.createElement("div");d.className="b-msg "+(role==="user"?"u":"a");d.textContent=text;$("msgs").appendChild(d);$("msgs").scrollTop=$("msgs").scrollHeight;}
+function typing(on){$("typing").style.display=on?"block":"none";}
+function parseReady(t){var m=String(t).match(/```json([\s\S]*?)```/i);if(m){try{return JSON.parse(m[1].trim());}catch(e){}}return null;}
+function applyProfile(o){
+  o=o||{};
+  if(o.vertical&&KBS[o.vertical]){$("kbSel").value=o.vertical;renderNiches();renderKBPanel();}
+  if(o.niche){var ns=$("nicheSel");for(var i=0;i<ns.options.length;i++){if(ns.options[i].value.toLowerCase()===String(o.niche).toLowerCase()){ns.selectedIndex=i;break;}}}
+  var p=o.profile||{};
+  if(p.biz)$("pBiz").value=p.biz;
+  $("pNiche").value=(p.niche||o.niche||DEFNICHE[o.vertical]||$("pNiche").value);
+  if(p.city)$("pCity").value=p.city; if(p.state)$("pState").value=p.state;
+  if(p.phone)$("pPhone").value=p.phone; if(p.addr)$("pAddr").value=p.addr;
+  if(p.hours)$("pHours").value=p.hours; if(p.lang)$("pLang").value=p.lang;
+  if(Array.isArray(p.services)&&p.services.length){profile.services=p.services.map(function(s){return {en:(s&&s.en)||s||"",es:(s&&s.es)||"",price:(s&&s.price)||""};});renderSvcRows();}
+  var ang=o.angle||p.angle, pn=o.pain||p.pain;
+  if((ang||pn)&&document.getElementById("msgs")){bubble("assistant","Revenue angle for this account: "+(ang||"capture every lead")+(pn?(" \u2014 solving: "+pn):"")+". I'll make sure the receptionist treats every inbound lead as priority and books fast.");}
+  doMerge();
+}
+function callClaude(){
+  return fetch("https://api.anthropic.com/v1/messages",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:1000,system:CONSULTANT_SYS,messages:hist})})
+    .then(function(r){return r.json();})
+    .then(function(d){return (d.content||[]).filter(function(b){return b.type==="text";}).map(function(b){return b.text;}).join("\n");});
+}
+function matchVertical(a){a=String(a).toLowerCase();
+  if(/roof/.test(a))return"roof";
+  if(/hvac|a\/c|\bac\b|heat|air|furnace|cooling/.test(a))return"hvac";
+  if(/dent|teeth|tooth|ortho/.test(a))return"dental";
+  if(/spa|botox|filler|aesthet|laser|skin/.test(a))return"medspa";
+  if(/immigration|visa|green card|asylum|deport|citizen|abogad/.test(a))return"immigration";
+  if(/restaur|food|cafe|caf\u00e9|\bbar\b|grill|kitchen|taco|pizza/.test(a))return"restaurant";
+  if(/auto|car|mechanic|repair|tune|miata|perform|tire|collision|body shop|shop/.test(a))return"auto";
+  return"auto";}
+var fb={on:false,i:0,acc:{services:[]}};
+var FB=[
+  {ask:"What kind of business is it? (auto shop, roofing, HVAC, dental, med spa, immigration law, restaurant\u2026)",apply:function(a){fb.acc.vertical=matchVertical(a);}},
+  {ask:"What's the business name?",apply:function(a){fb.acc.biz=a.trim();}},
+  {ask:"City and state? (e.g. Fort Worth, TX)",apply:function(a){var m=a.split(",");fb.acc.city=(m[0]||"").trim();fb.acc.state=(m[1]||"").trim();}},
+  {ask:"Best phone number for it?",apply:function(a){fb.acc.phone=a.trim();}},
+  {ask:"What are the hours? (the receptionist needs these to book)",apply:function(a){fb.acc.hours=a.trim();}},
+  {ask:"List a few main services, comma-separated.",apply:function(a){fb.acc.services=a.split(",").map(function(s){return {en:s.trim(),es:"",price:""};});}},
+  {ask:"English, Spanish, or bilingual?",apply:function(a){fb.acc.lang=/bi/i.test(a)?"bilingual":(/span|esp/i.test(a)?"es":"en");}}
+];
+function startFallback(){fb.on=true;fb.i=0;$("cmode").textContent="Consultant offline \u2014 quick guided mode (the live AI guide runs in-app, or once your API key is wired through n8n).";bubble("assistant","I'm in offline mode, so let's do this quickly. "+FB[0].ask);}
+function fallbackStep(a){FB[fb.i].apply(a);fb.i++;if(fb.i>=FB.length){bubble("assistant","Perfect \u2014 building your preview now. Scroll down for the website, receptionist KB, and chatbot.");applyProfile({vertical:fb.acc.vertical,niche:"",profile:fb.acc});}else{bubble("assistant",FB[fb.i].ask);}}
+function send(){
+  var v=$("cin").value.trim();if(!v)return;$("cin").value="";bubble("user",v);
+  if(fb.on){fallbackStep(v);return;}
+  hist.push({role:"user",content:v});typing(true);
+  callClaude().then(function(txt){typing(false);
+    var o=parseReady(txt);var disp=String(txt).replace(/```json[\s\S]*?```/i,"").trim();
+    bubble("assistant",disp||"Got it.");hist.push({role:"assistant",content:txt});
+    if(o&&o.ready){applyProfile(o);bubble("assistant","\u2705 Building your infrastructure preview \u2014 scroll down to review the website, receptionist KB, and chatbot.");}
+  }).catch(function(){typing(false);startFallback();});
+}
+function loadByLead(){
+  var id=$("leadId").value.trim(); if(!id){bubble("assistant","Enter the Lead ID your rep gave you, then tap Load from CRM.");return;}
+  var code=$("leadCode").value.trim();
+  bubble("user","Load my CRM record: "+id);
+  bubble("assistant","Looking up "+id+" in the CRM\u2026");
+  fetch(LEAD_ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({leadId:id,accessCode:code})})
+   .then(function(r){return r.json();})
+   .then(function(d){ if(d&&d.ok){ bubble("assistant","Found "+((d.profile&&d.profile.biz)||id)+" \u2014 building your preview straight from the CRM record. Scroll down."); applyProfile(d); } else { bubble("assistant","I couldn\u2019t match that Lead ID / access code ("+((d&&d.error)||"not found")+"). Double-check with your rep \u2014 or just tell me about the business and I\u2019ll build it."); } })
+   .catch(function(e){ bubble("assistant","Lead lookup isn\u2019t reachable yet ("+e.message+") \u2014 it needs the n8n workflow live and the Attio key wired. You can still build by chatting with me."); });
+}
+$("leadBtn").addEventListener("click",loadByLead);
+$("csend").addEventListener("click",send);
+$("cin").addEventListener("keydown",function(e){if(e.key==="Enter"){e.preventDefault();send();}});
+bubble("assistant","Welcome \u2014 I'm your Orbit infrastructure consultant. Tell me about your business and I'll design your bilingual website, AI receptionist, and chatbot, then build a live preview. What's the business, and what city are you in?");
+
+/* ---------- wire ---------- */
+function loadProfileInputs(){
+  $("pBiz").value=profile.biz;$("pNiche").value=profile.niche;$("pCity").value=profile.city;$("pState").value=profile.state;
+  $("pPhone").value=profile.phone;$("pBooking").value=profile.booking;$("pAddr").value=profile.addr;$("pHours").value=profile.hours;$("pLang").value=profile.lang;
+}
+function renderNiches(){
+  var list=NICHES[$("kbSel").value]||[];
+  $("nicheSel").innerHTML='<option value="">\u2014 base layer (no sub-niche) \u2014</option>'+list.map(function(n){return '<option value="'+esc(n[0])+'">'+esc(n[0])+'</option>';}).join("");
+}
+$("kbSel").innerHTML=Object.keys(KBS).map(function(k){return '<option value="'+k+'">'+esc(KBS[k].label)+'</option>';}).join("");
+$("kbSel").addEventListener("change",function(){renderNiches();renderKBPanel();});
+$("nicheSel").addEventListener("change",function(){if(this.value){$("pNiche").value=this.value;profile.niche=this.value;}});
+$("addSvc").addEventListener("click",function(){profile.services.push({en:"",es:"",price:""});renderSvcRows();});
+$("mergeBtn").addEventListener("click",doMerge);
+document.querySelectorAll(".tab").forEach(function(t){t.addEventListener("click",function(){
+  document.querySelectorAll(".tab").forEach(function(x){x.classList.remove("active");});this.classList.add("active");
+  var tab=this.dataset.tab;$("tabSite").style.display=tab==="site"?"":"none";$("tabRecep").style.display=tab==="recep"?"":"none";$("tabChat").style.display=tab==="chat"?"":"none";
+});});
+
+renderNiches(); renderKBPanel(); renderSvcRows(); loadProfileInputs();
+var __v=document.createElement("div");__v.textContent="Merge Engine v6 \u00b7 Consultant + CRM + revenue intelligence \u00b7 2026-06-07";__v.style.cssText="position:fixed;bottom:8px;right:10px;z-index:50;font:600 10px/1 monospace;color:#5b6c81;background:rgba(13,18,25,.85);border:1px solid #1d2a3a;border-radius:6px;padding:5px 8px";document.body.appendChild(__v);
+})();
+</script>
+</body>
+</html>

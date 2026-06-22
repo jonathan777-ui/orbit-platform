@@ -1,0 +1,255 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://orbitaiautomation.com/sitegen/site.schema.json",
+  "title": "SiteGen Site Schema",
+  "description": "The single source of truth for an AI-generated website. The LLM emits an object conforming to this schema (never raw HTML); generation and static rendering both consume it.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "site"],
+  "properties": {
+    "schemaVersion": { "type": "string", "enum": ["1.0"] },
+    "site": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "vertical", "locale", "theme", "nav", "pages"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "vertical": {
+          "type": "string",
+          "enum": ["home-services", "law", "med-spa", "restaurant", "generic"]
+        },
+        "locale": { "type": "string", "enum": ["en", "es", "en-US", "es-MX"] },
+        "theme": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["palette", "fontHeading", "fontBody", "heroStyle"],
+          "properties": {
+            "palette": {
+              "type": "string",
+              "enum": ["cyan-amber", "gold-navy", "rose-champagne", "rust-wheat", "slate-emerald"]
+            },
+            "fontHeading": { "type": "string", "minLength": 1 },
+            "fontBody": { "type": "string", "minLength": 1 },
+            "heroStyle": {
+              "type": "string",
+              "enum": ["industrial", "elegant", "luxe", "editorial", "minimal"]
+            }
+          }
+        },
+        "nav": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["logoText", "links"],
+          "properties": {
+            "logoText": { "type": "string", "minLength": 1 },
+            "links": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["label", "href"],
+                "properties": {
+                  "label": { "type": "string", "minLength": 1 },
+                  "href": { "type": "string", "minLength": 1 }
+                }
+              }
+            }
+          }
+        },
+        "pages": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["path", "title", "meta", "content"],
+            "properties": {
+              "path": { "type": "string", "minLength": 1 },
+              "title": { "type": "string", "minLength": 1 },
+              "meta": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["description"],
+                "properties": {
+                  "description": { "type": "string", "minLength": 1 }
+                }
+              },
+              "content": {
+                "type": "array",
+                "minItems": 1,
+                "items": { "$ref": "#/definitions/block" }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "block": {
+      "type": "object",
+      "required": ["type"],
+      "discriminator": "type",
+      "oneOf": [
+        { "$ref": "#/definitions/Hero" },
+        { "$ref": "#/definitions/Features" },
+        { "$ref": "#/definitions/Services" },
+        { "$ref": "#/definitions/PricingTable" },
+        { "$ref": "#/definitions/Testimonials" },
+        { "$ref": "#/definitions/ContactForm" },
+        { "$ref": "#/definitions/Footer" }
+      ]
+    },
+    "Hero": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "headline", "subhead"],
+      "properties": {
+        "type": { "const": "Hero" },
+        "variant": { "type": "string", "enum": ["centered", "split", "banner"] },
+        "headline": { "type": "string", "minLength": 1 },
+        "subhead": { "type": "string", "minLength": 1 },
+        "ctaLabel": { "type": "string" },
+        "ctaHref": { "type": "string" }
+      }
+    },
+    "Features": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "heading", "items"],
+      "properties": {
+        "type": { "const": "Features" },
+        "variant": { "type": "string", "enum": ["grid", "list"] },
+        "heading": { "type": "string", "minLength": 1 },
+        "items": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["title", "body"],
+            "properties": {
+              "title": { "type": "string", "minLength": 1 },
+              "body": { "type": "string", "minLength": 1 },
+              "icon": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+    "Services": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "heading", "items"],
+      "properties": {
+        "type": { "const": "Services" },
+        "variant": { "type": "string", "enum": ["cards", "rows"] },
+        "heading": { "type": "string", "minLength": 1 },
+        "items": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["name", "description"],
+            "properties": {
+              "name": { "type": "string", "minLength": 1 },
+              "description": { "type": "string", "minLength": 1 },
+              "price": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+    "PricingTable": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "heading", "tiers"],
+      "properties": {
+        "type": { "const": "PricingTable" },
+        "heading": { "type": "string", "minLength": 1 },
+        "tiers": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["name", "price", "features"],
+            "properties": {
+              "name": { "type": "string", "minLength": 1 },
+              "price": { "type": "string", "minLength": 1 },
+              "period": { "type": "string" },
+              "features": {
+                "type": "array",
+                "minItems": 1,
+                "items": { "type": "string", "minLength": 1 }
+              },
+              "highlighted": { "type": "boolean" }
+            }
+          }
+        }
+      }
+    },
+    "Testimonials": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "heading", "items"],
+      "properties": {
+        "type": { "const": "Testimonials" },
+        "heading": { "type": "string", "minLength": 1 },
+        "items": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["quote", "author"],
+            "properties": {
+              "quote": { "type": "string", "minLength": 1 },
+              "author": { "type": "string", "minLength": 1 },
+              "role": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+    "ContactForm": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "heading"],
+      "properties": {
+        "type": { "const": "ContactForm" },
+        "heading": { "type": "string", "minLength": 1 },
+        "subhead": { "type": "string" },
+        "submitLabel": { "type": "string" },
+        "fields": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["name", "label", "kind"],
+            "properties": {
+              "name": { "type": "string", "minLength": 1 },
+              "label": { "type": "string", "minLength": 1 },
+              "kind": { "type": "string", "enum": ["text", "email", "tel", "textarea"] },
+              "required": { "type": "boolean" }
+            }
+          }
+        }
+      }
+    },
+    "Footer": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "businessName"],
+      "properties": {
+        "type": { "const": "Footer" },
+        "businessName": { "type": "string", "minLength": 1 },
+        "tagline": { "type": "string" },
+        "phone": { "type": "string" },
+        "email": { "type": "string" },
+        "address": { "type": "string" }
+      }
+    }
+  }
+}

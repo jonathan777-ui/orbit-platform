@@ -1,0 +1,19 @@
+{
+  "name": "sitegen",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Schema-driven AI website generator MVP — the LLM emits validated JSON site-schema (never raw HTML), which is the single source of truth for generation and static rendering. Offline-first; optional Claude.",
+  "type": "commonjs",
+  "engines": {
+    "node": ">=18"
+  },
+  "main": "src/generate.js",
+  "bin": {
+    "sitegen": "cli.js"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "gen": "node cli.js"
+  },
+  "dependencies": {}
+}

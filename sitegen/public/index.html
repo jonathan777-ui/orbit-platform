@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SiteGen — AI Website Generator (Demo)</title>
+  <style>
+    :root { --bg:#0f172a; --surface:#1e293b; --text:#e2e8f0; --muted:#94a3b8; --accent:#38bdf8; --border:#334155; }
+    * { box-sizing:border-box; }
+    body { margin:0; background:var(--bg); color:var(--text); font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif; }
+    header { padding:20px 24px; border-bottom:1px solid var(--border); }
+    h1 { margin:0; font-size:1.3rem; }
+    .sub { color:var(--muted); font-size:.9rem; margin-top:4px; }
+    .layout { display:grid; grid-template-columns:360px 1fr; gap:0; height:calc(100vh - 73px); }
+    .panel { padding:24px; border-right:1px solid var(--border); overflow:auto; }
+    label { display:block; font-weight:600; margin:16px 0 6px; }
+    textarea, select { width:100%; padding:10px; border-radius:8px; border:1px solid var(--border); background:var(--surface); color:var(--text); font:inherit; }
+    textarea { min-height:120px; resize:vertical; }
+    button { margin-top:18px; width:100%; padding:12px; border:none; border-radius:8px; background:var(--accent); color:#04202c; font-weight:700; font-size:1rem; cursor:pointer; }
+    button:disabled { opacity:.6; cursor:wait; }
+    .row { display:flex; gap:8px; margin-top:12px; }
+    .row button { background:var(--surface); color:var(--text); border:1px solid var(--border); margin-top:0; }
+    .status { margin-top:14px; font-size:.85rem; color:var(--muted); min-height:1.2em; }
+    .preview { display:flex; flex-direction:column; }
+    .preview iframe { flex:1; width:100%; border:none; background:#fff; }
+    .preview .bar { padding:8px 16px; font-size:.8rem; color:var(--muted); border-bottom:1px solid var(--border); }
+    code { color:var(--accent); }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>SiteGen</h1>
+    <div class="sub">Schema-driven AI website generator. Offline-first; uses Claude when a key is set.</div>
+  </header>
+  <div class="layout">
+    <aside class="panel">
+      <label for="desc">Business description</label>
+      <textarea id="desc" placeholder="e.g. Austin HVAC company, 24/7 emergency repair, family owned">Austin HVAC company, 24/7 emergency repair, family owned</textarea>
+
+      <label for="vertical">Vertical</label>
+      <select id="vertical">
+        <option value="">Auto-detect</option>
+        <option value="home-services">Home Services (HVAC, plumbing…)</option>
+        <option value="law">Law Firm</option>
+        <option value="med-spa">Med Spa</option>
+        <option value="restaurant">Restaurant</option>
+        <option value="generic">Generic</option>
+      </select>
+
+      <button id="gen">Generate</button>
+      <div class="row">
+        <button id="dl-html" disabled>Download HTML</button>
+        <button id="dl-json" disabled>Download JSON</button>
+      </div>
+      <div class="status" id="status"></div>
+    </aside>
+    <section class="preview">
+      <div class="bar" id="bar">Preview will appear here.</div>
+      <iframe id="frame" title="Generated site preview"></iframe>
+    </section>
+  </div>
+
+  <script>
+    // Dependency-free demo: POST to /api/generate, render returned HTML into an
+    // iframe, enable HTML/JSON downloads. The full Puck visual editor is a later
+    // phase — this is the editor entry point.
+    var lastHtml = '', lastJson = null;
+    var $ = function (id) { return document.getElementById(id); };
+
+    function download(filename, text, type) {
+      var blob = new Blob([text], { type: type });
+      var a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(a.href);
+    }
+
+    $('gen').addEventListener('click', async function () {
+      var description = $('desc').value.trim();
+      var vertical = $('vertical').value || undefined;
+      if (!description) { $('status').textContent = 'Enter a description first.'; return; }
+
+      $('gen').disabled = true;
+      $('status').textContent = 'Generating…';
+      try {
+        var res = await fetch('/api/generate', {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify({ description: description, vertical: vertical })
+        });
+        var data = await res.json();
+        if (!res.ok) throw new Error(data.error || ('HTTP ' + res.status));
+
+        lastHtml = data.html;
+        lastJson = data.site;
+        $('frame').srcdoc = data.html;
+        $('dl-html').disabled = false;
+        $('dl-json').disabled = false;
+        $('bar').textContent =
+          'vertical: ' + data.site.site.vertical +
+          ' · engine: ' + data.engine +
+          ' · valid: ' + data.valid +
+          ' · sections: ' + data.site.site.pages[0].content.map(function (b) { return b.type; }).join(', ');
+        $('status').textContent = 'Done.';
+      } catch (e) {
+        $('status').textContent = 'Error: ' + e.message;
+      } finally {
+        $('gen').disabled = false;
+      }
+    });
+
+    $('dl-html').addEventListener('click', function () {
+      if (lastHtml) download('index.html', lastHtml, 'text/html');
+    });
+    $('dl-json').addEventListener('click', function () {
+      if (lastJson) download('site.json', JSON.stringify(lastJson, null, 2), 'application/json');
+    });
+  </script>
+</body>
+</html>

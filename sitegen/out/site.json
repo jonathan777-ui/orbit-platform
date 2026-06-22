@@ -1,0 +1,186 @@
+{
+  "schemaVersion": "1.0",
+  "site": {
+    "name": "Hernandez & Associates",
+    "vertical": "law",
+    "locale": "en",
+    "theme": {
+      "palette": "gold-navy",
+      "fontHeading": "Libre Baskerville",
+      "fontBody": "Source Sans 3",
+      "heroStyle": "elegant"
+    },
+    "nav": {
+      "logoText": "Hernandez & Associates",
+      "links": [
+        {
+          "label": "Services",
+          "href": "#services"
+        },
+        {
+          "label": "Pricing",
+          "href": "#pricing"
+        },
+        {
+          "label": "Reviews",
+          "href": "#testimonials"
+        },
+        {
+          "label": "Contact",
+          "href": "#contact"
+        }
+      ]
+    },
+    "pages": [
+      {
+        "path": "/",
+        "title": "Hernandez & Associates — Experienced counsel you can trust",
+        "meta": {
+          "description": "Hernandez & Associates, immigration law firm in Houston, free consultation"
+        },
+        "content": [
+          {
+            "type": "Hero",
+            "variant": "centered",
+            "headline": "Hernandez & Associates",
+            "subhead": "Experienced counsel you can trust",
+            "ctaLabel": "Schedule a Consultation",
+            "ctaHref": "#contact"
+          },
+          {
+            "type": "Features",
+            "variant": "grid",
+            "heading": "Why Choose Us",
+            "items": [
+              {
+                "icon": "⚖️",
+                "title": "Decades of Experience",
+                "body": "Seasoned attorneys with a track record of favorable outcomes."
+              },
+              {
+                "icon": "🤝",
+                "title": "Personal Attention",
+                "body": "You work directly with your attorney — not a call center."
+              },
+              {
+                "icon": "💬",
+                "title": "Free Consultation",
+                "body": "Understand your options before you commit, at no charge."
+              }
+            ]
+          },
+          {
+            "type": "Services",
+            "variant": "cards",
+            "heading": "What We Offer",
+            "items": [
+              {
+                "name": "Personal Injury",
+                "description": "Aggressive representation to recover what you are owed after an accident."
+              },
+              {
+                "name": "Business & Contracts",
+                "description": "Clear, enforceable agreements and counsel for growing companies."
+              },
+              {
+                "name": "Estate Planning",
+                "description": "Protect your family and legacy with airtight wills and trusts."
+              }
+            ]
+          },
+          {
+            "type": "Testimonials",
+            "heading": "What Clients Say",
+            "items": [
+              {
+                "quote": "They fought for me and got far more than I expected. Truly grateful.",
+                "author": "Elena V.",
+                "role": "Client"
+              },
+              {
+                "quote": "Professional, responsive, and clear at every step of the case.",
+                "author": "James P.",
+                "role": "Client"
+              }
+            ]
+          },
+          {
+            "type": "PricingTable",
+            "heading": "Plans & Pricing",
+            "tiers": [
+              {
+                "name": "Consultation",
+                "price": "Free",
+                "features": [
+                  "Case evaluation",
+                  "Clear next steps",
+                  "No obligation"
+                ]
+              },
+              {
+                "name": "Contingency",
+                "price": "0%",
+                "period": " upfront",
+                "features": [
+                  "No fee unless we win",
+                  "Full case management",
+                  "Direct attorney access"
+                ],
+                "highlighted": true
+              },
+              {
+                "name": "Flat Fee",
+                "price": "Quoted",
+                "features": [
+                  "Transparent pricing",
+                  "Defined scope",
+                  "Document drafting"
+                ]
+              }
+            ]
+          },
+          {
+            "type": "ContactForm",
+            "heading": "Get in Touch",
+            "subhead": "Tell us what you need and we will be in touch shortly.",
+            "submitLabel": "Send Message",
+            "fields": [
+              {
+                "name": "name",
+                "label": "Name",
+                "kind": "text",
+                "required": true
+              },
+              {
+                "name": "email",
+                "label": "Email",
+                "kind": "email",
+                "required": true
+              },
+              {
+                "name": "phone",
+                "label": "Phone",
+                "kind": "tel",
+                "required": false
+              },
+              {
+                "name": "message",
+                "label": "How can we help?",
+                "kind": "textarea",
+                "required": true
+              }
+            ]
+          },
+          {
+            "type": "Footer",
+            "businessName": "Hernandez & Associates",
+            "tagline": "Experienced counsel you can trust",
+            "phone": "(555) 010-0199",
+            "email": "hello@example.com",
+            "address": "Serving your local area"
+          }
+        ]
+      }
+    ]
+  }
+}

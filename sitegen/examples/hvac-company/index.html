@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Austin HVAC Company — Fast, reliable service when you need it most</title>
+  <meta name="description" content="Austin HVAC company, 24/7 emergency repair, family owned">
+  <meta name="generator" content="SiteGen (Orbit) — schema-driven">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton:wght@400;700;900&amp;family=Archivo:wght@400;600&amp;display=swap">
+  <style>:root{--bg:#0f1419;--surface:#161d26;--text:#e8edf2;--muted:#9fb0c0;--primary:#22d3ee;--accent:#f59e0b;--on-primary:#06141a;--on-accent:#1a1205;--border:#2a3744;--font-heading:'Anton', 'Helvetica Neue', Arial, sans-serif;--font-body:'Archivo', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.6;font-size:17px}
+h1,h2,h3{font-family:var(--font-heading);line-height:1.1;margin:0 0 .4em}
+a{color:var(--primary)}
+.container{max-width:1080px;margin:0 auto;padding:0 24px}
+section{padding:72px 0;border-bottom:1px solid var(--border)}
+.section-heading{font-size:2rem;margin-bottom:1.2em;text-align:center}
+.btn{display:inline-block;text-decoration:none;font-weight:600;padding:14px 28px;border-radius:8px;border:none;cursor:pointer;font-size:1rem}
+.btn-primary{background:var(--primary);color:var(--on-primary)}
+.btn-primary:hover{filter:brightness(1.08)}
+/* Site nav */
+.site-nav{position:sticky;top:0;z-index:10;background:var(--surface);border-bottom:1px solid var(--border)}
+.site-nav .container{display:flex;align-items:center;justify-content:space-between;padding-top:16px;padding-bottom:16px}
+.nav-logo{font-family:var(--font-heading);font-weight:700;font-size:1.25rem;color:var(--text);text-decoration:none;letter-spacing:.02em}
+.nav-links{display:flex;gap:24px;flex-wrap:wrap}
+.nav-links a{color:var(--muted);text-decoration:none;font-weight:600;font-size:.95rem}
+.nav-links a:hover{color:var(--primary)}
+/* Hero */
+.hero{padding:120px 0;background:linear-gradient(135deg,var(--surface),var(--bg))}
+.hero-centered{text-align:center}
+.hero-banner{text-align:left}
+.hero-headline{font-size:clamp(2.4rem,6vw,4.2rem);color:var(--text)}
+.hero-subhead{font-size:1.25rem;color:var(--muted);max-width:640px;margin:0 auto 2em}
+.hero-banner .hero-subhead{margin-left:0}
+/* Features */
+.feature-list{display:grid;gap:28px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.features-list .feature-list{grid-template-columns:1fr;max-width:720px;margin:0 auto}
+.feature{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:28px}
+.feature-icon{font-size:1.8rem;margin-bottom:.4em}
+.feature-title{font-size:1.2rem;color:var(--text)}
+.feature-body{color:var(--muted);margin:0}
+/* Services */
+.service-list{display:grid;gap:24px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.services-rows .service-list{grid-template-columns:1fr}
+.service{background:var(--surface);border:1px solid var(--border);border-left:4px solid var(--accent);border-radius:10px;padding:24px}
+.service-name{font-size:1.25rem;color:var(--text)}
+.service-desc{color:var(--muted)}
+.service-price{font-weight:700;color:var(--accent);margin:0}
+/* Pricing */
+.tier-list{display:grid;gap:24px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.tier{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:32px;text-align:center}
+.tier-highlighted{border-color:var(--primary);box-shadow:0 0 0 2px var(--primary)}
+.tier-name{font-size:1.3rem;color:var(--text)}
+.tier-price{font-size:2.2rem;font-weight:800;color:var(--primary);margin:.2em 0 .8em}
+.tier-period{font-size:1rem;color:var(--muted);font-weight:400}
+.tier-features{list-style:none;padding:0;margin:0;color:var(--muted);text-align:left}
+.tier-features li{padding:8px 0;border-top:1px solid var(--border)}
+/* Testimonials */
+.testimonial-list{display:grid;gap:24px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+.testimonial{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:28px;margin:0}
+.testimonial-quote{margin:0 0 1em;font-style:italic;color:var(--text)}
+.testimonial-author{font-weight:700;color:var(--accent)}
+.testimonial-role{display:block;font-weight:400;color:var(--muted);font-size:.9rem}
+/* Contact */
+.contact-subhead{text-align:center;color:var(--muted);margin-bottom:2em}
+.contact-form{max-width:560px;margin:0 auto;display:grid;gap:18px}
+.form-row{display:grid;gap:6px}
+.form-row label{font-weight:600;color:var(--text)}
+.form-row input,.form-row textarea{padding:12px;border:1px solid var(--border);border-radius:8px;background:var(--bg);color:var(--text);font:inherit}
+/* Footer */
+.site-footer{padding:48px 0;text-align:center;background:var(--surface);border-bottom:none}
+.footer-brand{font-family:var(--font-heading);font-size:1.4rem;color:var(--text);margin:0}
+.footer-tagline{color:var(--muted);margin:.3em 0 1em}
+.footer-contact a{color:var(--primary);text-decoration:none}
+.footer-contact .dot{margin:0 10px;color:var(--muted)}
+.footer-legal{color:var(--muted);font-size:.85rem;margin-top:1.4em}
+</style>
+</head>
+<body data-vertical="home-services" data-hero="industrial">
+
+  <nav class="site-nav" aria-label="Primary">
+    <div class="container">
+      <a class="nav-logo" href="#">Austin HVAC Company</a>
+      <div class="nav-links"><a href="#services">Services</a><a href="#pricing">Pricing</a><a href="#testimonials">Reviews</a><a href="#contact">Contact</a></div>
+    </div>
+  </nav>
+<main>
+
+  <section class="hero hero-banner" aria-label="Hero">
+    <div class="container">
+      <h1 class="hero-headline">Austin HVAC Company</h1>
+      <p class="hero-subhead">Fast, reliable service when you need it most</p>
+      <a class="btn btn-primary" href="#contact">Request Service</a>
+    </div>
+  </section>
+
+  <section class="features features-grid" aria-label="Features">
+    <div class="container">
+      <h2 class="section-heading">Why Choose Us</h2>
+      <div class="feature-list">
+        <div class="feature">
+          <div class="feature-icon" aria-hidden="true">⚡</div>
+          <h3 class="feature-title">24/7 Emergency Service</h3>
+          <p class="feature-body">Real technicians on call around the clock, every day of the year.</p>
+        </div>
+        <div class="feature">
+          <div class="feature-icon" aria-hidden="true">🛠️</div>
+          <h3 class="feature-title">Licensed &amp; Insured</h3>
+          <p class="feature-body">Fully certified crews who treat your home with respect.</p>
+        </div>
+        <div class="feature">
+          <div class="feature-icon" aria-hidden="true">👨‍👩‍👧</div>
+          <h3 class="feature-title">Family Owned</h3>
+          <p class="feature-body">Local, trusted, and accountable to the community we serve.</p>
+        </div></div>
+    </div>
+  </section>
+
+  <section class="services services-cards" aria-label="Services">
+    <div class="container">
+      <h2 class="section-heading">What We Offer</h2>
+      <div class="service-list">
+        <article class="service">
+          <h3 class="service-name">Emergency Repairs</h3>
+          <p class="service-desc">24/7 response for urgent breakdowns — we are there when you need us.</p>
+          <p class="service-price">Free estimate</p>
+        </article>
+        <article class="service">
+          <h3 class="service-name">Installation</h3>
+          <p class="service-desc">Expert installation of new systems, done to code and built to last.</p>
+          <p class="service-price">From $99</p>
+        </article>
+        <article class="service">
+          <h3 class="service-name">Maintenance Plans</h3>
+          <p class="service-desc">Seasonal tune-ups that prevent failures and extend equipment life.</p>
+          <p class="service-price">$19/mo</p>
+        </article></div>
+    </div>
+  </section>
+
+  <section class="testimonials" aria-label="Testimonials">
+    <div class="container">
+      <h2 class="section-heading">What Clients Say</h2>
+      <div class="testimonial-list">
+        <figure class="testimonial">
+          <blockquote class="testimonial-quote">They showed up within the hour and had our heat back on by dinner. Lifesavers.</blockquote>
+          <figcaption class="testimonial-author">
+            Dana R.<span class="testimonial-role">Homeowner</span>
+          </figcaption>
+        </figure>
+        <figure class="testimonial">
+          <blockquote class="testimonial-quote">Honest pricing and no upsell. The only company we call now.</blockquote>
+          <figcaption class="testimonial-author">
+            Marcus T.<span class="testimonial-role">Homeowner</span>
+          </figcaption>
+        </figure></div>
+    </div>
+  </section>
+
+  <section class="pricing" aria-label="Pricing">
+    <div class="container">
+      <h2 class="section-heading">Plans &amp; Pricing</h2>
+      <div class="tier-list">
+        <div class="tier">
+          <h3 class="tier-name">Single Visit</h3>
+          <p class="tier-price">$89<span class="tier-period">/visit</span></p>
+          <ul class="tier-features"><li>Diagnostic inspection</li><li>Upfront pricing</li><li>Same-day where available</li></ul>
+        </div>
+        <div class="tier tier-highlighted">
+          <h3 class="tier-name">Comfort Plan</h3>
+          <p class="tier-price">$19<span class="tier-period">/mo</span></p>
+          <ul class="tier-features"><li>2 seasonal tune-ups</li><li>Priority scheduling</li><li>15% off repairs</li></ul>
+        </div>
+        <div class="tier">
+          <h3 class="tier-name">Total Care</h3>
+          <p class="tier-price">$39<span class="tier-period">/mo</span></p>
+          <ul class="tier-features"><li>Everything in Comfort</li><li>Parts &amp; labor coverage</li><li>No overtime fees</li></ul>
+        </div></div>
+    </div>
+  </section>
+
+  <section class="contact" aria-label="Contact">
+    <div class="container">
+      <h2 class="section-heading">Get in Touch</h2>
+      <p class="contact-subhead">Tell us what you need and we will be in touch shortly.</p>
+      <form class="contact-form" method="post" action="#" novalidate>
+        
+        <div class="form-row">
+          <label for="cf-name">Name</label>
+          <input id="cf-name" name="name" type="text" required>
+        </div>
+        <div class="form-row">
+          <label for="cf-email">Email</label>
+          <input id="cf-email" name="email" type="email" required>
+        </div>
+        <div class="form-row">
+          <label for="cf-phone">Phone</label>
+          <input id="cf-phone" name="phone" type="tel">
+        </div>
+        <div class="form-row">
+          <label for="cf-message">How can we help?</label>
+          <textarea id="cf-message" name="message" rows="4" required></textarea>
+        </div>
+        <button class="btn btn-primary" type="submit">Send Message</button>
+      </form>
+    </div>
+  </section>
+
+  <footer class="site-footer" aria-label="Footer">
+    <div class="container">
+      <p class="footer-brand">Austin HVAC Company</p>
+      <p class="footer-tagline">Fast, reliable service when you need it most</p>
+      <p class="footer-contact"><a href="tel:(555) 010-0199">(555) 010-0199</a><span class="dot" aria-hidden="true">&middot;</span><a href="mailto:hello@example.com">hello@example.com</a><span class="dot" aria-hidden="true">&middot;</span><span>Serving your local area</span></p>
+      <p class="footer-legal">&copy; 2026 Austin HVAC Company. All rights reserved.</p>
+    </div>
+  </footer>
+</main>
+</body>
+</html>

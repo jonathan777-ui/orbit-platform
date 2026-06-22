@@ -1,0 +1,191 @@
+{
+  "schemaVersion": "1.0",
+  "site": {
+    "name": "Austin HVAC Company",
+    "vertical": "home-services",
+    "locale": "en",
+    "theme": {
+      "palette": "cyan-amber",
+      "fontHeading": "Anton",
+      "fontBody": "Archivo",
+      "heroStyle": "industrial"
+    },
+    "nav": {
+      "logoText": "Austin HVAC Company",
+      "links": [
+        {
+          "label": "Services",
+          "href": "#services"
+        },
+        {
+          "label": "Pricing",
+          "href": "#pricing"
+        },
+        {
+          "label": "Reviews",
+          "href": "#testimonials"
+        },
+        {
+          "label": "Contact",
+          "href": "#contact"
+        }
+      ]
+    },
+    "pages": [
+      {
+        "path": "/",
+        "title": "Austin HVAC Company — Fast, reliable service when you need it most",
+        "meta": {
+          "description": "Austin HVAC company, 24/7 emergency repair, family owned"
+        },
+        "content": [
+          {
+            "type": "Hero",
+            "variant": "banner",
+            "headline": "Austin HVAC Company",
+            "subhead": "Fast, reliable service when you need it most",
+            "ctaLabel": "Request Service",
+            "ctaHref": "#contact"
+          },
+          {
+            "type": "Features",
+            "variant": "grid",
+            "heading": "Why Choose Us",
+            "items": [
+              {
+                "icon": "⚡",
+                "title": "24/7 Emergency Service",
+                "body": "Real technicians on call around the clock, every day of the year."
+              },
+              {
+                "icon": "🛠️",
+                "title": "Licensed & Insured",
+                "body": "Fully certified crews who treat your home with respect."
+              },
+              {
+                "icon": "👨‍👩‍👧",
+                "title": "Family Owned",
+                "body": "Local, trusted, and accountable to the community we serve."
+              }
+            ]
+          },
+          {
+            "type": "Services",
+            "variant": "cards",
+            "heading": "What We Offer",
+            "items": [
+              {
+                "name": "Emergency Repairs",
+                "description": "24/7 response for urgent breakdowns — we are there when you need us.",
+                "price": "Free estimate"
+              },
+              {
+                "name": "Installation",
+                "description": "Expert installation of new systems, done to code and built to last.",
+                "price": "From $99"
+              },
+              {
+                "name": "Maintenance Plans",
+                "description": "Seasonal tune-ups that prevent failures and extend equipment life.",
+                "price": "$19/mo"
+              }
+            ]
+          },
+          {
+            "type": "Testimonials",
+            "heading": "What Clients Say",
+            "items": [
+              {
+                "quote": "They showed up within the hour and had our heat back on by dinner. Lifesavers.",
+                "author": "Dana R.",
+                "role": "Homeowner"
+              },
+              {
+                "quote": "Honest pricing and no upsell. The only company we call now.",
+                "author": "Marcus T.",
+                "role": "Homeowner"
+              }
+            ]
+          },
+          {
+            "type": "PricingTable",
+            "heading": "Plans & Pricing",
+            "tiers": [
+              {
+                "name": "Single Visit",
+                "price": "$89",
+                "period": "/visit",
+                "features": [
+                  "Diagnostic inspection",
+                  "Upfront pricing",
+                  "Same-day where available"
+                ]
+              },
+              {
+                "name": "Comfort Plan",
+                "price": "$19",
+                "period": "/mo",
+                "features": [
+                  "2 seasonal tune-ups",
+                  "Priority scheduling",
+                  "15% off repairs"
+                ],
+                "highlighted": true
+              },
+              {
+                "name": "Total Care",
+                "price": "$39",
+                "period": "/mo",
+                "features": [
+                  "Everything in Comfort",
+                  "Parts & labor coverage",
+                  "No overtime fees"
+                ]
+              }
+            ]
+          },
+          {
+            "type": "ContactForm",
+            "heading": "Get in Touch",
+            "subhead": "Tell us what you need and we will be in touch shortly.",
+            "submitLabel": "Send Message",
+            "fields": [
+              {
+                "name": "name",
+                "label": "Name",
+                "kind": "text",
+                "required": true
+              },
+              {
+                "name": "email",
+                "label": "Email",
+                "kind": "email",
+                "required": true
+              },
+              {
+                "name": "phone",
+                "label": "Phone",
+                "kind": "tel",
+                "required": false
+              },
+              {
+                "name": "message",
+                "label": "How can we help?",
+                "kind": "textarea",
+                "required": true
+              }
+            ]
+          },
+          {
+            "type": "Footer",
+            "businessName": "Austin HVAC Company",
+            "tagline": "Fast, reliable service when you need it most",
+            "phone": "(555) 010-0199",
+            "email": "hello@example.com",
+            "address": "Serving your local area"
+          }
+        ]
+      }
+    ]
+  }
+}

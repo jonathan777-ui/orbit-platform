@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Airlock — AI Receptionist & Chatbot Demo</title>
+<style>
+  :root{
+    --bg:#0b1020;--panel:#121a2e;--panel-2:#172139;--line:#243150;
+    --text:#e8edf7;--muted:#9aa7c2;--accent:#5b8cff;--accent-2:#3a6ad6;
+    --good:#33c98a;--bad:#ff6b6b;--warn:#ffc857;--gold:#f5c451;--plat:#cdd6e6;--irid:#8ad6ff;
+    --shadow:0 10px 30px rgba(0,0,0,.35);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:radial-gradient(1200px 600px at 80% -10%,#1a2547 0%,var(--bg) 55%);color:var(--text);line-height:1.5}
+  header{display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:14px 22px;border-bottom:1px solid var(--line);
+    background:rgba(11,16,32,.7);backdrop-filter:blur(8px);position:sticky;top:0;z-index:30}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:18px}
+  .brand .dot{width:12px;height:12px;border-radius:50%;background:var(--accent);box-shadow:0 0 14px var(--accent)}
+  .grow{flex:1}
+  .pill{font-size:12px;color:var(--muted);display:flex;align-items:center;gap:7px;background:var(--panel-2);
+    border:1px solid var(--line);padding:6px 12px;border-radius:999px}
+  .pill .pip{width:8px;height:8px;border-radius:50%;background:var(--muted)}
+  .pill.listening .pip{background:var(--good);box-shadow:0 0 10px var(--good);animation:pulse 1s infinite}
+  .pill.thinking .pip{background:var(--warn);box-shadow:0 0 10px var(--warn)}
+  .pill.speaking .pip{background:var(--accent);box-shadow:0 0 10px var(--accent)}
+  .pill.error .pip{background:var(--bad)}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+  .wrap{max-width:880px;margin:0 auto;padding:20px}
+
+  .config{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px;margin-bottom:16px;box-shadow:var(--shadow)}
+  .config .row{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+  label{display:block;font-size:12px;color:var(--muted);margin-bottom:5px;font-weight:600}
+  input,select{width:100%;background:var(--panel-2);border:1px solid var(--line);color:var(--text);
+    padding:9px 11px;border-radius:9px;font-size:14px;outline:none}
+  input:focus,select:focus{border-color:var(--accent)}
+  .seg{display:flex;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+  .seg button{flex:1;background:var(--panel-2);border:none;color:var(--muted);padding:9px 12px;cursor:pointer;font-size:13px;font-weight:700}
+  .seg button.active{background:var(--accent);color:#fff}
+  .tierbadge{display:inline-block;padding:2px 9px;border-radius:999px;font-size:11px;font-weight:800;margin-left:6px}
+  .t-gold{background:rgba(245,196,81,.15);color:var(--gold);border:1px solid rgba(245,196,81,.4)}
+  .t-platinum{background:rgba(205,214,230,.12);color:var(--plat);border:1px solid rgba(205,214,230,.35)}
+  .t-iridium{background:rgba(138,214,255,.14);color:var(--irid);border:1px solid rgba(138,214,255,.4)}
+  details.adv{margin-top:10px}
+  details.adv summary{cursor:pointer;color:var(--accent);font-size:13px}
+  .hint{font-size:12px;color:var(--muted);margin-top:6px}
+
+  .stage{background:var(--panel);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);overflow:hidden;display:flex;flex-direction:column;min-height:54vh}
+  .transcript{flex:1;overflow:auto;padding:18px;display:flex;flex-direction:column;gap:12px}
+  .msg{max-width:80%;padding:10px 14px;border-radius:14px;font-size:14.5px;white-space:pre-wrap;word-wrap:break-word}
+  .msg.user{align-self:flex-end;background:linear-gradient(180deg,var(--accent),var(--accent-2));color:#fff;border-bottom-right-radius:4px}
+  .msg.bot{align-self:flex-start;background:var(--panel-2);border:1px solid var(--line);border-bottom-left-radius:4px}
+  .msg.interim{opacity:.6;font-style:italic}
+  .msg .who{font-size:11px;color:var(--muted);margin-bottom:3px;font-weight:700;text-transform:uppercase;letter-spacing:.4px}
+  .greet{align-self:center;color:var(--muted);font-size:13px;text-align:center;max-width:90%}
+
+  .composer{border-top:1px solid var(--line);padding:14px 16px;display:flex;gap:10px;align-items:center}
+  .composer input{flex:1}
+  .btn{border:1px solid var(--line);background:var(--panel-2);color:var(--text);padding:10px 16px;border-radius:10px;
+    cursor:pointer;font-size:14px;font-weight:700;transition:.15s;white-space:nowrap}
+  .btn:hover{border-color:var(--accent)}
+  .btn.primary{background:linear-gradient(180deg,var(--accent),var(--accent-2));border-color:transparent}
+  .btn:disabled{opacity:.5;cursor:not-allowed}
+  .mic{width:84px;height:84px;border-radius:50%;border:none;cursor:pointer;font-size:30px;color:#fff;
+    background:linear-gradient(180deg,var(--accent),var(--accent-2));box-shadow:0 8px 24px rgba(91,140,255,.4);transition:.2s}
+  .mic.live{background:linear-gradient(180deg,#ff6b6b,#c83a3a);box-shadow:0 8px 24px rgba(255,107,107,.45);animation:mglow 1.4s infinite}
+  @keyframes mglow{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
+  .voicebar{padding:22px;display:flex;flex-direction:column;align-items:center;gap:12px;border-top:1px solid var(--line)}
+  .voicebar .status{font-size:13px;color:var(--muted);min-height:18px}
+  .hidden{display:none!important}
+  #toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(20px);opacity:0;background:var(--panel-2);
+    border:1px solid var(--line);padding:11px 18px;border-radius:12px;box-shadow:var(--shadow);font-size:13.5px;transition:.25s;z-index:50;pointer-events:none;max-width:90%}
+  #toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand"><span class="dot"></span> Airlock Demo</div>
+  <span class="pill" id="statusPill"><span class="pip"></span><span id="statusText">Ready</span></span>
+  <div class="grow"></div>
+  <span class="pill" id="tierPill">Platinum</span>
+</header>
+
+<div class="wrap">
+  <div class="config">
+    <div class="row">
+      <div><label>Business name</label><input id="c_business" placeholder="Sunrise Dental"></div>
+      <div><label>Vertical</label><input id="c_vertical" placeholder="dental" list="verticals"></div>
+      <div><label>Niche (optional)</label><input id="c_niche" placeholder="cosmetic dentistry"></div>
+    </div>
+    <datalist id="verticals">
+      <option value="dental"><option value="medical"><option value="law firm"><option value="home services">
+      <option value="HVAC"><option value="restaurant"><option value="veterinary"><option value="real estate">
+      <option value="insurance"><option value="accounting"><option value="funeral"><option value="automotive">
+    </datalist>
+    <div class="row" style="margin-top:12px">
+      <div>
+        <label>Tier</label>
+        <select id="c_tier">
+          <option value="gold">Gold — base</option>
+          <option value="platinum" selected>Platinum — growth</option>
+          <option value="iridium">Iridium — premium</option>
+        </select>
+      </div>
+      <div>
+        <label>Language</label>
+        <select id="c_language">
+          <option value="en" selected>English</option>
+          <option value="es">Español</option>
+          <option value="bilingual">Bilingual (auto-detect)</option>
+        </select>
+      </div>
+      <div>
+        <label>Mode</label>
+        <div class="seg" id="modeSeg">
+          <button data-mode="chat" class="active">💬 Chatbot</button>
+          <button data-mode="voice">🎙️ Receptionist</button>
+        </div>
+      </div>
+    </div>
+    <details class="adv">
+      <summary>Advanced</summary>
+      <div style="margin-top:10px">
+        <label>API base URL (leave blank when hosted on the Worker)</label>
+        <input id="c_api" placeholder="https://orbit-platform.<your-subdomain>.workers.dev">
+        <div class="hint">Only needed if this page is hosted somewhere other than the Worker (e.g. GitHub Pages) — point it at your deployed Worker so /api/* resolves.</div>
+      </div>
+    </details>
+  </div>
+
+  <div class="stage">
+    <div class="transcript" id="transcript">
+      <div class="greet">Set the business + tier above, then start chatting or tap the mic. This demo runs on Grok + Deepgram Aura.</div>
+    </div>
+
+    <!-- Chat composer -->
+    <div class="composer" id="chatComposer">
+      <input id="chatInput" placeholder="Type a message…" autocomplete="off">
+      <button class="btn primary" id="sendBtn">Send</button>
+      <button class="btn" id="resetBtn" title="Clear conversation">Reset</button>
+    </div>
+
+    <!-- Voice bar -->
+    <div class="voicebar hidden" id="voiceBar">
+      <button class="mic" id="micBtn" title="Tap to talk">🎙️</button>
+      <div class="status" id="voiceStatus">Tap the mic and start talking — tap again to stop.</div>
+      <button class="btn" id="resetBtn2" title="Clear conversation">Reset</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+const $ = s => document.querySelector(s);
+const cfg = () => ({
+  business: $("#c_business").value.trim(),
+  vertical: $("#c_vertical").value.trim(),
+  niche: $("#c_niche").value.trim(),
+  tier: $("#c_tier").value,
+  language: $("#c_language").value,
+  mode: state.mode,
+  apiBase: $("#c_api").value.trim().replace(/\/+$/,"")
+});
+const api = path => (cfg().apiBase || "") + path;
+
+const state = { mode:"chat", messages:[], listening:false, speaking:false, ws:null, audioCtx:null, stream:null, node:null, token:null, currentAudio:null };
+
+function toast(m){ const t=$("#toast"); t.textContent=m; t.classList.add("show"); clearTimeout(t._t); t._t=setTimeout(()=>t.classList.remove("show"),3200); }
+function setStatus(s,label){ const p=$("#statusPill"); p.className="pill "+(s||""); $("#statusText").textContent=label||"Ready"; }
+
+/* ---------- Transcript ---------- */
+function addMsg(role, text, cls=""){
+  const t=$("#transcript");
+  const g=t.querySelector(".greet"); if(g) g.remove();
+  const d=document.createElement("div");
+  d.className="msg "+(role==="user"?"user":"bot")+(cls?" "+cls:"");
+  d.innerHTML=`<div class="who">${role==="user"?"You":"Agent"}</div>`+document.createTextNode(text).textContent;
+  // safe text:
+  d.lastChild && d.removeChild(d.lastChild);
+  const span=document.createElement("span"); span.textContent=text; d.appendChild(span);
+  t.appendChild(d); t.scrollTop=t.scrollHeight;
+  return d;
+}
+function clearConvo(){ state.messages=[]; $("#transcript").innerHTML='<div class="greet">Conversation cleared. Start again whenever you’re ready.</div>'; stopSpeaking(); }
+
+/* ---------- Tier pill ---------- */
+function refreshTierPill(){
+  const t=$("#c_tier").value;
+  const pill=$("#tierPill");
+  pill.textContent = t.charAt(0).toUpperCase()+t.slice(1);
+  pill.className="pill tierbadge t-"+t;
+}
+
+/* ---------- Chat (Grok) ---------- */
+async function sendText(text){
+  if(!text) return;
+  addMsg("user", text);
+  state.messages.push({role:"user", content:text});
+  setStatus("thinking","Thinking…");
+  try{
+    const r = await fetch(api("/api/chat"), {
+      method:"POST", headers:{"Content-Type":"application/json"},
+      body: JSON.stringify({ ...cfg(), messages: state.messages })
+    });
+    const data = await r.json();
+    if(!r.ok || data.error){ throw new Error(data.error || ("HTTP "+r.status)); }
+    const reply = data.reply || "(no response)";
+    addMsg("bot", reply);
+    state.messages.push({role:"assistant", content:reply});
+    setStatus("","Ready");
+    return reply;
+  }catch(e){
+    setStatus("error","Error");
+    toast("Chat failed: "+e.message+(/not set/.test(e.message)?" — set the API keys as Worker secrets.":""));
+    return null;
+  }
+}
+
+/* ---------- Voice: token, STT (Deepgram Nova-3 WS), TTS (Aura-2) ---------- */
+async function getToken(){
+  const r = await fetch(api("/api/deepgram/token"), { method:"POST" });
+  const data = await r.json();
+  if(!r.ok || data.error) throw new Error(data.error || ("token HTTP "+r.status));
+  state.voices = data; // includes tts/stt model config
+  return data.access_token;
+}
+
+async function startListening(){
+  try{
+    const token = await getToken();
+    const lang = (state.voices.stt_language||{})[cfg().language] || "en";
+    const sttModel = state.voices.stt_model || "nova-3";
+    state.stream = await navigator.mediaDevices.getUserMedia({ audio:{ channelCount:1, echoCancellation:true, noiseSuppression:true } });
+    state.audioCtx = new (window.AudioContext||window.webkitAudioContext)({ sampleRate:16000 });
+
+    const url = `wss://api.deepgram.com/v1/listen?model=${sttModel}&language=${lang}`
+      + `&smart_format=true&interim_results=true&encoding=linear16&sample_rate=16000&punctuate=true&endpointing=300`;
+    const ws = new WebSocket(url, ["token", token]);
+    state.ws = ws;
+    ws.binaryType = "arraybuffer";
+
+    ws.onopen = async () => {
+      setStatus("listening","Listening…");
+      $("#voiceStatus").textContent = "Listening — speak now.";
+      // AudioWorklet that ships Float32 frames to the main thread.
+      const workletCode = `
+        class P extends AudioWorkletProcessor{
+          process(inputs){ const ch=inputs[0][0]; if(ch) this.port.postMessage(ch.slice(0)); return true; }
+        } registerProcessor('pcm', P);`;
+      const blobURL = URL.createObjectURL(new Blob([workletCode], {type:"application/javascript"}));
+      await state.audioCtx.audioWorklet.addModule(blobURL);
+      const src = state.audioCtx.createMediaStreamSource(state.stream);
+      state.node = new AudioWorkletNode(state.audioCtx, "pcm");
+      state.node.port.onmessage = (e)=>{
+        if(ws.readyState!==1) return;
+        const f32 = e.data; const i16 = new Int16Array(f32.length);
+        for(let i=0;i<f32.length;i++){ let s=Math.max(-1,Math.min(1,f32[i])); i16[i]=s<0?s*0x8000:s*0x7FFF; }
+        ws.send(i16.buffer);
+      };
+      src.connect(state.node);
+      // Keep the node alive without audible output.
+      const sink = state.audioCtx.createGain(); sink.gain.value=0; state.node.connect(sink); sink.connect(state.audioCtx.destination);
+    };
+
+    let interimEl=null;
+    ws.onmessage = (evt)=>{
+      let m; try{ m=JSON.parse(evt.data); }catch{ return; }
+      const alt = m.channel?.alternatives?.[0];
+      if(!alt) return;
+      const txt = (alt.transcript||"").trim();
+      if(!txt) return;
+      // Barge-in: caller spoke while agent talking -> stop TTS.
+      if(state.speaking) stopSpeaking();
+      if(m.is_final){
+        if(interimEl){ interimEl.remove(); interimEl=null; }
+        handleFinalUtterance(txt);
+      } else {
+        if(!interimEl){ interimEl=addMsg("user","",""); interimEl.classList.add("interim"); }
+        interimEl.querySelector("span").textContent = txt;
+        $("#transcript").scrollTop = $("#transcript").scrollHeight;
+      }
+    };
+    ws.onerror = ()=>{ toast("Deepgram socket error"); };
+    ws.onclose = ()=>{ if(state.listening){ /* unexpected */ } };
+    state.listening = true;
+    $("#micBtn").classList.add("live");
+  }catch(e){
+    setStatus("error","Error");
+    toast("Mic/STT failed: "+e.message+(/not set/.test(e.message)?" — set DEEPGRAM_API_KEY.":""));
+    stopListening();
+  }
+}
+
+let utteranceLock=false;
+async function handleFinalUtterance(txt){
+  if(utteranceLock) return; // avoid overlapping turns
+  utteranceLock=true;
+  const reply = await sendText(txt);
+  if(reply) await speak(reply);
+  utteranceLock=false;
+}
+
+function stopListening(){
+  state.listening=false;
+  $("#micBtn").classList.remove("live");
+  try{ state.node && state.node.disconnect(); }catch{}
+  try{ state.stream && state.stream.getTracks().forEach(t=>t.stop()); }catch{}
+  try{ state.ws && state.ws.readyState===1 && state.ws.send(JSON.stringify({type:"CloseStream"})); }catch{}
+  try{ state.ws && state.ws.close(); }catch{}
+  try{ state.audioCtx && state.audioCtx.close(); }catch{}
+  state.ws=null; state.node=null; state.stream=null; state.audioCtx=null;
+  if(!state.speaking) setStatus("","Ready");
+  $("#voiceStatus").textContent="Tap the mic and start talking — tap again to stop.";
+}
+
+async function speak(text){
+  try{
+    const token = await getToken();
+    const voice = (state.voices.tts||{})[cfg().language] || (state.voices.tts||{}).en || "aura-2-thalia-en";
+    setStatus("speaking","Speaking…");
+    state.speaking=true;
+    const r = await fetch(`https://api.deepgram.com/v1/speak?model=${voice}&encoding=mp3`, {
+      method:"POST",
+      headers:{ "Authorization":"Bearer "+token, "Content-Type":"application/json" },
+      body: JSON.stringify({ text })
+    });
+    if(!r.ok){ throw new Error("TTS HTTP "+r.status); }
+    const buf = await r.arrayBuffer();
+    const blob = new Blob([buf], {type:"audio/mpeg"});
+    const audio = new Audio(URL.createObjectURL(blob));
+    state.currentAudio = audio;
+    audio.onended = ()=>{ state.speaking=false; state.currentAudio=null; if(state.listening) setStatus("listening","Listening…"); else setStatus("","Ready"); };
+    await audio.play();
+  }catch(e){
+    state.speaking=false;
+    toast("TTS failed: "+e.message);
+    if(state.listening) setStatus("listening","Listening…"); else setStatus("","Ready");
+  }
+}
+function stopSpeaking(){
+  if(state.currentAudio){ try{ state.currentAudio.pause(); }catch{} state.currentAudio=null; }
+  state.speaking=false;
+}
+
+/* ---------- Mode switching ---------- */
+function setMode(mode){
+  state.mode=mode;
+  document.querySelectorAll("#modeSeg button").forEach(b=>b.classList.toggle("active", b.dataset.mode===mode));
+  $("#chatComposer").classList.toggle("hidden", mode!=="chat");
+  $("#voiceBar").classList.toggle("hidden", mode!=="voice");
+  if(mode!=="voice" && state.listening) stopListening();
+}
+
+/* ---------- Events ---------- */
+$("#sendBtn").onclick = ()=>{ const v=$("#chatInput").value.trim(); if(v){ $("#chatInput").value=""; sendText(v); } };
+$("#chatInput").addEventListener("keydown", e=>{ if(e.key==="Enter"){ e.preventDefault(); $("#sendBtn").click(); } });
+$("#resetBtn").onclick = clearConvo;
+$("#resetBtn2").onclick = clearConvo;
+$("#c_tier").onchange = refreshTierPill;
+document.querySelectorAll("#modeSeg button").forEach(b=> b.onclick=()=>setMode(b.dataset.mode));
+$("#micBtn").onclick = ()=>{ if(state.listening){ stopListening(); } else { startListening(); } };
+window.addEventListener("beforeunload", ()=>{ if(state.listening) stopListening(); });
+
+refreshTierPill();
+</script>
+</body>
+</html>

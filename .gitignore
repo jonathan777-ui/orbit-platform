@@ -8,3 +8,6 @@ __pycache__/
 # The built site/_site is committed so Cloudflare Workers can deploy it without
 # a build step. Rebuild after content changes with `python site/build.py`.
 site/*.zip
+
+# Cloudflare Worker local secrets
+.dev.vars

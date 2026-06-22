@@ -9,10 +9,18 @@
 # The build command must run first so ./site/_site exists for wrangler to upload.
 
 name = "orbit-platform"
+main = "worker/index.js"
 compatibility_date = "2026-06-01"
 
+# Static site is served through the Worker via this binding (env.ASSETS).
+# API routes (/api/*) are handled by worker/index.js; everything else falls
+# through to these assets.
 [assets]
 directory = "./site/_site"
-# Serve clean URLs and a 404 fallback from the generated pages.
+binding = "ASSETS"
 html_handling = "auto-trailing-slash"
 not_found_handling = "404-page"
+
+# Secrets (NOT stored here — set them once per environment):
+#   npx wrangler secret put XAI_API_KEY
+#   npx wrangler secret put DEEPGRAM_API_KEY

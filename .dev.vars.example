@@ -1,0 +1,8 @@
+# Local Worker dev secrets. Copy to .dev.vars (git-ignored) for `npx wrangler dev`.
+# In production these are set with `npx wrangler secret put <NAME>` — never commit real keys.
+
+# xAI / Grok — https://console.x.ai  (Create API key)
+XAI_API_KEY=xai-...
+
+# Deepgram — https://console.deepgram.com  (API Keys → Create, Member role or higher)
+DEEPGRAM_API_KEY=...

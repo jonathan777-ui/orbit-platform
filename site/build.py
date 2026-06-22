@@ -152,15 +152,19 @@ def build() -> None:
         page = PAGE.format(title=html.escape(title), navhtml=nav_for(out_name), body=body)
         (OUT / out_name).write_text(page, encoding="utf-8")
 
-    # Also publish the standalone Lead Desk CRM at /lead-desk.html
-    crm = ROOT / "lead-desk.html"
-    if crm.exists():
-        shutil.copy2(crm, OUT / "lead-desk.html")
+    # Also publish the standalone single-file apps at the site root.
+    extras = ["lead-desk.html", "voice-demo.html"]
+    copied = []
+    for name in extras:
+        p = ROOT / name
+        if p.exists():
+            shutil.copy2(p, OUT / name)
+            copied.append(name)
 
     # Disable Jekyll processing on Pages.
     (OUT / ".nojekyll").write_text("", encoding="utf-8")
     print(f"Built {len(metas)} pages into {OUT}"
-          + (" (+ lead-desk.html)" if crm.exists() else ""))
+          + (" (+ " + ", ".join(copied) + ")" if copied else ""))
 
 
 if __name__ == "__main__":

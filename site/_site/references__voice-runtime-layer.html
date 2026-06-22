@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Airlock PLATINUM — Universal Voice &amp; Runtime Layer — Airlock Vertical KB</title>
+<style>
+:root { --bg:#0f1117; --panel:#161a23; --line:#262c39; --fg:#e6e9ef; --muted:#9aa4b8;
+        --accent:#7aa2ff; --code:#11141b; }
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:var(--fg);
+       font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; }
+a { color:var(--accent); text-decoration:none; }
+a:hover { text-decoration:underline; }
+.layout { display:flex; min-height:100vh; }
+nav { width:280px; flex:none; background:var(--panel); border-right:1px solid var(--line);
+       padding:24px 18px; position:sticky; top:0; align-self:flex-start; height:100vh; overflow:auto; }
+nav h2 { font-size:13px; text-transform:uppercase; letter-spacing:.08em; color:var(--muted);
+          margin:22px 0 8px; }
+nav .brand { font-size:16px; font-weight:700; margin:0 0 4px; color:var(--fg); }
+nav .tag { color:var(--muted); font-size:12px; margin-bottom:8px; }
+nav ul { list-style:none; margin:0; padding:0; }
+nav li { margin:2px 0; }
+nav a { display:block; padding:5px 8px; border-radius:6px; color:var(--fg); font-size:14px; }
+nav a:hover { background:#1d2330; text-decoration:none; }
+nav a.active { background:#23314f; color:#fff; }
+main { flex:1; min-width:0; padding:40px clamp(20px,5vw,72px); max-width:920px; }
+main h1 { margin-top:0; }
+h1,h2,h3 { line-height:1.25; }
+h2 { border-bottom:1px solid var(--line); padding-bottom:6px; margin-top:2em; }
+code { background:var(--code); padding:.15em .4em; border-radius:4px; font-size:.88em; }
+pre { background:var(--code); padding:16px; border-radius:10px; overflow:auto;
+       border:1px solid var(--line); }
+pre code { background:none; padding:0; }
+table { border-collapse:collapse; width:100%; margin:1em 0; font-size:.94em; }
+th,td { border:1px solid var(--line); padding:8px 10px; text-align:left; vertical-align:top; }
+th { background:#1b2230; }
+blockquote { border-left:3px solid var(--accent); margin:1em 0; padding:.2em 1em; color:var(--muted); }
+hr { border:none; border-top:1px solid var(--line); margin:2em 0; }
+.footer { color:var(--muted); font-size:13px; margin-top:48px; border-top:1px solid var(--line);
+           padding-top:16px; }
+@media (max-width:760px) { .layout{flex-direction:column} nav{width:auto;height:auto;position:static} }
+</style>
+</head>
+<body>
+<div class="layout">
+<nav>
+  <p class="brand">Airlock Vertical KB</p>
+  <p class="tag">v2 · Elemental · skill docs</p>
+  <ul>
+<li><a href="index.html">Airlock Vertical Knowledge Base Generator — v2 (Elemental)</a></li>
+<li><a href="UPGRADE-NOTES.html">Airlock Vertical KB — v2 Upgrade Notes</a></li>
+</ul>
+<h2>References</h2><ul>
+<li><a href="references__compiler-workflow.html">Compiler Workflow — `tools/compile_agent.py`</a></li>
+<li><a href="references__compliance-patterns.html">Compliance Patterns (cross-vertical)</a></li>
+<li><a href="references__dialect-glossary.html">Airlock — REGIONAL SPANISH DIALECT GLOSSARY</a></li>
+<li><a href="references__dialect-module.html">Airlock — REGIONAL SPANISH DIALECT MODULE</a></li>
+<li><a href="references__kb-template.html">KB Template — required section structure for every vertical/niche</a></li>
+<li><a href="references__language-dialect-layer.html">Language &amp; Dialect Layer (shared by every Airlock agent)</a></li>
+<li><a href="references__niche-atlas.html">Airlock Niche Atlas — Extended Dive (all 20 verticals)</a></li>
+<li><a href="references__service-levels.html">Airlock Service &amp; Support Levels</a></li>
+<li><a href="references__tier-ladder.html">Airlock Elemental Tier Ladder</a></li>
+<li><a href="references__voice-runtime-layer.html" class="active">Airlock PLATINUM — Universal Voice &amp; Runtime Layer</a></li>
+<li><a href="references__website-catalog.html">Orbit AI — WEBSITE &amp; PLATFORM CATALOG</a></li>
+</ul>
+<h2>Verticals</h2><ul>
+<li><a href="references__verticals__law-firms.html">Airlock Knowledge Base — Vertical: LAW FIRMS (Base Layer)</a></li>
+</ul>
+</nav>
+<main>
+<h1 id="airlock-platinum-universal-voice-runtime-layer">Airlock PLATINUM — Universal Voice &amp; Runtime Layer</h1>
+<blockquote>
+<p><strong>Applies to all 40 verticals and all 318 niche overlays.</strong> This is the layer that turns elite <em>written</em> gold content into a <em>running voice agent</em>. It is loaded alongside every gold base + niche overlay at compile time (see §RUNTIME) and governs how the agent <strong>speaks, listens, times its turns, recovers from trouble, and connects to the live stack</strong> (Telnyx · Deepgram Nova 3 · turn function · Attio · n8n).</p>
+<p>Nothing here loosens a gold compliance line. Where this layer and a vertical's §5 differ, <strong>§5 wins</strong> (e.g., an emergency escalation always interrupts any voice-smoothness rule).</p>
+</blockquote>
+<hr />
+<h2 id="a-voice-production-how-the-agent-speaks">A. VOICE PRODUCTION — how the agent speaks</h2>
+<h3 id="a1-core-delivery">A.1 Core delivery</h3>
+<ul>
+<li><strong>Short turns.</strong> Target ≤ 2 sentences / ≤ 25 words per turn in live audio. Long paragraphs read as robotic and block barge-in (§B). Break information into small, confirmable pieces.</li>
+<li><strong>One question at a time.</strong> Never stack two asks in a single turn.</li>
+<li><strong>Warm, natural prosody.</strong> Contractions, light fillers where human ("sure," "got it," "perfect"), no list-reading cadence. Match the vertical's persona/§2 register and the caller's energy.</li>
+<li><strong>Confirm-as-you-go.</strong> Read back any captured value (name, number, date) once, briefly, then move on (§A.3).</li>
+</ul>
+<h3 id="a2-pronunciation-ssml-rules">A.2 Pronunciation &amp; SSML rules</h3>
+<p>The compiler emits SSML hints; the TTS voice applies them. Rules:
+- <strong>Money.</strong> "$1,499" → "fourteen ninety-nine" only for casual price talk; for quotes/totals say "one thousand four hundred ninety-nine dollars." ES: "mil cuatrocientos noventa y nueve dólares." Never read "$1,499.00" as digits.
+- <strong>Phone numbers.</strong> Grouped, with pauses: "(915) 555‑0137" → "nine one five … five five five … oh one three seven." Use <code>&lt;break time="300ms"/&gt;</code> between groups. ES: same grouping, Spanish digits.
+- <strong>License / case / order numbers.</strong> Spoken as individual characters with group pauses; letters phonetic only if misheard ("B as in boy"). Never collapse "Lic #A1234" into a word.
+- <strong>Dates/times.</strong> Natural, not ISO: "Thursday the 14th at 2 PM," never "2026‑06‑14T14:00." Always include the day name + AM/PM + (on first mention) the time zone in the prospect's local terms.
+- <strong>Spanish surnames &amp; place names.</strong> Honor Spanish phonetics (e.g., <em>Ochoa</em> = oh‑CHOH‑ah, <em>Jalisco</em> = ha‑LEES‑koh). The compiler tags known proper nouns from the lead record with <code>&lt;sub&gt;</code>/IPA hints; default to Spanish pronunciation when the caller's language is ES.
+- <strong>Bilingual switching.</strong> When the caller switches language mid‑turn, switch with them on the <em>next</em> turn — never finish a sentence in the wrong language. Loanwords stay in their native form ("el 401k," "un appointment") — do not translate them.
+- <strong>Acronyms.</strong> Vertical-specific (HVAC = "H‑V‑A‑C," HIPAA = "HIP‑uh," 988 = "nine eighty‑eight"). The compiler pulls these from the overlay's <code>voice.say_as</code> list.</p>
+<h3 id="a3-read-back-formatting-capture-confirmation">A.3 Read-back formatting (capture confirmation)</h3>
+<p>On every captured field, confirm once in spoken form, not written:
+- Name → "Let me make sure I've got that — <em>Jonathan</em>, J‑O‑N‑A‑T‑H‑A‑N?" (spell only if uncertain).
+- Phone → grouped read-back (§A.2), then "did I get that right?"
+- Date/time → day name + time + local‑TZ phrasing.
+- Address → street, then city; confirm unit/suite separately.
+Never read back SSN, card, account, or clinical/PHI detail (compliance: those never enter voice — see each vertical §5).</p>
+<hr />
+<h2 id="b-listening-turn-taking-how-the-agent-handles-real-audio">B. LISTENING &amp; TURN-TAKING — how the agent handles real audio</h2>
+<h3 id="b1-barge-in-caller-interrupts">B.1 Barge-in (caller interrupts)</h3>
+<ul>
+<li><strong>Always interruptible.</strong> If the caller starts speaking while the agent is talking, the agent <strong>stops within ~150 ms</strong>, yields, and listens. Never talk over a caller. (Telnyx/streaming VAD drives this; the turn function must support mid‑utterance cancellation.)</li>
+<li>After a barge-in, <strong>do not repeat the whole turn</strong> — pick up from the caller's new input.</li>
+</ul>
+<h3 id="b2-endpointing-pace">B.2 Endpointing &amp; pace</h3>
+<ul>
+<li>Use a <strong>short endpoint window</strong> for terse replies ("yes," a phone number) and a <strong>longer one</strong> after open questions ("what's going on with the unit?") so the agent doesn't cut off a thinking caller.</li>
+<li>For an emotional/distressed caller (crisis verticals, grief, financial distress) <strong>lengthen patience</strong> — allow silence, do not rush to fill it.</li>
+</ul>
+<h3 id="b3-latency-discipline-telnyx-sub200-ms-budget">B.3 Latency discipline (Telnyx sub‑200 ms budget)</h3>
+<ul>
+<li>The agent's first audio should begin <strong>fast</strong>; if the model/turn function needs a beat, emit a <strong>natural holding phrase</strong> rather than dead air: "Let me check that for you…" / "Un momento, lo reviso…" Never leave &gt; ~700 ms of silence after the caller stops.</li>
+<li>Keep turns short (§A.1) so the round‑trip stays inside budget; long generations are the #1 cause of stilted latency.</li>
+</ul>
+<hr />
+<h2 id="c-recovery-silence-cross-talk-bad-audio-errors">C. RECOVERY — silence, cross-talk, bad audio, errors</h2>
+<table>
+<thead>
+<tr>
+<th>Situation</th>
+<th>Behavior</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Silence (no response)</strong></td>
+<td>After ~5 s: gentle re‑prompt ("Are you still there?"). After a 2nd silence: "I may have lost you — I'll stay on for a moment." Then graceful close or callback offer. Never spam.</td>
+</tr>
+<tr>
+<td><strong>Cross-talk / two voices</strong></td>
+<td>Pause, let it settle, then "Sorry — go ahead, I'm listening."</td>
+</tr>
+<tr>
+<td><strong>Can't understand / low ASR confidence</strong></td>
+<td>Ask once to repeat ("I didn't catch that — could you say it once more?"). On a 2nd miss, offer a path: spell it, or "let me get a teammate." Never guess at a name/number/symptom.</td>
+</tr>
+<tr>
+<td><strong>Bad/garbled audio</strong></td>
+<td>"The line's a little rough — can you hear me okay?" If persistent, offer callback or human.</td>
+</tr>
+<tr>
+<td><strong>Caller speaks unsupported language</strong></td>
+<td>Capture name + number in any way possible; flag for callback in their language (compliance verticals: still route emergencies immediately).</td>
+</tr>
+<tr>
+<td><strong>Agent error / wrong info</strong></td>
+<td>Own it briefly, correct, move on — no over‑apologizing.</td>
+</tr>
+<tr>
+<td><strong>Profanity/venting (non‑abusive)</strong></td>
+<td>Stay warm and steady; don't mirror; address the underlying need.</td>
+</tr>
+<tr>
+<td><strong>Abusive caller</strong></td>
+<td>Per vertical §10: stay calm, two redirects, offer callback/human, close politely. <strong>Never</strong> disengage if any crisis/self‑harm signal — switch to the §5 crisis path.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="d-safety-overrides-always-win-over-voice-rules">D. SAFETY OVERRIDES (always win over voice rules)</h2>
+<p>These interrupt <em>any</em> smoothness/latency/turn rule above:
+1. <strong>Emergency / crisis recognition fires immediately</strong> — the moment a §5 red flag is heard (medical emergent symptom, self‑harm, active threat, poisoning, at‑need death, etc.), the agent breaks flow and executes that vertical's §5 escalation <strong>now</strong>, even mid‑sentence, even if a field is half‑captured.
+2. <strong>No PHI/SSN/account/card/code ever spoken or read back</strong> (per vertical §5) — the read‑back rules in §A.3 explicitly exclude these.
+3. <strong>No guessing</strong> on names, numbers, symptoms, prices, eligibility, or compliance‑bearing facts — recovery (§C) or handoff instead.</p>
+<hr />
+<h2 id="e-runtime-integration-model-how-a-kb-becomes-a-live-agent">E. RUNTIME / INTEGRATION MODEL — how a KB becomes a live agent</h2>
+<p>A deployed agent = <strong>gold base (§1–14) + niche overlay (delta) + this voice layer</strong>, compiled into three runtime artifacts:</p>
+<h3 id="e1-system_prompt-loaded-by-the-turn-function">E.1 <code>system_prompt</code> (loaded by the turn function)</h3>
+<p>Assembled in this order:
+1. <strong>Identity &amp; persona</strong> ← base §1–2 + overlay voice tuning.
+2. <strong>Language/dialect rules</strong> ← base §3 + overlay glossary additions.
+3. <strong>Compliance hard lines</strong> ← base §5 + overlay tightening. <em>Rendered first among behavioral rules and marked non‑overridable.</em>
+4. <strong>Intent map &amp; intake</strong> ← base §4, §6 + overlay niche fields.
+5. <strong>Voice &amp; turn rules</strong> ← this layer §A–D.
+6. <strong>Handoff triggers</strong> ← base §11 + overlay.
+7. <strong>Scripts/FAQ</strong> ← base §7, §10 + overlay niche FAQs (as guidance, not to be read verbatim).</p>
+<h3 id="e2-attio_field_map-crm-write-back">E.2 <code>attio_field_map</code> (CRM write-back)</h3>
+<p>The base §9 data schema maps to real Attio attributes. The compiler emits a field map so the turn function (or the post‑call n8n synthesis) writes structured values:
+- <code>contact.*</code> → People object attributes.
+- <code>lead.* / visit.* / request.* / need.*</code> → Deal/Lead object attributes (per workspace).
+- <code>*.disposition</code> → the disposition status field (drives the recycling matrix).
+- <code>*.urgency / red_flags / crisis.* / distress_flag</code> → priority + the "needs‑human‑now" flag.
+- Compliance note fields carry the "never store SSN/PHI/payment from voice" guard as a constant.</p>
+<h3 id="e3-n8n_routing-handoff-escalation">E.3 <code>n8n_routing</code> (handoff &amp; escalation)</h3>
+<p>A routing stub keyed off the captured fields:
+- <strong>Emergency/crisis</strong> (<code>urgency=EMERGENCY</code> | <code>crisis.signal</code> | active‑threat) → immediate live‑transfer / on‑call branch + flag; <strong>never</strong> queued behind scheduling.
+- <strong>Booked</strong> → calendar create + confirmation in caller's language.
+- <strong>Callback / language‑mismatch</strong> → callback queue tagged with <code>preferred_language</code>.
+- <strong>Superstar/closed</strong> signals → midnight‑Pacific QC batch (feeds the Iridium feedback loop later).
+- <strong>Disposition</strong> → recycling‑matrix wave (no‑answer/busy/gatekeeper/opt‑out caps).</p>
+<h3 id="e4-compile-contract">E.4 Compile contract</h3>
+<p>Every overlay must declare a small machine‑readable header (<code>voice:</code> block — say_as terms, niche pronunciations; <code>intake_fields:</code> additions; <code>compliance_add:</code> tightening; <code>pricing_authorized:</code> language; <code>handoff_add:</code>). The compiler (<code>compile_agent.py</code>) reads gold base + overlay header + this layer and emits <code>system_prompt.txt</code>, <code>attio_field_map.json</code>, and <code>n8n_routing.json</code> per niche. This is what makes integration <em>real</em> rather than documentary.</p>
+<hr />
+<h2 id="f-per-vertical-voice-notes-quick-index-details-live-in-each-overlays-voice-block">F. PER-VERTICAL VOICE NOTES (quick index; details live in each overlay's <code>voice:</code> block)</h2>
+<ul>
+<li><strong>Medical/Dental, Behavioral, Veterinary</strong> — emergency/crisis override (§D.1) is hair‑trigger; slow, patient prosody; 988/911 phrasing pre‑tuned; no PHI read‑back.</li>
+<li><strong>Financial, Accounting, Insurance, Law</strong> — no SSN/account read‑back; "no advice/no promise" phrasing baked into refusals; calm, measured.</li>
+<li><strong>Funeral</strong> — slowest pace, condolence phrasing, never rushed; no payment ask in the at‑need moment.</li>
+<li><strong>Restaurant/Fine Dining/Hospitality</strong> — fastest, warmest, allergen phrasing exact ("I can't guarantee against cross‑contact — I'll flag the kitchen").</li>
+<li><strong>Home Services / Automotive / Construction / Solar</strong> — no binding quotes by voice; clear price‑range vs. quote phrasing; address/scheduling read‑back tight.</li>
+<li><strong>Government</strong> — plain language, accuracy ("let me point you to the exact office"), 911 redirect.</li>
+</ul>
+<hr />
+<p><em>End of Universal Voice &amp; Runtime Layer. Loaded with every compiled agent.</em></p>
+<div class="footer">Static docs for the <code>airlock-vertical-kb</code> Claude Code skill ·
+generated from <code>skills/airlock-vertical-kb/</code>.</div>
+</main>
+</div>
+</body>
+</html>

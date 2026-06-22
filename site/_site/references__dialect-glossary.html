@@ -1,0 +1,618 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Airlock — REGIONAL SPANISH DIALECT GLOSSARY — Airlock Vertical KB</title>
+<style>
+:root { --bg:#0f1117; --panel:#161a23; --line:#262c39; --fg:#e6e9ef; --muted:#9aa4b8;
+        --accent:#7aa2ff; --code:#11141b; }
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:var(--fg);
+       font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; }
+a { color:var(--accent); text-decoration:none; }
+a:hover { text-decoration:underline; }
+.layout { display:flex; min-height:100vh; }
+nav { width:280px; flex:none; background:var(--panel); border-right:1px solid var(--line);
+       padding:24px 18px; position:sticky; top:0; align-self:flex-start; height:100vh; overflow:auto; }
+nav h2 { font-size:13px; text-transform:uppercase; letter-spacing:.08em; color:var(--muted);
+          margin:22px 0 8px; }
+nav .brand { font-size:16px; font-weight:700; margin:0 0 4px; color:var(--fg); }
+nav .tag { color:var(--muted); font-size:12px; margin-bottom:8px; }
+nav ul { list-style:none; margin:0; padding:0; }
+nav li { margin:2px 0; }
+nav a { display:block; padding:5px 8px; border-radius:6px; color:var(--fg); font-size:14px; }
+nav a:hover { background:#1d2330; text-decoration:none; }
+nav a.active { background:#23314f; color:#fff; }
+main { flex:1; min-width:0; padding:40px clamp(20px,5vw,72px); max-width:920px; }
+main h1 { margin-top:0; }
+h1,h2,h3 { line-height:1.25; }
+h2 { border-bottom:1px solid var(--line); padding-bottom:6px; margin-top:2em; }
+code { background:var(--code); padding:.15em .4em; border-radius:4px; font-size:.88em; }
+pre { background:var(--code); padding:16px; border-radius:10px; overflow:auto;
+       border:1px solid var(--line); }
+pre code { background:none; padding:0; }
+table { border-collapse:collapse; width:100%; margin:1em 0; font-size:.94em; }
+th,td { border:1px solid var(--line); padding:8px 10px; text-align:left; vertical-align:top; }
+th { background:#1b2230; }
+blockquote { border-left:3px solid var(--accent); margin:1em 0; padding:.2em 1em; color:var(--muted); }
+hr { border:none; border-top:1px solid var(--line); margin:2em 0; }
+.footer { color:var(--muted); font-size:13px; margin-top:48px; border-top:1px solid var(--line);
+           padding-top:16px; }
+@media (max-width:760px) { .layout{flex-direction:column} nav{width:auto;height:auto;position:static} }
+</style>
+</head>
+<body>
+<div class="layout">
+<nav>
+  <p class="brand">Airlock Vertical KB</p>
+  <p class="tag">v2 · Elemental · skill docs</p>
+  <ul>
+<li><a href="index.html">Airlock Vertical Knowledge Base Generator — v2 (Elemental)</a></li>
+<li><a href="UPGRADE-NOTES.html">Airlock Vertical KB — v2 Upgrade Notes</a></li>
+</ul>
+<h2>References</h2><ul>
+<li><a href="references__compiler-workflow.html">Compiler Workflow — `tools/compile_agent.py`</a></li>
+<li><a href="references__compliance-patterns.html">Compliance Patterns (cross-vertical)</a></li>
+<li><a href="references__dialect-glossary.html" class="active">Airlock — REGIONAL SPANISH DIALECT GLOSSARY</a></li>
+<li><a href="references__dialect-module.html">Airlock — REGIONAL SPANISH DIALECT MODULE</a></li>
+<li><a href="references__kb-template.html">KB Template — required section structure for every vertical/niche</a></li>
+<li><a href="references__language-dialect-layer.html">Language &amp; Dialect Layer (shared by every Airlock agent)</a></li>
+<li><a href="references__niche-atlas.html">Airlock Niche Atlas — Extended Dive (all 20 verticals)</a></li>
+<li><a href="references__service-levels.html">Airlock Service &amp; Support Levels</a></li>
+<li><a href="references__tier-ladder.html">Airlock Elemental Tier Ladder</a></li>
+<li><a href="references__voice-runtime-layer.html">Airlock PLATINUM — Universal Voice &amp; Runtime Layer</a></li>
+<li><a href="references__website-catalog.html">Orbit AI — WEBSITE &amp; PLATFORM CATALOG</a></li>
+</ul>
+<h2>Verticals</h2><ul>
+<li><a href="references__verticals__law-firms.html">Airlock Knowledge Base — Vertical: LAW FIRMS (Base Layer)</a></li>
+</ul>
+</nav>
+<main>
+<h1 id="airlock-regional-spanish-dialect-glossary">Airlock — REGIONAL SPANISH DIALECT GLOSSARY</h1>
+<p><em>Companion to <code>DIALECT-MODULE.md</code>. The neutral floor is the safe default for every agent; the swap table and cue cards drive Platinum+ regional tuning. </em><em>Mirror, don't perform.</em><em> All entries are validated by the Rhodium <code>02-spanish-dialect/</code> native-speaker package before they go live at Iridium/Rhodium.</em></p>
+<hr />
+<h2 id="1-neutral-floor-lexicon-espanol-neutro-the-safe-default">1. Neutral floor lexicon (Español Neutro — the safe default)</h2>
+<p>These are universally understood across all regions. The agent uses these until it detects a variety.</p>
+<table>
+<thead>
+<tr>
+<th>Concept</th>
+<th>Neutral Spanish</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>you (polite)</td>
+<td>usted</td>
+</tr>
+<tr>
+<td>please / request</td>
+<td>por favor · ¿me puede…?</td>
+</tr>
+<tr>
+<td>thank you / you're welcome</td>
+<td>gracias · de nada · con gusto</td>
+</tr>
+<tr>
+<td>right now / shortly</td>
+<td>en un momento · enseguida</td>
+</tr>
+<tr>
+<td>okay / understood</td>
+<td>de acuerdo · entendido · perfecto</td>
+</tr>
+<tr>
+<td>appointment</td>
+<td>cita</td>
+</tr>
+<tr>
+<td>car</td>
+<td>carro · auto</td>
+</tr>
+<tr>
+<td>cell phone</td>
+<td>celular</td>
+</tr>
+<tr>
+<td>address</td>
+<td>dirección</td>
+</tr>
+<tr>
+<td>money / payment</td>
+<td>pago</td>
+</tr>
+<tr>
+<td>how many people</td>
+<td>cuántas personas</td>
+</tr>
+<tr>
+<td>name</td>
+<td>nombre</td>
+</tr>
+<tr>
+<td>date / time</td>
+<td>fecha · hora</td>
+</tr>
+<tr>
+<td>help</td>
+<td>ayuda</td>
+</tr>
+<tr>
+<td>yes / no</td>
+<td>sí · no</td>
+</tr>
+<tr>
+<td>I'll connect you</td>
+<td>le comunico · lo paso con…</td>
+</tr>
+<tr>
+<td>emergency</td>
+<td>emergencia</td>
+</tr>
+<tr>
+<td>sorry / excuse me</td>
+<td>disculpe · perdón</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="2-cross-region-swap-table-high-impact-service-terms">2. Cross-region swap table (high-impact service terms)</h2>
+<p>The words most likely to mark a region in a service call. Use the neutral form by default; switch to the regional form once mirrored.</p>
+<table>
+<thead>
+<tr>
+<th>Concept</th>
+<th>Neutral</th>
+<th>Mexico</th>
+<th>Caribbean (CU/PR/DO)</th>
+<th>Central Am.</th>
+<th>Colombia/VE</th>
+<th>Rioplatense/Chile</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>you (informal)</td>
+<td>tú</td>
+<td>tú</td>
+<td>tú</td>
+<td><strong>vos</strong> (CA)</td>
+<td>tú/usted</td>
+<td><strong>vos</strong> (AR) / tú (CL)</td>
+</tr>
+<tr>
+<td>cool / great</td>
+<td>qué bueno</td>
+<td>padre / chido / órale</td>
+<td>chévere / brutal (DO)</td>
+<td>tuanis (CR) / bien</td>
+<td>chévere / bacano</td>
+<td>bárbaro (AR) / la raja (CL)</td>
+</tr>
+<tr>
+<td>right now</td>
+<td>enseguida</td>
+<td>ahorita</td>
+<td>ahora / ahorita</td>
+<td>ya mero / ahorita</td>
+<td>ya / de una</td>
+<td>al toque (AR) / al tiro (CL)</td>
+</tr>
+<tr>
+<td>car</td>
+<td>carro/auto</td>
+<td>carro / coche</td>
+<td>carro / máquina (CU)</td>
+<td>carro</td>
+<td>carro</td>
+<td>auto (AR)</td>
+</tr>
+<tr>
+<td>truck</td>
+<td>camión</td>
+<td>troca (Norte)</td>
+<td>camión</td>
+<td>camión</td>
+<td>camión</td>
+<td>camioneta</td>
+</tr>
+<tr>
+<td>bus</td>
+<td>autobús</td>
+<td>camión / pesero</td>
+<td>guagua (CU/PR/DO)</td>
+<td>bus / camioneta</td>
+<td>bus / buseta</td>
+<td>colectivo (AR) / micro (CL)</td>
+</tr>
+<tr>
+<td>cell phone</td>
+<td>celular</td>
+<td>celular</td>
+<td>celular</td>
+<td>celular</td>
+<td>celular</td>
+<td>celu (AR)</td>
+</tr>
+<tr>
+<td>money / cash</td>
+<td>dinero/efectivo</td>
+<td>lana / feria</td>
+<td>cuartos (PR) / chavos (PR)</td>
+<td>pisto</td>
+<td>plata</td>
+<td>plata / guita (AR)</td>
+</tr>
+<tr>
+<td>kid / child</td>
+<td>niño/a</td>
+<td>chamaco / morro</td>
+<td>chamaquito / nene</td>
+<td>cipote (SV) / patojo (GT)</td>
+<td>pelao / chino (CO)</td>
+<td>pibe (AR) / cabro (CL)</td>
+</tr>
+<tr>
+<td>job / work</td>
+<td>trabajo</td>
+<td>chamba</td>
+<td>trabajo</td>
+<td>trabajo / chamba</td>
+<td>trabajo / camello (CO)</td>
+<td>laburo (AR) / pega (CL)</td>
+</tr>
+<tr>
+<td>friend / buddy</td>
+<td>amigo</td>
+<td>wey / cuate</td>
+<td>pana / asere (CU)</td>
+<td>maje (SV) / mae (CR)</td>
+<td>parce (CO) / pana (VE)</td>
+<td>che/boludo (AR) / weón (CL)</td>
+</tr>
+<tr>
+<td>"you're welcome"</td>
+<td>de nada</td>
+<td>de nada / con gusto</td>
+<td>de nada</td>
+<td>con mucho gusto (CR)</td>
+<td>con gusto / a la orden</td>
+<td>de nada</td>
+</tr>
+<tr>
+<td>please (request)</td>
+<td>¿me puede…?</td>
+<td>¿me hace el favor…?</td>
+<td>¿me hace…?</td>
+<td>¿me hace el favor…?</td>
+<td><strong>¿me regala…?</strong></td>
+<td>¿me das…? (vos)</td>
+</tr>
+<tr>
+<td>okay/got it</td>
+<td>perfecto</td>
+<td>sale / órale</td>
+<td>dale / okey</td>
+<td>va / vaya pues</td>
+<td>listo / dale</td>
+<td>dale / ya (CL)</td>
+</tr>
+<tr>
+<td>food (to-go)</td>
+<td>para llevar</td>
+<td>para llevar</td>
+<td>para llevar / pa' llevá</td>
+<td>para llevar</td>
+<td>para llevar</td>
+<td>para llevar</td>
+</tr>
+<tr>
+<td>apartment</td>
+<td>departamento</td>
+<td>depa</td>
+<td>apartamento</td>
+<td>apartamento</td>
+<td>apartamento</td>
+<td>depto (AR)</td>
+</tr>
+<tr>
+<td>right / correct</td>
+<td>correcto</td>
+<td>así es / órale</td>
+<td>correcto / eso es</td>
+<td>cabal (GT)</td>
+<td>exacto / eso es</td>
+<td>tal cual (AR)</td>
+</tr>
+<tr>
+<td>a little</td>
+<td>un poco</td>
+<td>tantito / poquito</td>
+<td>un chin (DO) / un poquito</td>
+<td>un poquito</td>
+<td>un poquito</td>
+<td>un toque (AR)</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>Read this as a <em>recognition + mirroring</em> aid, not a script.</strong> The agent recognizes the caller's term and answers warmly in kind; it never front-loads slang or performs the accent.</p>
+</blockquote>
+<hr />
+<h2 id="3-per-dialect-cue-cards">3. Per-dialect cue cards</h2>
+<p>Each card: <strong>register · phonology (recognize, don't imitate) · signature words · politeness move · do / don't.</strong></p>
+<h3 id="1-mexican-central-standard">1. Mexican (Central / Standard)</h3>
+<ul>
+<li><strong>Register:</strong> usted-forward, very courteous.</li>
+<li><strong>Phonology:</strong> clear, full -s; measured pace.</li>
+<li><strong>Signature:</strong> "ahorita," "¿mande?," "platicar," "órale," "qué padre."</li>
+<li><strong>Politeness:</strong> "¿me hace el favor de…?"</li>
+<li><strong>Do:</strong> warm, respectful, patient. <strong>Don't:</strong> rush; don't use Caribbean/Southern-Cone slang.</li>
+</ul>
+<h3 id="2-northern-mexican-norteno">2. Northern Mexican (Norteño)</h3>
+<ul>
+<li><strong>Register:</strong> usted/tú, more direct.</li>
+<li><strong>Phonology:</strong> clipped, faster than central MX.</li>
+<li><strong>Signature:</strong> "qué onda," "troca," "morro," "ándale pues."</li>
+<li><strong>Do:</strong> get to the point a touch faster. <strong>Don't:</strong> over-formalize.</li>
+</ul>
+<h3 id="3-yucatec-southeastern-mexican">3. Yucatec / Southeastern Mexican</h3>
+<ul>
+<li><strong>Register:</strong> usted, gentle.</li>
+<li><strong>Phonology:</strong> Maya-influenced intonation, glottal touches; fuller vowels.</li>
+<li><strong>Signature:</strong> "¿qué tanto?," soft diminutives.</li>
+<li><strong>Do:</strong> warm, unhurried. <strong>Don't:</strong> imitate the intonation.</li>
+</ul>
+<h3 id="4-cuban">4. Cuban</h3>
+<ul>
+<li><strong>Register:</strong> tú, warm and lively.</li>
+<li><strong>Phonology:</strong> fast; final -s aspirated/dropped ("má o meno"); -d softened.</li>
+<li><strong>Signature:</strong> "asere," "¿qué bolá?," "acere," "dale."</li>
+<li><strong>Politeness:</strong> warmth carries it; informal is fine.</li>
+<li><strong>Do:</strong> match the energy and warmth. <strong>Don't:</strong> read the dropped -s as poor Spanish — it's the norm.</li>
+</ul>
+<h3 id="5-puerto-rican">5. Puerto Rican</h3>
+<ul>
+<li><strong>Register:</strong> tú, friendly.</li>
+<li><strong>Phonology:</strong> -r→-l ("comel," "Puelto Rico"); -s aspirated; relaxed.</li>
+<li><strong>Signature:</strong> "chévere," "wepa," "nene/nena," "brutal" (= awesome).</li>
+<li><strong>Do:</strong> warm, upbeat. <strong>Don't:</strong> correct the -r/-l; expect fluid Spanglish (US PR).</li>
+</ul>
+<h3 id="6-dominican">6. Dominican</h3>
+<ul>
+<li><strong>Register:</strong> tú, very warm, fast.</li>
+<li><strong>Phonology:</strong> very fast; -s frequently dropped; -r/-l/-i shifts.</li>
+<li><strong>Signature:</strong> "qué lo que" (= what's up), "vaina," "un chin" (= a little), "manito."</li>
+<li><strong>Do:</strong> keep pace, stay warm. <strong>Don't:</strong> ask them to slow/repeat more than once — confirm gently instead.</li>
+</ul>
+<h3 id="7-central-american-voseo-gt-sv-hn-ni">7. Central American — Voseo (GT, SV, HN, NI)</h3>
+<ul>
+<li><strong>Register:</strong> usted for respect; <strong>vos</strong> among peers (vení, tenés, podés).</li>
+<li><strong>Phonology:</strong> softer, slower; -s sometimes aspirated (SV/HN).</li>
+<li><strong>Signature:</strong> "vaya pues," "cabal" (GT), "maje" (SV), "¿va?," "pisto" (= money).</li>
+<li><strong>Politeness:</strong> formal usted reads as respectful and is safe.</li>
+<li><strong>Do:</strong> gentle, formal-friendly. <strong>Don't:</strong> force tú if they use vos — mirror vos.</li>
+</ul>
+<h3 id="8-costa-rican-panamanian">8. Costa Rican &amp; Panamanian</h3>
+<ul>
+<li><strong>Register:</strong> usted/vos (CR), tú/usted (PA).</li>
+<li><strong>Signature:</strong> "pura vida," "mae," "tuanis" (CR); "¿qué xopá?," "chuleta" (PA).</li>
+<li><strong>Do:</strong> relaxed warmth (CR), upbeat (PA). <strong>Don't:</strong> over-formalize CR.</li>
+</ul>
+<h3 id="9-colombian-andean-bogota">9. Colombian (Andean / Bogotá)</h3>
+<ul>
+<li><strong>Register:</strong> <strong>usted even when warm</strong> (distinctive), very courteous.</li>
+<li><strong>Phonology:</strong> clear, full -s; precise.</li>
+<li><strong>Signature:</strong> "<strong>¿me regala…?</strong>" (polite request), "sumercé" (very formal), "¿qué más?," "listo," "bacano."</li>
+<li><strong>Politeness:</strong> "¿me regala su nombre?" is the signature courteous ask.</li>
+<li><strong>Do:</strong> precise, polite, warm. <strong>Don't:</strong> drop endings; this variety values clarity.</li>
+</ul>
+<h3 id="10-coastal-colombian-venezuelan">10. Coastal Colombian &amp; Venezuelan</h3>
+<ul>
+<li><strong>Register:</strong> tú, lively.</li>
+<li><strong>Phonology:</strong> Caribbean-style, -s aspirated, faster (vs. Andean CO).</li>
+<li><strong>Signature:</strong> "¿qué más?," "chévere," "pana," "chamo/a" (VE), "pelao."</li>
+<li><strong>Do:</strong> warm, energetic. <strong>Don't:</strong> apply Andean formality here.</li>
+</ul>
+<h3 id="11-andean-peru-ecuador-bolivia">11. Andean (Peru / Ecuador / Bolivia)</h3>
+<ul>
+<li><strong>Register:</strong> usted, measured and formal.</li>
+<li><strong>Phonology:</strong> clear -s, full vowels, even pace; Quechua/Aymara influence.</li>
+<li><strong>Signature:</strong> "¿no más?," "casero/a" (regular customer), "ya pues."</li>
+<li><strong>Do:</strong> courteous, unhurried. <strong>Don't:</strong> rush or get too casual.</li>
+</ul>
+<h3 id="12-rioplatense-argentina-uruguay">12. Rioplatense (Argentina / Uruguay)</h3>
+<ul>
+<li><strong>Register:</strong> <strong>vos</strong> (sos, tenés, querés), fairly direct.</li>
+<li><strong>Phonology:</strong> ll/y → "sh" ("sho me shamo"); Italian-like intonation.</li>
+<li><strong>Signature:</strong> "che," "dale," "bárbaro," "boludo" (peer, careful), "laburo."</li>
+<li><strong>Do:</strong> mirror vos, be direct-but-warm. <strong>Don't:</strong> use tú forms; it reads as foreign.</li>
+</ul>
+<h3 id="13-chilean">13. Chilean</h3>
+<ul>
+<li><strong>Register:</strong> tú, very fast, informal.</li>
+<li><strong>Phonology:</strong> clipped endings, -s dropped, fast.</li>
+<li><strong>Signature:</strong> "po" (filler), "cachái" (= you get me), "al tiro" (= right away), "la raja."</li>
+<li><strong>Do:</strong> keep it efficient and warm. <strong>Don't:</strong> ask to repeat repeatedly — confirm key facts gently.</li>
+</ul>
+<h3 id="14-us-latino-spanglish-sociolect">14. US Latino / Spanglish (sociolect)</h3>
+<ul>
+<li><strong>Register:</strong> fluid; mirror the caller's tú/usted.</li>
+<li><strong>Phonology:</strong> US-accented Spanish + English; <strong>code-switching is normal</strong> ("una reservation," "el appointment," "el 401k," "la insurance").</li>
+<li><strong>Do:</strong> switch with them mid-sentence, keep English loanwords in English, stay natural. <strong>Don't:</strong> force "pure" Spanish — it alienates US-born callers.</li>
+</ul>
+<h3 id="15-peninsular-spain">15. Peninsular (Spain)</h3>
+<ul>
+<li><strong>Register:</strong> tú/usted; <strong>vosotros</strong> for plural-you (LatAm uses ustedes).</li>
+<li><strong>Phonology:</strong> ceceo/distinción (z/c soft "th"); crisper.</li>
+<li><strong>Signature:</strong> "vale" (= okay), "tío/a" (= dude), "coger" (neutral = to take — fine in Spain).</li>
+<li><strong>Do:</strong> use only when clearly detected. <strong>Don't:</strong> apply to a US/LatAm caller.</li>
+</ul>
+<h3 id="16-indigenous-greeting-layer-rhodium-premium">16. Indigenous greeting layer (Rhodium premium)</h3>
+<ul>
+<li>A warm <strong>greeting + "one moment" + handoff</strong> phrase only, in the caller's indigenous language, then continue in Spanish:</li>
+<li><strong>Nahuatl:</strong> "¡Niltze!" (hello) · "Ximopanolti" (welcome).</li>
+<li><strong>K'iche'/Maya:</strong> "Saqarik" (good morning) · "Maltyox" (thank you).</li>
+<li><strong>Quechua:</strong> "¡Allillanchu!" (hello, how are you) · "Sulpayki" (thank you).</li>
+<li><strong>Yucatec Maya:</strong> "Ba'ax ka wa'alik" (hello).</li>
+<li><strong>Do:</strong> use as a respectful opener/closer only; the conversation proceeds in Spanish. <strong>Don't:</strong> attempt a full conversation in the indigenous language — capture + warm human handoff instead.</li>
+</ul>
+<hr />
+<h2 id="4-universal-watch-outs-every-dialect">4. Universal "watch-outs" (every dialect)</h2>
+<ul>
+<li><strong>False friends / risky words:</strong> "coger" is neutral in Spain/Argentina but vulgar in MX/Caribbean — default to <strong>"tomar"/"agarrar."</strong> "Concha" varies by region — avoid. Stay on the neutral floor for anything uncertain.</li>
+<li><strong>Numbers, money, dates:</strong> always read back in the regional cadence at Iridium+ (see voice layer §A.2); never read "$1,499.00" as digits.</li>
+<li><strong>Diminutives = warmth</strong> ("un momentito," "ahorita") — use sparingly and naturally, more in MX/Central America, less in Rioplatense.</li>
+<li><strong>When unsure of the variety → neutral floor.</strong> Never guess into slang.</li>
+</ul>
+<p><em>End of Dialect Glossary.</em></p>
+<hr />
+<h2 id="5-native-fluency-validation-pass-ai-review-human-regional-sign-off-still-required-for-rhodium">5. Native-fluency validation pass  <em>(AI review — human regional sign-off still required for Rhodium)</em></h2>
+<p>A full review was run over every entry above at native-level multi-dialect competence: vocabulary, register, voseo forms, and the operational traps a receptionist must avoid. Corrections and confidence are below. <strong>This raises the glossary to "AI-validated"; the final per-region human sign-off (the Rhodium <code>02-spanish-dialect/</code> worksheets) is what makes it sellable as "native-validated"</strong> — because evolving local slang and what reads as warm vs. subservient vs. vulgar <em>this year in that city</em> needs a living ear.</p>
+<h3 id="51-semantic-traps-false-friends-the-high-value-catches">5.1 Semantic traps &amp; false friends (the high-value catches)</h3>
+<p>These cause real on-call mistakes — baked in as agent rules:</p>
+<table>
+<thead>
+<tr>
+<th>Word</th>
+<th>Safe meaning</th>
+<th>The trap</th>
+<th>Agent rule</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>"ahorita"</strong></td>
+<td>"in a moment"</td>
+<td>In <strong>Mexico/Central America</strong> it's elastic — often <em>"eventually / maybe not at all."</em> In the <strong>Caribbean</strong> it can mean <em>"right now."</em></td>
+<td><strong>Don't rely on "ahorita" for commitments.</strong> Use precise time: "en cinco minutos," "hoy mismo," "enseguida."</td>
+</tr>
+<tr>
+<td><strong>"guagua"</strong></td>
+<td>bus (CU/PR/DO + Canaries)</td>
+<td>In <strong>Chile/Ecuador/Andes "guagua" = baby/toddler.</strong></td>
+<td>Use "guagua" for <em>bus</em> <strong>only</strong> in Caribbean context; say "autobús/bus" elsewhere.</td>
+</tr>
+<tr>
+<td><strong>"coger"</strong></td>
+<td>to take/grab (Spain, AR, much of Caribbean)</td>
+<td><strong>Vulgar in Mexico &amp; most of Central America.</strong></td>
+<td>Default to <strong>"tomar" / "agarrar"</strong> everywhere.</td>
+</tr>
+<tr>
+<td><strong>"concha"</strong></td>
+<td>sweet bread (Mexico)</td>
+<td><strong>Vulgar in AR/UY/CL/PE.</strong></td>
+<td>Say the item by name; avoid the bare word in Southern-Cone context.</td>
+</tr>
+<tr>
+<td><strong>"vaina"</strong></td>
+<td>"thing/stuff" (DR/Caribbean/CO/VE, informal)</td>
+<td>Reads too casual/edgy in formal verticals.</td>
+<td>Keep to the <strong>neutral floor</strong> ("cosa/asunto") in legal/medical/financial.</td>
+</tr>
+<tr>
+<td><strong>"chucho"</strong></td>
+<td>dog (some regions)</td>
+<td>Means "cold" (Andes), "cheap/stingy," or a name elsewhere.</td>
+<td>Avoid; say "perro."</td>
+</tr>
+<tr>
+<td><strong>"mande"</strong></td>
+<td>polite "pardon?/yes?" (Mexico)</td>
+<td>Warm and standard in MX; can read as subservient to some non-MX ears.</td>
+<td>Fine in MX context; elsewhere use "¿perdón? / ¿cómo dice?"</td>
+</tr>
+</tbody>
+</table>
+<h3 id="52-voseo-accuracy-confirmed">5.2 Voseo accuracy (confirmed)</h3>
+<ul>
+<li><strong>Central American &amp; Rioplatense voseo:</strong> vos <strong>sos · tenés · querés · podés · vení · decí · hacé</strong> — correct and interchangeable between those regions for these forms.</li>
+<li><strong>Chilean voseo</strong> (estái, tenís, querís) is <strong>non-standard / very informal</strong> — <strong>use tú in a service context</strong>, not Chilean vos.</li>
+<li>Mirror vos only when the caller uses it; never initiate vos with a usted-register caller.</li>
+</ul>
+<h3 id="53-per-dialect-confidence-what-the-human-reviewer-should-focus-on">5.3 Per-dialect confidence (what the human reviewer should focus on)</h3>
+<table>
+<thead>
+<tr>
+<th>Dialect</th>
+<th>AI confidence</th>
+<th>Human reviewer: focus on</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Mexican (central/norteño)</td>
+<td><strong>High</strong></td>
+<td>confirm "ahorita" handling reads right locally</td>
+</tr>
+<tr>
+<td>Caribbean (CU/PR/DO)</td>
+<td><strong>High</strong></td>
+<td>currency of greetings ("¿qué bolá?," "qué lo que") by age</td>
+</tr>
+<tr>
+<td>Central American (voseo)</td>
+<td><strong>High</strong></td>
+<td>vos vs usted default for the specific country</td>
+</tr>
+<tr>
+<td>Colombian (Andean)</td>
+<td><strong>High</strong></td>
+<td>"sumercé" appropriateness by setting (can read very deferential)</td>
+</tr>
+<tr>
+<td>Coastal CO / Venezuelan</td>
+<td>Medium-High</td>
+<td>"chamo/pana" register by formality</td>
+</tr>
+<tr>
+<td>Andean (PE/EC/BO)</td>
+<td>Medium-High</td>
+<td>"casero/a," regional courtesy markers</td>
+</tr>
+<tr>
+<td>Rioplatense</td>
+<td><strong>High</strong></td>
+<td>"boludo" is peer-only — confirm it never surfaces to a stranger</td>
+</tr>
+<tr>
+<td>Chilean</td>
+<td>Medium</td>
+<td>youth slang shifts fast; confirm "po/cachái" register</td>
+</tr>
+<tr>
+<td>Yucatec / Panama</td>
+<td><strong>Medium — confirm locally</strong></td>
+<td>intonation + local slang need a local ear</td>
+</tr>
+<tr>
+<td>US Latino / Spanglish</td>
+<td><strong>High</strong></td>
+<td>confirm natural code-switch points by community</td>
+</tr>
+<tr>
+<td>Peninsular</td>
+<td>Medium-High</td>
+<td>only used when clearly detected</td>
+</tr>
+<tr>
+<td><strong>Indigenous greetings</strong></td>
+<td><strong>Low — human/linguist required</strong></td>
+<td><strong>orthography + cultural appropriateness must be confirmed by a speaker before use</strong></td>
+</tr>
+</tbody>
+</table>
+<h3 id="54-status">5.4 Status</h3>
+<ul>
+<li><strong>Glossary status: AI-validated (native-fluency review complete).</strong></li>
+<li><strong>Remaining for Rhodium "native-validated":</strong> one native speaker each (🇲🇽 / 🌴 / 🌋 + Southern-Cone for vos) confirms the <strong>flagged items only</strong> (§5.3 right column + §5.1 traps + all indigenous greetings) — minutes of work, not a from-scratch pass.</li>
+<li>Nothing here changes intent, compliance, or intake logic — vocabulary/register only.</li>
+</ul>
+<div class="footer">Static docs for the <code>airlock-vertical-kb</code> Claude Code skill ·
+generated from <code>skills/airlock-vertical-kb/</code>.</div>
+</main>
+</div>
+</body>
+</html>

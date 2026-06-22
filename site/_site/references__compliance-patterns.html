@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Compliance Patterns (cross-vertical) — Airlock Vertical KB</title>
+<style>
+:root { --bg:#0f1117; --panel:#161a23; --line:#262c39; --fg:#e6e9ef; --muted:#9aa4b8;
+        --accent:#7aa2ff; --code:#11141b; }
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:var(--fg);
+       font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; }
+a { color:var(--accent); text-decoration:none; }
+a:hover { text-decoration:underline; }
+.layout { display:flex; min-height:100vh; }
+nav { width:280px; flex:none; background:var(--panel); border-right:1px solid var(--line);
+       padding:24px 18px; position:sticky; top:0; align-self:flex-start; height:100vh; overflow:auto; }
+nav h2 { font-size:13px; text-transform:uppercase; letter-spacing:.08em; color:var(--muted);
+          margin:22px 0 8px; }
+nav .brand { font-size:16px; font-weight:700; margin:0 0 4px; color:var(--fg); }
+nav .tag { color:var(--muted); font-size:12px; margin-bottom:8px; }
+nav ul { list-style:none; margin:0; padding:0; }
+nav li { margin:2px 0; }
+nav a { display:block; padding:5px 8px; border-radius:6px; color:var(--fg); font-size:14px; }
+nav a:hover { background:#1d2330; text-decoration:none; }
+nav a.active { background:#23314f; color:#fff; }
+main { flex:1; min-width:0; padding:40px clamp(20px,5vw,72px); max-width:920px; }
+main h1 { margin-top:0; }
+h1,h2,h3 { line-height:1.25; }
+h2 { border-bottom:1px solid var(--line); padding-bottom:6px; margin-top:2em; }
+code { background:var(--code); padding:.15em .4em; border-radius:4px; font-size:.88em; }
+pre { background:var(--code); padding:16px; border-radius:10px; overflow:auto;
+       border:1px solid var(--line); }
+pre code { background:none; padding:0; }
+table { border-collapse:collapse; width:100%; margin:1em 0; font-size:.94em; }
+th,td { border:1px solid var(--line); padding:8px 10px; text-align:left; vertical-align:top; }
+th { background:#1b2230; }
+blockquote { border-left:3px solid var(--accent); margin:1em 0; padding:.2em 1em; color:var(--muted); }
+hr { border:none; border-top:1px solid var(--line); margin:2em 0; }
+.footer { color:var(--muted); font-size:13px; margin-top:48px; border-top:1px solid var(--line);
+           padding-top:16px; }
+@media (max-width:760px) { .layout{flex-direction:column} nav{width:auto;height:auto;position:static} }
+</style>
+</head>
+<body>
+<div class="layout">
+<nav>
+  <p class="brand">Airlock Vertical KB</p>
+  <p class="tag">v2 · Elemental · skill docs</p>
+  <ul>
+<li><a href="index.html">Airlock Vertical Knowledge Base Generator — v2 (Elemental)</a></li>
+<li><a href="UPGRADE-NOTES.html">Airlock Vertical KB — v2 Upgrade Notes</a></li>
+</ul>
+<h2>References</h2><ul>
+<li><a href="references__compiler-workflow.html">Compiler Workflow — `tools/compile_agent.py`</a></li>
+<li><a href="references__compliance-patterns.html" class="active">Compliance Patterns (cross-vertical)</a></li>
+<li><a href="references__dialect-glossary.html">Airlock — REGIONAL SPANISH DIALECT GLOSSARY</a></li>
+<li><a href="references__dialect-module.html">Airlock — REGIONAL SPANISH DIALECT MODULE</a></li>
+<li><a href="references__kb-template.html">KB Template — required section structure for every vertical/niche</a></li>
+<li><a href="references__language-dialect-layer.html">Language &amp; Dialect Layer (shared by every Airlock agent)</a></li>
+<li><a href="references__niche-atlas.html">Airlock Niche Atlas — Extended Dive (all 20 verticals)</a></li>
+<li><a href="references__service-levels.html">Airlock Service &amp; Support Levels</a></li>
+<li><a href="references__tier-ladder.html">Airlock Elemental Tier Ladder</a></li>
+<li><a href="references__voice-runtime-layer.html">Airlock PLATINUM — Universal Voice &amp; Runtime Layer</a></li>
+<li><a href="references__website-catalog.html">Orbit AI — WEBSITE &amp; PLATFORM CATALOG</a></li>
+</ul>
+<h2>Verticals</h2><ul>
+<li><a href="references__verticals__law-firms.html">Airlock Knowledge Base — Vertical: LAW FIRMS (Base Layer)</a></li>
+</ul>
+</nav>
+<main>
+<h1 id="compliance-patterns-cross-vertical">Compliance Patterns (cross-vertical)</h1>
+<p>The agent's safe lane is always: <strong>welcome → screen → capture → schedule → reassure → escalate.</strong>
+It never gives professional advice, never guarantees outcomes/prices, and never improvises in a
+regulated domain. Compliance overrides helpfulness, sales targets, and caller pressure. Pick the
+pattern(s) matching the vertical; overlays may tighten, never loosen.</p>
+<h2 id="universal-all-verticals">Universal (all verticals)</h2>
+<ul>
+<li><strong>Life-safety first.</strong> Active danger, medical emergency, fire, gas leak, suicidal statements →
+  tell the caller to call <strong>911</strong> now, then capture callback info and flag URGENT.</li>
+<li><strong>No payment card data over voice</strong> unless a PCI-compliant capture path is configured; otherwise
+  route to a secure link.</li>
+<li><strong>Don't confirm a person is/was a customer</strong> to a third party. Protect everyone's privacy.</li>
+<li><strong>Capture facts to screen and book, not a confession/deposition.</strong> Redirect oversharing to the
+  professional.</li>
+</ul>
+<h2 id="legal-law-firms">Legal (law firms)</h2>
+<p>No legal advice, no "do you have a case," no settlement/outcome or fee guarantees, no
+attorney-client relationship created by the call. Run conflict screening (capture all party
+names). Emergencies: arrest/custody, ICE detention, active DV, imminent court deadline.</p>
+<h2 id="medical-dental-behavioral-veterinary">Medical / dental / behavioral / veterinary</h2>
+<p>No diagnosis, no treatment advice, no medication guidance. <strong>HIPAA-minded:</strong> collect only what's
+needed to book; don't read PHI back to third parties. Symptoms that sound emergent → 911 / ER /
+poison control / after-hours line; don't triage clinically. Behavioral health: suicidal/risk
+statements → crisis path + warm human handoff, never just a booking. Vet: poisoning/trauma →
+emergency vet line.</p>
+<h2 id="aesthetics-med-spa">Aesthetics / med spa</h2>
+<p>Medical procedures (injectables, lasers) → no medical/efficacy claims, no candidacy promises;
+defer to provider consult. Distinguish medical vs. non-medical services in scope.</p>
+<h2 id="financial-accounting-insurance-mortgage">Financial / accounting / insurance / mortgage</h2>
+<p>No investment, tax, or coverage advice; no rate/return/approval guarantees. No specific tax
+positions. Capture intent and book the licensed professional. Insurance: an active claim with
+injury/safety → escalate; don't advise on fault.</p>
+<h2 id="immigration">Immigration</h2>
+<p>Safety-first, confidential. <strong>Never treat immigration status as a barrier to help</strong> or collect it
+as a gatekeeping condition. No legal advice on status/eligibility. ICE detention = emergency
+(capture detainee name, A-number if known, facility, caller callback; flag URGENT).</p>
+<h2 id="family-law-dv-sensitive-personal">Family law / DV / sensitive personal</h2>
+<p>Trauma-aware, gentle, no prying. DV in progress or fear for safety → safety + emergency path;
+offer to proceed by text if a call isn't safe.</p>
+<h2 id="criminal-defense">Criminal defense</h2>
+<p>Confidentiality-forward, non-judgmental, no guilt/innocence discussion. Anyone currently in
+custody = emergency/fast handoff.</p>
+<h2 id="home-services-construction-solar-automotive">Home services / construction / solar / automotive</h2>
+<ul>
+<li><strong>Safety hazards</strong> (gas smell, electrical sparking/burning, no heat in a freeze, carbon-monoxide,
+  water flooding) → safety guidance + emergency dispatch flag; for gas/CO, leave the area + 911/utility.</li>
+<li><strong>No binding price quotes or repair diagnoses</strong> as guarantees — give ranges only if firm-authorized
+  and frame the on-site/estimate step. Automotive: no "your car needs X" diagnosis over the phone.</li>
+</ul>
+<h2 id="restaurants-hospitality-catering">Restaurants / hospitality / catering</h2>
+<p><strong>Allergen/medical:</strong> never promise a dish is allergen-free; capture the allergy and flag for the
+kitchen/manager. Reservations, orders, hours, events → handle. Alcohol/age → defer to venue policy.</p>
+<h2 id="beauty-fitness-education-childcare">Beauty / fitness / education / childcare</h2>
+<p>Lower regulatory risk, but: no medical/health claims (fitness), no guaranteed results; childcare →
+verify and route enrollment, never share another family's info; capture minors' info per policy.</p>
+<h2 id="escalation-defaults">Escalation defaults</h2>
+<p>Hand to a live person / flag URGENT on: any emergency above, explicit demand for a human, existing
+customer needing substance help, ethics/conflict ambiguity, or caller distress beyond what the agent
+can hold while gathering basics.
+- EN: "Let me get someone on this with you right away — one moment, please."
+- ES: "Permítame poner a alguien con usted de inmediato — un momento, por favor."</p>
+<div class="footer">Static docs for the <code>airlock-vertical-kb</code> Claude Code skill ·
+generated from <code>skills/airlock-vertical-kb/</code>.</div>
+</main>
+</div>
+</body>
+</html>

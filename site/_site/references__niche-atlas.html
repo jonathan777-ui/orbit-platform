@@ -1,0 +1,321 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Airlock Niche Atlas — Extended Dive (all 20 verticals) — Airlock Vertical KB</title>
+<style>
+:root { --bg:#0f1117; --panel:#161a23; --line:#262c39; --fg:#e6e9ef; --muted:#9aa4b8;
+        --accent:#7aa2ff; --code:#11141b; }
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:var(--fg);
+       font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; }
+a { color:var(--accent); text-decoration:none; }
+a:hover { text-decoration:underline; }
+.layout { display:flex; min-height:100vh; }
+nav { width:280px; flex:none; background:var(--panel); border-right:1px solid var(--line);
+       padding:24px 18px; position:sticky; top:0; align-self:flex-start; height:100vh; overflow:auto; }
+nav h2 { font-size:13px; text-transform:uppercase; letter-spacing:.08em; color:var(--muted);
+          margin:22px 0 8px; }
+nav .brand { font-size:16px; font-weight:700; margin:0 0 4px; color:var(--fg); }
+nav .tag { color:var(--muted); font-size:12px; margin-bottom:8px; }
+nav ul { list-style:none; margin:0; padding:0; }
+nav li { margin:2px 0; }
+nav a { display:block; padding:5px 8px; border-radius:6px; color:var(--fg); font-size:14px; }
+nav a:hover { background:#1d2330; text-decoration:none; }
+nav a.active { background:#23314f; color:#fff; }
+main { flex:1; min-width:0; padding:40px clamp(20px,5vw,72px); max-width:920px; }
+main h1 { margin-top:0; }
+h1,h2,h3 { line-height:1.25; }
+h2 { border-bottom:1px solid var(--line); padding-bottom:6px; margin-top:2em; }
+code { background:var(--code); padding:.15em .4em; border-radius:4px; font-size:.88em; }
+pre { background:var(--code); padding:16px; border-radius:10px; overflow:auto;
+       border:1px solid var(--line); }
+pre code { background:none; padding:0; }
+table { border-collapse:collapse; width:100%; margin:1em 0; font-size:.94em; }
+th,td { border:1px solid var(--line); padding:8px 10px; text-align:left; vertical-align:top; }
+th { background:#1b2230; }
+blockquote { border-left:3px solid var(--accent); margin:1em 0; padding:.2em 1em; color:var(--muted); }
+hr { border:none; border-top:1px solid var(--line); margin:2em 0; }
+.footer { color:var(--muted); font-size:13px; margin-top:48px; border-top:1px solid var(--line);
+           padding-top:16px; }
+@media (max-width:760px) { .layout{flex-direction:column} nav{width:auto;height:auto;position:static} }
+</style>
+</head>
+<body>
+<div class="layout">
+<nav>
+  <p class="brand">Airlock Vertical KB</p>
+  <p class="tag">v2 · Elemental · skill docs</p>
+  <ul>
+<li><a href="index.html">Airlock Vertical Knowledge Base Generator — v2 (Elemental)</a></li>
+<li><a href="UPGRADE-NOTES.html">Airlock Vertical KB — v2 Upgrade Notes</a></li>
+</ul>
+<h2>References</h2><ul>
+<li><a href="references__compiler-workflow.html">Compiler Workflow — `tools/compile_agent.py`</a></li>
+<li><a href="references__compliance-patterns.html">Compliance Patterns (cross-vertical)</a></li>
+<li><a href="references__dialect-glossary.html">Airlock — REGIONAL SPANISH DIALECT GLOSSARY</a></li>
+<li><a href="references__dialect-module.html">Airlock — REGIONAL SPANISH DIALECT MODULE</a></li>
+<li><a href="references__kb-template.html">KB Template — required section structure for every vertical/niche</a></li>
+<li><a href="references__language-dialect-layer.html">Language &amp; Dialect Layer (shared by every Airlock agent)</a></li>
+<li><a href="references__niche-atlas.html" class="active">Airlock Niche Atlas — Extended Dive (all 20 verticals)</a></li>
+<li><a href="references__service-levels.html">Airlock Service &amp; Support Levels</a></li>
+<li><a href="references__tier-ladder.html">Airlock Elemental Tier Ladder</a></li>
+<li><a href="references__voice-runtime-layer.html">Airlock PLATINUM — Universal Voice &amp; Runtime Layer</a></li>
+<li><a href="references__website-catalog.html">Orbit AI — WEBSITE &amp; PLATFORM CATALOG</a></li>
+</ul>
+<h2>Verticals</h2><ul>
+<li><a href="references__verticals__law-firms.html">Airlock Knowledge Base — Vertical: LAW FIRMS (Base Layer)</a></li>
+</ul>
+</nav>
+<main>
+<h1 id="airlock-niche-atlas-extended-dive-all-20-verticals">Airlock Niche Atlas — Extended Dive (all 20 verticals)</h1>
+<p>The breadth map that grounds KB generation. Each vertical entry gives: <strong>Positioning</strong>,
+<strong>Dialect/register</strong>, <strong>Compliance flags</strong>, <strong>Niches</strong> (each with what it is · signature
+caller intents · key intake &amp; urgency · sensitive note / what-to-bring), and
+<strong>Emergency/handoff</strong>. Read the relevant vertical before generating its KB so distinctions
+are accurate, not generic. Niche lists are the high-value core and are extensible.</p>
+<blockquote>
+<p>Cross-cutting (always): native EN+ES, dialect mirroring, premium voice, compliance over
+helpfulness, clean CRM capture. See the shared layers and <code>kb-template.md</code>.</p>
+</blockquote>
+<hr />
+<h2 id="1-law-firms-gold-standard-worked-example-verticalslaw-firmsmd">1. Law Firms  <em>(gold-standard worked example: <code>verticals/law-firms.md</code>)</em></h2>
+<p><strong>Positioning:</strong> premier, discreet, white-glove. <strong>Register:</strong> <code>usted</code> default; trauma-aware.
+<strong>Compliance:</strong> no legal advice, no fee/outcome promises, conflict screening, privilege, emergencies (arrest, ICE detention, active DV, imminent deadline).
+<strong>Niches:</strong> Personal Injury · Immigration · Family/DV · Criminal Defense · Workers' Comp · Estate &amp; Probate · Business · Real Estate · Bankruptcy · Employment. (Distinctives in the law base, §14.)
+<strong>Emergency/handoff:</strong> custody, detention, active danger, same-day court → URGENT live handoff.</p>
+<hr />
+<h2 id="2-accounting-tax-bookkeeping">2. Accounting, Tax &amp; Bookkeeping</h2>
+<p><strong>Positioning:</strong> trusted, precise, "your numbers are safe with us." <strong>Register:</strong> <code>usted</code>, professional-warm; heavy Mexican/Central-American small-business clientele.
+<strong>Compliance:</strong> no tax advice or specific positions, no refund/approval guarantees; never collect SSN/bank/card over open voice — secure link only.
+<strong>Niches:</strong>
+- <em>Individual tax prep</em> — intent: file taxes, refund status, ITIN. Intake: tax year, prior filing, W-2/1099 count, ITIN need. Note: ITIN/immigration sensitivity → reassure confidentiality.
+- <em>Tax resolution / IRS problems</em> — intent: letter/audit/lien/back taxes. Intake: notice type+date, amount, deadline. Urgency: IRS deadline = priority. Sensitive: high anxiety; calm + book fast.
+- <em>Small-business bookkeeping</em> — intent: monthly books, catch-up, cleanup. Intake: entity type, software, months behind.
+- <em>Payroll</em> — intent: run payroll, new employee, tax filings. Intake: # employees, frequency, states.
+- <em>CFO / advisory</em> — intent: strategy, forecasting. Intake: revenue band, goals. Voice: advisory, measured.
+<strong>Emergency/handoff:</strong> active IRS levy/seizure or imminent deadline → priority callback.</p>
+<hr />
+<h2 id="3-insurance-agencies">3. Insurance Agencies</h2>
+<p><strong>Positioning:</strong> protective, plain-spoken, bilingual ("seguro/aseguranza" matters). <strong>Register:</strong> <code>usted</code>, friendly.
+<strong>Compliance:</strong> no coverage/eligibility advice or rate guarantees; active claim with injury → escalate, don't assign fault.
+<strong>Niches:</strong>
+- <em>Auto</em> — intent: quote, add vehicle/driver, SR-22, claim. Intake: vehicles, drivers, coverage now, ZIP. Note: SR-22/DUI handled without judgment.
+- <em>Home / property</em> — intent: quote, bundle, claim (water/fire/storm). Urgency: active loss → claim path + restoration referral.
+- <em>Life</em> — intent: term/whole quote, beneficiary. Voice: gentle around health/mortality.
+- <em>Health / Medicare</em> — intent: enrollment, ACA/Medicare, SEP. Urgency: enrollment-window deadlines. Compliance: CMS-marketing rules — book licensed agent, no plan-steering.
+- <em>Commercial / business</em> — intent: GL, workers' comp, BOP, COI. Intake: industry, payroll, # employees.
+- <em>Claims</em> — intent: file/check claim. Urgency: injury/safety → escalate.
+<strong>Emergency/handoff:</strong> injury accident, total loss, uninhabitable home → live/priority.</p>
+<hr />
+<h2 id="4-financial-wealth-advisory">4. Financial &amp; Wealth Advisory</h2>
+<p><strong>Positioning:</strong> dignified, fiduciary-feel, unhurried. <strong>Register:</strong> <code>usted</code>, formal-warm.
+<strong>Compliance:</strong> no investment/tax advice, no return/performance promises; capture intent, book advisor.
+<strong>Niches:</strong>
+- <em>Retirement planning</em> — intent: 401k rollover, retirement readiness. Intake: age band, accounts, timeline.
+- <em>Investment advisory</em> — intent: portfolio review, new account. Intake: investable range (band, not exact), goals.
+- <em>Estate &amp; wealth transfer</em> — intent: trust/legacy. Coordinate with estate attorney; dignified voice.
+- <em>Debt / credit counseling</em> — intent: debt relief, budgeting. Sensitive: shame/anxiety → reassure.
+<strong>Emergency/handoff:</strong> none clinical; distressed caller → warm human.</p>
+<hr />
+<h2 id="5-medical-dental-practices">5. Medical &amp; Dental Practices</h2>
+<p><strong>Positioning:</strong> caring, clean, reassuring; "you'll be seen and cared for." <strong>Register:</strong> <code>usted</code>, gentle.
+<strong>Compliance:</strong> <strong>no diagnosis/treatment/med advice; HIPAA-minded</strong> (book-only data, no PHI to third parties); emergent symptoms → 911/ER, never triage.
+<strong>Niches:</strong>
+- <em>Primary care</em> — intent: new patient, appt, refill, results. Intake: reason (brief), insurance, DOB. Urgency: chest pain/breathing/stroke signs → 911.
+- <em>Urgent care</em> — intent: walk-in, wait time, X-ray. Urgency: emergent → ER.
+- <em>Dental — general</em> — intent: cleaning, exam, pain, broken tooth. Urgency: trauma/swelling/bleeding → same-day/ER. What to bring: insurance, prior X-rays.
+- <em>Dental — ortho</em> — intent: braces/Invisalign consult, payment plans. Voice: upbeat; teens/parents.
+- <em>Oral surgery</em> — intent: extraction, implant consult. Pre-op instructions on booking.
+- <em>Pediatrics</em> — intent: well-child, sick visit, vaccines. Voice: warm to parents; fever/breathing → ER.
+- <em>OB/GYN</em> — intent: prenatal, annual. Sensitive: privacy, pregnancy concerns → nurse line/ER for bleeding/pain.
+- <em>Specialty (derm, cardio, ortho)</em> — intent: referral-based new patient. Intake: referral, insurance, reason.
+- <em>PT / chiro</em> — intent: eval, plan of care. Intake: injury, referral, insurance.
+<strong>Emergency/handoff:</strong> any emergent symptom → 911/ER + flag; nurse-line route if configured.</p>
+<hr />
+<h2 id="6-aesthetics-med-spas-cosmetic">6. Aesthetics, Med Spas &amp; Cosmetic</h2>
+<p><strong>Positioning:</strong> luxe, confidence-building, discreet. <strong>Register:</strong> warm, can be <code>tú</code> if brand is youthful; aspirational.
+<strong>Compliance:</strong> medical procedures (injectables/laser) → no efficacy/candidacy claims, defer to provider consult; separate medical vs. non-medical scope.
+<strong>Niches:</strong>
+- <em>Injectables (Botox/filler)</em> — intent: pricing, consult, touch-up. Intake: goal area, first-time?, event date. Note: no medical promises; consult required.
+- <em>Laser / skin</em> — intent: hair removal, resurfacing, packages. Intake: skin concern, prior treatments.
+- <em>Body contouring</em> — intent: CoolSculpting/etc. consult. Voice: encouraging, never body-shaming.
+- <em>Plastic surgery consult</em> — intent: surgical consult. Voice: serious, screening only; surgeon consults.
+- <em>Medical dermatology</em> — intent: acne, lesions, skin check. Urgency: changing/bleeding lesion → prompt provider.
+- <em>Lash/brow/non-medical</em> — intent: booking, fills. Casual-warm.
+<strong>Emergency/handoff:</strong> adverse reaction post-procedure → provider/medical line.</p>
+<hr />
+<h2 id="7-veterinary-clinics">7. Veterinary Clinics</h2>
+<p><strong>Positioning:</strong> compassionate, pet-as-family. <strong>Register:</strong> warm; <code>usted</code>/<code>tú</code> by tone.
+<strong>Compliance:</strong> no diagnosis/med advice; poisoning/trauma/bloat → emergency vet + poison-control.
+<strong>Niches:</strong>
+- <em>General vet</em> — intent: wellness, vaccines, sick visit. Intake: species/breed, age, symptom, pet name.
+- <em>Emergency/ER vet</em> — intent: urgent. Urgency: hit-by-car, poisoning, can't breathe, bloat → immediate. What to bring: any toxin packaging.
+- <em>Specialty (surgery, oncology)</em> — referral-based; gentle.
+- <em>Mobile vet</em> — service-area + scheduling.
+- <em>Grooming/boarding (add-on)</em> — vaccine records required.
+<strong>Emergency/handoff:</strong> life-threatening → ER vet now + flag.</p>
+<hr />
+<h2 id="8-behavioral-health-therapy">8. Behavioral Health &amp; Therapy</h2>
+<p><strong>Positioning:</strong> safe, nonjudgmental, low-barrier. <strong>Register:</strong> gentle, slow, <code>usted</code> default.
+<strong>Compliance:</strong> no diagnosis/clinical triage; <strong>suicidal/risk statements → crisis path + warm human handoff (988 in US), never just a booking</strong>; HIPAA-minded.
+<strong>Niches:</strong>
+- <em>Individual therapy</em> — intent: new client, insurance/sliding scale, specialty match. Intake: concern (brief), insurance, modality pref.
+- <em>Psychiatry / med eval</em> — intent: meds management. Note: no med advice.
+- <em>Couples/family</em> — scheduling for multiple participants.
+- <em>Substance use / rehab</em> — intent: intake, detox, levels of care. Urgency: overdose/withdrawal danger → 911. Sensitive: shame; confidentiality forward.
+- <em>Child/adolescent</em> — parent intake; mandatory-reporter awareness (route, don't probe).
+<strong>Emergency/handoff:</strong> any self-harm/harm risk → crisis line + live clinician.</p>
+<hr />
+<h2 id="9-real-estate-brokerages">9. Real Estate Brokerages</h2>
+<p><strong>Positioning:</strong> polished, responsive, market-savvy. <strong>Register:</strong> warm-professional; <code>tú</code>/<code>usted</code> by client.
+<strong>Compliance:</strong> no legal/financing/appraisal advice or value guarantees; fair-housing — never steer by protected class.
+<strong>Niches:</strong>
+- <em>Residential buyer</em> — intent: see a listing, get pre-approved, tour. Intake: budget band, area, timeline, pre-approval?, agent yet?.
+- <em>Residential seller/listing</em> — intent: home value, list. Intake: address, timeline, condition. Note: CMA, not a guaranteed price.
+- <em>Luxury</em> — concierge voice; discretion; qualification tactful.
+- <em>Commercial</em> — intent: lease/buy/invest. Intake: use, size, budget, area.
+- <em>New construction</em> — builder/community, move-in timeline.
+- <em>Rentals/leasing</em> — intent: availability, application. Fair-housing strict.
+<strong>Emergency/handoff:</strong> hot buyer ready today → priority live agent.</p>
+<hr />
+<h2 id="10-property-management">10. Property Management</h2>
+<p><strong>Positioning:</strong> responsive, organized, fair. <strong>Register:</strong> plain, courteous, <code>usted</code> default.
+<strong>Compliance:</strong> no legal advice (eviction/landlord-tenant); fair-housing; habitability emergencies escalate.
+<strong>Niches:</strong>
+- <em>Residential PM</em> — intent: tenant maintenance request, rent, owner inquiry. Intake: property/unit, issue, contact. Triage owner vs. tenant vs. prospect.
+- <em>Maintenance/work orders</em> — intent: repair request. Urgency: no heat/water, flooding, gas, lockout, electrical → emergency dispatch.
+- <em>Leasing/tenant</em> — intent: availability, apply, showings.
+- <em>HOA/community</em> — intent: dues, violations, amenities. Route board matters.
+- <em>Commercial PM</em> — tenant services, building issues.
+<strong>Emergency/handoff:</strong> habitability/safety (no heat in freeze, flood, gas, fire) → emergency maintenance now.</p>
+<hr />
+<h2 id="11-mortgage-lending">11. Mortgage &amp; Lending</h2>
+<p><strong>Positioning:</strong> clear, trustworthy, "no surprises." <strong>Register:</strong> <code>usted</code>, friendly-professional.
+<strong>Compliance:</strong> no rate/approval guarantees, no specific financial/tax advice; no sensitive data over open voice (secure app link).
+<strong>Niches:</strong>
+- <em>Purchase / home loan</em> — intent: pre-approval, rates, first home. Intake: purchase timeline, area, est. credit band, down payment.
+- <em>Refinance</em> — intent: lower rate, cash-out. Intake: current loan, goal.
+- <em>FHA/VA/first-time</em> — intent: low-down programs, VA eligibility. Note: program info, not advice.
+- <em>Reverse mortgage</em> — senior-focused; patient, dignified; no pressure.
+- <em>Commercial / hard money</em> — intent: investor/bridge. Intake: property, use, exit.
+<strong>Emergency/handoff:</strong> rate-lock or closing deadline → priority loan officer.</p>
+<hr />
+<h2 id="12-home-services-the-big-tree-high-call-volume-heaviest-bilingual-demand">12. Home Services  <em>(the big tree — high call volume, heaviest bilingual demand)</em></h2>
+<p><strong>Positioning:</strong> dependable, fast, "we'll take care of it today." <strong>Register:</strong> warm, plain; very heavy Mexican/Central-American customer + workforce base; Spanglish common.
+<strong>Compliance:</strong> <strong>safety hazards</strong> (gas smell, sparking/burning, CO, flood, no heat in freeze) → safety guidance + emergency dispatch; for gas/CO leave + 911/utility. No binding quotes/diagnoses over phone — frame the estimate/visit.
+<strong>Niches:</strong>
+- <em>HVAC</em> — intent: no heat/AC, maintenance, install quote. Urgency: no heat in freeze / no AC in heat wave with vulnerable occupant → priority. Intake: address, system age, symptom.
+- <em>Plumbing</em> — intent: leak, clog, water heater, no water. Urgency: active flooding/burst/sewage → emergency; shut-off guidance.
+- <em>Electrical</em> — intent: outage, panel, install. Urgency: sparking/burning smell/exposed wire → safety + emergency.
+- <em>Roofing</em> — intent: leak, storm damage, replacement quote. Urgency: active leak → tarp/priority; insurance-claim aware.
+- <em>Landscaping/lawn</em> — intent: quote, recurring service. Intake: lot size, service type, frequency.
+- <em>Cleaning</em> — intent: one-time/recurring, move-out. Intake: size (beds/baths/sqft), frequency, date.
+- <em>Pest control</em> — intent: infestation, recurring. Urgency: bees/wasps near allergic person, rodents in food area → priority.
+- <em>Garage door</em> — intent: won't open, spring, install. Urgency: car/person trapped → priority.
+- <em>Appliance repair</em> — intent: brand/appliance, symptom. Intake: brand, model if known.
+- <em>Pool</em> — intent: service, repair, opening/closing.
+<strong>Emergency/handoff:</strong> any safety hazard → emergency dispatch flag + safety script; after-hours on-call route.</p>
+<hr />
+<h2 id="13-construction-remodeling-general-contracting">13. Construction, Remodeling &amp; General Contracting</h2>
+<p><strong>Positioning:</strong> craftsmanship, trustworthy, transparent. <strong>Register:</strong> plain-warm; bilingual heavy.
+<strong>Compliance:</strong> no binding bids over phone; permit/code questions → defer to estimate; restoration insurance-aware.
+<strong>Niches:</strong>
+- <em>Kitchen/bath remodel</em> — intent: quote, design consult. Intake: scope, budget band, timeline. Voice: design-curious.
+- <em>Additions</em> — intent: feasibility, quote. Intake: sqft, lot.
+- <em>Custom homes</em> — high-touch, dignified; qualification tactful.
+- <em>Commercial build-out</em> — intent: tenant improvement. Intake: size, use, timeline.
+- <em>Restoration (water/fire/mold)</em> — intent: emergency mitigation, insurance claim. Urgency: active water/fire damage → immediate dispatch + insurance path.
+- <em>Handyman</em> — intent: small jobs list, scheduling.
+<strong>Emergency/handoff:</strong> active property damage → emergency mitigation now.</p>
+<hr />
+<h2 id="14-solar-home-energy-consultative-high-ticket-sales">14. Solar &amp; Home Energy  <em>(consultative high-ticket sales)</em></h2>
+<p><strong>Positioning:</strong> consultative, savings-focused, no high pressure. <strong>Register:</strong> friendly-professional; bilingual heavy.
+<strong>Compliance:</strong> no savings/ROI/tax-credit guarantees; capture interest, book design/consult.
+<strong>Niches:</strong>
+- <em>Residential solar</em> — intent: quote, savings, financing. Intake: monthly bill band, homeowner?, roof age, utility. Qualify: homeowner + adequate roof/credit (soft).
+- <em>Battery/storage</em> — intent: backup power, add-on. Trigger: outage concerns.
+- <em>Commercial solar</em> — intent: business install. Intake: business type, bill band, roof/space.
+- <em>Roofing + solar</em> — combined; coordinate roof condition.
+- <em>Energy audit</em> — intent: efficiency assessment.
+<strong>Emergency/handoff:</strong> none; hot, qualified lead → priority consultant.</p>
+<hr />
+<h2 id="15-automotive">15. Automotive</h2>
+<p><strong>Positioning:</strong> honest, fast, "no upsell games." <strong>Register:</strong> plain-warm; bilingual heavy.
+<strong>Compliance:</strong> <strong>no phone diagnosis as fact, no guaranteed quotes</strong> — frame inspection/estimate; safety (brakes, steering, smoke) → don't drive, tow.
+<strong>Niches:</strong>
+- <em>Auto repair / mechanic</em> — intent: symptom, quote, appt. Intake: year/make/model, symptom, mileage. Note: estimate after inspection.
+- <em>Body / collision</em> — intent: estimate, insurance claim, drivable? Urgency: not drivable/airbags → tow + insurance path.
+- <em>Dealership — sales</em> — intent: vehicle availability, test drive, trade, financing. Intake: vehicle interest, trade, budget band.
+- <em>Dealership — service</em> — intent: maintenance, recall, appt.
+- <em>Tire / wheel</em> — intent: flat, set, alignment. Urgency: blowout/stranded → roadside/tow.
+- <em>Detailing</em> — intent: package, appt.
+- <em>Towing / roadside</em> — intent: stuck/accident. Urgency: highway/unsafe location → safety + dispatch + 911 if injury.
+<strong>Emergency/handoff:</strong> accident with injury → 911 first; unsafe/stranded → dispatch + flag.</p>
+<hr />
+<h2 id="16-restaurants-fast-casual">16. Restaurants &amp; Fast-Casual</h2>
+<p><strong>Positioning:</strong> welcoming, on-brand, efficient. <strong>Register:</strong> warm-casual, <code>tú</code> ok; matches venue vibe.
+<strong>Compliance:</strong> <strong>never promise a dish is allergen-free</strong> — capture allergy, flag kitchen/manager; alcohol/age per policy.
+<strong>Niches:</strong>
+- <em>Full-service</em> — intent: reservation, hours, menu, large party. Intake: date/time, party size, allergies, occasion.
+- <em>Fast-casual / QSR</em> — intent: order, hours, location, delivery. Quick, upbeat.
+- <em>Pizza/delivery</em> — intent: order, ETA, deal. Capture address, items.
+- <em>Food truck</em> — intent: location today, catering, hours.
+- <em>Bar / nightlife</em> — intent: table/bottle service, events, cover, age. Voice: lively; ID policy.
+<strong>Emergency/handoff:</strong> complaint/manager request → manager; allergy → kitchen flag.</p>
+<hr />
+<h2 id="17-fine-dining-catering-private-events">17. Fine Dining, Catering &amp; Private Events</h2>
+<p><strong>Positioning:</strong> refined, gracious, anticipatory. <strong>Register:</strong> polished; <code>usted</code>-equivalent courtesy.
+<strong>Compliance:</strong> allergen capture (flag chef), deposit/cancellation policy clarity, no allergen guarantees.
+<strong>Niches:</strong>
+- <em>Fine dining reservations</em> — intent: book, special occasion, dietary, dress code. Intake: date/time, party, allergies, occasion, seating pref. Voice: elegant, attentive.
+- <em>Private events / buyouts</em> — intent: venue buyout, large party. Intake: date, headcount, budget band, event type. Route to events coordinator.
+- <em>Catering</em> — intent: off-site catering quote. Intake: date, headcount, cuisine, venue, dietary.
+- <em>Weddings</em> — intent: tasting, package. Voice: warm, celebratory; coordinator handoff.
+- <em>Corporate catering</em> — intent: recurring/large orders, invoicing.
+<strong>Emergency/handoff:</strong> day-of event issue → coordinator/manager immediately.</p>
+<hr />
+<h2 id="18-hospitality-lodging">18. Hospitality &amp; Lodging</h2>
+<p><strong>Positioning:</strong> gracious, anticipatory, concierge. <strong>Register:</strong> polished, bilingual; tourism dialect spread wide.
+<strong>Compliance:</strong> payment via secure path; privacy of guest info; ADA/accessibility requests captured.
+<strong>Niches:</strong>
+- <em>Hotels / boutique</em> — intent: reservation, availability, amenities, late check-in. Intake: dates, guests, room type, requests.
+- <em>B&amp;B</em> — intimate, personal voice; breakfast/policies.
+- <em>Vacation rentals / STR</em> — intent: availability, check-in info, house rules. Intake: dates, party size.
+- <em>Resorts</em> — packages, activities, dining.
+- <em>Event venues</em> — intent: tour, availability, capacity. Route to events.
+<strong>Emergency/handoff:</strong> in-stay safety/maintenance → on-site staff now.</p>
+<hr />
+<h2 id="19-beauty-hair-personal-care">19. Beauty, Hair &amp; Personal Care</h2>
+<p><strong>Positioning:</strong> stylish, welcoming, confidence-building. <strong>Register:</strong> warm-casual, <code>tú</code> common.
+<strong>Compliance:</strong> no medical claims; patch-test/allergy capture for chemical services.
+<strong>Niches:</strong>
+- <em>Hair salon</em> — intent: cut/color/treatment booking, stylist request. Intake: service, length/history (for color), stylist pref, date. Note: color consult for big changes.
+- <em>Barbershop</em> — intent: cut/fade/beard, walk-in vs. appt. Quick, friendly.
+- <em>Nail / lash / brow</em> — intent: fill, set, design. Intake: service, last appt.
+- <em>Spa / massage</em> — intent: massage/facial booking, packages. Voice: calm; intake health flags → therapist note.
+- <em>Tattoo / piercing</em> — intent: consult, deposit, age/ID. Note: age policy, aftercare to artist.
+<strong>Emergency/handoff:</strong> reaction to chemical/service → provider; otherwise standard.</p>
+<hr />
+<h2 id="20-fitness-studios-wellness">20. Fitness, Studios &amp; Wellness</h2>
+<p><strong>Positioning:</strong> motivating, inclusive, never shaming. <strong>Register:</strong> energetic-warm, <code>tú</code> ok.
+<strong>Compliance:</strong> no medical/health/diet claims or guaranteed results; injury/PAR-Q flags → staff, not advice.
+<strong>Niches:</strong>
+- <em>Gym / health club</em> — intent: membership, tour, trial, hours. Intake: goal, plan interest. Voice: encouraging.
+- <em>Boutique studio (yoga/pilates/cycle)</em> — intent: class schedule, first class, packages. Intake: experience level.
+- <em>Personal training</em> — intent: assessment, packages. Intake: goal, availability; no medical advice.
+- <em>CrossFit</em> — intent: intro/on-ramp, drop-in. Community-forward.
+- <em>Martial arts</em> — intent: trial, kids/adults program. Parent intake for minors.
+- <em>Wellness/recovery (sauna, cryo, IV)</em> — intent: booking; medical claims off-limits.
+<strong>Emergency/handoff:</strong> in-facility injury → staff/911; distressed caller → human.</p>
+<hr />
+<p><em>Atlas covers the 20 verticals. Expand any niche into a full Law-base-depth KB via the
+generator. Bench verticals (Funeral &amp; Memorial, Moving &amp; Storage, Education/Childcare,
+Logistics &amp; Trucking) attach the same way.</em></p>
+<div class="footer">Static docs for the <code>airlock-vertical-kb</code> Claude Code skill ·
+generated from <code>skills/airlock-vertical-kb/</code>.</div>
+</main>
+</div>
+</body>
+</html>

@@ -162,6 +162,18 @@
       <div><label>Phone</label><input id="l_phone" placeholder="(555) 010-0100"></div>
       <div><label>Email (optional)</label><input id="l_email" type="email" placeholder="jane@email.com"></div>
       <div><label>What can we help with?</label><input id="l_reason" placeholder="Booking / question…"></div>
+      <div style="border-top:1px solid var(--line);padding-top:12px">
+        <label>Schedule a follow-up (optional)</label>
+        <input id="l_when" type="datetime-local">
+      </div>
+      <div>
+        <label>Follow-up format</label>
+        <select id="l_format">
+          <option value="call">Phone call at that time</option>
+          <option value="video">Video — Google Meet</option>
+        </select>
+      </div>
+      <div class="hint" style="font-size:12px;color:var(--muted)">Adds a Google Calendar invite with a Meet link and emails the prospect.</div>
     </div>
     <div style="padding:14px 20px;border-top:1px solid var(--line);display:flex;gap:10px;justify-content:flex-end">
       <button class="btn" id="leadCancel">Cancel</button>
@@ -414,9 +426,27 @@ async function submitLead(){
     const r = await fetch(api("/api/lead"), { method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify(payload) });
     const data = await r.json();
     if(!r.ok || data.error) throw new Error(data.error || ("HTTP "+r.status));
+
+    // Optional: schedule a follow-up (Calendar + Meet + email).
+    const when = $("#l_when").value;
+    if(when && payload.email){
+      try{
+        const startISO = new Date(when).toISOString();
+        const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        const sr = await fetch(api("/api/schedule-followup"), {
+          method:"POST", headers:{"Content-Type":"application/json"},
+          body: JSON.stringify({ name:payload.name, email:payload.email, startISO, timeZone:tz,
+            format:$("#l_format").value, business:c.business, notes:payload.reason })
+        });
+        const sd = await sr.json();
+        if(sr.ok && sd.ok) toast("Lead saved + follow-up invite sent ✓");
+        else toast("Lead saved. Follow-up skipped: "+(sd.error||("HTTP "+sr.status)));
+      }catch(e){ toast("Lead saved. Follow-up failed: "+e.message); }
+    } else {
+      toast(data.stored ? "Sent to the Lead Desk ✓" : "Captured ✓ (connect Supabase to persist)");
+    }
     closeLeadModal();
-    ["l_name","l_phone","l_email","l_reason"].forEach(id=>$("#"+id).value="");
-    toast(data.stored ? "Sent to the Lead Desk ✓" : "Captured ✓ (connect Supabase to persist)");
+    ["l_name","l_phone","l_email","l_reason","l_when"].forEach(id=>$("#"+id).value="");
   }catch(e){ toast("Lead failed: "+e.message); }
 }
 $("#shareBtn").onclick = shareEmail;

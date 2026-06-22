@@ -61,6 +61,10 @@ export default {
       return createLead(request, env);
     }
 
+    if (url.pathname === "/api/schedule-followup" && request.method === "POST") {
+      return scheduleFollowup(request, env);
+    }
+
     // Everything else -> static assets (the demo page, CRM, docs site).
     return env.ASSETS.fetch(request);
   }
@@ -164,6 +168,109 @@ async function createLead(request, env) {
   if (!stored && !env.SUPABASE_URL)
     return json({ ok: true, stored: false, note: "SUPABASE_URL/KEY not set — lead not persisted", lead });
   return json({ ok: true, stored: true, lead: stored || lead });
+}
+
+/* ---------- Google: post-call follow-up (Calendar + Meet + Gmail) ---------- */
+async function googleAccessToken(env) {
+  if (!(env.GOOGLE_CLIENT_ID && env.GOOGLE_CLIENT_SECRET && env.GOOGLE_REFRESH_TOKEN)) return null;
+  const r = await fetch("https://oauth2.googleapis.com/token", {
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: new URLSearchParams({
+      client_id: env.GOOGLE_CLIENT_ID,
+      client_secret: env.GOOGLE_CLIENT_SECRET,
+      refresh_token: env.GOOGLE_REFRESH_TOKEN,
+      grant_type: "refresh_token"
+    })
+  });
+  const data = await r.json().catch(() => ({}));
+  return r.ok ? data.access_token : null;
+}
+
+function b64url(str) {
+  const bytes = new TextEncoder().encode(str);
+  let bin = ""; for (const b of bytes) bin += String.fromCharCode(b);
+  return btoa(bin).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+}
+
+async function scheduleFollowup(request, env) {
+  let body;
+  try { body = await request.json(); } catch { return json({ error: "bad JSON" }, 400); }
+  const {
+    name = "", email = "", startISO = "", durationMin = 30,
+    timeZone = env.GOOGLE_TIMEZONE || "America/New_York",
+    format = "video", business = "", notes = ""
+  } = body;
+
+  if (!email) return json({ error: "prospect email required" }, 400);
+  if (!startISO) return json({ error: "startISO (follow-up time) required" }, 400);
+
+  const token = await googleAccessToken(env);
+  if (!token) return json({ error: "google not configured", hint: "set GOOGLE_CLIENT_ID / GOOGLE_CLIENT_SECRET / GOOGLE_REFRESH_TOKEN" }, 500);
+
+  const start = new Date(startISO);
+  const end = new Date(start.getTime() + (Number(durationMin) || 30) * 60000);
+  const who = name || email;
+  const biz = business || "your business";
+
+  // 1) Calendar event with a Google Meet link; Google emails the invite (sendUpdates=all).
+  const eventReq = {
+    summary: `Follow-up: ${biz} × Orbit AI`,
+    description: `Quick follow-up about the AI receptionist demo for ${biz}.`
+      + `\n\nWe can hop on a quick phone call at this time — or use the Google Meet video link on this invite if you'd prefer face-to-face.`
+      + (notes ? `\n\nNotes: ${notes}` : ""),
+    start: { dateTime: start.toISOString(), timeZone },
+    end: { dateTime: end.toISOString(), timeZone },
+    attendees: [{ email }],
+    conferenceData: {
+      createRequest: { requestId: crypto.randomUUID(), conferenceSolutionKey: { type: "hangoutsMeet" } }
+    },
+    reminders: { useDefault: true }
+  };
+  const evRes = await fetch(
+    "https://www.googleapis.com/calendar/v3/calendars/primary/events?conferenceDataVersion=1&sendUpdates=all",
+    { method: "POST", headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
+      body: JSON.stringify(eventReq) });
+  const ev = await evRes.json().catch(() => ({}));
+  if (!evRes.ok) return json({ error: "calendar event failed", detail: ev }, evRes.status);
+  const meetLink = ev.hangoutLink || ev.conferenceData?.entryPoints?.find(e => e.entryPointType === "video")?.uri || "";
+  const eventLink = ev.htmlLink || "";
+
+  // 2) Warm custom follow-up email via Gmail.
+  const from = env.FROM_EMAIL || "me";
+  const whenStr = start.toLocaleString("en-US", { timeZone, weekday: "long", month: "short", day: "numeric", hour: "numeric", minute: "2-digit", timeZoneName: "short" });
+  const subject = `Follow-up scheduled — ${biz} × Orbit AI`;
+  const html = `<div style="font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;font-size:15px;line-height:1.6;color:#1a1a1a;max-width:560px">
+    <p>Hi ${escapeHtml(name) || "there"},</p>
+    <p>Thanks for checking out the AI receptionist demo for <strong>${escapeHtml(biz)}</strong> — I've put a quick follow-up on the calendar:</p>
+    <p style="background:#f4f6fb;border:1px solid #e2e7f0;border-radius:10px;padding:14px 16px"><strong>${escapeHtml(whenStr)}</strong></p>
+    <p>You'll get a calendar invite alongside this note. We can just <strong>hop on a quick phone call</strong> at that time — or if you'd rather, jump on the <strong>Google Meet video link</strong>:</p>
+    ${meetLink ? `<p style="text-align:center;margin:22px 0"><a href="${meetLink}" style="background:#3a6ad6;color:#fff;text-decoration:none;padding:12px 24px;border-radius:10px;font-weight:700;display:inline-block">Join the Google Meet →</a></p>` : ""}
+    <p>Either way works — whatever's easiest for you. Talk soon!</p>
+    <p style="margin-top:20px">— Jonathan<br><span style="color:#666">Orbit AI Automation</span></p>
+  </div>`;
+  const mime = [
+    `To: ${email}`,
+    from !== "me" ? `From: ${from}` : null,
+    `Subject: ${subject}`,
+    "MIME-Version: 1.0",
+    'Content-Type: text/html; charset="UTF-8"',
+    "", html
+  ].filter(v => v !== null).join("\r\n");
+
+  let emailSent = false;
+  const gmRes = await fetch("https://gmail.googleapis.com/gmail/v1/users/me/messages/send", {
+    method: "POST", headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
+    body: JSON.stringify({ raw: b64url(mime) })
+  });
+  emailSent = gmRes.ok;
+
+  return json({ ok: true, eventLink, meetLink, emailSent });
+}
+
+function escapeHtml(s) {
+  return (s == null ? "" : String(s)).replace(/[&<>"']/g, c =>
+    ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 }
 
 /* ---------- Tier-aware system prompt (Gold → Platinum → Iridium) ---------- */

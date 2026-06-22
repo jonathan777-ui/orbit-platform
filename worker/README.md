@@ -28,6 +28,42 @@ npx wrangler secret put N8N_LEAD_WEBHOOK  # e.g. https://<tunnel>/webhook/lead-i
 ```
 Without `SUPABASE_*`, `/api/lead` still returns OK but doesn't persist (the UI says so).
 
+## Post-call follow-up: Google Calendar (Meet) + Gmail
+`POST /api/schedule-followup` creates a **Google Calendar event with a Google Meet
+link**, auto-invites the prospect (Google emails the calendar invite), and sends a
+warm follow-up email via the **Gmail API** ("hop on a call at that time, or use the
+Meet video link"). The demo's lead-capture modal calls it when a follow-up time is set.
+
+Body: `{name, email, startISO, durationMin?, timeZone?, format, business, notes}`.
+
+### Set up the Gmail + Calendar API (one time)
+1. **Google Cloud Console** → create/select a project.
+2. **APIs & Services → Enable APIs**: enable **Gmail API** and **Google Calendar API**.
+3. **OAuth consent screen**: set it up (External or Internal for Workspace); add your
+   account as a test user if it stays in "testing".
+4. **Credentials → Create OAuth client ID → Web application**. Add an authorized redirect
+   URI you'll use to grab the token (e.g. `https://developers.google.com/oauthplayground`).
+5. Get a **refresh token** for your account with these scopes:
+   - `https://www.googleapis.com/auth/gmail.send`
+   - `https://www.googleapis.com/auth/calendar.events`
+   Easiest path: [OAuth 2.0 Playground](https://developers.google.com/oauthplayground) →
+   gear icon → "Use your own OAuth credentials" → paste client id/secret → authorize those
+   two scopes → "Exchange authorization code for tokens" → copy the **refresh token**.
+6. Set the Worker secrets:
+   ```bash
+   npx wrangler secret put GOOGLE_CLIENT_ID
+   npx wrangler secret put GOOGLE_CLIENT_SECRET
+   npx wrangler secret put GOOGLE_REFRESH_TOKEN
+   npx wrangler secret put FROM_EMAIL        # your sending address (e.g. jonathan@orbitaiautomation.com)
+   npx wrangler secret put GOOGLE_TIMEZONE   # optional, e.g. America/Phoenix (default America/New_York)
+   ```
+The event is created on the token owner's **primary** calendar; the prospect is added as an
+attendee so Google sends them the invite automatically.
+
+> Simpler alternative: do the OAuth in **n8n** (Gmail + Google Calendar nodes have
+> click-through auth) and have the Worker forward to an n8n webhook — but n8n must be
+> reachable from the Worker (a public URL / tunnel), which the serverless path above avoids.
+
 ---
 
 ## Set up the exact APIs

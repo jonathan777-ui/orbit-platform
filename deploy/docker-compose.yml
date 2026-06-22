@@ -1,0 +1,59 @@
+name: orbit-leaddesk
+
+# Local dev stack:
+#   - n8n        → http://localhost:5678   (automation + MCP Server Trigger)
+#   - Lead Desk  → http://localhost:8080   (the static HTML CRM)
+#
+# Usage:
+#   cp .env.example .env      # then edit values
+#   docker compose up -d
+#   docker compose logs -f n8n
+#
+# Stop:        docker compose down
+# Wipe data:   docker compose down -v   (deletes the n8n volume!)
+
+services:
+  n8n:
+    image: docker.n8n.io/n8nio/n8n:latest
+    container_name: n8n
+    restart: unless-stopped
+    ports:
+      - "5678:5678"
+    environment:
+      # --- Host / URL ---
+      - N8N_HOST=${N8N_HOST:-localhost}
+      - N8N_PORT=5678
+      - N8N_PROTOCOL=http
+      - WEBHOOK_URL=${WEBHOOK_URL:-http://localhost:5678/}
+      - N8N_EDITOR_BASE_URL=${WEBHOOK_URL:-http://localhost:5678/}
+      # --- Local HTTP friendliness (don't use these settings in production) ---
+      - N8N_SECURE_COOKIE=false
+      - GENERIC_TIMEZONE=${GENERIC_TIMEZONE:-America/New_York}
+      - N8N_DIAGNOSTICS_ENABLED=false
+      - N8N_RUNNERS_ENABLED=true
+      # --- Allow community/MCP tool nodes ---
+      - N8N_COMMUNITY_PACKAGES_ALLOW_TOOL_USAGE=true
+      # --- Optional encryption key (set in .env to keep credentials portable) ---
+      - N8N_ENCRYPTION_KEY=${N8N_ENCRYPTION_KEY:-}
+    volumes:
+      - n8n_data:/home/node/.n8n
+      # Drop workflow JSON exports here to share them in the repo:
+      - ./n8n/workflows:/home/node/workflows
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:5678/healthz || exit 1"]
+      interval: 15s
+      timeout: 5s
+      retries: 10
+
+  leaddesk:
+    image: nginx:alpine
+    container_name: leaddesk
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    volumes:
+      # Serve the single-file CRM as the site root.
+      - ../lead-desk.html:/usr/share/nginx/html/index.html:ro
+
+volumes:
+  n8n_data:

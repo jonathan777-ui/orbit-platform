@@ -7,3 +7,4 @@ __pycache__/
 
 # Generated docs site
 site/_site/
+site/*.zip

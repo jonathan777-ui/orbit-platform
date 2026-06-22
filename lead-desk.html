@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lead Desk — CRM</title>
+<style>
+  :root{
+    --bg:#0b1020; --panel:#121a2e; --panel-2:#172139; --line:#243150;
+    --text:#e8edf7; --muted:#9aa7c2; --accent:#5b8cff; --accent-2:#3a6ad6;
+    --good:#33c98a; --bad:#ff6b6b; --warn:#ffc857; --chip:#1d2942;
+    --shadow:0 10px 30px rgba(0,0,0,.35);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:radial-gradient(1200px 600px at 80% -10%,#1a2547 0%,var(--bg) 55%);
+    color:var(--text); line-height:1.45;
+  }
+  a{color:var(--accent)}
+  header{
+    display:flex;align-items:center;gap:16px;flex-wrap:wrap;
+    padding:14px 22px;border-bottom:1px solid var(--line);
+    background:rgba(11,16,32,.7);backdrop-filter:blur(8px);
+    position:sticky;top:0;z-index:50;
+  }
+  .brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:18px;letter-spacing:.3px}
+  .brand .dot{width:12px;height:12px;border-radius:50%;background:var(--accent);box-shadow:0 0 14px var(--accent)}
+  .status{font-size:12px;color:var(--muted);display:flex;align-items:center;gap:6px}
+  .status .pip{width:8px;height:8px;border-radius:50%;background:var(--bad)}
+  .status.online .pip{background:var(--good);box-shadow:0 0 10px var(--good)}
+  .grow{flex:1}
+  .btn{
+    border:1px solid var(--line);background:var(--panel-2);color:var(--text);
+    padding:8px 14px;border-radius:10px;cursor:pointer;font-size:13px;font-weight:600;
+    transition:.15s;white-space:nowrap;
+  }
+  .btn:hover{border-color:var(--accent);transform:translateY(-1px)}
+  .btn.primary{background:linear-gradient(180deg,var(--accent),var(--accent-2));border-color:transparent}
+  .btn.ghost{background:transparent}
+  .btn.danger:hover{border-color:var(--bad);color:var(--bad)}
+  .wrap{padding:20px 22px;max-width:1500px;margin:0 auto}
+
+  /* Stats */
+  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:18px}
+  .stat{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+  .stat .k{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}
+  .stat .v{font-size:24px;font-weight:800;margin-top:4px}
+  .stat .v.good{color:var(--good)} .stat .v.warn{color:var(--warn)}
+
+  /* Toolbar */
+  .toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:16px}
+  .toolbar input[type=search],.toolbar select{
+    background:var(--panel);border:1px solid var(--line);color:var(--text);
+    padding:9px 12px;border-radius:10px;font-size:13px;outline:none;
+  }
+  .toolbar input[type=search]{min-width:240px}
+  .toolbar input:focus,.toolbar select:focus{border-color:var(--accent)}
+  .seg{display:flex;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+  .seg button{background:var(--panel);border:none;color:var(--muted);padding:9px 14px;cursor:pointer;font-size:13px;font-weight:600}
+  .seg button.active{background:var(--accent);color:#fff}
+
+  /* Table */
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);overflow:hidden}
+  table{width:100%;border-collapse:collapse;font-size:13.5px}
+  thead th{
+    text-align:left;padding:12px 14px;color:var(--muted);font-weight:600;font-size:12px;
+    text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid var(--line);
+    cursor:pointer;user-select:none;white-space:nowrap;
+  }
+  thead th:hover{color:var(--text)}
+  tbody td{padding:12px 14px;border-bottom:1px solid rgba(36,49,80,.5);vertical-align:middle}
+  tbody tr{transition:.12s}
+  tbody tr:hover{background:var(--panel-2)}
+  tbody tr:last-child td{border-bottom:none}
+  .lead-name{font-weight:700}
+  .lead-sub{color:var(--muted);font-size:12px}
+  .chip{display:inline-block;padding:3px 10px;border-radius:999px;font-size:12px;font-weight:600;background:var(--chip);border:1px solid var(--line)}
+  .money{font-variant-numeric:tabular-nums;font-weight:700}
+  .row-actions{display:flex;gap:6px;justify-content:flex-end}
+  .icon-btn{background:transparent;border:1px solid transparent;color:var(--muted);cursor:pointer;padding:5px 8px;border-radius:8px;font-size:13px}
+  .icon-btn:hover{background:var(--panel);border-color:var(--line);color:var(--text)}
+  .empty{padding:60px 20px;text-align:center;color:var(--muted)}
+  .empty h3{color:var(--text);margin:0 0 6px}
+
+  /* Stage badge colors */
+  .st-New{background:#1d2942;border-color:#2c3d63;color:#9db8ff}
+  .st-Contacted{background:#1f2b1f;border-color:#33502f;color:#9bd7a0}
+  .st-Qualified{background:#2a2410;border-color:#5c4f1f;color:#ffd97a}
+  .st-Proposal{background:#2a1f33;border-color:#4f2f63;color:#d6a0ff}
+  .st-Won{background:#0f2e22;border-color:#1f6b4d;color:#5cf0b0}
+  .st-Lost{background:#2e1414;border-color:#6b1f1f;color:#ff9b9b}
+
+  /* Kanban */
+  .kanban{display:grid;grid-template-columns:repeat(6,minmax(220px,1fr));gap:12px;overflow-x:auto;padding-bottom:8px}
+  .col{background:var(--panel);border:1px solid var(--line);border-radius:14px;display:flex;flex-direction:column;min-height:120px}
+  .col h4{margin:0;padding:12px 14px;font-size:13px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line)}
+  .col h4 .count{color:var(--muted);font-weight:600;font-size:12px}
+  .col .col-body{padding:10px;display:flex;flex-direction:column;gap:8px;min-height:60px;flex:1}
+  .kcard{background:var(--panel-2);border:1px solid var(--line);border-radius:10px;padding:10px;cursor:grab}
+  .kcard:active{cursor:grabbing}
+  .kcard.dragging{opacity:.4}
+  .kcard .n{font-weight:700;font-size:13.5px}
+  .kcard .c{color:var(--muted);font-size:12px}
+  .kcard .m{margin-top:6px;font-size:12px;font-weight:700;color:var(--good)}
+  .col.drop{outline:2px dashed var(--accent);outline-offset:-4px}
+
+  /* Modal */
+  .overlay{position:fixed;inset:0;background:rgba(3,6,14,.6);backdrop-filter:blur(3px);display:none;align-items:center;justify-content:center;z-index:100;padding:20px}
+  .overlay.show{display:flex}
+  .modal{background:var(--panel);border:1px solid var(--line);border-radius:18px;width:100%;max-width:560px;box-shadow:var(--shadow);max-height:90vh;overflow:auto}
+  .modal h3{margin:0;padding:18px 22px;border-bottom:1px solid var(--line);font-size:16px}
+  .modal .body{padding:18px 22px;display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .modal .body .full{grid-column:1/-1}
+  label{display:block;font-size:12px;color:var(--muted);margin-bottom:5px;font-weight:600}
+  input,select,textarea{
+    width:100%;background:var(--panel-2);border:1px solid var(--line);color:var(--text);
+    padding:9px 11px;border-radius:9px;font-size:14px;outline:none;font-family:inherit;
+  }
+  textarea{resize:vertical;min-height:70px}
+  input:focus,select:focus,textarea:focus{border-color:var(--accent)}
+  .modal .foot{padding:16px 22px;border-top:1px solid var(--line);display:flex;gap:10px;justify-content:flex-end}
+  .hint{font-size:12px;color:var(--muted);margin-top:6px}
+  pre{background:#0a0f1e;border:1px solid var(--line);border-radius:10px;padding:14px;overflow:auto;font-size:12px;color:#cfe0ff}
+  .field-note{font-size:12px;color:var(--muted)}
+
+  /* Toast */
+  #toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(20px);opacity:0;
+    background:var(--panel-2);border:1px solid var(--line);padding:11px 18px;border-radius:12px;
+    box-shadow:var(--shadow);font-size:13.5px;transition:.25s;z-index:200;pointer-events:none}
+  #toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+  @media (max-width:760px){.modal .body{grid-template-columns:1fr}.toolbar input[type=search]{min-width:0;flex:1}}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand"><span class="dot"></span> Lead Desk</div>
+  <div class="status" id="connStatus"><span class="pip"></span><span id="connText">Local mode</span></div>
+  <div class="grow"></div>
+  <button class="btn primary" id="newLeadBtn">+ New Lead</button>
+  <button class="btn ghost" id="refreshBtn" title="Reload from Supabase">↻</button>
+  <button class="btn ghost" id="importBtn">Import</button>
+  <button class="btn ghost" id="exportBtn">Export</button>
+  <button class="btn ghost" id="settingsBtn">⚙ Connect</button>
+  <input type="file" id="importFile" accept="application/json" hidden>
+</header>
+
+<div class="wrap">
+  <div class="stats" id="stats"></div>
+
+  <div class="toolbar">
+    <input type="search" id="search" placeholder="Search name, company, email, source…">
+    <select id="stageFilter">
+      <option value="">All stages</option>
+    </select>
+    <select id="ownerFilter"><option value="">All owners</option></select>
+    <div class="grow"></div>
+    <div class="seg">
+      <button data-view="table" class="active">Table</button>
+      <button data-view="kanban">Pipeline</button>
+    </div>
+  </div>
+
+  <div id="tableView" class="card">
+    <table>
+      <thead>
+        <tr>
+          <th data-sort="name">Lead</th>
+          <th data-sort="company">Company</th>
+          <th data-sort="stage">Stage</th>
+          <th data-sort="value">Value</th>
+          <th data-sort="source">Source</th>
+          <th data-sort="owner">Owner</th>
+          <th data-sort="next_action">Next action</th>
+          <th data-sort="updated_at">Updated</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="rows"></tbody>
+    </table>
+    <div class="empty" id="emptyState" style="display:none">
+      <h3>No leads yet</h3>
+      <div>Click <b>+ New Lead</b> to add your first one, or <b>Connect</b> a Supabase table to load the desk.</div>
+    </div>
+  </div>
+
+  <div id="kanbanView" class="kanban" style="display:none"></div>
+</div>
+
+<!-- Lead modal -->
+<div class="overlay" id="leadOverlay">
+  <div class="modal">
+    <h3 id="leadModalTitle">New Lead</h3>
+    <div class="body">
+      <div><label>Name *</label><input id="f_name" placeholder="Jane Doe"></div>
+      <div><label>Company</label><input id="f_company" placeholder="Acme Co."></div>
+      <div><label>Email</label><input id="f_email" type="email" placeholder="jane@acme.com"></div>
+      <div><label>Phone</label><input id="f_phone" placeholder="+1 555 0100"></div>
+      <div>
+        <label>Stage</label>
+        <select id="f_stage"></select>
+      </div>
+      <div><label>Value ($)</label><input id="f_value" type="number" min="0" step="100" placeholder="0"></div>
+      <div><label>Source</label>
+        <select id="f_source">
+          <option value="">—</option>
+          <option>Website</option><option>Voice agent</option><option>Chatbot</option>
+          <option>Referral</option><option>Cold outreach</option><option>Paid ads</option>
+          <option>Event</option><option>Other</option>
+        </select>
+      </div>
+      <div><label>Owner</label><input id="f_owner" placeholder="Assigned rep"></div>
+      <div class="full"><label>Next action</label><input id="f_next_action" placeholder="e.g. Send proposal Fri"></div>
+      <div class="full"><label>Notes</label><textarea id="f_notes" placeholder="Context, call notes, etc."></textarea></div>
+    </div>
+    <div class="foot">
+      <button class="btn danger" id="deleteLeadBtn" style="margin-right:auto;display:none">Delete</button>
+      <button class="btn ghost" id="cancelLeadBtn">Cancel</button>
+      <button class="btn primary" id="saveLeadBtn">Save lead</button>
+    </div>
+  </div>
+</div>
+
+<!-- Settings modal -->
+<div class="overlay" id="settingsOverlay">
+  <div class="modal">
+    <h3>Connect to the Lead Desk (Supabase)</h3>
+    <div class="body">
+      <div class="full">
+        <label>Supabase Project URL</label>
+        <input id="s_url" placeholder="https://YOUR-PROJECT.supabase.co">
+      </div>
+      <div class="full">
+        <label>Supabase anon (public) key</label>
+        <input id="s_key" placeholder="eyJhbGciOi...">
+        <div class="hint">Use the <b>anon</b> key only. Protect data with Row Level Security — never paste a service-role key into a webpage.</div>
+      </div>
+      <div class="full">
+        <label>Table name</label>
+        <input id="s_table" value="leads">
+      </div>
+      <div class="full">
+        <details>
+          <summary style="cursor:pointer;color:var(--accent);font-size:13px">Show the SQL to create the table & policies</summary>
+<pre id="sqlSnippet"></pre>
+        </details>
+      </div>
+    </div>
+    <div class="foot">
+      <button class="btn danger" id="disconnectBtn" style="margin-right:auto">Disconnect</button>
+      <button class="btn ghost" id="cancelSettingsBtn">Cancel</button>
+      <button class="btn primary" id="saveSettingsBtn">Connect</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<!-- Supabase JS (loaded only if/when you connect) -->
+<script>
+/* =========================================================================
+   Lead Desk — single-file CRM
+   Backend: Supabase (browser client) with graceful local fallback.
+   ========================================================================= */
+const STAGES = ["New","Contacted","Qualified","Proposal","Won","Lost"];
+const LS_DATA = "leaddesk.leads.v1";
+const LS_CFG  = "leaddesk.config.v1";
+
+let leads = [];
+let cfg = loadCfg();
+let sb = null;              // supabase client when connected
+let view = "table";
+let editingId = null;
+let sortKey = "updated_at", sortDir = -1;
+let dragId = null;
+
+const $ = s => document.querySelector(s);
+const $$ = s => [...document.querySelectorAll(s)];
+const uid = () => (crypto.randomUUID ? crypto.randomUUID() : "id-"+Date.now()+"-"+Math.random().toString(16).slice(2));
+const esc = s => (s==null?"":String(s)).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const fmtMoney = n => "$"+(Number(n)||0).toLocaleString();
+const fmtDate = d => { if(!d) return "—"; const t=new Date(d); if(isNaN(t)) return "—";
+  const diff=(Date.now()-t)/86400000; if(diff<1) return "today"; if(diff<2) return "yesterday";
+  if(diff<7) return Math.floor(diff)+"d ago"; return t.toLocaleDateString(); };
+
+function loadCfg(){ try{ return JSON.parse(localStorage.getItem(LS_CFG))||{}; }catch{ return {}; } }
+function saveCfg(){ localStorage.setItem(LS_CFG, JSON.stringify(cfg)); }
+function loadLocal(){ try{ return JSON.parse(localStorage.getItem(LS_DATA))||[]; }catch{ return []; } }
+function saveLocal(){ localStorage.setItem(LS_DATA, JSON.stringify(leads)); }
+
+function toast(msg){ const t=$("#toast"); t.textContent=msg; t.classList.add("show");
+  clearTimeout(t._t); t._t=setTimeout(()=>t.classList.remove("show"),2400); }
+
+/* ---------- Supabase wiring ---------- */
+function loadSupabaseLib(){
+  return new Promise((res,rej)=>{
+    if(window.supabase) return res();
+    const s=document.createElement("script");
+    s.src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2";
+    s.onload=res; s.onerror=()=>rej(new Error("Could not load Supabase library (offline?)"));
+    document.head.appendChild(s);
+  });
+}
+async function connect(){
+  if(!(cfg.url && cfg.key)){ sb=null; return; }
+  await loadSupabaseLib();
+  sb = window.supabase.createClient(cfg.url, cfg.key);
+}
+function setConnUI(){
+  const on = !!sb;
+  $("#connStatus").classList.toggle("online", on);
+  $("#connText").textContent = on ? "Connected · "+(cfg.table||"leads") : "Local mode";
+  $("#refreshBtn").style.display = on ? "" : "none";
+}
+
+async function fetchLeads(){
+  if(sb){
+    const {data,error} = await sb.from(cfg.table||"leads").select("*").order("updated_at",{ascending:false});
+    if(error){ toast("Load failed: "+error.message); leads=loadLocal(); return; }
+    leads = data||[];
+  } else {
+    leads = loadLocal();
+  }
+}
+
+async function upsertLead(lead){
+  if(sb){
+    const {data,error} = await sb.from(cfg.table||"leads").upsert(lead).select().single();
+    if(error){ toast("Save failed: "+error.message); return null; }
+    return data;
+  } else {
+    const i = leads.findIndex(l=>l.id===lead.id);
+    if(i>=0) leads[i]=lead; else leads.push(lead);
+    saveLocal(); return lead;
+  }
+}
+async function removeLead(id){
+  if(sb){
+    const {error} = await sb.from(cfg.table||"leads").delete().eq("id",id);
+    if(error){ toast("Delete failed: "+error.message); return false; }
+  } else {
+    leads = leads.filter(l=>l.id!==id); saveLocal();
+  }
+  return true;
+}
+
+/* ---------- Rendering ---------- */
+function visibleLeads(){
+  const q = $("#search").value.trim().toLowerCase();
+  const sf = $("#stageFilter").value;
+  const of = $("#ownerFilter").value;
+  let out = leads.filter(l=>{
+    if(sf && l.stage!==sf) return false;
+    if(of && (l.owner||"")!==of) return false;
+    if(q){
+      const hay = [l.name,l.company,l.email,l.source,l.owner,l.notes,l.next_action].join(" ").toLowerCase();
+      if(!hay.includes(q)) return false;
+    }
+    return true;
+  });
+  out.sort((a,b)=>{
+    let x=a[sortKey], y=b[sortKey];
+    if(sortKey==="value"){ x=Number(x)||0; y=Number(y)||0; }
+    else { x=(x||"").toString().toLowerCase(); y=(y||"").toString().toLowerCase(); }
+    return x<y?-1*sortDir : x>y?1*sortDir : 0;
+  });
+  return out;
+}
+
+function renderStats(){
+  const open = leads.filter(l=>l.stage!=="Won"&&l.stage!=="Lost");
+  const openVal = open.reduce((s,l)=>s+(Number(l.value)||0),0);
+  const won = leads.filter(l=>l.stage==="Won");
+  const wonVal = won.reduce((s,l)=>s+(Number(l.value)||0),0);
+  const decided = leads.filter(l=>l.stage==="Won"||l.stage==="Lost").length;
+  const winRate = decided? Math.round(won.length/decided*100):0;
+  $("#stats").innerHTML = `
+    <div class="stat"><div class="k">Total leads</div><div class="v">${leads.length}</div></div>
+    <div class="stat"><div class="k">Open pipeline</div><div class="v">${open.length}</div></div>
+    <div class="stat"><div class="k">Open value</div><div class="v warn">${fmtMoney(openVal)}</div></div>
+    <div class="stat"><div class="k">Won</div><div class="v good">${won.length} · ${fmtMoney(wonVal)}</div></div>
+    <div class="stat"><div class="k">Win rate</div><div class="v">${winRate}%</div></div>`;
+}
+
+function renderTable(){
+  const data = visibleLeads();
+  const tb = $("#rows"); tb.innerHTML="";
+  $("#emptyState").style.display = data.length? "none":"block";
+  for(const l of data){
+    const tr=document.createElement("tr");
+    tr.innerHTML = `
+      <td>
+        <div class="lead-name">${esc(l.name)||"—"}</div>
+        <div class="lead-sub">${esc(l.email)||esc(l.phone)||""}</div>
+      </td>
+      <td>${esc(l.company)||"—"}</td>
+      <td><span class="chip st-${esc(l.stage)}">${esc(l.stage)||"—"}</span></td>
+      <td class="money">${l.value?fmtMoney(l.value):"—"}</td>
+      <td>${esc(l.source)||"—"}</td>
+      <td>${esc(l.owner)||"—"}</td>
+      <td>${esc(l.next_action)||"—"}</td>
+      <td class="lead-sub">${fmtDate(l.updated_at)}</td>
+      <td><div class="row-actions">
+        <button class="icon-btn" data-edit="${l.id}" title="Edit">✏️</button>
+      </div></td>`;
+    tr.querySelector("[data-edit]").onclick=()=>openLead(l.id);
+    tr.ondblclick=()=>openLead(l.id);
+    tb.appendChild(tr);
+  }
+}
+
+function renderKanban(){
+  const wrap=$("#kanbanView"); wrap.innerHTML="";
+  const data = visibleLeads();
+  for(const st of STAGES){
+    const items = data.filter(l=>l.stage===st);
+    const sum = items.reduce((s,l)=>s+(Number(l.value)||0),0);
+    const col=document.createElement("div");
+    col.className="col"; col.dataset.stage=st;
+    col.innerHTML=`<h4><span class="chip st-${st}">${st}</span><span class="count">${items.length} · ${fmtMoney(sum)}</span></h4><div class="col-body"></div>`;
+    const body=col.querySelector(".col-body");
+    for(const l of items){
+      const c=document.createElement("div");
+      c.className="kcard"; c.draggable=true; c.dataset.id=l.id;
+      c.innerHTML=`<div class="n">${esc(l.name)||"—"}</div>
+        <div class="c">${esc(l.company)||esc(l.email)||""}</div>
+        ${l.value?`<div class="m">${fmtMoney(l.value)}</div>`:""}`;
+      c.onclick=()=>openLead(l.id);
+      c.ondragstart=e=>{ dragId=l.id; c.classList.add("dragging"); e.dataTransfer.effectAllowed="move"; };
+      c.ondragend=()=>{ dragId=null; c.classList.remove("dragging"); };
+      body.appendChild(c);
+    }
+    col.ondragover=e=>{ e.preventDefault(); col.classList.add("drop"); };
+    col.ondragleave=()=>col.classList.remove("drop");
+    col.ondrop=async e=>{
+      e.preventDefault(); col.classList.remove("drop");
+      if(!dragId) return;
+      const l=leads.find(x=>x.id===dragId);
+      if(l && l.stage!==st){ l.stage=st; l.updated_at=new Date().toISOString();
+        await upsertLead(l); toast(`Moved to ${st}`); render(); }
+    };
+    wrap.appendChild(col);
+  }
+}
+
+function refreshFilters(){
+  const owners=[...new Set(leads.map(l=>l.owner).filter(Boolean))].sort();
+  const of=$("#ownerFilter"); const cur=of.value;
+  of.innerHTML='<option value="">All owners</option>'+owners.map(o=>`<option ${o===cur?"selected":""}>${esc(o)}</option>`).join("");
+}
+
+function render(){
+  renderStats(); refreshFilters();
+  $("#tableView").style.display = view==="table"?"":"none";
+  $("#kanbanView").style.display = view==="kanban"?"":"none";
+  if(view==="table") renderTable(); else renderKanban();
+}
+
+/* ---------- Lead modal ---------- */
+function openLead(id){
+  editingId = id || null;
+  const l = id? leads.find(x=>x.id===id) : {};
+  $("#leadModalTitle").textContent = id? "Edit Lead":"New Lead";
+  $("#f_name").value=l.name||""; $("#f_company").value=l.company||"";
+  $("#f_email").value=l.email||""; $("#f_phone").value=l.phone||"";
+  $("#f_stage").value=l.stage||"New"; $("#f_value").value=l.value||"";
+  $("#f_source").value=l.source||""; $("#f_owner").value=l.owner||"";
+  $("#f_next_action").value=l.next_action||""; $("#f_notes").value=l.notes||"";
+  $("#deleteLeadBtn").style.display = id?"":"none";
+  $("#leadOverlay").classList.add("show");
+  $("#f_name").focus();
+}
+function closeLead(){ $("#leadOverlay").classList.remove("show"); editingId=null; }
+
+async function saveLead(){
+  const name=$("#f_name").value.trim();
+  if(!name){ toast("Name is required"); $("#f_name").focus(); return; }
+  const now=new Date().toISOString();
+  const base = editingId? leads.find(x=>x.id===editingId) : {id:uid(), created_at:now};
+  const lead = {
+    ...base,
+    name, company:$("#f_company").value.trim(), email:$("#f_email").value.trim(),
+    phone:$("#f_phone").value.trim(), stage:$("#f_stage").value,
+    value:$("#f_value").value?Number($("#f_value").value):0,
+    source:$("#f_source").value, owner:$("#f_owner").value.trim(),
+    next_action:$("#f_next_action").value.trim(), notes:$("#f_notes").value.trim(),
+    updated_at:now
+  };
+  const saved = await upsertLead(lead);
+  if(saved){
+    const i=leads.findIndex(l=>l.id===saved.id);
+    if(i>=0) leads[i]=saved; else leads.push(saved);
+    toast(editingId?"Lead updated":"Lead added");
+    closeLead(); render();
+  }
+}
+async function deleteLead(){
+  if(!editingId) return;
+  if(!confirm("Delete this lead? This cannot be undone.")) return;
+  if(await removeLead(editingId)){
+    leads=leads.filter(l=>l.id!==editingId);
+    toast("Lead deleted"); closeLead(); render();
+  }
+}
+
+/* ---------- Settings ---------- */
+function sqlSnippet(table){
+  return `-- Run in Supabase SQL editor
+create table if not exists public.${table} (
+  id uuid primary key default gen_random_uuid(),
+  created_at timestamptz default now(),
+  updated_at timestamptz default now(),
+  name text not null,
+  company text,
+  email text,
+  phone text,
+  stage text default 'New',
+  value numeric default 0,
+  source text,
+  owner text,
+  next_action text,
+  notes text
+);
+alter table public.${table} enable row level security;
+
+-- DEMO policy (anon can read/write). Tighten for production!
+create policy "leaddesk anon all" on public.${table}
+  for all to anon using (true) with check (true);`;
+}
+function openSettings(){
+  $("#s_url").value=cfg.url||""; $("#s_key").value=cfg.key||"";
+  $("#s_table").value=cfg.table||"leads";
+  $("#sqlSnippet").textContent=sqlSnippet(cfg.table||"leads");
+  $("#settingsOverlay").classList.add("show");
+}
+async function saveSettings(){
+  cfg.url=$("#s_url").value.trim().replace(/\/+$/,"");
+  cfg.key=$("#s_key").value.trim();
+  cfg.table=$("#s_table").value.trim()||"leads";
+  saveCfg();
+  $("#settingsOverlay").classList.remove("show");
+  try{
+    await connect(); setConnUI();
+    if(sb){ await fetchLeads(); toast("Connected to "+cfg.table); }
+  }catch(e){ toast(e.message); sb=null; setConnUI(); }
+  render();
+}
+async function disconnect(){
+  cfg={}; saveCfg(); sb=null;
+  $("#settingsOverlay").classList.remove("show");
+  setConnUI(); await fetchLeads(); render();
+  toast("Disconnected — local mode");
+}
+
+/* ---------- Import / Export ---------- */
+function exportJSON(){
+  const blob=new Blob([JSON.stringify(leads,null,2)],{type:"application/json"});
+  const a=document.createElement("a");
+  a.href=URL.createObjectURL(blob);
+  a.download="lead-desk-"+new Date().toISOString().slice(0,10)+".json";
+  a.click(); URL.revokeObjectURL(a.href);
+}
+function importJSON(file){
+  const r=new FileReader();
+  r.onload=async()=>{
+    try{
+      const arr=JSON.parse(r.result);
+      if(!Array.isArray(arr)) throw new Error("Expected a JSON array");
+      let n=0;
+      for(const raw of arr){
+        const now=new Date().toISOString();
+        const lead={ id:raw.id||uid(), created_at:raw.created_at||now,
+          name:raw.name||"Unnamed", company:raw.company||"", email:raw.email||"",
+          phone:raw.phone||"", stage:STAGES.includes(raw.stage)?raw.stage:"New",
+          value:Number(raw.value)||0, source:raw.source||"", owner:raw.owner||"",
+          next_action:raw.next_action||"", notes:raw.notes||"", updated_at:now };
+        await upsertLead(lead); n++;
+      }
+      await fetchLeads(); render();
+      toast(`Imported ${n} lead${n!==1?"s":""}`);
+    }catch(e){ toast("Import failed: "+e.message); }
+  };
+  r.readAsText(file);
+}
+
+/* ---------- Events ---------- */
+function fillStageSelects(){
+  const opts=STAGES.map(s=>`<option>${s}</option>`).join("");
+  $("#f_stage").innerHTML=opts;
+  $("#stageFilter").innerHTML='<option value="">All stages</option>'+opts;
+}
+function bind(){
+  $("#newLeadBtn").onclick=()=>openLead(null);
+  $("#saveLeadBtn").onclick=saveLead;
+  $("#cancelLeadBtn").onclick=closeLead;
+  $("#deleteLeadBtn").onclick=deleteLead;
+  $("#settingsBtn").onclick=openSettings;
+  $("#saveSettingsBtn").onclick=saveSettings;
+  $("#cancelSettingsBtn").onclick=()=>$("#settingsOverlay").classList.remove("show");
+  $("#disconnectBtn").onclick=disconnect;
+  $("#exportBtn").onclick=exportJSON;
+  $("#importBtn").onclick=()=>$("#importFile").click();
+  $("#importFile").onchange=e=>{ if(e.target.files[0]) importJSON(e.target.files[0]); e.target.value=""; };
+  $("#refreshBtn").onclick=async()=>{ await fetchLeads(); render(); toast("Refreshed"); };
+  $("#search").oninput=render;
+  $("#stageFilter").onchange=render;
+  $("#ownerFilter").onchange=render;
+  $$(".seg button").forEach(b=>b.onclick=()=>{
+    $$(".seg button").forEach(x=>x.classList.remove("active"));
+    b.classList.add("active"); view=b.dataset.view; render();
+  });
+  $$("thead th[data-sort]").forEach(th=>th.onclick=()=>{
+    const k=th.dataset.sort;
+    if(sortKey===k) sortDir*=-1; else { sortKey=k; sortDir=1; }
+    render();
+  });
+  $$(".overlay").forEach(o=>o.onclick=e=>{ if(e.target===o) o.classList.remove("show"); });
+  document.addEventListener("keydown",e=>{
+    if(e.key==="Escape"){ $$(".overlay").forEach(o=>o.classList.remove("show")); }
+    if(e.key==="n" && !/input|textarea|select/i.test(e.target.tagName) && !e.metaKey && !e.ctrlKey){ openLead(null); }
+  });
+}
+
+/* ---------- Boot ---------- */
+(async function init(){
+  fillStageSelects(); bind();
+  try{ if(cfg.url&&cfg.key){ await connect(); } }catch(e){ toast(e.message); }
+  setConnUI();
+  await fetchLeads();
+  // Seed a couple of sample leads on first run in local mode so it isn't empty.
+  if(!sb && leads.length===0 && !localStorage.getItem("leaddesk.seeded")){
+    const now=new Date().toISOString();
+    leads=[
+      {id:uid(),created_at:now,updated_at:now,name:"Maria Gomez",company:"Sunrise Dental",email:"maria@sunrise.com",phone:"+1 555 0142",stage:"Qualified",value:4800,source:"Voice agent",owner:"Alex",next_action:"Send proposal",notes:"Wants bilingual receptionist."},
+      {id:uid(),created_at:now,updated_at:now,name:"Tom Reilly",company:"Reilly Law",email:"tom@reillylaw.com",phone:"+1 555 0188",stage:"New",value:9000,source:"Website",owner:"Sam",next_action:"Discovery call",notes:""},
+      {id:uid(),created_at:now,updated_at:now,name:"Priya Nair",company:"Nair HVAC",email:"priya@nairhvac.com",phone:"",stage:"Proposal",value:6200,source:"Referral",owner:"Alex",next_action:"Follow up Thu",notes:"Comparing two vendors."}
+    ];
+    saveLocal(); localStorage.setItem("leaddesk.seeded","1");
+  }
+  render();
+})();
+</script>
+</body>
+</html>

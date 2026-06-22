@@ -1,0 +1,3 @@
+[build]
+  command = "pip install markdown==3.10.2 && python site/build.py"
+  publish = "site/_site"

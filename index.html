@@ -1,408 +1,434 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Orbit · Demo Queue</title>
-<meta name="description" content="Live client demos by Orbit — websites, chatbots, and 24/7 bilingual AI receptionists generated from one knowledge base.">
-<style>
-  :root{
-    --bg:#0a0c12; --panel:#12151f; --line:#222838; --fg:#eef1f7; --muted:#9aa3b7;
-    --accent:#6aa3ff; --accent2:#7ef0c2; --ink:#070910; --gold:#e7b24a;
-  }
-  *{box-sizing:border-box}
-  html{scroll-behavior:smooth}
-  body{margin:0;background:var(--bg);color:var(--fg);
-    font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
-  a{color:var(--accent);text-decoration:none}
-  .wrap{max-width:1040px;margin:0 auto;padding:0 20px}
-  header{border-bottom:1px solid var(--line);background:rgba(10,12,18,.85);backdrop-filter:blur(8px);
-    position:sticky;top:0;z-index:10}
-  .nav{display:flex;align-items:center;gap:12px;height:60px}
-  .brand{font-weight:800;letter-spacing:.04em;font-size:18px;margin-right:auto}
-  .brand b{color:var(--accent)}
-  .btn{display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:#08111f;
-    font-weight:800;font-size:14px;padding:10px 16px;border-radius:10px;border:0;cursor:pointer}
-  .btn:hover{filter:brightness(1.07)}
-  .btn.ghost{background:transparent;border:1px solid var(--line);color:var(--fg)}
-  .hero{padding:64px 0 30px;background:
-    radial-gradient(1000px 420px at 80% -10%,rgba(106,163,255,.18),transparent 60%),
-    radial-gradient(800px 380px at 5% 0%,rgba(126,240,194,.10),transparent 55%)}
-  .hero h1{font-size:clamp(30px,5vw,46px);line-height:1.08;margin:0 0 14px;letter-spacing:-.01em}
-  .hero p{font-size:clamp(16px,2.2vw,19px);color:var(--muted);max-width:640px;margin:0 0 24px}
-  section{padding:30px 0 64px}
-  h2{font-size:20px;margin:0 0 18px;color:#cfd6e6}
-  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px}
-  .card{display:flex;flex-direction:column;background:var(--panel);border:1px solid var(--line);
-    border-radius:16px;padding:20px;transition:border-color .2s,transform .2s}
-  .card:hover{border-color:var(--accent);transform:translateY(-2px)}
-  .card .tag{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent2);margin-bottom:10px}
-  .card h3{margin:0 0 4px;font-size:19px}
-  .card .meta{font-size:13px;color:var(--muted);margin:0 0 16px}
-  .card .spacer{flex:1}
-  .launch{display:inline-flex;align-items:center;gap:8px;align-self:flex-start;
-    background:var(--accent);color:#08111f;font-weight:800;font-size:14px;padding:10px 16px;
-    border-radius:10px;text-decoration:none}
-  .add-card{align-items:center;justify-content:center;text-align:center;border-style:dashed;cursor:pointer;color:var(--muted)}
-  .add-card:hover{color:var(--fg)}
-  .add-card .plus{font-size:34px;line-height:1;margin-bottom:8px;color:var(--accent)}
-  footer{border-top:1px solid var(--line);padding:30px 0;color:var(--muted);font-size:13px}
-  /* modal */
-  .overlay{position:fixed;inset:0;z-index:50;background:rgba(4,6,12,.72);backdrop-filter:blur(3px);
-    display:none;align-items:flex-start;justify-content:center;padding:5vh 16px;overflow:auto}
-  .overlay.open{display:flex}
-  .modal{width:100%;max-width:560px;background:var(--panel);border:1px solid var(--line);
-    border-radius:18px;padding:26px;box-shadow:0 24px 70px rgba(0,0,0,.6)}
-  .modal h2{margin:0 0 4px;color:var(--fg);font-size:22px}
-  .modal .lead{color:var(--muted);font-size:14px;margin:0 0 20px}
-  .field{margin-bottom:14px}
-  .field label{display:block;font-size:13px;color:#cfd6e6;margin-bottom:6px;font-weight:600}
-  .field .hint{font-weight:400;color:var(--muted)}
-  .field input,.field select{width:100%;background:var(--ink);border:1px solid var(--line);color:var(--fg);
-    border-radius:10px;padding:11px 12px;font-size:14px}
-  .field input:focus,.field select:focus{outline:none;border-color:var(--accent)}
-  .sources{border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:14px;background:#0e111a}
-  .sources legend{font-size:13px;color:#cfd6e6;font-weight:600;padding:0 6px}
-  .tiers{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-  .tier{position:relative}
-  .tier input{position:absolute;opacity:0}
-  .tier label{display:block;border:1px solid var(--line);border-radius:10px;padding:10px 12px;cursor:pointer;
-    font-size:13px;background:var(--ink)}
-  .tier label b{display:block;font-size:14px;margin-bottom:2px}
-  .tier label .d{color:var(--muted);font-size:11.5px;font-weight:400}
-  .tier input:checked + label{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}
-  .tier.gold label b{color:var(--gold)}
-  .modal .actions{display:flex;gap:10px;margin-top:18px}
-  .modal .actions .btn{flex:1;justify-content:center;padding:12px}
-  .status{margin-top:14px;font-size:14px;display:none}
-  .status.show{display:block}
-  .status.ok{color:var(--accent2)}
-  .status.err{color:#ff8497}
-  .status.work{color:var(--muted)}
-  .req{color:#ff8497}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enterprise OS | Autonomous B2B Portfolio Management & AI Sourcing Infrastructure</title>
+    <meta name="description" content="Deploy an autonomous, self-hosted B2B Enterprise Portfolio & Sourcing OS on OCI. Unified 3-tier LLM gateway, sub-100ms voice pipeline, and automated compliance. Eliminate SaaS overhead today.">
+    <meta name="keywords" content="B2B Enterprise OS, Autonomous Sales AI Agent, Self-Hosted Portfolio OS, OCI Multi-Tenant Pod Infrastructure, Sub-100ms Voice Pipeline, Coinbase Base L2 B2B Payments, Smart Meter Texas Automated Sourcing, TCPA DNC Compliance Engine">
+    <meta name="author" content="Enterprise OS Infrastructure">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    <link rel="canonical" href="https://jonathan777-ui.github.io/orbit-platform/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Enterprise OS | Self-Hosted B2B AI Portfolio & Sourcing Stack">
+    <meta property="og:description" content="Autonomous AI agents running Sales, Ops, Growth, and Logistics with native 10DLC compliance and USDC settlements on Base L2.">
+    <meta property="og:url" content="https://jonathan777-ui.github.io/orbit-platform/">
+    <meta property="og:image" content="https://jonathan777-ui.github.io/orbit-platform/og-image.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Enterprise OS | Autonomous B2B Platform">
+    <meta name="twitter:description" content="Eliminate SaaS fragmentation. Deploy self-hosted AI portfolio architecture on OCI.">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Enterprise OS Architecture",
+      "operatingSystem": "Linux / OCI Ampere A1 Containerized Stack",
+      "applicationCategory": "BusinessApplication",
+      "offers": {
+        "@type": "Offer",
+        "price": "0.00",
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/InStock"
+      },
+      "description": "Unified B2B Enterprise Portfolio Management & Sourcing OS with autonomous multi-agent departmental intelligence, sub-100ms speech pipeline, and automated TCPA DNC compliance.",
+      "featureList": [
+        "3-Tier LLM Gateway Failover (Claude 3.5 Sonnet -> Perplexity Sonar -> DeepSeek/Qwen)",
+        "Sub-100ms Voice Streaming Pipeline (Deepgram Nova-3 + Cartesia Sonic)",
+        "Automated DNC & TCPA Compliance Quarantine Engine",
+        "Coinbase Merchant Payment Gateway on Base L2",
+        "Smart Meter Texas (SMT) Utility Data API Integration"
+      ]
+    }
+    </script>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <style>
+      body { scroll-behavior: smooth; }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: { 50: '#f0f7ff', 500: '#0284c7', 600: '#0284c7', 700: '#0369a1', 900: '#0c4a6e', 950: '#030712' },
+                        accent: { green: '#10b981', cyan: '#06b6d4' }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        mono: ['Fira Code', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
 </head>
-<body>
-
-<header>
-  <div class="wrap nav">
-    <div class="brand">ORBIT <b>·</b> DEMO QUEUE</div>
-    <button class="btn" id="addBtn">＋ Add New Demo</button>
-  </div>
-</header>
-
-<div class="hero">
-  <div class="wrap">
-    <h1>Client demos, ready to launch.</h1>
-    <p>Each demo is a full website + chatbot + 24/7 bilingual AI receptionist, generated from one knowledge base. Open one below — or generate a new one from a business's Google, Yelp, or Chamber listing.</p>
-    <button class="btn" id="addBtn2">＋ Add New Demo</button>
-  </div>
-</div>
-
-<section>
-  <div class="wrap">
-    <h2>Live demos</h2>
-    <div class="grid" id="demoGrid"></div>
-  </div>
-</section>
-
-<footer>
-  <div class="wrap">© <span id="yr"></span> Orbit · Demo Queue — internal demo hub.</div>
-</footer>
-
-<!-- ===== Add New Demo modal ===== -->
-<div class="overlay" id="overlay">
-  <form class="modal" id="demoForm">
-    <h2>Generate a new demo</h2>
-    <p class="lead">Paste any of the business's public listings — we'll pull the details, build the site + AI receptionist from the matching knowledge base, and add it to the queue.</p>
-
-    <div class="field">
-      <label>Business name <span class="req">*</span></label>
-      <input type="text" name="business_name" placeholder="e.g. Inkwell Tattoo Studio" required>
+<body class="bg-brand-950 text-slate-100 font-sans antialiased selection:bg-brand-500 selection:text-white">
+    <div class="bg-gradient-to-r from-brand-900 via-brand-700 to-brand-900 border-b border-brand-500/30 text-xs py-2 px-4 text-center font-mono tracking-wide text-brand-50 flex items-center justify-center space-x-2">
+        <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold bg-accent-green/20 text-accent-green border border-accent-green/30 animate-pulse">● LIVE OPERATIONAL</span>
+        <span>OCI Ampere A1 Architecture Deployed · Sub-100ms AI Voice Pipeline Active</span>
     </div>
 
-    <div class="field">
-      <label>Industry <span class="req">*</span> <span class="hint">(pick the specific niche)</span></label>
-      <select name="vertical" required>
-        <option value="" disabled selected>Select an industry…</option>
-        <option value="auto">Auto-detect from listing</option>
-        <optgroup label="Tattoo &amp; Body Art">
-          <option value="tattoo-studio">Tattoo studio</option>
-          <option value="piercing-studio">Piercing studio</option>
-          <option value="pmu-microblading">Permanent makeup / Microblading</option>
-          <option value="tattoo-removal">Tattoo removal (laser)</option>
-          <option value="body-modification">Body modification</option>
-        </optgroup>
-        <optgroup label="Beauty &amp; Personal Care">
-          <option value="hair-salon">Hair salon</option>
-          <option value="barbershop">Barbershop</option>
-          <option value="nail-salon">Nail salon</option>
-          <option value="lash-brow">Lash / brow</option>
-          <option value="spa-massage">Spa / massage</option>
-        </optgroup>
-        <optgroup label="Med Spa &amp; Aesthetics">
-          <option value="injectables">Injectables / Botox / filler</option>
-          <option value="laser-skin">Laser / skin</option>
-          <option value="body-contouring">Body contouring</option>
-          <option value="iv-therapy">IV / wellness therapy</option>
-        </optgroup>
-        <optgroup label="Law Firm">
-          <option value="law-personal-injury">Personal injury</option>
-          <option value="law-immigration">Immigration</option>
-          <option value="law-family">Family law</option>
-          <option value="law-criminal">Criminal defense</option>
-          <option value="law-workers-comp">Workers' comp</option>
-          <option value="law-estate">Estate planning / probate</option>
-          <option value="law-bankruptcy">Bankruptcy</option>
-          <option value="law-business">Business / corporate</option>
-          <option value="law-real-estate">Real estate law</option>
-          <option value="law-employment">Employment</option>
-        </optgroup>
-        <optgroup label="Dental &amp; Medical">
-          <option value="general-dentistry">General dentistry</option>
-          <option value="orthodontics">Orthodontics</option>
-          <option value="cosmetic-dentistry">Cosmetic dentistry</option>
-          <option value="family-medicine">Family medicine / urgent care</option>
-          <option value="chiropractic">Chiropractic</option>
-          <option value="physical-therapy">Physical therapy</option>
-          <option value="optometry">Optometry</option>
-          <option value="dermatology">Dermatology</option>
-          <option value="veterinary">Veterinary</option>
-        </optgroup>
-        <optgroup label="Home Services">
-          <option value="hvac">HVAC</option>
-          <option value="plumbing">Plumbing</option>
-          <option value="electrical">Electrical</option>
-          <option value="roofing">Roofing</option>
-          <option value="landscaping">Landscaping / lawn</option>
-          <option value="pest-control">Pest control</option>
-          <option value="cleaning">Cleaning / janitorial</option>
-          <option value="garage-door">Garage door</option>
-          <option value="solar">Solar</option>
-          <option value="pool-service">Pool service</option>
-        </optgroup>
-        <optgroup label="Restaurant &amp; Hospitality">
-          <option value="restaurant">Restaurant</option>
-          <option value="cafe-coffee">Cafe / coffee</option>
-          <option value="bar">Bar / lounge</option>
-          <option value="catering">Catering</option>
-          <option value="food-truck">Food truck</option>
-          <option value="bakery">Bakery</option>
-        </optgroup>
-        <optgroup label="Automotive">
-          <option value="auto-repair">Auto repair</option>
-          <option value="body-shop">Body shop / collision</option>
-          <option value="detailing">Detailing</option>
-          <option value="tire-shop">Tire shop</option>
-          <option value="dealership">Dealership</option>
-        </optgroup>
-        <optgroup label="Real Estate &amp; Finance">
-          <option value="residential-agent">Residential agent / team</option>
-          <option value="property-management">Property management</option>
-          <option value="commercial-re">Commercial real estate</option>
-          <option value="mortgage-broker">Mortgage broker</option>
-          <option value="insurance">Insurance agency</option>
-        </optgroup>
-        <optgroup label="Fitness &amp; Wellness">
-          <option value="gym">Gym / health club</option>
-          <option value="yoga-pilates">Yoga / Pilates studio</option>
-          <option value="crossfit">CrossFit</option>
-          <option value="martial-arts">Martial arts</option>
-          <option value="personal-training">Personal training</option>
-        </optgroup>
-        <option value="other">Other / not listed</option>
-      </select>
-    </div>
-
-    <fieldset class="sources">
-      <legend>Business listings <span class="hint" style="font-weight:400">— add any or all</span></legend>
-      <div class="field" style="margin-bottom:10px">
-        <label>Google Business Profile URL</label>
-        <input type="url" name="google_profile" placeholder="https://www.google.com/maps/place/…  or share link">
-      </div>
-      <div class="field" style="margin-bottom:10px">
-        <label>Yelp URL</label>
-        <input type="url" name="yelp" placeholder="https://www.yelp.com/biz/…">
-      </div>
-      <div class="field" style="margin-bottom:0">
-        <label>Chamber of Commerce URL</label>
-        <input type="url" name="chamber" placeholder="https://…chamber.org/members/…">
-      </div>
-    </fieldset>
-
-    <div class="field">
-      <label>Current website <span class="hint">(if they have one)</span></label>
-      <input type="url" name="current_website" placeholder="https://theirsite.com">
-    </div>
-
-    <fieldset class="sources" id="manualBox">
-      <legend>No listing link? <span class="hint" style="font-weight:400">— enter details manually</span></legend>
-      <div class="field" style="margin-bottom:10px">
-        <label>Street address</label>
-        <input type="text" name="address" placeholder="1373 Edgewater St NW">
-      </div>
-      <div class="tiers" style="margin-bottom:10px">
-        <div class="field" style="margin:0">
-          <label>City</label>
-          <input type="text" name="city" placeholder="Salem">
+    <nav class="sticky top-0 z-50 backdrop-blur-md bg-brand-950/80 border-b border-slate-800">
+        <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-9 h-9 rounded-lg bg-gradient-to-br from-brand-500 to-accent-cyan flex items-center justify-center text-white font-bold text-lg shadow-lg shadow-brand-500/20">
+                    <i class="ph-bold ph-cpu"></i>
+                </div>
+                <span class="font-bold text-lg tracking-tight bg-gradient-to-r from-white via-slate-200 to-slate-400 bg-clip-text text-transparent">ENTERPRISE<span class="text-brand-500">.OS</span></span>
+            </div>
+            <div class="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-300">
+                <a href="#architecture" class="hover:text-brand-500 transition-colors">3-Tier Intelligence</a>
+                <a href="#voice-pipeline" class="hover:text-brand-500 transition-colors">Sub-100ms Voice</a>
+                <a href="#compliance" class="hover:text-brand-500 transition-colors">Compliance Engine</a>
+                <a href="#calculator" class="hover:text-brand-500 transition-colors">ROI Calculator</a>
+            </div>
+            <div class="flex items-center space-x-4">
+                <a href="#cta-form" class="bg-gradient-to-r from-brand-600 to-brand-500 hover:from-brand-500 hover:to-brand-700 text-white font-semibold text-xs md:text-sm px-5 py-2.5 rounded-lg shadow-lg shadow-brand-600/30 transition-all transform hover:-translate-y-0.5 flex items-center space-x-2">
+                    <span>Deploy Pod Sandbox</span>
+                    <i class="ph-bold ph-arrow-right"></i>
+                </a>
+            </div>
         </div>
-        <div class="field" style="margin:0">
-          <label>State</label>
-          <input type="text" name="state" placeholder="OR" maxlength="2" style="text-transform:uppercase">
+    </nav>
+
+    <header class="relative overflow-hidden pt-20 pb-16 md:pt-28 md:pb-24">
+        <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-brand-500/10 rounded-full blur-[120px] pointer-events-none"></div>
+        <div class="absolute top-1/3 left-1/4 w-[300px] h-[300px] bg-accent-cyan/10 rounded-full blur-[100px] pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-6 relative z-10 text-center">
+            <div class="inline-flex items-center space-x-2 bg-slate-900/80 border border-slate-700/80 rounded-full px-4 py-1.5 mb-8 text-xs font-mono text-slate-300">
+                <i class="ph-fill ph-shield-check text-accent-green text-sm"></i>
+                <span>Self-Hosted OCI Multi-Tenant Architecture & Autonomous Departmental OS</span>
+            </div>
+
+            <h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-white max-w-5xl mx-auto leading-tight">
+                Eliminate SaaS Fragmentation.<br>
+                <span class="bg-gradient-to-r from-brand-500 via-accent-cyan to-accent-green bg-clip-text text-transparent">
+                    Deploy Autonomous B2B Portfolio Architecture
+                </span>
+            </h1>
+
+            <p class="mt-6 text-lg md:text-xl text-slate-300 max-w-3xl mx-auto font-normal leading-relaxed">
+                Reclaim your gross profit margins with a completely self-hosted, multi-tenant B2B operating system. Native 3-tier LLM failover gateway, sub-100ms voice pipeline, and automatic TCPA DNC compliance.
+            </p>
+
+            <div class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a href="#cta-form" class="w-full sm:w-auto bg-brand-600 hover:bg-brand-500 text-white font-bold text-base px-8 py-4 rounded-xl shadow-xl shadow-brand-600/30 transition-all flex items-center justify-center space-x-3">
+                    <i class="ph-bold ph-rocket-launch text-xl"></i>
+                    <span>Request Production Sandbox Credentials</span>
+                </a>
+                <a href="#architecture" class="w-full sm:w-auto bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 font-semibold text-base px-8 py-4 rounded-xl transition-all flex items-center justify-center space-x-2">
+                    <i class="ph-bold ph-terminal-window text-xl text-brand-500"></i>
+                    <span>Explore Technical Specs</span>
+                </a>
+            </div>
+
+            <div class="mt-16 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
+                <div class="bg-slate-900/60 backdrop-blur border border-slate-800 p-4 rounded-xl text-center">
+                    <div class="text-2xl md:text-3xl font-extrabold text-white font-mono">&lt; 92ms</div>
+                    <div class="text-xs text-slate-400 mt-1 uppercase tracking-wider">Voice Pipe Latency</div>
+                </div>
+                <div class="bg-slate-900/60 backdrop-blur border border-slate-800 p-4 rounded-xl text-center">
+                    <div class="text-2xl md:text-3xl font-extrabold text-accent-green font-mono">99.99%</div>
+                    <div class="text-xs text-slate-400 mt-1 uppercase tracking-wider">3-Tier LLM Uptime</div>
+                </div>
+                <div class="bg-slate-900/60 backdrop-blur border border-slate-800 p-4 rounded-xl text-center">
+                    <div class="text-2xl md:text-3xl font-extrabold text-brand-500 font-mono">0.80%</div>
+                    <div class="text-xs text-slate-400 mt-1 uppercase tracking-wider">Base L2 Fee Margin</div>
+                </div>
+                <div class="bg-slate-900/60 backdrop-blur border border-slate-800 p-4 rounded-xl text-center">
+                    <div class="text-2xl md:text-3xl font-extrabold text-accent-cyan font-mono">100%</div>
+                    <div class="text-xs text-slate-400 mt-1 uppercase tracking-wider">TCPA DNC Enforced</div>
+                </div>
+            </div>
         </div>
-      </div>
-      <div class="field" style="margin-bottom:0">
-        <label>Phone</label>
-        <input type="tel" name="phone" placeholder="(503) 555-0123">
-      </div>
-    </fieldset>
+    </header>
 
-    <div class="field">
-      <label>Build tier <span class="req">*</span></label>
-      <div class="tiers">
-        <span class="tier gold"><input type="radio" name="tier" value="gold" id="t_gold" checked>
-          <label for="t_gold"><b>Gold</b><span class="d">Base bilingual KB + site</span></label></span>
-        <span class="tier"><input type="radio" name="tier" value="platinum" id="t_plat">
-          <label for="t_plat"><b>Platinum</b><span class="d">+ niche overlay, full dialects, voice runtime</span></label></span>
-        <span class="tier"><input type="radio" name="tier" value="iridium" id="t_irid">
-          <label for="t_irid"><b>Iridium</b><span class="d">+ red-line QC + live injection</span></label></span>
-        <span class="tier"><input type="radio" name="tier" value="rhodium" id="t_rhod">
-          <label for="t_rhod"><b>Rhodium</b><span class="d">+ human-validated (legal · dialect · real-call)</span></label></span>
-      </div>
-    </div>
+    <section id="architecture" class="py-20 bg-slate-950 border-t border-slate-900">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-xs font-mono uppercase tracking-widest text-brand-500 mb-2">Resilient AI Intelligence Layer</h2>
+                <p class="text-3xl md:text-4xl font-bold text-white">3-Tier Multi-Model Failover Gateway</p>
+                <p class="mt-4 text-slate-400 text-sm md:text-base">
+                    Eliminate single point of failure risks. Outages automatically trigger sub-second fallback routing down the model tier matrix.
+                </p>
+            </div>
 
-    <div class="field">
-      <label>Language</label>
-      <select name="language">
-        <option value="bilingual">Bilingual (EN + ES)</option>
-        <option value="en">English only</option>
-        <option value="es">Spanish only</option>
-      </select>
-    </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-slate-900/80 border border-slate-800 hover:border-brand-500/50 rounded-2xl p-6 transition-all relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 bg-brand-500 text-white text-[10px] font-mono px-3 py-1 rounded-bl-lg font-bold">PRIMARY</div>
+                    <div class="w-12 h-12 rounded-xl bg-brand-500/10 border border-brand-500/30 flex items-center justify-center text-brand-500 text-2xl mb-6">
+                        <i class="ph-bold ph-brain"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">Tier 1: Strategic Reasoning</h3>
+                    <p class="text-slate-400 text-sm mb-4">Anthropic Claude 3.5 Sonnet executing high-complexity enterprise deal desk logic, tariff structure analysis, and contract negotiation.</p>
+                    <div class="font-mono text-xs text-brand-500 bg-brand-950/60 p-3 rounded-lg border border-slate-800">
+                        Primary Model: <span class="text-white">claude-3-5-sonnet</span>
+                    </div>
+                </div>
 
-    <div class="actions">
-      <button type="button" class="btn ghost" id="cancelBtn">Cancel</button>
-      <button type="submit" class="btn" id="submitBtn">Generate demo</button>
-    </div>
-    <div class="status" id="status"></div>
-  </form>
-</div>
+                <div class="bg-slate-900/80 border border-slate-800 hover:border-accent-cyan/50 rounded-2xl p-6 transition-all relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 bg-accent-cyan text-slate-950 text-[10px] font-mono px-3 py-1 rounded-bl-lg font-bold">SECONDARY</div>
+                    <div class="w-12 h-12 rounded-xl bg-accent-cyan/10 border border-accent-cyan/30 flex items-center justify-center text-accent-cyan text-2xl mb-6">
+                        <i class="ph-bold ph-magnifying-glass"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">Tier 2: Grounded Search</h3>
+                    <p class="text-slate-400 text-sm mb-4">Perplexity Sonar Pro providing real-time web-grounded market intelligence, live tariff indexing, and supplier validation with citations.</p>
+                    <div class="font-mono text-xs text-accent-cyan bg-brand-950/60 p-3 rounded-lg border border-slate-800">
+                        Fallback Model: <span class="text-white">sonar-pro</span>
+                    </div>
+                </div>
 
-<script>
-  /* ===== CONFIG ===== */
-  // Demos already live. `path` is a subfolder in this repo.
-  const DEMOS = [
-    {"name": "Permanent Marx Tattoo Studio", "city": "Salem, OR", "tag": "Tattoo · Piercing", "path": "permanent-marx-tattoo/", "live": true},
-    {"name": "Roots Deep Tattoo", "city": "Salem, OR", "tag": "Tattoo · Bilingual", "path": "roots-deep-tattoo/", "live": true},
-    {"name": "Alchemy Tattoo Collective", "city": "Salem, OR", "tag": "Tattoo · Piercing", "path": "alchemy-tattoo-collective/", "live": true},
-    {"name": "My Living Canvas", "city": "Salem, OR", "tag": "Tattoo · Bilingual", "path": "my-living-canvas/", "live": true},
-    {"name": "Addictions BodyArt", "city": "Salem, OR", "tag": "Piercing · Tattoo", "path": "addictions-bodyart/", "live": true},
-    {"name": "Desire Ink Lab", "city": "Salem, OR", "tag": "Tattoo · Bilingual", "path": "desire-ink-lab/", "live": true},
-    {"name": "Dark Star Tattoo", "city": "Salem, OR", "tag": "Tattoo · Bilingual", "path": "dark-star-tattoo/", "live": true},
-    {"name": "Javi's Fades", "city": "Salem, OR", "tag": "Barbershop · Bilingual", "path": "javis-fades/", "live": true},
-    {"name": "The Barbers", "city": "Salem, OR", "tag": "Barbershop · Bilingual", "path": "the-barbers/", "live": true},
-    {"name": "Red's Barber Shop", "city": "Salem, OR", "tag": "Barbershop · Bilingual", "path": "reds-barber-shop/", "live": true},
-    {"name": "Johnny's Barbershop", "city": "Salem, OR", "tag": "Barbershop · Bilingual", "path": "johnnys-barbershop/", "live": true},
-    {"name": "Faded Inc.", "city": "Salem, OR", "tag": "Barbershop · West Salem", "path": "faded-inc/", "live": true},
-    {"name": "The Law Offices of Michael B. Dye", "city": "Salem, OR", "tag": "Immigration · Bilingual", "path": "michael-b-dye/", "live": true},
-    {"name": "Terrence Green Law", "city": "Salem, OR", "tag": "Immigration · Bilingual", "path": "terrence-green-law/", "live": true},
-    {"name": "Hernandez Law Office", "city": "Salem, OR", "tag": "Immigration · Bilingual", "path": "hernandez-law-office/", "live": true},
-    {"name": "Affordable Immigration Services", "city": "Salem, OR", "tag": "Immigration · Bilingual", "path": "affordable-immigration/", "live": true},
-    {"name": "Arellano Law Firm", "city": "Salem, OR", "tag": "Immigration · Bilingual", "path": "arellano-law-salem/", "live": true},
-    {"name": "Elite Auto Service", "city": "Salem, OR", "tag": "Auto Repair · Bilingual", "path": "elite-auto-service/", "live": true},
-    {"name": "Taquería Los Panditas", "city": "Salem, OR", "tag": "Mexican Restaurant · Bilingual", "path": "taqueria-los-panditas/", "live": true}
-  ];
-  // n8n generator webhook — receives the form and builds + deploys the demo.
-  // (Backend workflow: enrich sources → pick vertical KB → build at tier → deploy → return {url}.)
-  const GENERATOR_ENDPOINT = "https://jonathan777-ui.app.n8n.cloud/webhook/orbit-demo-generator";
+                <div class="bg-slate-900/80 border border-slate-800 hover:border-accent-green/50 rounded-2xl p-6 transition-all relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 bg-accent-green text-slate-950 text-[10px] font-mono px-3 py-1 rounded-bl-lg font-bold">TERTIARY BACKUP</div>
+                    <div class="w-12 h-12 rounded-xl bg-accent-green/10 border border-accent-green/30 flex items-center justify-center text-accent-green text-2xl mb-6">
+                        <i class="ph-bold ph-hard-drives"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">Tier 3: Local vLLM Fallback</h3>
+                    <p class="text-slate-400 text-sm mb-4">DeepSeek-V3 / Qwen running locally on self-hosted vLLM containers to ensure 100% operational uptime during third-party API outages.</p>
+                    <div class="font-mono text-xs text-accent-green bg-brand-950/60 p-3 rounded-lg border border-slate-800">
+                        Backup Endpoint: <span class="text-white">vllm-local:8000</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  /* ===== render demos ===== */
-  document.getElementById('yr').textContent = new Date().getFullYear();
-  (function(){
-    var grid = document.getElementById('demoGrid');
-    var cards = DEMOS.map(function(d){
-      var cta = d.live
-        ? '<a class="launch" href="'+d.path+'">Launch demo &rarr;</a>'
-        : '<span style="opacity:.7">Coming soon</span>';
-      return '<div class="card">'+
-        '<div class="tag">'+(d.tag||'Demo')+'</div>'+
-        '<h3>'+d.name+'</h3>'+
-        '<p class="meta">'+(d.city||'')+'</p>'+
-        '<div class="spacer"></div>'+ cta +'</div>';
-    }).join('');
-    // trailing "add" card
-    cards += '<div class="card add-card" id="addCard"><div class="plus">＋</div>'+
-      '<div>Add new demo</div></div>';
-    grid.innerHTML = cards;
-    document.getElementById('addCard').onclick = openModal;
-  })();
+    <section id="voice-pipeline" class="py-20 bg-slate-900/40">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h2 class="text-xs font-mono uppercase tracking-widest text-accent-cyan mb-2">Ultra-Low Latency Telephony</h2>
+                    <h3 class="text-3xl md:text-4xl font-bold text-white leading-tight">Sub-100ms Voice Pipeline & AI Breakout Discovery</h3>
+                    <p class="mt-4 text-slate-300 text-sm md:text-base leading-relaxed">
+                        Transition human sales calls seamlessly into autonomous AI discovery rooms. Powered by dual-carrier SIP/TeXML routing (Telnyx/Twilio), Deepgram Nova-3 VAD speech-to-text, and Cartesia Sonic text-to-speech.
+                    </p>
 
-  /* ===== modal ===== */
-  var overlay = document.getElementById('overlay');
-  var statusEl = document.getElementById('status');
-  function openModal(){ overlay.classList.add('open'); }
-  function closeModal(){ overlay.classList.remove('open'); }
-  document.getElementById('addBtn').onclick = openModal;
-  document.getElementById('addBtn2').onclick = openModal;
-  document.getElementById('cancelBtn').onclick = closeModal;
-  overlay.addEventListener('click', function(e){ if(e.target===overlay) closeModal(); });
-  document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeModal(); });
+                    <ul class="mt-8 space-y-4">
+                        <li class="flex items-start space-x-3">
+                            <div class="w-6 h-6 rounded-full bg-accent-green/20 text-accent-green flex items-center justify-center text-sm shrink-0 mt-0.5"><i class="ph-bold ph-check"></i></div>
+                            <span class="text-slate-300 text-sm"><strong class="text-white">Dual Carrier Redundancy:</strong> Telnyx native WebSocket audio stream with automatic Twilio A2P 10DLC failover.</span>
+                        </li>
+                        <li class="flex items-start space-x-3">
+                            <div class="w-6 h-6 rounded-full bg-accent-green/20 text-accent-green flex items-center justify-center text-sm shrink-0 mt-0.5"><i class="ph-bold ph-check"></i></div>
+                            <span class="text-slate-300 text-sm"><strong class="text-white">UpWebinar Avatars:</strong> WebRTC SDP offer/answer handshakes transferring leads directly from webinars to AI closing desks.</span>
+                        </li>
+                        <li class="flex items-start space-x-3">
+                            <div class="w-6 h-6 rounded-full bg-accent-green/20 text-accent-green flex items-center justify-center text-sm shrink-0 mt-0.5"><i class="ph-bold ph-check"></i></div>
+                            <span class="text-slate-300 text-sm"><strong class="text-white">Zero Chargeback Settlement:</strong> Integrated Coinbase Commerce merchant checkout settled in USDC on Base L2.</span>
+                        </li>
+                    </ul>
+                </div>
 
-  function setStatus(kind, msg){ statusEl.className='status show '+kind; statusEl.innerHTML=msg; }
+                <div class="bg-slate-950 p-6 rounded-2xl border border-slate-800 font-mono text-xs shadow-2xl">
+                    <div class="flex items-center justify-between pb-4 border-b border-slate-800 text-slate-400">
+                        <span class="flex items-center space-x-2">
+                            <span class="w-2.5 h-2.5 rounded-full bg-accent-green animate-pulse"></span>
+                            <span>VOICE_STREAM_SESSION_ACTIVE</span>
+                        </span>
+                        <span>LATENCY: 84ms</span>
+                    </div>
+                    <div class="py-6 space-y-3">
+                        <div class="text-slate-500">// Deepgram Nova-3 Speech Recognition</div>
+                        <div class="text-accent-cyan">[STT_STREAM]: "We are spending $45k/mo on electricity across 3 manufacturing plants."</div>
+                        <div class="text-slate-500">// Activity Engine DNC Gate Check</div>
+                        <div class="text-accent-green">[DNC_GATE]: Sender +17135550100 -> VERIFIED_CLEAN</div>
+                        <div class="text-slate-500">// Cartesia Sonic TTS Generation</div>
+                        <div class="text-brand-500">[TTS_STREAM]: "Based on Smart Meter Texas intervals, our AI can optimize your peak demand load..."</div>
+                    </div>
+                    <div class="pt-4 border-t border-slate-800 flex justify-between text-[11px] text-slate-500">
+                        <span>AUDIO_CODEC: PCM_MULAW (8kHz)</span>
+                        <span>CARRIER: TELNYX_SIP_PRIMARY</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  document.getElementById('demoForm').addEventListener('submit', async function(e){
-    e.preventDefault();
-    var f = e.target;
-    var payload = {
-      business_name: f.business_name.value.trim(),
-      vertical: f.vertical.value,
-      sources: {
-        google_profile: f.google_profile.value.trim(),
-        yelp: f.yelp.value.trim(),
-        chamber: f.chamber.value.trim()
-      },
-      current_website: f.current_website.value.trim(),
-      manual: {
-        address: f.address.value.trim(),
-        city: f.city.value.trim(),
-        state: f.state.value.trim().toUpperCase(),
-        phone: f.phone.value.trim()
-      },
-      tier: f.tier.value,
-      language: f.language.value
-    };
-    var hasSource = payload.sources.google_profile || payload.sources.yelp || payload.sources.chamber || payload.current_website;
-    if(!payload.business_name){ setStatus('err','Please enter a business name.'); return; }
-    if(!payload.vertical){ setStatus('err','Please select an industry.'); return; }
-    if(!hasSource){
-      if(payload.vertical==='auto'){ setStatus('err','Pick a specific industry — auto-detect needs a listing link.'); return; }
-      var m = payload.manual;
-      if(!m.address || !m.city || !m.state || !m.phone){
-        setStatus('err','No listing link — please fill in address, city, state and phone below.'); return;
-      }
-    }
-    var btn = document.getElementById('submitBtn');
-    btn.disabled = true; btn.textContent = 'Generating…';
-    setStatus('work','⏳ Building the '+payload.tier.charAt(0).toUpperCase()+payload.tier.slice(1)+
-      ' demo from the knowledge base — this can take a minute.');
-    try{
-      var r = await fetch(GENERATOR_ENDPOINT, {
-        method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload)
-      });
-      var data = {}; try{ data = await r.json(); }catch(_){}
-      if(data && data.url){
-        setStatus('ok','✅ Demo ready: <a href="'+data.url+'" target="_blank" rel="noopener">'+data.url+'</a>');
-      } else if(data && data.status){
-        setStatus('ok','✅ '+data.status+(data.message? ' — '+data.message : ''));
-      } else {
-        setStatus('ok','✅ Request received. Your demo is being generated and will appear in the queue shortly.');
-      }
-    }catch(err){
-      setStatus('err','Couldn’t reach the generator. Make sure GENERATOR_ENDPOINT is set to your live n8n webhook, then try again.');
-    }finally{
-      btn.disabled = false; btn.textContent = 'Generate demo';
-    }
-  });
-</script>
+    <section id="compliance" class="py-20 bg-slate-950 border-t border-slate-900">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-xs font-mono uppercase tracking-widest text-accent-green mb-2">Built-in TCPA & 10DLC Enforcement</h2>
+                <p class="text-3xl md:text-4xl font-bold text-white">Activity Engine & Instant Compliance Quarantine</p>
+                <p class="mt-4 text-slate-400 text-sm md:text-base">
+                    Every outbound SMS, phone call, or nurturing task passes through an automated compliance gate before execution.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="bg-slate-900/60 p-6 rounded-xl border border-slate-800">
+                    <div class="text-brand-500 text-2xl mb-4"><i class="ph-bold ph-funnel"></i></div>
+                    <h4 class="text-lg font-bold text-white mb-2">Automated Quarantine</h4>
+                    <p class="text-slate-400 text-xs leading-relaxed">Inbound 'STOP' or 'UNSUBSCRIBE' texts instantly lock numbers in compliance_dnc_registry and halt active tasks.</p>
+                </div>
+                <div class="bg-slate-900/60 p-6 rounded-xl border border-slate-800">
+                    <div class="text-accent-cyan text-2xl mb-4"><i class="ph-bold ph-arrow-counter-clockwise"></i></div>
+                    <h4 class="text-lg font-bold text-white mb-2">Resubscribe Handler</h4>
+                    <p class="text-slate-400 text-xs leading-relaxed">'START' or 'UNSTOP' messages automatically restore eligibility and reinstate nurturing workflows smoothly.</p>
+                </div>
+                <div class="bg-slate-900/60 p-6 rounded-xl border border-slate-800">
+                    <div class="text-accent-green text-2xl mb-4"><i class="ph-bold ph-clock-counter-clockwise"></i></div>
+                    <h4 class="text-lg font-bold text-white mb-2">SLA Ticket Locks</h4>
+                    <p class="text-slate-400 text-xs leading-relaxed">Urgent ticket escalations enforce automated SLA targets ranging from 1 hour (Urgent) to 48 hours (Low).</p>
+                </div>
+                <div class="bg-slate-900/60 p-6 rounded-xl border border-slate-800">
+                    <div class="text-yellow-500 text-2xl mb-4"><i class="ph-bold ph-calendar-check"></i></div>
+                    <h4 class="text-lg font-bold text-white mb-2">Calendar Event Locks</h4>
+                    <p class="text-slate-400 text-xs leading-relaxed">Prevents double-booking across client pods during Concierge Desk discovery hand-offs.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="calculator" class="py-20 bg-slate-900/30">
+        <div class="max-w-4xl mx-auto px-6">
+            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-8 shadow-2xl">
+                <div class="text-center mb-8">
+                    <h3 class="text-2xl font-bold text-white">Self-Hosted Enterprise OS Savings Calculator</h3>
+                    <p class="text-slate-400 text-sm mt-1">See how much gross profit you reclaim by switching from SaaS stack fragmentation to self-hosting on OCI.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <div class="space-y-6">
+                        <div>
+                            <label class="block text-xs font-mono uppercase text-slate-300 mb-2">Monthly Sales Lead Volume: <span id="lead-count-label" class="text-brand-500 font-bold">10,000</span></label>
+                            <input type="range" id="lead-slider" min="1000" max="100000" step="1000" value="10000" class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-brand-500">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-mono uppercase text-slate-300 mb-2">Active Multi-Tenant Pods: <span id="pod-count-label" class="text-accent-cyan font-bold">5 Pods</span></label>
+                            <input type="range" id="pod-slider" min="1" max="50" step="1" value="5" class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-accent-cyan">
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-950 p-6 rounded-xl border border-slate-800 text-center">
+                        <div class="text-xs font-mono text-slate-400 uppercase tracking-wider">Estimated Monthly Reclaimed Profit</div>
+                        <div id="savings-amount" class="text-4xl font-extrabold text-accent-green font-mono my-2">$8,450 / mo</div>
+                        <div class="text-xs text-slate-500">Includes saved per-seat AI SaaS fees & reduced gateway processing overhead.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="cta-form" class="py-20 bg-slate-950 border-t border-slate-900 relative">
+        <div class="max-w-3xl mx-auto px-6">
+            <div class="bg-gradient-to-b from-slate-900 to-slate-950 border border-slate-800 rounded-2xl p-8 md:p-12 shadow-2xl relative overflow-hidden">
+                <div class="text-center mb-8">
+                    <h2 class="text-3xl font-extrabold text-white">Deploy Your Enterprise OS Sandbox</h2>
+                    <p class="text-slate-400 text-sm mt-2">Get direct SSH and Web console access to an isolated OCI Ampere A1 client pod with pre-configured 3-tier LLM failover and speech pipelines.</p>
+                </div>
+
+                <form id="sandbox-form" class="space-y-4" onsubmit="event.preventDefault(); handleFormSubmit();">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-mono text-slate-300 mb-1">Corporate Email *</label>
+                            <input type="email" required placeholder="executive@yourcompany.com" class="w-full bg-slate-950 border border-slate-800 focus:border-brand-500 rounded-lg px-4 py-3 text-sm text-white focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-mono text-slate-300 mb-1">Direct Phone (For Webhook Verification) *</label>
+                            <input type="tel" required placeholder="+1 (713) 555-0100" class="w-full bg-slate-950 border border-slate-800 focus:border-brand-500 rounded-lg px-4 py-3 text-sm text-white focus:outline-none">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-mono text-slate-300 mb-1">Primary Deployment Goal</label>
+                        <select class="w-full bg-slate-950 border border-slate-800 focus:border-brand-500 rounded-lg px-4 py-3 text-sm text-white focus:outline-none">
+                            <option>Deploy Autonomous AI Sales & Discovery Pipeline</option>
+                            <option>Self-Host Multi-Tenant Portfolio Management Stack</option>
+                            <option>Replace High-Cost Speech & Telephony Vendors</option>
+                            <option>Integrate Coinbase Base L2 Merchant Rewards</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="w-full bg-gradient-to-r from-brand-600 to-brand-500 hover:from-brand-500 hover:to-brand-700 text-white font-bold text-base py-4 rounded-xl shadow-lg shadow-brand-600/30 transition-all flex items-center justify-center space-x-2">
+                        <i class="ph-bold ph-paper-plane-right text-xl"></i>
+                        <span>Request Sandbox Environment Access</span>
+                    </button>
+
+                    <div class="text-center text-[11px] text-slate-500 mt-3">
+                        By submitting, you agree to receive automated SMS webhook notifications for login verification. Reply STOP to opt-out.
+                    </div>
+                </form>
+
+                <div id="form-success" class="hidden text-center py-8">
+                    <div class="w-16 h-16 rounded-full bg-accent-green/20 text-accent-green flex items-center justify-center text-3xl mx-auto mb-4"><i class="ph-bold ph-check-circle"></i></div>
+                    <h3 class="text-2xl font-bold text-white">Sandbox Provisioning Initialized</h3>
+                    <p class="text-slate-300 text-sm mt-2">Check your inbox and mobile phone for credential verification keys.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-slate-950 border-t border-slate-900 py-12 text-xs text-slate-500">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div>
+                <div class="flex items-center space-x-2 mb-3">
+                    <div class="w-6 h-6 rounded bg-brand-500 flex items-center justify-center text-white font-bold text-xs"><i class="ph-bold ph-cpu"></i></div>
+                    <span class="font-bold text-slate-200">ENTERPRISE OS</span>
+                </div>
+                <p class="text-slate-400 leading-relaxed">Multi-tenant B2B platform architecture engineered for extreme profit margins and autonomous departmental execution on OCI.</p>
+            </div>
+
+            <div>
+                <div class="font-mono text-slate-300 font-bold mb-3 uppercase">Core Subsystems</div>
+                <ul class="space-y-2">
+                    <li><a href="#architecture" class="hover:text-slate-300">3-Tier LLM Gateway Failover</a></li>
+                    <li><a href="#voice-pipeline" class="hover:text-slate-300">Deepgram + Cartesia Streaming</a></li>
+                    <li><a href="#compliance" class="hover:text-slate-300">TCPA 10DLC Compliance Quarantine</a></li>
+                    <li><a href="#calculator" class="hover:text-slate-300">Base L2 Coinbase Checkout</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <div class="font-mono text-slate-300 font-bold mb-3 uppercase">Technical Specs</div>
+                <ul class="space-y-2">
+                    <li>PostgreSQL 15 + TimescaleDB</li>
+                    <li>Cloudflare Zero Trust Ingress</li>
+                    <li>Telnyx TeXML & Twilio SIP</li>
+                    <li>Smart Meter Texas (SMT) API</li>
+                </ul>
+            </div>
+
+            <div>
+                <div class="font-mono text-slate-300 font-bold mb-3 uppercase">System Status</div>
+                <div class="flex items-center space-x-2 text-accent-green mb-2">
+                    <span class="w-2 h-2 rounded-full bg-accent-green animate-pulse"></span>
+                    <span>All Production Pods Nominal</span>
+                </div>
+                <div>Server Time: 2026-10-29 UTC</div>
+                <div>License: Enterprise Proprietary</div>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-6 mt-12 pt-6 border-t border-slate-900 text-center text-slate-600">
+            &copy; 2026 Enterprise OS Architecture. All rights reserved. Self-Hosted OCI Infrastructure Stack.
+        </div>
+    </footer>
+
+    <script>
+        const leadSlider = document.getElementById('lead-slider');
+        const podSlider = document.getElementById('pod-slider');
+        const leadLabel = document.getElementById('lead-count-label');
+        const podLabel = document.getElementById('pod-count-label');
+        const savingsAmount = document.getElementById('savings-amount');
+
+        function updateSavings() {
+            const leads = parseInt(leadSlider.value);
+            const pods = parseInt(podSlider.value);
+            leadLabel.textContent = leads.toLocaleString();
+            podLabel.textContent = pods + (pods === 1 ? ' Pod' : ' Pods');
+            const calculatedSavings = Math.round((leads * 0.65) + (pods * 350));
+            savingsAmount.textContent = '$' + calculatedSavings.toLocaleString() + ' / mo';
+        }
+        leadSlider.addEventListener('input', updateSavings);
+        podSlider.addEventListener('input', updateSavings);
+
+        function handleFormSubmit() {
+            document.getElementById('sandbox-form').classList.add('hidden');
+            document.getElementById('form-success').classList.remove('hidden');
+        }
+    </script>
 </body>
 </html>

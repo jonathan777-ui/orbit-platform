@@ -1,434 +1,225 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enterprise OS | Autonomous B2B Portfolio Management & AI Sourcing Infrastructure</title>
-    <meta name="description" content="Deploy an autonomous, self-hosted B2B Enterprise Portfolio & Sourcing OS on OCI. Unified 3-tier LLM gateway, sub-100ms voice pipeline, and automated compliance. Eliminate SaaS overhead today.">
-    <meta name="keywords" content="B2B Enterprise OS, Autonomous Sales AI Agent, Self-Hosted Portfolio OS, OCI Multi-Tenant Pod Infrastructure, Sub-100ms Voice Pipeline, Coinbase Base L2 B2B Payments, Smart Meter Texas Automated Sourcing, TCPA DNC Compliance Engine">
-    <meta name="author" content="Enterprise OS Infrastructure">
-    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
-    <link rel="canonical" href="https://jonathan777-ui.github.io/orbit-platform/">
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="Enterprise OS | Self-Hosted B2B AI Portfolio & Sourcing Stack">
-    <meta property="og:description" content="Autonomous AI agents running Sales, Ops, Growth, and Logistics with native 10DLC compliance and USDC settlements on Base L2.">
-    <meta property="og:url" content="https://jonathan777-ui.github.io/orbit-platform/">
-    <meta property="og:image" content="https://jonathan777-ui.github.io/orbit-platform/og-image.jpg">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Enterprise OS | Autonomous B2B Platform">
-    <meta name="twitter:description" content="Eliminate SaaS fragmentation. Deploy self-hosted AI portfolio architecture on OCI.">
-
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "SoftwareApplication",
-      "name": "Enterprise OS Architecture",
-      "operatingSystem": "Linux / OCI Ampere A1 Containerized Stack",
-      "applicationCategory": "BusinessApplication",
-      "offers": {
-        "@type": "Offer",
-        "price": "0.00",
-        "priceCurrency": "USD",
-        "availability": "https://schema.org/InStock"
-      },
-      "description": "Unified B2B Enterprise Portfolio Management & Sourcing OS with autonomous multi-agent departmental intelligence, sub-100ms speech pipeline, and automated TCPA DNC compliance.",
-      "featureList": [
-        "3-Tier LLM Gateway Failover (Claude 3.5 Sonnet -> Perplexity Sonar -> DeepSeek/Qwen)",
-        "Sub-100ms Voice Streaming Pipeline (Deepgram Nova-3 + Cartesia Sonic)",
-        "Automated DNC & TCPA Compliance Quarantine Engine",
-        "Coinbase Merchant Payment Gateway on Base L2",
-        "Smart Meter Texas (SMT) Utility Data API Integration"
-      ]
-    }
-    </script>
-
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Enterprise OS | Enterprise Portfolio Management & Sourcing Platform</title>
+    <meta name="description" content="Enterprise OS is the autonomous enterprise portfolio management and sourcing platform for multi-site operators. Protect channels, automate vendor sourcing, unlock utility data, and keep every deal inside one execution chain." />
+    <meta name="keywords" content="enterprise portfolio management platform, sourcing platform, vendor sourcing engine, utility data automation, multi-site energy procurement, AI sourcing infrastructure, automated channel protection, 2-look incumbent strategy, LOA LOE workflow" />
+    <meta property="og:title" content="Enterprise OS | Enterprise Portfolio Management & Sourcing Platform" />
+    <meta property="og:description" content="Autonomous B2B portfolio management and sourcing infrastructure with channel protection, procurement automation, and AI execution." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://jonathan777-ui.github.io/orbit-platform/" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="canonical" href="https://jonathan777-ui.github.io/orbit-platform/" />
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <style>
-      body { scroll-behavior: smooth; }
+      :root {
+        --bg: #07111f;
+        --bg-soft: #0d1b2a;
+        --panel: #101d2d;
+        --panel-strong: #13253b;
+        --border: #1d344d;
+        --text: #e5edf8;
+        --muted: #9bb0c9;
+        --brand: #3ca5ff;
+        --brand-strong: #2677df;
+        --brand-soft: rgba(60,165,255,0.12);
+        --green: #35d399;
+        --green-soft: rgba(53,211,153,0.12);
+        --amber: #f5c565;
+        --amber-soft: rgba(245,197,101,0.12);
+        --rose: #ff7a7a;
+        --shadow: 0 20px 60px rgba(5,10,18,0.45);
+      }
+      html { scroll-behavior: smooth; }
+      body { background: var(--bg); color: var(--text); font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+      .brand-gradient { background: linear-gradient(135deg, #5cc0ff 0%, #5ee7c8 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+      .surface { background: rgba(16,29,45,0.9); border: 1px solid var(--border); box-shadow: var(--shadow); }
+      .border-soft { border-color: var(--border) !important; }
+      .pill { border: 1px solid rgba(60,165,255,0.30); background: rgba(60,165,255,0.08); }
+      .grid-pattern { background-image: linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px); background-size: 24px 24px; }
+      .btn-primary { background: linear-gradient(135deg, var(--brand) 0%, var(--brand-strong) 100%); }
+      .btn-secondary { background: rgba(255,255,255,0.04); border: 1px solid var(--border); }
     </style>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        brand: { 50: '#f0f7ff', 500: '#0284c7', 600: '#0284c7', 700: '#0369a1', 900: '#0c4a6e', 950: '#030712' },
-                        accent: { green: '#10b981', cyan: '#06b6d4' }
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'system-ui', 'sans-serif'],
-                        mono: ['Fira Code', 'monospace'],
-                    }
-                }
-            }
-        }
-    </script>
-</head>
-<body class="bg-brand-950 text-slate-100 font-sans antialiased selection:bg-brand-500 selection:text-white">
-    <div class="bg-gradient-to-r from-brand-900 via-brand-700 to-brand-900 border-b border-brand-500/30 text-xs py-2 px-4 text-center font-mono tracking-wide text-brand-50 flex items-center justify-center space-x-2">
-        <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold bg-accent-green/20 text-accent-green border border-accent-green/30 animate-pulse">● LIVE OPERATIONAL</span>
-        <span>OCI Ampere A1 Architecture Deployed · Sub-100ms AI Voice Pipeline Active</span>
-    </div>
-
-    <nav class="sticky top-0 z-50 backdrop-blur-md bg-brand-950/80 border-b border-slate-800">
-        <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-            <div class="flex items-center space-x-3">
-                <div class="w-9 h-9 rounded-lg bg-gradient-to-br from-brand-500 to-accent-cyan flex items-center justify-center text-white font-bold text-lg shadow-lg shadow-brand-500/20">
-                    <i class="ph-bold ph-cpu"></i>
-                </div>
-                <span class="font-bold text-lg tracking-tight bg-gradient-to-r from-white via-slate-200 to-slate-400 bg-clip-text text-transparent">ENTERPRISE<span class="text-brand-500">.OS</span></span>
-            </div>
-            <div class="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-300">
-                <a href="#architecture" class="hover:text-brand-500 transition-colors">3-Tier Intelligence</a>
-                <a href="#voice-pipeline" class="hover:text-brand-500 transition-colors">Sub-100ms Voice</a>
-                <a href="#compliance" class="hover:text-brand-500 transition-colors">Compliance Engine</a>
-                <a href="#calculator" class="hover:text-brand-500 transition-colors">ROI Calculator</a>
-            </div>
-            <div class="flex items-center space-x-4">
-                <a href="#cta-form" class="bg-gradient-to-r from-brand-600 to-brand-500 hover:from-brand-500 hover:to-brand-700 text-white font-semibold text-xs md:text-sm px-5 py-2.5 rounded-lg shadow-lg shadow-brand-600/30 transition-all transform hover:-translate-y-0.5 flex items-center space-x-2">
-                    <span>Deploy Pod Sandbox</span>
-                    <i class="ph-bold ph-arrow-right"></i>
-                </a>
-            </div>
-        </div>
-    </nav>
-
-    <header class="relative overflow-hidden pt-20 pb-16 md:pt-28 md:pb-24">
-        <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-brand-500/10 rounded-full blur-[120px] pointer-events-none"></div>
-        <div class="absolute top-1/3 left-1/4 w-[300px] h-[300px] bg-accent-cyan/10 rounded-full blur-[100px] pointer-events-none"></div>
-
-        <div class="max-w-7xl mx-auto px-6 relative z-10 text-center">
-            <div class="inline-flex items-center space-x-2 bg-slate-900/80 border border-slate-700/80 rounded-full px-4 py-1.5 mb-8 text-xs font-mono text-slate-300">
-                <i class="ph-fill ph-shield-check text-accent-green text-sm"></i>
-                <span>Self-Hosted OCI Multi-Tenant Architecture & Autonomous Departmental OS</span>
-            </div>
-
-            <h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-white max-w-5xl mx-auto leading-tight">
-                Eliminate SaaS Fragmentation.<br>
-                <span class="bg-gradient-to-r from-brand-500 via-accent-cyan to-accent-green bg-clip-text text-transparent">
-                    Deploy Autonomous B2B Portfolio Architecture
-                </span>
-            </h1>
-
-            <p class="mt-6 text-lg md:text-xl text-slate-300 max-w-3xl mx-auto font-normal leading-relaxed">
-                Reclaim your gross profit margins with a completely self-hosted, multi-tenant B2B operating system. Native 3-tier LLM failover gateway, sub-100ms voice pipeline, and automatic TCPA DNC compliance.
-            </p>
-
-            <div class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
-                <a href="#cta-form" class="w-full sm:w-auto bg-brand-600 hover:bg-brand-500 text-white font-bold text-base px-8 py-4 rounded-xl shadow-xl shadow-brand-600/30 transition-all flex items-center justify-center space-x-3">
-                    <i class="ph-bold ph-rocket-launch text-xl"></i>
-                    <span>Request Production Sandbox Credentials</span>
-                </a>
-                <a href="#architecture" class="w-full sm:w-auto bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 font-semibold text-base px-8 py-4 rounded-xl transition-all flex items-center justify-center space-x-2">
-                    <i class="ph-bold ph-terminal-window text-xl text-brand-500"></i>
-                    <span>Explore Technical Specs</span>
-                </a>
-            </div>
-
-            <div class="mt-16 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
-                <div class="bg-slate-900/60 backdrop-blur border border-slate-800 p-4 rounded-xl text-center">
-                    <div class="text-2xl md:text-3xl font-extrabold text-white font-mono">&lt; 92ms</div>
-                    <div class="text-xs text-slate-400 mt-1 uppercase tracking-wider">Voice Pipe Latency</div>
-                </div>
-                <div class="bg-slate-900/60 backdrop-blur border border-slate-800 p-4 rounded-xl text-center">
-                    <div class="text-2xl md:text-3xl font-extrabold text-accent-green font-mono">99.99%</div>
-                    <div class="text-xs text-slate-400 mt-1 uppercase tracking-wider">3-Tier LLM Uptime</div>
-                </div>
-                <div class="bg-slate-900/60 backdrop-blur border border-slate-800 p-4 rounded-xl text-center">
-                    <div class="text-2xl md:text-3xl font-extrabold text-brand-500 font-mono">0.80%</div>
-                    <div class="text-xs text-slate-400 mt-1 uppercase tracking-wider">Base L2 Fee Margin</div>
-                </div>
-                <div class="bg-slate-900/60 backdrop-blur border border-slate-800 p-4 rounded-xl text-center">
-                    <div class="text-2xl md:text-3xl font-extrabold text-accent-cyan font-mono">100%</div>
-                    <div class="text-xs text-slate-400 mt-1 uppercase tracking-wider">TCPA DNC Enforced</div>
-                </div>
-            </div>
-        </div>
+  </head>
+  <body class="bg-[#07111f] text-slate-100 antialiased selection:bg-[#3ca5ff] selection:text-white">
+    <header class="sticky top-0 z-50 border-b border-slate-800/70 bg-[#07111f]/85 backdrop-blur-xl">
+      <div class="mx-auto max-w-7xl px-6 py-4 flex items-center justify-between gap-6">
+        <a href="/" class="flex items-center gap-3">
+          <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-[#3ca5ff] to-[#5ee7c8] text-sm font-black text-slate-950 shadow-lg shadow-[#3ca5ff]/30">EO</div>
+          <div>
+            <div class="text-sm uppercase tracking-[0.22em] text-slate-400">Enterprise OS</div>
+            <div class="text-lg font-bold tracking-tight text-white">Portfolio + Sourcing</div>
+          </div>
+        </a>
+        <nav class="hidden items-center gap-8 text-sm text-slate-300 md:flex">
+          <a href="/" class="hover:text-white">Home</a>
+          <a href="/solutions.html" class="hover:text-white">Solutions</a>
+          <a href="/platform.html" class="hover:text-white">Platform</a>
+          <a href="/industries.html" class="hover:text-white">Industries</a>
+          <a href="/contact.html" class="hover:text-white">Contact</a>
+        </nav>
+        <a href="/contact.html" class="inline-flex items-center rounded-xl bg-[#3ca5ff] px-4 py-2.5 text-sm font-semibold text-slate-950 shadow-lg shadow-[#3ca5ff]/20 transition hover:brightness-110">Book a strategy call</a>
+      </div>
     </header>
 
-    <section id="architecture" class="py-20 bg-slate-950 border-t border-slate-900">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center max-w-3xl mx-auto mb-16">
-                <h2 class="text-xs font-mono uppercase tracking-widest text-brand-500 mb-2">Resilient AI Intelligence Layer</h2>
-                <p class="text-3xl md:text-4xl font-bold text-white">3-Tier Multi-Model Failover Gateway</p>
-                <p class="mt-4 text-slate-400 text-sm md:text-base">
-                    Eliminate single point of failure risks. Outages automatically trigger sub-second fallback routing down the model tier matrix.
-                </p>
+    <main>
+      <section class="relative overflow-hidden border-b border-slate-800">
+        <div class="grid-pattern absolute inset-0 opacity-60"></div>
+        <div class="absolute left-0 top-20 h-80 w-80 rounded-full bg-[#3ca5ff]/10 blur-[120px]"></div>
+        <div class="absolute right-0 top-0 h-96 w-96 rounded-full bg-[#5ee7c8]/10 blur-[120px]"></div>
+        <div class="relative mx-auto max-w-7xl px-6 py-20 md:py-28">
+          <div class="mx-auto max-w-4xl text-center">
+            <span class="pill inline-flex items-center gap-2 rounded-full px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#9ee3ff]">
+              <span class="h-2 w-2 rounded-full bg-[#35d399] animate-pulse"></span>
+              Autonomous enterprise portfolio execution
+            </span>
+            <h1 class="mt-8 text-4xl font-black tracking-tight text-white md:text-6xl">
+              Enterprise portfolio management that keeps every deal inside one operating system.
+            </h1>
+            <p class="mx-auto mt-6 max-w-3xl text-lg leading-8 text-slate-300 md:text-xl">
+              Enterprise OS replaces fragmented dashboards, manual deal handoffs, and channel conflict with a single execution layer for portfolio visibility, vendor sourcing, settlement, and customer response.
+            </p>
+            <div class="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
+              <a href="/contact.html" class="inline-flex items-center justify-center rounded-xl bg-[#3ca5ff] px-6 py-3.5 text-base font-semibold text-slate-950 shadow-lg shadow-[#3ca5ff]/25 transition hover:brightness-110">Get the operating system brief</a>
+              <a href="/solutions.html" class="inline-flex items-center justify-center rounded-xl border border-slate-700 bg-slate-900/60 px-6 py-3.5 text-base font-semibold text-slate-100 transition hover:border-slate-600">Explore the platform</a>
             </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="bg-slate-900/80 border border-slate-800 hover:border-brand-500/50 rounded-2xl p-6 transition-all relative overflow-hidden group">
-                    <div class="absolute top-0 right-0 bg-brand-500 text-white text-[10px] font-mono px-3 py-1 rounded-bl-lg font-bold">PRIMARY</div>
-                    <div class="w-12 h-12 rounded-xl bg-brand-500/10 border border-brand-500/30 flex items-center justify-center text-brand-500 text-2xl mb-6">
-                        <i class="ph-bold ph-brain"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-white mb-2">Tier 1: Strategic Reasoning</h3>
-                    <p class="text-slate-400 text-sm mb-4">Anthropic Claude 3.5 Sonnet executing high-complexity enterprise deal desk logic, tariff structure analysis, and contract negotiation.</p>
-                    <div class="font-mono text-xs text-brand-500 bg-brand-950/60 p-3 rounded-lg border border-slate-800">
-                        Primary Model: <span class="text-white">claude-3-5-sonnet</span>
-                    </div>
-                </div>
-
-                <div class="bg-slate-900/80 border border-slate-800 hover:border-accent-cyan/50 rounded-2xl p-6 transition-all relative overflow-hidden group">
-                    <div class="absolute top-0 right-0 bg-accent-cyan text-slate-950 text-[10px] font-mono px-3 py-1 rounded-bl-lg font-bold">SECONDARY</div>
-                    <div class="w-12 h-12 rounded-xl bg-accent-cyan/10 border border-accent-cyan/30 flex items-center justify-center text-accent-cyan text-2xl mb-6">
-                        <i class="ph-bold ph-magnifying-glass"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-white mb-2">Tier 2: Grounded Search</h3>
-                    <p class="text-slate-400 text-sm mb-4">Perplexity Sonar Pro providing real-time web-grounded market intelligence, live tariff indexing, and supplier validation with citations.</p>
-                    <div class="font-mono text-xs text-accent-cyan bg-brand-950/60 p-3 rounded-lg border border-slate-800">
-                        Fallback Model: <span class="text-white">sonar-pro</span>
-                    </div>
-                </div>
-
-                <div class="bg-slate-900/80 border border-slate-800 hover:border-accent-green/50 rounded-2xl p-6 transition-all relative overflow-hidden group">
-                    <div class="absolute top-0 right-0 bg-accent-green text-slate-950 text-[10px] font-mono px-3 py-1 rounded-bl-lg font-bold">TERTIARY BACKUP</div>
-                    <div class="w-12 h-12 rounded-xl bg-accent-green/10 border border-accent-green/30 flex items-center justify-center text-accent-green text-2xl mb-6">
-                        <i class="ph-bold ph-hard-drives"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-white mb-2">Tier 3: Local vLLM Fallback</h3>
-                    <p class="text-slate-400 text-sm mb-4">DeepSeek-V3 / Qwen running locally on self-hosted vLLM containers to ensure 100% operational uptime during third-party API outages.</p>
-                    <div class="font-mono text-xs text-accent-green bg-brand-950/60 p-3 rounded-lg border border-slate-800">
-                        Backup Endpoint: <span class="text-white">vllm-local:8000</span>
-                    </div>
-                </div>
+            <div class="mt-12 flex flex-wrap items-center justify-center gap-3 text-xs font-medium uppercase tracking-[0.18em] text-slate-400">
+              <span class="rounded-full border border-slate-800 bg-slate-900/60 px-3 py-1.5">5-vendor sourcing</span>
+              <span class="rounded-full border border-slate-800 bg-slate-900/60 px-3 py-1.5">2-look incumbent rule</span>
+              <span class="rounded-full border border-slate-800 bg-slate-900/60 px-3 py-1.5">LOA + LOE workflows</span>
+              <span class="rounded-full border border-slate-800 bg-slate-900/60 px-3 py-1.5">utility interval data</span>
             </div>
+          </div>
         </div>
-    </section>
+      </section>
 
-    <section id="voice-pipeline" class="py-20 bg-slate-900/40">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                <div>
-                    <h2 class="text-xs font-mono uppercase tracking-widest text-accent-cyan mb-2">Ultra-Low Latency Telephony</h2>
-                    <h3 class="text-3xl md:text-4xl font-bold text-white leading-tight">Sub-100ms Voice Pipeline & AI Breakout Discovery</h3>
-                    <p class="mt-4 text-slate-300 text-sm md:text-base leading-relaxed">
-                        Transition human sales calls seamlessly into autonomous AI discovery rooms. Powered by dual-carrier SIP/TeXML routing (Telnyx/Twilio), Deepgram Nova-3 VAD speech-to-text, and Cartesia Sonic text-to-speech.
-                    </p>
-
-                    <ul class="mt-8 space-y-4">
-                        <li class="flex items-start space-x-3">
-                            <div class="w-6 h-6 rounded-full bg-accent-green/20 text-accent-green flex items-center justify-center text-sm shrink-0 mt-0.5"><i class="ph-bold ph-check"></i></div>
-                            <span class="text-slate-300 text-sm"><strong class="text-white">Dual Carrier Redundancy:</strong> Telnyx native WebSocket audio stream with automatic Twilio A2P 10DLC failover.</span>
-                        </li>
-                        <li class="flex items-start space-x-3">
-                            <div class="w-6 h-6 rounded-full bg-accent-green/20 text-accent-green flex items-center justify-center text-sm shrink-0 mt-0.5"><i class="ph-bold ph-check"></i></div>
-                            <span class="text-slate-300 text-sm"><strong class="text-white">UpWebinar Avatars:</strong> WebRTC SDP offer/answer handshakes transferring leads directly from webinars to AI closing desks.</span>
-                        </li>
-                        <li class="flex items-start space-x-3">
-                            <div class="w-6 h-6 rounded-full bg-accent-green/20 text-accent-green flex items-center justify-center text-sm shrink-0 mt-0.5"><i class="ph-bold ph-check"></i></div>
-                            <span class="text-slate-300 text-sm"><strong class="text-white">Zero Chargeback Settlement:</strong> Integrated Coinbase Commerce merchant checkout settled in USDC on Base L2.</span>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="bg-slate-950 p-6 rounded-2xl border border-slate-800 font-mono text-xs shadow-2xl">
-                    <div class="flex items-center justify-between pb-4 border-b border-slate-800 text-slate-400">
-                        <span class="flex items-center space-x-2">
-                            <span class="w-2.5 h-2.5 rounded-full bg-accent-green animate-pulse"></span>
-                            <span>VOICE_STREAM_SESSION_ACTIVE</span>
-                        </span>
-                        <span>LATENCY: 84ms</span>
-                    </div>
-                    <div class="py-6 space-y-3">
-                        <div class="text-slate-500">// Deepgram Nova-3 Speech Recognition</div>
-                        <div class="text-accent-cyan">[STT_STREAM]: "We are spending $45k/mo on electricity across 3 manufacturing plants."</div>
-                        <div class="text-slate-500">// Activity Engine DNC Gate Check</div>
-                        <div class="text-accent-green">[DNC_GATE]: Sender +17135550100 -> VERIFIED_CLEAN</div>
-                        <div class="text-slate-500">// Cartesia Sonic TTS Generation</div>
-                        <div class="text-brand-500">[TTS_STREAM]: "Based on Smart Meter Texas intervals, our AI can optimize your peak demand load..."</div>
-                    </div>
-                    <div class="pt-4 border-t border-slate-800 flex justify-between text-[11px] text-slate-500">
-                        <span>AUDIO_CODEC: PCM_MULAW (8kHz)</span>
-                        <span>CARRIER: TELNYX_SIP_PRIMARY</span>
-                    </div>
-                </div>
-            </div>
+      <section class="mx-auto max-w-7xl px-6 py-20">
+        <div class="grid gap-6 md:grid-cols-3">
+          <article class="surface rounded-2xl p-6">
+            <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-[#3ca5ff]/10 text-2xl text-[#7ccaff]">01</div>
+            <h2 class="text-xl font-bold text-white">Portfolio visibility that is actually usable</h2>
+            <p class="mt-4 text-sm leading-7 text-slate-300">Every real-world entity — holding company, subsidiary, facility, contact, meter, and vendor — sits inside a shared card model with controlled scope and inheritance.</p>
+          </article>
+          <article class="surface rounded-2xl p-6">
+            <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-[#35d399]/10 text-2xl text-[#7ff0c1]">02</div>
+            <h2 class="text-xl font-bold text-white">Sourcing that stays fair and competitive</h2>
+            <p class="mt-4 text-sm leading-7 text-slate-300">The platform routes each opportunity through a balanced 5-vendor model, then protects the incumbent with a disciplined 2-look process before public exposure.</p>
+          </article>
+          <article class="surface rounded-2xl p-6">
+            <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-[#f5c565]/10 text-2xl text-[#f7d57d]">03</div>
+            <h2 class="text-xl font-bold text-white">Execution that never breaks the chain</h2>
+            <p class="mt-4 text-sm leading-7 text-slate-300">Project managers can propose changes, but final sign-off remains reserved for the verified account holder and the platform.</p>
+          </article>
         </div>
-    </section>
+      </section>
 
-    <section id="compliance" class="py-20 bg-slate-950 border-t border-slate-900">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center max-w-3xl mx-auto mb-16">
-                <h2 class="text-xs font-mono uppercase tracking-widest text-accent-green mb-2">Built-in TCPA & 10DLC Enforcement</h2>
-                <p class="text-3xl md:text-4xl font-bold text-white">Activity Engine & Instant Compliance Quarantine</p>
-                <p class="mt-4 text-slate-400 text-sm md:text-base">
-                    Every outbound SMS, phone call, or nurturing task passes through an automated compliance gate before execution.
-                </p>
+      <section class="border-t border-slate-800 bg-slate-950/80">
+        <div class="mx-auto max-w-7xl px-6 py-20">
+          <div class="max-w-3xl">
+            <p class="text-xs font-semibold uppercase tracking-[0.22em] text-[#7ccaff]">Operating model</p>
+            <h2 class="mt-3 text-3xl font-black tracking-tight text-white md:text-5xl">The enterprise sourcing engine built for multi-site operators.</h2>
+          </div>
+          <div class="mt-12 grid gap-8 lg:grid-cols-2">
+            <div class="surface rounded-2xl p-8">
+              <h3 class="text-2xl font-bold text-white">Single-chain execution</h3>
+              <p class="mt-4 text-slate-300">All project managers, stakeholders, suppliers, and channel partners operate inside one shared thread. The result is less friction, fewer duplicate records, and clearer accountability.</p>
+              <ul class="mt-6 space-y-3 text-sm text-slate-300">
+                <li class="flex gap-3"><span class="mt-1 h-2.5 w-2.5 rounded-full bg-[#35d399]"></span>Account holder verification before final switch authorization</li>
+                <li class="flex gap-3"><span class="mt-1 h-2.5 w-2.5 rounded-full bg-[#35d399]"></span>Channel locks that block duplicate submissions and competitor back-channeling</li>
+                <li class="flex gap-3"><span class="mt-1 h-2.5 w-2.5 rounded-full bg-[#35d399]"></span>Automated settlement and notices dispatched to every party in the chain</li>
+              </ul>
             </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div class="bg-slate-900/60 p-6 rounded-xl border border-slate-800">
-                    <div class="text-brand-500 text-2xl mb-4"><i class="ph-bold ph-funnel"></i></div>
-                    <h4 class="text-lg font-bold text-white mb-2">Automated Quarantine</h4>
-                    <p class="text-slate-400 text-xs leading-relaxed">Inbound 'STOP' or 'UNSUBSCRIBE' texts instantly lock numbers in compliance_dnc_registry and halt active tasks.</p>
-                </div>
-                <div class="bg-slate-900/60 p-6 rounded-xl border border-slate-800">
-                    <div class="text-accent-cyan text-2xl mb-4"><i class="ph-bold ph-arrow-counter-clockwise"></i></div>
-                    <h4 class="text-lg font-bold text-white mb-2">Resubscribe Handler</h4>
-                    <p class="text-slate-400 text-xs leading-relaxed">'START' or 'UNSTOP' messages automatically restore eligibility and reinstate nurturing workflows smoothly.</p>
-                </div>
-                <div class="bg-slate-900/60 p-6 rounded-xl border border-slate-800">
-                    <div class="text-accent-green text-2xl mb-4"><i class="ph-bold ph-clock-counter-clockwise"></i></div>
-                    <h4 class="text-lg font-bold text-white mb-2">SLA Ticket Locks</h4>
-                    <p class="text-slate-400 text-xs leading-relaxed">Urgent ticket escalations enforce automated SLA targets ranging from 1 hour (Urgent) to 48 hours (Low).</p>
-                </div>
-                <div class="bg-slate-900/60 p-6 rounded-xl border border-slate-800">
-                    <div class="text-yellow-500 text-2xl mb-4"><i class="ph-bold ph-calendar-check"></i></div>
-                    <h4 class="text-lg font-bold text-white mb-2">Calendar Event Locks</h4>
-                    <p class="text-slate-400 text-xs leading-relaxed">Prevents double-booking across client pods during Concierge Desk discovery hand-offs.</p>
-                </div>
+            <div class="surface rounded-2xl p-8">
+              <h3 class="text-2xl font-bold text-white">Protected market access</h3>
+              <p class="mt-4 text-slate-300">Channel protection is enforced as a business rule, not a courtesy. If a competitor tries to circumvent the relationship, the platform triggers a formal LOE and revenue reallocation workflow.</p>
+              <ul class="mt-6 space-y-3 text-sm text-slate-300">
+                <li class="flex gap-3"><span class="mt-1 h-2.5 w-2.5 rounded-full bg-[#3ca5ff]"></span>Originating partner retains trailing share while new servicing partner takes active share</li>
+                <li class="flex gap-3"><span class="mt-1 h-2.5 w-2.5 rounded-full bg-[#3ca5ff]"></span>Utility freeze and competitor LOE enforcement active at execution time</li>
+                <li class="flex gap-3"><span class="mt-1 h-2.5 w-2.5 rounded-full bg-[#3ca5ff]"></span>Customer response cycles trigger only when net loss is created</li>
+              </ul>
             </div>
+          </div>
         </div>
-    </section>
+      </section>
 
-    <section id="calculator" class="py-20 bg-slate-900/30">
-        <div class="max-w-4xl mx-auto px-6">
-            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-8 shadow-2xl">
-                <div class="text-center mb-8">
-                    <h3 class="text-2xl font-bold text-white">Self-Hosted Enterprise OS Savings Calculator</h3>
-                    <p class="text-slate-400 text-sm mt-1">See how much gross profit you reclaim by switching from SaaS stack fragmentation to self-hosting on OCI.</p>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-                    <div class="space-y-6">
-                        <div>
-                            <label class="block text-xs font-mono uppercase text-slate-300 mb-2">Monthly Sales Lead Volume: <span id="lead-count-label" class="text-brand-500 font-bold">10,000</span></label>
-                            <input type="range" id="lead-slider" min="1000" max="100000" step="1000" value="10000" class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-brand-500">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-mono uppercase text-slate-300 mb-2">Active Multi-Tenant Pods: <span id="pod-count-label" class="text-accent-cyan font-bold">5 Pods</span></label>
-                            <input type="range" id="pod-slider" min="1" max="50" step="1" value="5" class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-accent-cyan">
-                        </div>
-                    </div>
-
-                    <div class="bg-slate-950 p-6 rounded-xl border border-slate-800 text-center">
-                        <div class="text-xs font-mono text-slate-400 uppercase tracking-wider">Estimated Monthly Reclaimed Profit</div>
-                        <div id="savings-amount" class="text-4xl font-extrabold text-accent-green font-mono my-2">$8,450 / mo</div>
-                        <div class="text-xs text-slate-500">Includes saved per-seat AI SaaS fees & reduced gateway processing overhead.</div>
-                    </div>
-                </div>
-            </div>
+      <section class="mx-auto max-w-7xl px-6 py-20">
+        <div class="max-w-3xl">
+          <p class="text-xs font-semibold uppercase tracking-[0.22em] text-[#f7d57d]">Operational rules</p>
+          <h2 class="mt-3 text-3xl font-black tracking-tight text-white md:text-5xl">The rules that keep pricing honest and deal flow moving.</h2>
         </div>
-    </section>
-
-    <section id="cta-form" class="py-20 bg-slate-950 border-t border-slate-900 relative">
-        <div class="max-w-3xl mx-auto px-6">
-            <div class="bg-gradient-to-b from-slate-900 to-slate-950 border border-slate-800 rounded-2xl p-8 md:p-12 shadow-2xl relative overflow-hidden">
-                <div class="text-center mb-8">
-                    <h2 class="text-3xl font-extrabold text-white">Deploy Your Enterprise OS Sandbox</h2>
-                    <p class="text-slate-400 text-sm mt-2">Get direct SSH and Web console access to an isolated OCI Ampere A1 client pod with pre-configured 3-tier LLM failover and speech pipelines.</p>
-                </div>
-
-                <form id="sandbox-form" class="space-y-4" onsubmit="event.preventDefault(); handleFormSubmit();">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
-                            <label class="block text-xs font-mono text-slate-300 mb-1">Corporate Email *</label>
-                            <input type="email" required placeholder="executive@yourcompany.com" class="w-full bg-slate-950 border border-slate-800 focus:border-brand-500 rounded-lg px-4 py-3 text-sm text-white focus:outline-none">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-mono text-slate-300 mb-1">Direct Phone (For Webhook Verification) *</label>
-                            <input type="tel" required placeholder="+1 (713) 555-0100" class="w-full bg-slate-950 border border-slate-800 focus:border-brand-500 rounded-lg px-4 py-3 text-sm text-white focus:outline-none">
-                        </div>
-                    </div>
-
-                    <div>
-                        <label class="block text-xs font-mono text-slate-300 mb-1">Primary Deployment Goal</label>
-                        <select class="w-full bg-slate-950 border border-slate-800 focus:border-brand-500 rounded-lg px-4 py-3 text-sm text-white focus:outline-none">
-                            <option>Deploy Autonomous AI Sales & Discovery Pipeline</option>
-                            <option>Self-Host Multi-Tenant Portfolio Management Stack</option>
-                            <option>Replace High-Cost Speech & Telephony Vendors</option>
-                            <option>Integrate Coinbase Base L2 Merchant Rewards</option>
-                        </select>
-                    </div>
-
-                    <button type="submit" class="w-full bg-gradient-to-r from-brand-600 to-brand-500 hover:from-brand-500 hover:to-brand-700 text-white font-bold text-base py-4 rounded-xl shadow-lg shadow-brand-600/30 transition-all flex items-center justify-center space-x-2">
-                        <i class="ph-bold ph-paper-plane-right text-xl"></i>
-                        <span>Request Sandbox Environment Access</span>
-                    </button>
-
-                    <div class="text-center text-[11px] text-slate-500 mt-3">
-                        By submitting, you agree to receive automated SMS webhook notifications for login verification. Reply STOP to opt-out.
-                    </div>
-                </form>
-
-                <div id="form-success" class="hidden text-center py-8">
-                    <div class="w-16 h-16 rounded-full bg-accent-green/20 text-accent-green flex items-center justify-center text-3xl mx-auto mb-4"><i class="ph-bold ph-check-circle"></i></div>
-                    <h3 class="text-2xl font-bold text-white">Sandbox Provisioning Initialized</h3>
-                    <p class="text-slate-300 text-sm mt-2">Check your inbox and mobile phone for credential verification keys.</p>
-                </div>
-            </div>
+        <div class="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+          <div class="surface rounded-2xl p-6">
+            <div class="text-3xl font-black text-[#7ccaff]">48h</div>
+            <h3 class="mt-3 text-lg font-semibold text-white">Initial incumbent look</h3>
+            <p class="mt-2 text-sm text-slate-300">The incumbent receives the first benchmark opportunity window before a public RFP opens.</p>
+          </div>
+          <div class="surface rounded-2xl p-6">
+            <div class="text-3xl font-black text-[#7ccaff]">24h</div>
+            <h3 class="mt-3 text-lg font-semibold text-white">Second look window</h3>
+            <p class="mt-2 text-sm text-slate-300">If the market does not produce a better outcome, the incumbent gets a final chance to match or beat the winning bid.</p>
+          </div>
+          <div class="surface rounded-2xl p-6">
+            <div class="text-3xl font-black text-[#5ee7c8]">5</div>
+            <h3 class="mt-3 text-lg font-semibold text-white">Vendor pool model</h3>
+            <p class="mt-2 text-sm text-slate-300">Each opportunity routes through incumbent, enterprise tier, and local underdog partners in a balanced competitive pool.</p>
+          </div>
+          <div class="surface rounded-2xl p-6">
+            <div class="text-3xl font-black text-[#f7d57d]">24m</div>
+            <h3 class="mt-3 text-lg font-semibold text-white">Interval access window</h3>
+            <p class="mt-2 text-sm text-slate-300">Approved LOAs grant continuous utility interval access over a 24-month period without binding the client to a contract.</p>
+          </div>
         </div>
-    </section>
+      </section>
 
-    <footer class="bg-slate-950 border-t border-slate-900 py-12 text-xs text-slate-500">
-        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div>
-                <div class="flex items-center space-x-2 mb-3">
-                    <div class="w-6 h-6 rounded bg-brand-500 flex items-center justify-center text-white font-bold text-xs"><i class="ph-bold ph-cpu"></i></div>
-                    <span class="font-bold text-slate-200">ENTERPRISE OS</span>
-                </div>
-                <p class="text-slate-400 leading-relaxed">Multi-tenant B2B platform architecture engineered for extreme profit margins and autonomous departmental execution on OCI.</p>
+      <section class="border-t border-slate-800 bg-slate-950/60">
+        <div class="mx-auto max-w-7xl px-6 py-20">
+          <div class="flex flex-col gap-12 lg:flex-row lg:items-end lg:justify-between">
+            <div class="max-w-2xl">
+              <p class="text-xs font-semibold uppercase tracking-[0.22em] text-[#7ccaff]">Why operators switch</p>
+              <h2 class="mt-3 text-3xl font-black tracking-tight text-white md:text-5xl">Built for the realities of utility-heavy, multi-location operations.</h2>
             </div>
-
-            <div>
-                <div class="font-mono text-slate-300 font-bold mb-3 uppercase">Core Subsystems</div>
-                <ul class="space-y-2">
-                    <li><a href="#architecture" class="hover:text-slate-300">3-Tier LLM Gateway Failover</a></li>
-                    <li><a href="#voice-pipeline" class="hover:text-slate-300">Deepgram + Cartesia Streaming</a></li>
-                    <li><a href="#compliance" class="hover:text-slate-300">TCPA 10DLC Compliance Quarantine</a></li>
-                    <li><a href="#calculator" class="hover:text-slate-300">Base L2 Coinbase Checkout</a></li>
-                </ul>
+            <a href="/contact.html" class="inline-flex items-center justify-center rounded-xl border border-slate-700 bg-slate-900/60 px-5 py-3 font-semibold text-slate-100 transition hover:border-slate-600">Talk to the operating team</a>
+          </div>
+          <div class="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+            <div class="surface rounded-2xl p-6">
+              <h3 class="text-lg font-semibold text-white">Commercial deregulation</h3>
+              <p class="mt-3 text-sm text-slate-300">Localized market intelligence, ZIP-level opportunity mapping, and utility access built around the actual customer footprint.</p>
             </div>
-
-            <div>
-                <div class="font-mono text-slate-300 font-bold mb-3 uppercase">Technical Specs</div>
-                <ul class="space-y-2">
-                    <li>PostgreSQL 15 + TimescaleDB</li>
-                    <li>Cloudflare Zero Trust Ingress</li>
-                    <li>Telnyx TeXML & Twilio SIP</li>
-                    <li>Smart Meter Texas (SMT) API</li>
-                </ul>
+            <div class="surface rounded-2xl p-6">
+              <h3 class="text-lg font-semibold text-white">Contract risk control</h3>
+              <p class="mt-3 text-sm text-slate-300">Termination impact checks, early termination analysis, and customer communication only when a real net loss exists.</p>
             </div>
-
-            <div>
-                <div class="font-mono text-slate-300 font-bold mb-3 uppercase">System Status</div>
-                <div class="flex items-center space-x-2 text-accent-green mb-2">
-                    <span class="w-2 h-2 rounded-full bg-accent-green animate-pulse"></span>
-                    <span>All Production Pods Nominal</span>
-                </div>
-                <div>Server Time: 2026-10-29 UTC</div>
-                <div>License: Enterprise Proprietary</div>
+            <div class="surface rounded-2xl p-6">
+              <h3 class="text-lg font-semibold text-white">Channel and competitor protection</h3>
+              <p class="mt-3 text-sm text-slate-300">Exclusive locks, LOE enforcement, and revenue-share rescue logic reduce back-channel leakage and market conflict.</p>
             </div>
+            <div class="surface rounded-2xl p-6">
+              <h3 class="text-lg font-semibold text-white">AI-led outreach cadence</h3>
+              <p class="mt-3 text-sm text-slate-300">Push, SMS, and voice-driven approval sequences intensify based on deadlines and contract urgency, without sacrificing compliance.</p>
+            </div>
+          </div>
         </div>
+      </section>
+    </main>
 
-        <div class="max-w-7xl mx-auto px-6 mt-12 pt-6 border-t border-slate-900 text-center text-slate-600">
-            &copy; 2026 Enterprise OS Architecture. All rights reserved. Self-Hosted OCI Infrastructure Stack.
+    <footer class="border-t border-slate-800 bg-[#07111f]">
+      <div class="mx-auto max-w-7xl px-6 py-12">
+        <div class="flex flex-col gap-8 md:flex-row md:items-center md:justify-between">
+          <div>
+            <div class="text-lg font-bold text-white">Enterprise OS</div>
+            <div class="mt-2 text-sm text-slate-400">Autonomous portfolio management and sourcing infrastructure.</div>
+          </div>
+          <div class="flex flex-wrap gap-6 text-sm text-slate-400">
+            <a href="/solutions.html" class="hover:text-white">Solutions</a>
+            <a href="/platform.html" class="hover:text-white">Platform</a>
+            <a href="/industries.html" class="hover:text-white">Industries</a>
+            <a href="/contact.html" class="hover:text-white">Contact</a>
+          </div>
         </div>
+        <div class="mt-8 border-t border-slate-800 pt-6 text-xs text-slate-500">© 2026 Enterprise OS. Built for multi-site operators, utility-heavy portfolios, and sourcing teams.</div>
+      </div>
     </footer>
-
-    <script>
-        const leadSlider = document.getElementById('lead-slider');
-        const podSlider = document.getElementById('pod-slider');
-        const leadLabel = document.getElementById('lead-count-label');
-        const podLabel = document.getElementById('pod-count-label');
-        const savingsAmount = document.getElementById('savings-amount');
-
-        function updateSavings() {
-            const leads = parseInt(leadSlider.value);
-            const pods = parseInt(podSlider.value);
-            leadLabel.textContent = leads.toLocaleString();
-            podLabel.textContent = pods + (pods === 1 ? ' Pod' : ' Pods');
-            const calculatedSavings = Math.round((leads * 0.65) + (pods * 350));
-            savingsAmount.textContent = '$' + calculatedSavings.toLocaleString() + ' / mo';
-        }
-        leadSlider.addEventListener('input', updateSavings);
-        podSlider.addEventListener('input', updateSavings);
-
-        function handleFormSubmit() {
-            document.getElementById('sandbox-form').classList.add('hidden');
-            document.getElementById('form-success').classList.remove('hidden');
-        }
-    </script>
-</body>
+  </body>
 </html>
